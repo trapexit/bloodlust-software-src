@@ -1,0 +1,56 @@
+//Copyright(c) 1996 Bloodlust Software All rights reserved
+//Enemy Control functions
+#include <stdlib.h>
+#include <string.h>
+
+#include "glib.h"
+#include "input.h"
+
+#include "effect.h"
+#include "object.h"
+
+#include "misc.h"
+
+//get series
+#include "\a32\pig.sdf"
+
+int object::enemy_pig(int instat)
+ {
+  move(fptr->dx,fptr->dy,fptr->dz);
+  if (!in) return -1;
+
+  if (instat&ID_LEFT) flip() ;
+
+  if (instat&ID_BUT1) return pose1;
+
+  if (instat&ID_BUT0)
+   {
+    if (csnum==duck) return duck_F;
+    if (instat&ID_UP)
+     if (instat&ID_RIGHT) return stance_FUR;
+         else return stance_FU;
+    if (instat&ID_DOWN) return stance_FD;
+    return stance_FR;
+   }
+  if (instat&ID_RIGHT) return walk_R;
+  if (instat&ID_DOWN)
+   if (csnum==duck || csnum==duck_F) return -1;
+      else return stancetoduck;
+  else
+   if (csnum==duck) return ducktostance;
+   
+  if (csnum==walk_R) return stance;
+  return -1;
+ }
+
+
+
+
+
+
+
+
+
+
+
+

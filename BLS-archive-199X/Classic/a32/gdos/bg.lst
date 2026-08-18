@@ -1,0 +1,3112 @@
+
+Module: c:\source\a32\bg.cpp
+Group: 'DGROUP' CONST,CONST2,_DATA,_BSS
+
+Segment: _TEXT  PARA USE32  00001e9b bytes  
+ 0000                    near bgobject::bgobject( bgdef near *, int, int ):
+ 0000  56                                push    esi
+ 0001  89 c6                             mov     esi,eax
+ 0003  8a 42 06                          mov     al,+6H[edx]
+ 0006  c7 46 5e 00 00 00 
+       00                                mov     dword ptr +5eH[esi],offset void (near * const near __vftbl[])()
+ 000d  88 46 04                          mov     +4H[esi],al
+ 0010  c1 e3 10                          shl     ebx,10H
+ 0013  89 56 05                          mov     +5H[esi],edx
+ 0016  89 5e 09                          mov     +9H[esi],ebx
+ 0019  c1 e1 10                          shl     ecx,10H
+ 001c  8b 46 05                          mov     eax,+5H[esi]
+ 001f  89 4e 0d                          mov     +0dH[esi],ecx
+ 0022  8b 00                             mov     eax,[eax]
+ 0024  c7 46 15 00 00 00 
+       00                                mov     dword ptr +15H[esi],00000000H
+ 002b  c7 46 21 00 00 00 
+       00                                mov     dword ptr +21H[esi],00000000H
+ 0032  c7 46 4a 00 00 00 
+       00                                mov     dword ptr +4aH[esi],00000000H
+ 0039  c7 46 36 00 00 00 
+       00                                mov     dword ptr +36H[esi],00000000H
+ 0040  c7 46 42 00 00 00 
+       00                                mov     dword ptr +42H[esi],00000000H
+ 0047  c7 46 3e 00 00 00 
+       00                                mov     dword ptr +3eH[esi],00000000H
+ 004e  89 06                             mov     [esi],eax
+ 0050  8b 46 15                          mov     eax,+15H[esi]
+ 0053  89 46 11                          mov     +11H[esi],eax
+ 0056  8a 66 25                          mov     ah,+25H[esi]
+ 0059  c7 46 5a 00 00 00 
+       00                                mov     dword ptr +5aH[esi],00000000H
+ 0060  80 e4 fe                          and     ah,0feH
+ 0063  88 66 25                          mov     +25H[esi],ah
+ 0066  8b 46 3e                          mov     eax,+3eH[esi]
+ 0069  89 46 3a                          mov     +3aH[esi],eax
+ 006c  8b 46 5a                          mov     eax,+5aH[esi]
+ 006f  89 46 56                          mov     +56H[esi],eax
+ 0072  89 46 52                          mov     +52H[esi],eax
+ 0075  8b 46 05                          mov     eax,+5H[esi]
+ 0078  c7 46 46 00 00 00 
+       00                                mov     dword ptr +46H[esi],00000000H
+ 007f  f6 40 04 01                       test    byte ptr +4H[eax],01H
+ 0083  75 05                             jne     L1
+ 0085  8b 50 5b                          mov     edx,+5bH[eax]
+ 0088  ff 12                             call    dword ptr [edx]
+ 008a  8b 46 05          L1              mov     eax,+5H[esi]
+ 008d  f6 40 04 01                       test    byte ptr +4H[eax],01H
+ 0091  74 0c                             je      L2
+ 0093  89 f0                             mov     eax,esi
+ 0095  e8 00 00 00 00                    call    void near bgobject::activate()
+ 009a  8b 06                             mov     eax,[esi]
+ 009c  89 70 5d                          mov     +5dH[eax],esi
+ 009f  89 f0             L2              mov     eax,esi
+ 00a1  5e                                pop     esi
+ 00a2  c3                                ret     
+ 00a3  90                                nop     
+ 00a4                    near bgobject::~bgobject():
+ 00a4  53                                push    ebx
+ 00a5  89 c3                             mov     ebx,eax
+ 00a7  f6 c2 04                          test    dl,04H
+ 00aa  74 13                             je      L3
+ 00ac  ba 00 00 00 00                    mov     edx,offset char unsigned const near __typesig[]
+ 00b1  e8 00 00 00 00                    call    __wcpp_2_dtor_array_store__
+ 00b6  e8 00 00 00 00                    call    void near operator delete []( void near * )
+ 00bb  89 d8                             mov     eax,ebx
+ 00bd  5b                                pop     ebx
+ 00be  c3                                ret     
+ 00bf  c7 40 5e 00 00 00 
+       00                L3              mov     dword ptr +5eH[eax],offset void (near * const near __vftbl[])()
+ 00c6  8b 00                             mov     eax,[eax]
+ 00c8  c7 40 5d 00 00 00 
+       00                                mov     dword ptr +5dH[eax],00000000H
+ 00cf  89 d8                             mov     eax,ebx
+ 00d1  e8 00 00 00 00                    call    void near bgobject::deactivate()
+ 00d6  8b 43 05                          mov     eax,+5H[ebx]
+ 00d9  e8 00 00 00 00                    call    void near objectdef::kill()
+ 00de  f6 c2 02                          test    dl,02H
+ 00e1  74 07                             je      L4
+ 00e3  89 d8                             mov     eax,ebx
+ 00e5  e8 00 00 00 00                    call    void near operator delete( void near * )
+ 00ea  89 d8             L4              mov     eax,ebx
+ 00ec  5b                                pop     ebx
+ 00ed  c3                                ret     
+ 00ee  8b c0                             mov     eax,eax
+ 00f0                    void near bgobject::activate():
+ 00f0  53                                push    ebx
+ 00f1  51                                push    ecx
+ 00f2  52                                push    edx
+ 00f3  56                                push    esi
+ 00f4  89 c1                             mov     ecx,eax
+ 00f6  f6 40 25 01                       test    byte ptr +25H[eax],01H
+ 00fa  74 07                             je      L5
+ 00fc  89 c8                             mov     eax,ecx
+ 00fe  e8 00 00 00 00                    call    void near bgobject::deactivate()
+ 0103  89 c8             L5              mov     eax,ecx
+ 0105  e8 00 00 00 00                    call    void near bgobject::calcextent()
+ 010a  89 c8                             mov     eax,ecx
+ 010c  e8 00 00 00 00                    call    void near bgobject::createchunks()
+ 0111  8b 51 36                          mov     edx,+36H[ecx]
+ 0114  85 d2                             test    edx,edx
+ 0116  74 07                             je      L6
+ 0118  89 d0                             mov     eax,edx
+ 011a  e8 00 00 00 00                    call    free_
+ 011f  8b 11             L6              mov     edx,[ecx]
+ 0121  c7 41 36 00 00 00 
+       00                                mov     dword ptr +36H[ecx],00000000H
+ 0128  8b 42 21                          mov     eax,+21H[edx]
+ 012b  2b 42 19                          sub     eax,+19H[edx]
+ 012e  8b 11                             mov     edx,[ecx]
+ 0130  89 41 19                          mov     +19H[ecx],eax
+ 0133  8b 42 25                          mov     eax,+25H[edx]
+ 0136  8b 72 1d                          mov     esi,+1dH[edx]
+ 0139  29 f0                             sub     eax,esi
+ 013b  89 41 1d                          mov     +1dH[ecx],eax
+ 013e  b8 10 00 00 00                    mov     eax,00000010H
+ 0143  e8 00 00 00 00                    call    void near * near operator new( int unsigned )
+ 0148  85 c0                             test    eax,eax
+ 014a  74 0b                             je      L7
+ 014c  8b 59 1d                          mov     ebx,+1dH[ecx]
+ 014f  8b 51 19                          mov     edx,+19H[ecx]
+ 0152  e8 00 00 00 00                    call    near surface::surface( int, int )
+ 0157  c7 41 15 ff ff ff 
+       ff                L7              mov     dword ptr +15H[ecx],0ffffffffH
+ 015e  89 41 46                          mov     +46H[ecx],eax
+ 0161  8b 41 15                          mov     eax,+15H[ecx]
+ 0164  89 41 11                          mov     +11H[ecx],eax
+ 0167  89 c8                             mov     eax,ecx
+ 0169  e8 00 00 00 00                    call    void near bgobject::boundcheck()
+ 016e  8a 51 25                          mov     dl,+25H[ecx]
+ 0171  c7 41 21 01 00 00 
+       00                                mov     dword ptr +21H[ecx],00000001H
+ 0178  80 ca 01                          or      dl,01H
+ 017b  88 51 25                          mov     +25H[ecx],dl
+ 017e  5e                                pop     esi
+ 017f  5a                                pop     edx
+ 0180  59                                pop     ecx
+ 0181  5b                                pop     ebx
+ 0182  c3                                ret     
+ 0183  90                                nop     
+ 0184                    void near bgobject::deactivate():
+ 0184  53                                push    ebx
+ 0185  51                                push    ecx
+ 0186  52                                push    edx
+ 0187  57                                push    edi
+ 0188  89 c3                             mov     ebx,eax
+ 018a  f6 40 25 01                       test    byte ptr +25H[eax],01H
+ 018e  74 68                             je      L12
+ 0190  83 7b 42 00                       cmp     dword ptr +42H[ebx],00000000H
+ 0194  74 27                             je      L10
+ 0196  31 d2                             xor     edx,edx
+ 0198  31 c9                             xor     ecx,ecx
+ 019a  eb 0e                             jmp     L9
+ 019c  8b 43 42          L8              mov     eax,+42H[ebx]
+ 019f  01 c8                             add     eax,ecx
+ 01a1  42                                inc     edx
+ 01a2  e8 00 00 00 00                    call    void near bgchunk::destroy()
+ 01a7  83 c1 1c                          add     ecx,0000001cH
+ 01aa  8b 43 3a          L9              mov     eax,+3aH[ebx]
+ 01ad  0f af 43 3e                       imul    eax,+3eH[ebx]
+ 01b1  39 c2                             cmp     edx,eax
+ 01b3  7c e7                             jl      L8
+ 01b5  8b 43 42                          mov     eax,+42H[ebx]
+ 01b8  e8 00 00 00 00                    call    free_
+ 01bd  c7 43 42 00 00 00 
+       00                L10             mov     dword ptr +42H[ebx],00000000H
+ 01c4  c7 43 3e 00 00 00 
+       00                                mov     dword ptr +3eH[ebx],00000000H
+ 01cb  8b 43 3e                          mov     eax,+3eH[ebx]
+ 01ce  8b 7b 46                          mov     edi,+46H[ebx]
+ 01d1  89 43 3a                          mov     +3aH[ebx],eax
+ 01d4  85 ff                             test    edi,edi
+ 01d6  74 10                             je      L11
+ 01d8  89 f8                             mov     eax,edi
+ 01da  74 0c                             je      L11
+ 01dc  31 d2                             xor     edx,edx
+ 01de  e8 00 00 00 00                    call    near surface::~surface()
+ 01e3  e8 00 00 00 00                    call    void near operator delete( void near * )
+ 01e8  8a 53 25          L11             mov     dl,+25H[ebx]
+ 01eb  c7 43 46 00 00 00 
+       00                                mov     dword ptr +46H[ebx],00000000H
+ 01f2  80 e2 fe                          and     dl,0feH
+ 01f5  88 53 25                          mov     +25H[ebx],dl
+ 01f8  5f                L12             pop     edi
+ 01f9  5a                                pop     edx
+ 01fa  59                                pop     ecx
+ 01fb  5b                                pop     ebx
+ 01fc  c3                                ret     
+ 01fd  8d 40 00                          lea     eax,+0H[eax]
+ 0200                    void near bgimage::calcextent( lrect near &, bgobject near * ):
+ 0200  51                                push    ecx
+ 0201  56                                push    esi
+ 0202  57                                push    edi
+ 0203  55                                push    ebp
+ 0204  83 ec 04                          sub     esp,00000004H
+ 0207  89 c1                             mov     ecx,eax
+ 0209  89 d6                             mov     esi,edx
+ 020b  8b 13                             mov     edx,[ebx]
+ 020d  8b 42 21                          mov     eax,+21H[edx]
+ 0210  2b 42 19                          sub     eax,+19H[edx]
+ 0213  8b 6a 1d                          mov     ebp,+1dH[edx]
+ 0216  89 c7                             mov     edi,eax
+ 0218  8b 42 25                          mov     eax,+25H[edx]
+ 021b  29 e8                             sub     eax,ebp
+ 021d  31 d2                             xor     edx,edx
+ 021f  89 c5                             mov     ebp,eax
+ 0221  8b 43 05                          mov     eax,+5H[ebx]
+ 0224  8a 11                             mov     dl,[ecx]
+ 0226  8b 40 1b                          mov     eax,+1bH[eax]
+ 0229  8b 1c 90                          mov     ebx,[eax+edx*4]
+ 022c  8b 41 04                          mov     eax,+4H[ecx]
+ 022f  8b 11                             mov     edx,[ecx]
+ 0231  c1 f8 10                          sar     eax,10H
+ 0234  c1 fa 10                          sar     edx,10H
+ 0237  83 c0 40                          add     eax,00000040H
+ 023a  29 fa                             sub     edx,edi
+ 023c  89 04 24                          mov     [esp],eax
+ 023f  c1 e2 06                          shl     edx,06H
+ 0242  8b 3c 24                          mov     edi,[esp]
+ 0245  89 d0                             mov     eax,edx
+ 0247  c1 fa 1f                          sar     edx,1fH
+ 024a  f7 ff                             idiv    edi
+ 024c  89 06                             mov     [esi],eax
+ 024e  8b 01                             mov     eax,[ecx]
+ 0250  8b 53 08                          mov     edx,+8H[ebx]
+ 0253  c1 f8 10                          sar     eax,10H
+ 0256  8b 79 04                          mov     edi,+4H[ecx]
+ 0259  01 c2                             add     edx,eax
+ 025b  c1 ff 10                          sar     edi,10H
+ 025e  c1 e2 06                          shl     edx,06H
+ 0261  83 c7 40                          add     edi,00000040H
+ 0264  89 d0                             mov     eax,edx
+ 0266  c1 fa 1f                          sar     edx,1fH
+ 0269  f7 ff                             idiv    edi
+ 026b  89 46 08                          mov     +8H[esi],eax
+ 026e  8b 51 02                          mov     edx,+2H[ecx]
+ 0271  8b 41 04                          mov     eax,+4H[ecx]
+ 0274  c1 fa 10                          sar     edx,10H
+ 0277  c1 f8 10                          sar     eax,10H
+ 027a  29 ea                             sub     edx,ebp
+ 027c  8d b8 80 00 00 00                 lea     edi,+80H[eax]
+ 0282  c1 e2 07                          shl     edx,07H
+ 0285  89 d0                             mov     eax,edx
+ 0287  c1 fa 1f                          sar     edx,1fH
+ 028a  f7 ff                             idiv    edi
+ 028c  89 46 04                          mov     +4H[esi],eax
+ 028f  8b 51 02                          mov     edx,+2H[ecx]
+ 0292  8b 7b 0c                          mov     edi,+0cH[ebx]
+ 0295  8b 41 04                          mov     eax,+4H[ecx]
+ 0298  c1 fa 10                          sar     edx,10H
+ 029b  c1 f8 10                          sar     eax,10H
+ 029e  01 fa                             add     edx,edi
+ 02a0  8d 98 80 00 00 00                 lea     ebx,+80H[eax]
+ 02a6  c1 e2 07                          shl     edx,07H
+ 02a9  89 d0                             mov     eax,edx
+ 02ab  c1 fa 1f                          sar     edx,1fH
+ 02ae  f7 fb                             idiv    ebx
+ 02b0  89 46 0c                          mov     +0cH[esi],eax
+ 02b3  83 c4 04                          add     esp,00000004H
+ 02b6  5d                                pop     ebp
+ 02b7  5f                                pop     edi
+ 02b8  5e                                pop     esi
+ 02b9  59                                pop     ecx
+ 02ba  c3                                ret     
+ 02bb  90                                nop     
+ 02bc                    void near bgobject::calcextent():
+ 02bc  53                                push    ebx
+ 02bd  51                                push    ecx
+ 02be  52                                push    edx
+ 02bf  56                                push    esi
+ 02c0  57                                push    edi
+ 02c1  55                                push    ebp
+ 02c2  89 c1                             mov     ecx,eax
+ 02c4  8b 50 36                          mov     edx,+36H[eax]
+ 02c7  85 d2                             test    edx,edx
+ 02c9  74 07                             je      L13
+ 02cb  89 d0                             mov     eax,edx
+ 02cd  e8 00 00 00 00                    call    free_
+ 02d2  8b 41 05          L13             mov     eax,+5H[ecx]
+ 02d5  8b 58 5f                          mov     ebx,+5fH[eax]
+ 02d8  85 db                             test    ebx,ebx
+ 02da  0f 84 b0 00 00 00                 je      L22
+ 02e0  ba 10 00 00 00                    mov     edx,00000010H
+ 02e5  89 d8                             mov     eax,ebx
+ 02e7  e8 00 00 00 00                    call    calloc_
+ 02ec  31 f6                             xor     esi,esi
+ 02ee  31 ff                             xor     edi,edi
+ 02f0  31 ed                             xor     ebp,ebp
+ 02f2  89 41 36                          mov     +36H[ecx],eax
+ 02f5  eb 07                             jmp     L15
+ 02f7  83 c7 08          L14             add     edi,00000008H
+ 02fa  83 c5 10                          add     ebp,00000010H
+ 02fd  46                                inc     esi
+ 02fe  8b 41 05          L15             mov     eax,+5H[ecx]
+ 0301  3b 70 5f                          cmp     esi,+5fH[eax]
+ 0304  7d 1f                             jge     L16
+ 0306  8b 40 63                          mov     eax,+63H[eax]
+ 0309  01 f8                             add     eax,edi
+ 030b  31 d2                             xor     edx,edx
+ 030d  8a 10                             mov     dl,[eax]
+ 030f  81 fa ff 00 00 00                 cmp     edx,000000ffH
+ 0315  74 e0                             je      L14
+ 0317  8b 51 36                          mov     edx,+36H[ecx]
+ 031a  89 cb                             mov     ebx,ecx
+ 031c  01 ea                             add     edx,ebp
+ 031e  e8 00 00 00 00                    call    void near bgimage::calcextent( lrect near &, bgobject near * )
+ 0323  eb d2                             jmp     L14
+ 0325  8b 71 36          L16             mov     esi,+36H[ecx]
+ 0328  8d 79 26                          lea     edi,+26H[ecx]
+ 032b  ba 01 00 00 00                    mov     edx,00000001H
+ 0330  b8 10 00 00 00                    mov     eax,00000010H
+ 0335  a5                                movsd   
+ 0336  a5                                movsd   
+ 0337  a5                                movsd   
+ 0338  a5                                movsd   
+ 0339  eb 04                             jmp     L18
+ 033b  83 c0 10          L17             add     eax,00000010H
+ 033e  42                                inc     edx
+ 033f  8b 71 05          L18             mov     esi,+5H[ecx]
+ 0342  3b 56 5f                          cmp     edx,+5fH[esi]
+ 0345  7d 49                             jge     L22
+ 0347  8b 71 36                          mov     esi,+36H[ecx]
+ 034a  01 c6                             add     esi,eax
+ 034c  8b 69 26                          mov     ebp,+26H[ecx]
+ 034f  8b 3e                             mov     edi,[esi]
+ 0351  39 ef                             cmp     edi,ebp
+ 0353  7d 03                             jge     L19
+ 0355  89 79 26                          mov     +26H[ecx],edi
+ 0358  8b 71 36          L19             mov     esi,+36H[ecx]
+ 035b  01 c6                             add     esi,eax
+ 035d  8b 59 2e                          mov     ebx,+2eH[ecx]
+ 0360  8b 7e 08                          mov     edi,+8H[esi]
+ 0363  39 df                             cmp     edi,ebx
+ 0365  7e 03                             jle     L20
+ 0367  89 79 2e                          mov     +2eH[ecx],edi
+ 036a  8b 71 36          L20             mov     esi,+36H[ecx]
+ 036d  01 c6                             add     esi,eax
+ 036f  8b 69 2a                          mov     ebp,+2aH[ecx]
+ 0372  8b 7e 04                          mov     edi,+4H[esi]
+ 0375  39 ef                             cmp     edi,ebp
+ 0377  7d 03                             jge     L21
+ 0379  89 79 2a                          mov     +2aH[ecx],edi
+ 037c  8b 71 36          L21             mov     esi,+36H[ecx]
+ 037f  01 c6                             add     esi,eax
+ 0381  8b 59 32                          mov     ebx,+32H[ecx]
+ 0384  8b 7e 0c                          mov     edi,+0cH[esi]
+ 0387  39 df                             cmp     edi,ebx
+ 0389  7e b0                             jle     L17
+ 038b  89 79 32                          mov     +32H[ecx],edi
+ 038e  eb ab                             jmp     L17
+ 0390  5d                L22             pop     ebp
+ 0391  5f                                pop     edi
+ 0392  5e                                pop     esi
+ 0393  5a                                pop     edx
+ 0394  59                                pop     ecx
+ 0395  5b                                pop     ebx
+ 0396  c3                                ret     
+ 0397  90                                nop     
+ 0398                    void near bgchunk::create( bgobject near *, int, int, int, int ):
+ 0398  56                                push    esi
+ 0399  57                                push    edi
+ 039a  55                                push    ebp
+ 039b  83 ec 2c                          sub     esp,0000002cH
+ 039e  89 c6                             mov     esi,eax
+ 03a0  89 d5                             mov     ebp,edx
+ 03a2  89 df                             mov     edi,ebx
+ 03a4  89 4c 24 14                       mov     +14H[esp],ecx
+ 03a8  8b 44 24 14                       mov     eax,+14H[esp]
+ 03ac  8b 54 24 40                       mov     edx,+40H[esp]
+ 03b0  8b 4c 24 3c                       mov     ecx,+3cH[esp]
+ 03b4  01 d0                             add     eax,edx
+ 03b6  c7 06 00 00 00 00                 mov     dword ptr [esi],00000000H
+ 03bc  89 44 24 04                       mov     +4H[esp],eax
+ 03c0  b8 00 10 00 00                    mov     eax,00001000H
+ 03c5  01 d9                             add     ecx,ebx
+ 03c7  e8 00 00 00 00                    call    malloc_
+ 03cc  89 46 04                          mov     +4H[esi],eax
+ 03cf  31 d2                             xor     edx,edx
+ 03d1  8b 45 36                          mov     eax,+36H[ebp]
+ 03d4  eb 04                             jmp     L24
+ 03d6  42                L23             inc     edx
+ 03d7  83 c0 10                          add     eax,00000010H
+ 03da  8b 5d 05          L24             mov     ebx,+5H[ebp]
+ 03dd  3b 53 5f                          cmp     edx,+5fH[ebx]
+ 03e0  7d 3a                             jge     L25
+ 03e2  3b 78 08                          cmp     edi,+8H[eax]
+ 03e5  7f ef                             jg      L23
+ 03e7  3b 08                             cmp     ecx,[eax]
+ 03e9  7c eb                             jl      L23
+ 03eb  8b 5c 24 14                       mov     ebx,+14H[esp]
+ 03ef  3b 58 0c                          cmp     ebx,+0cH[eax]
+ 03f2  7f e2                             jg      L23
+ 03f4  8b 5c 24 04                       mov     ebx,+4H[esp]
+ 03f8  3b 58 04                          cmp     ebx,+4H[eax]
+ 03fb  7c d9                             jl      L23
+ 03fd  8b 1e                             mov     ebx,[esi]
+ 03ff  89 5c 24 10                       mov     +10H[esp],ebx
+ 0403  c1 e3 02                          shl     ebx,02H
+ 0406  89 5c 24 0c                       mov     +0cH[esp],ebx
+ 040a  8b 5c 24 10                       mov     ebx,+10H[esp]
+ 040e  43                                inc     ebx
+ 040f  89 1e                             mov     [esi],ebx
+ 0411  8b 5e 04                          mov     ebx,+4H[esi]
+ 0414  03 5c 24 0c                       add     ebx,+0cH[esp]
+ 0418  89 13                             mov     [ebx],edx
+ 041a  eb ba                             jmp     L23
+ 041c  8b 16             L25             mov     edx,[esi]
+ 041e  8b 46 04                          mov     eax,+4H[esi]
+ 0421  c1 e2 02                          shl     edx,02H
+ 0424  e8 00 00 00 00                    call    realloc_
+ 0429  c7 46 08 00 00 00 
+       00                                mov     dword ptr +8H[esi],00000000H
+ 0430  89 46 04                          mov     +4H[esi],eax
+ 0433  8b 1e                             mov     ebx,[esi]
+ 0435  3b 5e 08                          cmp     ebx,+8H[esi]
+ 0438  7f 0f                             jg      L27
+ 043a  eb 27                             jmp     L28
+ 043c  8b 46 08          L26             mov     eax,+8H[esi]
+ 043f  40                                inc     eax
+ 0440  8b 16                             mov     edx,[esi]
+ 0442  89 46 08                          mov     +8H[esi],eax
+ 0445  39 d0                             cmp     eax,edx
+ 0447  7d 1a                             jge     L28
+ 0449  8b 46 08          L27             mov     eax,+8H[esi]
+ 044c  8b 56 04                          mov     edx,+4H[esi]
+ 044f  8b 14 82                          mov     edx,[edx+eax*4]
+ 0452  8b 45 05                          mov     eax,+5H[ebp]
+ 0455  8b 40 63                          mov     eax,+63H[eax]
+ 0458  8b 44 d0 04                       mov     eax,+4H[eax+edx*8]
+ 045c  c1 f8 10                          sar     eax,10H
+ 045f  85 c0                             test    eax,eax
+ 0461  7e d9                             jle     L26
+ 0463  b8 00 10 00 00    L28             mov     eax,00001000H
+ 0468  8b 5c 24 04                       mov     ebx,+4H[esp]
+ 046c  c7 46 0c 00 00 00 
+       00                                mov     dword ptr +0cH[esi],00000000H
+ 0473  e8 00 00 00 00                    call    malloc_
+ 0478  83 c3 20                          add     ebx,00000020H
+ 047b  89 46 10                          mov     +10H[esi],eax
+ 047e  b8 00 10 00 00                    mov     eax,00001000H
+ 0483  c7 46 14 00 00 00 
+       00                                mov     dword ptr +14H[esi],00000000H
+ 048a  e8 00 00 00 00                    call    malloc_
+ 048f  89 5c 24 08                       mov     +8H[esp],ebx
+ 0493  8b 5c 24 14                       mov     ebx,+14H[esp]
+ 0497  89 46 18                          mov     +18H[esi],eax
+ 049a  83 eb 20                          sub     ebx,00000020H
+ 049d  8b 45 05                          mov     eax,+5H[ebp]
+ 04a0  31 d2                             xor     edx,edx
+ 04a2  89 1c 24                          mov     [esp],ebx
+ 04a5  8b 40 7b                          mov     eax,+7bH[eax]
+ 04a8  e9 b8 01 00 00                    jmp     L40
+ 04ad  8b 58 01          L29             mov     ebx,+1H[eax]
+ 04b0  c1 fb 10                          sar     ebx,10H
+ 04b3  39 df                             cmp     edi,ebx
+ 04b5  0f 8f a6 01 00 00                 jg      L39
+ 04bb  0f bf 58 01                       movsx   ebx,word ptr +1H[eax]
+ 04bf  39 d9                             cmp     ecx,ebx
+ 04c1  0f 8c 9a 01 00 00                 jl      L39
+ 04c7  66 8b 58 05                       mov     bx,+5H[eax]
+ 04cb  66 3b 58 07                       cmp     bx,+7H[eax]
+ 04cf  7f 04                             jg      L30
+ 04d1  66 8b 58 07                       mov     bx,+7H[eax]
+ 04d5  66 89 5c 24 24    L30             mov     +24H[esp],bx
+ 04da  8b 5c 24 22                       mov     ebx,+22H[esp]
+ 04de  c1 fb 10                          sar     ebx,10H
+ 04e1  89 5c 24 0c                       mov     +0cH[esp],ebx
+ 04e5  8b 5c 24 14                       mov     ebx,+14H[esp]
+ 04e9  3b 5c 24 0c                       cmp     ebx,+0cH[esp]
+ 04ed  0f 8f 6e 01 00 00                 jg      L39
+ 04f3  8b 5e 0c                          mov     ebx,+0cH[esi]
+ 04f6  89 5c 24 10                       mov     +10H[esp],ebx
+ 04fa  c1 e3 02                          shl     ebx,02H
+ 04fd  89 5c 24 0c                       mov     +0cH[esp],ebx
+ 0501  8b 5c 24 10                       mov     ebx,+10H[esp]
+ 0505  43                                inc     ebx
+ 0506  89 5e 0c                          mov     +0cH[esi],ebx
+ 0509  8b 5e 10                          mov     ebx,+10H[esi]
+ 050c  03 5c 24 0c                       add     ebx,+0cH[esp]
+ 0510  89 13                             mov     [ebx],edx
+ 0512  e9 4a 01 00 00                    jmp     L39
+ 0517  8b 58 05          L31             mov     ebx,+5H[eax]
+ 051a  c1 fb 10                          sar     ebx,10H
+ 051d  89 5c 24 0c                       mov     +0cH[esp],ebx
+ 0521  8b 5c 24 14                       mov     ebx,+14H[esp]
+ 0525  3b 5c 24 0c                       cmp     ebx,+0cH[esp]
+ 0529  0f 8f 32 01 00 00                 jg      L39
+ 052f  8b 58 03                          mov     ebx,+3H[eax]
+ 0532  c1 fb 10                          sar     ebx,10H
+ 0535  89 5c 24 0c                       mov     +0cH[esp],ebx
+ 0539  8b 5c 24 08                       mov     ebx,+8H[esp]
+ 053d  3b 5c 24 0c                       cmp     ebx,+0cH[esp]
+ 0541  0f 8c 1a 01 00 00                 jl      L39
+ 0547  66 8b 58 01                       mov     bx,+1H[eax]
+ 054b  66 3b 58 03                       cmp     bx,+3H[eax]
+ 054f  7f 04                             jg      L32
+ 0551  66 8b 58 03                       mov     bx,+3H[eax]
+ 0555  66 89 5c 24 28    L32             mov     +28H[esp],bx
+ 055a  8b 5c 24 26                       mov     ebx,+26H[esp]
+ 055e  c1 fb 10                          sar     ebx,10H
+ 0561  39 df                             cmp     edi,ebx
+ 0563  0f 8f f8 00 00 00                 jg      L39
+ 0569  66 8b 58 01                       mov     bx,+1H[eax]
+ 056d  66 3b 58 03                       cmp     bx,+3H[eax]
+ 0571  7c 04                             jl      L33
+ 0573  66 8b 58 03                       mov     bx,+3H[eax]
+ 0577  66 89 5c 24 20    L33             mov     +20H[esp],bx
+ 057c  8b 5c 24 1e                       mov     ebx,+1eH[esp]
+ 0580  c1 fb 10                          sar     ebx,10H
+ 0583  39 d9                             cmp     ecx,ebx
+ 0585  0f 8c d6 00 00 00                 jl      L39
+ 058b  8b 5e 14                          mov     ebx,+14H[esi]
+ 058e  89 5c 24 10                       mov     +10H[esp],ebx
+ 0592  c1 e3 02                          shl     ebx,02H
+ 0595  89 5c 24 0c                       mov     +0cH[esp],ebx
+ 0599  8b 5c 24 10                       mov     ebx,+10H[esp]
+ 059d  43                                inc     ebx
+ 059e  89 5e 14                          mov     +14H[esi],ebx
+ 05a1  8b 5e 18                          mov     ebx,+18H[esi]
+ 05a4  03 5c 24 0c                       add     ebx,+0cH[esp]
+ 05a8  89 13                             mov     [ebx],edx
+ 05aa  e9 b2 00 00 00                    jmp     L39
+ 05af  8b 58 01          L34             mov     ebx,+1H[eax]
+ 05b2  c1 fb 10                          sar     ebx,10H
+ 05b5  39 df                             cmp     edi,ebx
+ 05b7  0f 8f a4 00 00 00                 jg      L39
+ 05bd  0f bf 58 01                       movsx   ebx,word ptr +1H[eax]
+ 05c1  39 d9                             cmp     ecx,ebx
+ 05c3  0f 8c 98 00 00 00                 jl      L39
+ 05c9  66 8b 58 05                       mov     bx,+5H[eax]
+ 05cd  66 3b 58 07                       cmp     bx,+7H[eax]
+ 05d1  7f 04                             jg      L35
+ 05d3  66 8b 58 07                       mov     bx,+7H[eax]
+ 05d7  66 89 5c 24 1c    L35             mov     +1cH[esp],bx
+ 05dc  8b 5c 24 1a                       mov     ebx,+1aH[esp]
+ 05e0  c1 fb 10                          sar     ebx,10H
+ 05e3  89 5c 24 0c                       mov     +0cH[esp],ebx
+ 05e7  8b 1c 24                          mov     ebx,[esp]
+ 05ea  3b 5c 24 0c                       cmp     ebx,+0cH[esp]
+ 05ee  0f 8f 6d 00 00 00                 jg      L39
+ 05f4  66 8b 58 05                       mov     bx,+5H[eax]
+ 05f8  66 3b 58 07                       cmp     bx,+7H[eax]
+ 05fc  7c 04                             jl      L36
+ 05fe  66 8b 58 07                       mov     bx,+7H[eax]
+ 0602  66 89 5c 24 18    L36             mov     +18H[esp],bx
+ 0607  8b 5c 24 16                       mov     ebx,+16H[esp]
+ 060b  c1 fb 10                          sar     ebx,10H
+ 060e  89 5c 24 0c                       mov     +0cH[esp],ebx
+ 0612  8b 5c 24 08                       mov     ebx,+8H[esp]
+ 0616  3b 5c 24 0c                       cmp     ebx,+0cH[esp]
+ 061a  7c 45                             jl      L39
+ 061c  8b 5e 14                          mov     ebx,+14H[esi]
+ 061f  89 5c 24 0c                       mov     +0cH[esp],ebx
+ 0623  c1 e3 02                          shl     ebx,02H
+ 0626  89 5c 24 10                       mov     +10H[esp],ebx
+ 062a  8b 5c 24 0c                       mov     ebx,+0cH[esp]
+ 062e  43                                inc     ebx
+ 062f  89 5e 14                          mov     +14H[esi],ebx
+ 0632  8b 5e 18                          mov     ebx,+18H[esi]
+ 0635  03 5c 24 10                       add     ebx,+10H[esp]
+ 0639  89 13                             mov     [ebx],edx
+ 063b  eb 24                             jmp     L39
+ 063d  8a 18             L37             mov     bl,[eax]
+ 063f  80 fb 02                          cmp     bl,02H
+ 0642  72 14                             jb      L38
+ 0644  80 fb 03                          cmp     bl,03H
+ 0647  0f 86 ca fe ff ff                 jbe     L31
+ 064d  80 fb 04                          cmp     bl,04H
+ 0650  0f 84 59 ff ff ff                 je      L34
+ 0656  eb 09                             jmp     L39
+ 0658  80 fb 01          L38             cmp     bl,01H
+ 065b  0f 84 4c fe ff ff                 je      L29
+ 0661  42                L39             inc     edx
+ 0662  83 c0 09                          add     eax,00000009H
+ 0665  8b 5d 05          L40             mov     ebx,+5H[ebp]
+ 0668  3b 53 77                          cmp     edx,+77H[ebx]
+ 066b  7c d0                             jl      L37
+ 066d  8b 56 0c                          mov     edx,+0cH[esi]
+ 0670  8b 46 10                          mov     eax,+10H[esi]
+ 0673  c1 e2 02                          shl     edx,02H
+ 0676  e8 00 00 00 00                    call    realloc_
+ 067b  8b 56 14                          mov     edx,+14H[esi]
+ 067e  89 46 10                          mov     +10H[esi],eax
+ 0681  c1 e2 02                          shl     edx,02H
+ 0684  8b 46 18                          mov     eax,+18H[esi]
+ 0687  e8 00 00 00 00                    call    realloc_
+ 068c  89 46 18                          mov     +18H[esi],eax
+ 068f  83 c4 2c                          add     esp,0000002cH
+ 0692  5d                                pop     ebp
+ 0693  5f                                pop     edi
+ 0694  5e                                pop     esi
+ 0695  c2 08 00                          ret     0008H
+ 0698                    void near bgchunk::destroy():
+ 0698  53                                push    ebx
+ 0699  51                                push    ecx
+ 069a  52                                push    edx
+ 069b  56                                push    esi
+ 069c  89 c2                             mov     edx,eax
+ 069e  8b 58 04                          mov     ebx,+4H[eax]
+ 06a1  85 db                             test    ebx,ebx
+ 06a3  74 07                             je      L41
+ 06a5  89 d8                             mov     eax,ebx
+ 06a7  e8 00 00 00 00                    call    free_
+ 06ac  8b 4a 10          L41             mov     ecx,+10H[edx]
+ 06af  c7 42 04 00 00 00 
+       00                                mov     dword ptr +4H[edx],00000000H
+ 06b6  85 c9                             test    ecx,ecx
+ 06b8  74 07                             je      L42
+ 06ba  89 c8                             mov     eax,ecx
+ 06bc  e8 00 00 00 00                    call    free_
+ 06c1  8b 72 18          L42             mov     esi,+18H[edx]
+ 06c4  c7 42 10 00 00 00 
+       00                                mov     dword ptr +10H[edx],00000000H
+ 06cb  85 f6                             test    esi,esi
+ 06cd  74 07                             je      L43
+ 06cf  89 f0                             mov     eax,esi
+ 06d1  e8 00 00 00 00                    call    free_
+ 06d6  c7 42 18 00 00 00 
+       00                L43             mov     dword ptr +18H[edx],00000000H
+ 06dd  5e                                pop     esi
+ 06de  5a                                pop     edx
+ 06df  59                                pop     ecx
+ 06e0  5b                                pop     ebx
+ 06e1  c3                                ret     
+ 06e2  8b c0                             mov     eax,eax
+ 06e4                    void near bgobject::createchunks():
+ 06e4  53                                push    ebx
+ 06e5  51                                push    ecx
+ 06e6  52                                push    edx
+ 06e7  56                                push    esi
+ 06e8  57                                push    edi
+ 06e9  55                                push    ebp
+ 06ea  83 ec 10                          sub     esp,00000010H
+ 06ed  89 c6                             mov     esi,eax
+ 06ef  8b 50 2e                          mov     edx,+2eH[eax]
+ 06f2  8b 58 26                          mov     ebx,+26H[eax]
+ 06f5  29 da                             sub     edx,ebx
+ 06f7  89 d0                             mov     eax,edx
+ 06f9  c1 fa 1f                          sar     edx,1fH
+ 06fc  c1 e2 06                          shl     edx,06H
+ 06ff  1b c2                             sbb     eax,edx
+ 0701  c1 f8 06                          sar     eax,06H
+ 0704  8b 4e 2a                          mov     ecx,+2aH[esi]
+ 0707  8b 56 32                          mov     edx,+32H[esi]
+ 070a  40                                inc     eax
+ 070b  29 ca                             sub     edx,ecx
+ 070d  89 46 3a                          mov     +3aH[esi],eax
+ 0710  89 d0                             mov     eax,edx
+ 0712  c1 fa 1f                          sar     edx,1fH
+ 0715  c1 e2 06                          shl     edx,06H
+ 0718  1b c2                             sbb     eax,edx
+ 071a  c1 f8 06                          sar     eax,06H
+ 071d  40                                inc     eax
+ 071e  8b 56 3a                          mov     edx,+3aH[esi]
+ 0721  0f af d0                          imul    edx,eax
+ 0724  89 46 3e                          mov     +3eH[esi],eax
+ 0727  8d 04 d5 00 00 00 
+       00                                lea     eax,+0H[edx*8]
+ 072e  29 d0                             sub     eax,edx
+ 0730  c1 e0 02                          shl     eax,02H
+ 0733  e8 00 00 00 00                    call    malloc_
+ 0738  89 46 42                          mov     +42H[esi],eax
+ 073b  31 ed                             xor     ebp,ebp
+ 073d  8b 46 3e                          mov     eax,+3eH[esi]
+ 0740  89 6c 24 0c                       mov     +0cH[esp],ebp
+ 0744  85 c0                             test    eax,eax
+ 0746  0f 8e 72 00 00 00                 jle     L47
+ 074c  89 6c 24 04                       mov     +4H[esp],ebp
+ 0750  8b 6e 3a          L44             mov     ebp,+3aH[esi]
+ 0753  31 ff                             xor     edi,edi
+ 0755  85 ed                             test    ebp,ebp
+ 0757  7e 4a                             jle     L46
+ 0759  8b 44 24 04                       mov     eax,+4H[esp]
+ 075d  31 ed                             xor     ebp,ebp
+ 075f  89 44 24 08                       mov     +8H[esp],eax
+ 0763  8b 44 24 08       L45             mov     eax,+8H[esp]
+ 0767  8b 4e 2a                          mov     ecx,+2aH[esi]
+ 076a  8b 56 3a                          mov     edx,+3aH[esi]
+ 076d  01 c1                             add     ecx,eax
+ 076f  8b 44 24 0c                       mov     eax,+0cH[esp]
+ 0773  0f af c2                          imul    eax,edx
+ 0776  01 f8                             add     eax,edi
+ 0778  6b c0 1c                          imul    eax,1cH
+ 077b  6a 40                             push    00000040H
+ 077d  8b 5e 26                          mov     ebx,+26H[esi]
+ 0780  89 44 24 04                       mov     +4H[esp],eax
+ 0784  6a 40                             push    00000040H
+ 0786  8b 54 24 08                       mov     edx,+8H[esp]
+ 078a  8b 46 42                          mov     eax,+42H[esi]
+ 078d  01 eb                             add     ebx,ebp
+ 078f  01 d0                             add     eax,edx
+ 0791  89 f2                             mov     edx,esi
+ 0793  47                                inc     edi
+ 0794  e8 00 00 00 00                    call    void near bgchunk::create( bgobject near *, int, int, int, int )
+ 0799  8b 5e 3a                          mov     ebx,+3aH[esi]
+ 079c  83 c5 40                          add     ebp,00000040H
+ 079f  39 df                             cmp     edi,ebx
+ 07a1  7c c0                             jl      L45
+ 07a3  8b 54 24 04       L46             mov     edx,+4H[esp]
+ 07a7  8b 5c 24 0c                       mov     ebx,+0cH[esp]
+ 07ab  8b 4e 3e                          mov     ecx,+3eH[esi]
+ 07ae  83 c2 40                          add     edx,00000040H
+ 07b1  43                                inc     ebx
+ 07b2  89 54 24 04                       mov     +4H[esp],edx
+ 07b6  89 5c 24 0c                       mov     +0cH[esp],ebx
+ 07ba  39 cb                             cmp     ebx,ecx
+ 07bc  7c 92                             jl      L44
+ 07be  83 c4 10          L47             add     esp,00000010H
+ 07c1  5d                                pop     ebp
+ 07c2  5f                                pop     edi
+ 07c3  5e                                pop     esi
+ 07c4  5a                                pop     edx
+ 07c5  59                                pop     ecx
+ 07c6  5b                                pop     ebx
+ 07c7  c3                                ret     
+ 07c8                    void near bgobject::boundcheck():
+ 07c8  53                                push    ebx
+ 07c9  51                                push    ecx
+ 07ca  52                                push    edx
+ 07cb  56                                push    esi
+ 07cc  57                                push    edi
+ 07cd  55                                push    ebp
+ 07ce  83 ec 28                          sub     esp,00000028H
+ 07d1  89 c1                             mov     ecx,eax
+ 07d3  8b 00                             mov     eax,[eax]
+ 07d5  8b 79 11                          mov     edi,+11H[ecx]
+ 07d8  8b 50 21                          mov     edx,+21H[eax]
+ 07db  8b 58 19                          mov     ebx,+19H[eax]
+ 07de  8b 68 25                          mov     ebp,+25H[eax]
+ 07e1  8b 70 1d                          mov     esi,+1dH[eax]
+ 07e4  29 da                             sub     edx,ebx
+ 07e6  29 f5                             sub     ebp,esi
+ 07e8  c1 e2 10                          shl     edx,10H
+ 07eb  c1 e5 10                          shl     ebp,10H
+ 07ee  89 54 24 24                       mov     +24H[esp],edx
+ 07f2  85 ff                             test    edi,edi
+ 07f4  7d 13                             jge     L48
+ 07f6  8b 41 09                          mov     eax,+9H[ecx]
+ 07f9  01 f8                             add     eax,edi
+ 07fb  c1 f8 10                          sar     eax,10H
+ 07fe  89 44 24 14                       mov     +14H[esp],eax
+ 0802  8b 41 09                          mov     eax,+9H[ecx]
+ 0805  01 d0                             add     eax,edx
+ 0807  eb 18                             jmp     L49
+ 0809  8b 41 09          L48             mov     eax,+9H[ecx]
+ 080c  c1 f8 10                          sar     eax,10H
+ 080f  89 44 24 14                       mov     +14H[esp],eax
+ 0813  8b 41 09                          mov     eax,+9H[ecx]
+ 0816  8b 51 11                          mov     edx,+11H[ecx]
+ 0819  8b 5c 24 24                       mov     ebx,+24H[esp]
+ 081d  01 d0                             add     eax,edx
+ 081f  01 d8                             add     eax,ebx
+ 0821  c1 f8 10          L49             sar     eax,10H
+ 0824  89 44 24 1c                       mov     +1cH[esp],eax
+ 0828  83 79 15 00                       cmp     dword ptr +15H[ecx],00000000H
+ 082c  7d 12                             jge     L50
+ 082e  8b 41 0d                          mov     eax,+0dH[ecx]
+ 0831  03 41 15                          add     eax,+15H[ecx]
+ 0834  c1 f8 10                          sar     eax,10H
+ 0837  89 44 24 18                       mov     +18H[esp],eax
+ 083b  8b 41 0d                          mov     eax,+0dH[ecx]
+ 083e  eb 10                             jmp     L51
+ 0840  8b 41 0d          L50             mov     eax,+0dH[ecx]
+ 0843  c1 f8 10                          sar     eax,10H
+ 0846  89 44 24 18                       mov     +18H[esp],eax
+ 084a  8b 41 0d                          mov     eax,+0dH[ecx]
+ 084d  03 41 15                          add     eax,+15H[ecx]
+ 0850  01 e8             L51             add     eax,ebp
+ 0852  c1 f8 10                          sar     eax,10H
+ 0855  89 44 24 20                       mov     +20H[esp],eax
+ 0859  89 e7                             mov     edi,esp
+ 085b  be 00 00 00 00                    mov     esi,offset boundary near * const near bgobject::void near boundcheck()::.0::__staticinit[]
+ 0860  a5                                movsd   
+ 0861  a5                                movsd   
+ 0862  a5                                movsd   
+ 0863  a5                                movsd   
+ 0864  a5                                movsd   
+ 0865  8b 41 05                          mov     eax,+5H[ecx]
+ 0868  31 db                             xor     ebx,ebx
+ 086a  8b 80 83 00 00 00                 mov     eax,+83H[eax]
+ 0870  31 f6                             xor     esi,esi
+ 0872  e9 98 00 00 00                    jmp     L60
+ 0877  8b 7c 24 14       L52             mov     edi,+14H[esp]
+ 087b  0f bf 50 01                       movsx   edx,word ptr +1H[eax]
+ 087f  39 fa                             cmp     edx,edi
+ 0881  7e 29                             jle     L53
+ 0883  3b 54 24 1c                       cmp     edx,+1cH[esp]
+ 0887  7d 23                             jge     L53
+ 0889  8b 50 03                          mov     edx,+3H[eax]
+ 088c  8b 7c 24 20                       mov     edi,+20H[esp]
+ 0890  c1 fa 10                          sar     edx,10H
+ 0893  39 fa                             cmp     edx,edi
+ 0895  7d 15                             jge     L53
+ 0897  8b 50 05                          mov     edx,+5H[eax]
+ 089a  8b 7c 24 18                       mov     edi,+18H[esp]
+ 089e  c1 fa 10                          sar     edx,10H
+ 08a1  39 fa                             cmp     edx,edi
+ 08a3  7e 07                             jle     L53
+ 08a5  ba 01 00 00 00                    mov     edx,00000001H
+ 08aa  eb 54                             jmp     L58
+ 08ac  89 f2             L53             mov     edx,esi
+ 08ae  eb 50                             jmp     L58
+ 08b0  8b 50 03          L54             mov     edx,+3H[eax]
+ 08b3  8b 7c 24 18                       mov     edi,+18H[esp]
+ 08b7  c1 fa 10                          sar     edx,10H
+ 08ba  39 fa                             cmp     edx,edi
+ 08bc  7e 27                             jle     L55
+ 08be  3b 54 24 20                       cmp     edx,+20H[esp]
+ 08c2  7d 21                             jge     L55
+ 08c4  8b 7c 24 1c                       mov     edi,+1cH[esp]
+ 08c8  0f bf 50 01                       movsx   edx,word ptr +1H[eax]
+ 08cc  39 fa                             cmp     edx,edi
+ 08ce  7d 15                             jge     L55
+ 08d0  8b 50 01                          mov     edx,+1H[eax]
+ 08d3  8b 7c 24 14                       mov     edi,+14H[esp]
+ 08d7  c1 fa 10                          sar     edx,10H
+ 08da  39 fa                             cmp     edx,edi
+ 08dc  7e 07                             jle     L55
+ 08de  ba 01 00 00 00                    mov     edx,00000001H
+ 08e3  eb 1b                             jmp     L58
+ 08e5  89 f2             L55             mov     edx,esi
+ 08e7  eb 17                             jmp     L58
+ 08e9  8a 10             L56             mov     dl,[eax]
+ 08eb  80 fa 01                          cmp     dl,01H
+ 08ee  72 0e                             jb      L57
+ 08f0  80 fa 02                          cmp     dl,02H
+ 08f3  76 bb                             jbe     L54
+ 08f5  80 fa 04                          cmp     dl,04H
+ 08f8  0f 86 79 ff ff ff                 jbe     L52
+ 08fe  89 f2             L57             mov     edx,esi
+ 0900  85 d2             L58             test    edx,edx
+ 0902  74 07                             je      L59
+ 0904  31 d2                             xor     edx,edx
+ 0906  8a 10                             mov     dl,[eax]
+ 0908  89 04 94                          mov     [esp+edx*4],eax
+ 090b  43                L59             inc     ebx
+ 090c  83 c0 09                          add     eax,00000009H
+ 090f  8b 51 05          L60             mov     edx,+5H[ecx]
+ 0912  3b 5a 7f                          cmp     ebx,+7fH[edx]
+ 0915  7c d2                             jl      L56
+ 0917  83 7c 24 0c 00                    cmp     dword ptr +0cH[esp],00000000H
+ 091c  74 1b                             je      L61
+ 091e  83 79 11 00                       cmp     dword ptr +11H[ecx],00000000H
+ 0922  7d 38                             jge     L62
+ 0924  8b 54 24 0c                       mov     edx,+0cH[esp]
+ 0928  0f bf 52 01                       movsx   edx,word ptr +1H[edx]
+ 092c  8b 41 09                          mov     eax,+9H[ecx]
+ 092f  c1 e2 10                          shl     edx,10H
+ 0932  29 c2                             sub     edx,eax
+ 0934  89 51 11                          mov     +11H[ecx],edx
+ 0937  eb 23                             jmp     L62
+ 0939  8b 54 24 10       L61             mov     edx,+10H[esp]
+ 093d  85 d2                             test    edx,edx
+ 093f  74 1b                             je      L62
+ 0941  83 79 11 00                       cmp     dword ptr +11H[ecx],00000000H
+ 0945  7e 15                             jle     L62
+ 0947  0f bf 42 01                       movsx   eax,word ptr +1H[edx]
+ 094b  8b 71 09                          mov     esi,+9H[ecx]
+ 094e  c1 e0 10                          shl     eax,10H
+ 0951  8b 7c 24 24                       mov     edi,+24H[esp]
+ 0955  29 f0                             sub     eax,esi
+ 0957  29 f8                             sub     eax,edi
+ 0959  89 41 11                          mov     +11H[ecx],eax
+ 095c  8b 54 24 04       L62             mov     edx,+4H[esp]
+ 0960  85 d2                             test    edx,edx
+ 0962  74 19                             je      L63
+ 0964  83 79 15 00                       cmp     dword ptr +15H[ecx],00000000H
+ 0968  7d 34                             jge     L64
+ 096a  8b 52 03                          mov     edx,+3H[edx]
+ 096d  c1 fa 10                          sar     edx,10H
+ 0970  8b 41 0d                          mov     eax,+0dH[ecx]
+ 0973  c1 e2 10                          shl     edx,10H
+ 0976  29 c2                             sub     edx,eax
+ 0978  89 51 15                          mov     +15H[ecx],edx
+ 097b  eb 21                             jmp     L64
+ 097d  8b 5c 24 08       L63             mov     ebx,+8H[esp]
+ 0981  85 db                             test    ebx,ebx
+ 0983  74 19                             je      L64
+ 0985  83 79 15 00                       cmp     dword ptr +15H[ecx],00000000H
+ 0989  7e 13                             jle     L64
+ 098b  8b 43 03                          mov     eax,+3H[ebx]
+ 098e  c1 f8 10                          sar     eax,10H
+ 0991  8b 79 0d                          mov     edi,+0dH[ecx]
+ 0994  c1 e0 10                          shl     eax,10H
+ 0997  29 f8                             sub     eax,edi
+ 0999  29 e8                             sub     eax,ebp
+ 099b  89 41 15                          mov     +15H[ecx],eax
+ 099e  83 c4 28          L64             add     esp,00000028H
+ 09a1  5d                                pop     ebp
+ 09a2  5f                                pop     edi
+ 09a3  5e                                pop     esi
+ 09a4  5a                                pop     edx
+ 09a5  59                                pop     ecx
+ 09a6  5b                                pop     ebx
+ 09a7  c3                                ret     
+ 09a8                    int near bgobject::scroll():
+ 09a8  53                                push    ebx
+ 09a9  52                                push    edx
+ 09aa  56                                push    esi
+ 09ab  57                                push    edi
+ 09ac  55                                push    ebp
+ 09ad  89 c2                             mov     edx,eax
+ 09af  83 78 11 00                       cmp     dword ptr +11H[eax],00000000H
+ 09b3  75 0d                             jne     L65
+ 09b5  83 78 15 00                       cmp     dword ptr +15H[eax],00000000H
+ 09b9  75 07                             jne     L65
+ 09bb  31 c0                             xor     eax,eax
+ 09bd  e9 7f 00 00 00                    jmp     L71
+ 09c2  f6 42 25 01       L65             test    byte ptr +25H[edx],01H
+ 09c6  74 07                             je      L66
+ 09c8  89 d0                             mov     eax,edx
+ 09ca  e8 00 00 00 00                    call    void near bgobject::boundcheck()
+ 09cf  83 7a 11 00       L66             cmp     dword ptr +11H[edx],00000000H
+ 09d3  75 0e                             jne     L67
+ 09d5  83 7a 15 00                       cmp     dword ptr +15H[edx],00000000H
+ 09d9  75 08                             jne     L67
+ 09db  31 c0                             xor     eax,eax
+ 09dd  5d                                pop     ebp
+ 09de  5f                                pop     edi
+ 09df  5e                                pop     esi
+ 09e0  5a                                pop     edx
+ 09e1  5b                                pop     ebx
+ 09e2  c3                                ret     
+ 09e3  8b 42 11          L67             mov     eax,+11H[edx]
+ 09e6  8b 6a 09                          mov     ebp,+9H[edx]
+ 09e9  8b 5a 0d                          mov     ebx,+0dH[edx]
+ 09ec  01 c5                             add     ebp,eax
+ 09ee  8b 42 15                          mov     eax,+15H[edx]
+ 09f1  89 6a 09                          mov     +9H[edx],ebp
+ 09f4  01 c3                             add     ebx,eax
+ 09f6  8b 02                             mov     eax,[edx]
+ 09f8  89 5a 0d                          mov     +0dH[edx],ebx
+ 09fb  8b 40 2d                          mov     eax,+2dH[eax]
+ 09fe  85 c0                             test    eax,eax
+ 0a00  75 09                             jne     L69
+ 0a02  eb 2b                             jmp     L70
+ 0a04  8b 40 08          L68             mov     eax,+8H[eax]
+ 0a07  85 c0                             test    eax,eax
+ 0a09  74 24                             je      L70
+ 0a0b  f6 40 41 20       L69             test    byte ptr +41H[eax],20H
+ 0a0f  74 f3                             je      L68
+ 0a11  8b 5a 11                          mov     ebx,+11H[edx]
+ 0a14  29 58 30                          sub     +30H[eax],ebx
+ 0a17  8b 70 34                          mov     esi,+34H[eax]
+ 0a1a  8b 5a 15                          mov     ebx,+15H[edx]
+ 0a1d  29 de                             sub     esi,ebx
+ 0a1f  89 70 34                          mov     +34H[eax],esi
+ 0a22  8b 78 3c                          mov     edi,+3cH[eax]
+ 0a25  8b 5a 15                          mov     ebx,+15H[edx]
+ 0a28  29 df                             sub     edi,ebx
+ 0a2a  89 78 3c                          mov     +3cH[eax],edi
+ 0a2d  eb d5                             jmp     L68
+ 0a2f  c7 42 15 00 00 00 
+       00                L70             mov     dword ptr +15H[edx],00000000H
+ 0a36  8b 42 15                          mov     eax,+15H[edx]
+ 0a39  89 42 11                          mov     +11H[edx],eax
+ 0a3c  b8 01 00 00 00                    mov     eax,00000001H
+ 0a41  5d                L71             pop     ebp
+ 0a42  5f                                pop     edi
+ 0a43  5e                                pop     esi
+ 0a44  5a                                pop     edx
+ 0a45  5b                                pop     ebx
+ 0a46  c3                                ret     
+ 0a47  90                                nop     
+ 0a48                    void near bgobject::tick():
+ 0a48  53                                push    ebx
+ 0a49  51                                push    ecx
+ 0a4a  52                                push    edx
+ 0a4b  56                                push    esi
+ 0a4c  57                                push    edi
+ 0a4d  55                                push    ebp
+ 0a4e  89 c3                             mov     ebx,eax
+ 0a50  8b 50 4a                          mov     edx,+4aH[eax]
+ 0a53  85 d2                             test    edx,edx
+ 0a55  0f 84 59 01 00 00                 je      L83
+ 0a5b  8b 4a 30                          mov     ecx,+30H[edx]
+ 0a5e  8b 72 53                          mov     esi,+53H[edx]
+ 0a61  c1 f9 10                          sar     ecx,10H
+ 0a64  85 f6                             test    esi,esi
+ 0a66  74 20                             je      L72
+ 0a68  f6 46 08 02                       test    byte ptr +8H[esi],02H
+ 0a6c  74 1a                             je      L72
+ 0a6e  8b 00                             mov     eax,[eax]
+ 0a70  8b 50 21                          mov     edx,+21H[eax]
+ 0a73  2b 50 19                          sub     edx,+19H[eax]
+ 0a76  c1 e2 04                          shl     edx,04H
+ 0a79  89 d0                             mov     eax,edx
+ 0a7b  c1 fa 1f                          sar     edx,1fH
+ 0a7e  c1 e2 05                          shl     edx,05H
+ 0a81  1b c2                             sbb     eax,edx
+ 0a83  c1 f8 05                          sar     eax,05H
+ 0a86  29 c1                             sub     ecx,eax
+ 0a88  85 c9             L72             test    ecx,ecx
+ 0a8a  7d 02                             jge     L73
+ 0a8c  31 c9                             xor     ecx,ecx
+ 0a8e  83 f9 50          L73             cmp     ecx,00000050H
+ 0a91  7d 19                             jge     L74
+ 0a93  ba 50 00 00 00                    mov     edx,00000050H
+ 0a98  29 ca                             sub     edx,ecx
+ 0a9a  c1 e2 12                          shl     edx,12H
+ 0a9d  b9 50 00 00 00                    mov     ecx,00000050H
+ 0aa2  89 d0                             mov     eax,edx
+ 0aa4  c1 fa 1f                          sar     edx,1fH
+ 0aa7  f7 f9                             idiv    ecx
+ 0aa9  29 43 11                          sub     +11H[ebx],eax
+ 0aac  8b 0b             L74             mov     ecx,[ebx]
+ 0aae  8b 43 4a                          mov     eax,+4aH[ebx]
+ 0ab1  8b 51 21                          mov     edx,+21H[ecx]
+ 0ab4  8b 79 19                          mov     edi,+19H[ecx]
+ 0ab7  8b 70 30                          mov     esi,+30H[eax]
+ 0aba  29 fa                             sub     edx,edi
+ 0abc  c1 fe 10                          sar     esi,10H
+ 0abf  89 d1                             mov     ecx,edx
+ 0ac1  8b 68 53                          mov     ebp,+53H[eax]
+ 0ac4  29 f1                             sub     ecx,esi
+ 0ac6  85 ed                             test    ebp,ebp
+ 0ac8  74 18                             je      L75
+ 0aca  f6 45 08 01                       test    byte ptr +8H[ebp],01H
+ 0ace  74 12                             je      L75
+ 0ad0  c1 e2 04                          shl     edx,04H
+ 0ad3  89 d0                             mov     eax,edx
+ 0ad5  c1 fa 1f                          sar     edx,1fH
+ 0ad8  c1 e2 05                          shl     edx,05H
+ 0adb  1b c2                             sbb     eax,edx
+ 0add  c1 f8 05                          sar     eax,05H
+ 0ae0  29 c1                             sub     ecx,eax
+ 0ae2  85 c9             L75             test    ecx,ecx
+ 0ae4  7d 02                             jge     L76
+ 0ae6  31 c9                             xor     ecx,ecx
+ 0ae8  83 f9 50          L76             cmp     ecx,00000050H
+ 0aeb  7d 19                             jge     L77
+ 0aed  ba 50 00 00 00                    mov     edx,00000050H
+ 0af2  29 ca                             sub     edx,ecx
+ 0af4  c1 e2 12                          shl     edx,12H
+ 0af7  b9 50 00 00 00                    mov     ecx,00000050H
+ 0afc  89 d0                             mov     eax,edx
+ 0afe  c1 fa 1f                          sar     edx,1fH
+ 0b01  f7 f9                             idiv    ecx
+ 0b03  01 43 11                          add     +11H[ebx],eax
+ 0b06  8b 53 4a          L77             mov     edx,+4aH[ebx]
+ 0b09  8b 4a 34                          mov     ecx,+34H[edx]
+ 0b0c  8b 72 53                          mov     esi,+53H[edx]
+ 0b0f  c1 f9 10                          sar     ecx,10H
+ 0b12  85 f6                             test    esi,esi
+ 0b14  74 20                             je      L78
+ 0b16  f6 46 08 04                       test    byte ptr +8H[esi],04H
+ 0b1a  74 1a                             je      L78
+ 0b1c  8b 03                             mov     eax,[ebx]
+ 0b1e  8b 50 25                          mov     edx,+25H[eax]
+ 0b21  2b 50 1d                          sub     edx,+1dH[eax]
+ 0b24  c1 e2 03                          shl     edx,03H
+ 0b27  89 d0                             mov     eax,edx
+ 0b29  c1 fa 1f                          sar     edx,1fH
+ 0b2c  c1 e2 04                          shl     edx,04H
+ 0b2f  1b c2                             sbb     eax,edx
+ 0b31  c1 f8 04                          sar     eax,04H
+ 0b34  29 c1                             sub     ecx,eax
+ 0b36  85 c9             L78             test    ecx,ecx
+ 0b38  7d 02                             jge     L79
+ 0b3a  31 c9                             xor     ecx,ecx
+ 0b3c  83 f9 32          L79             cmp     ecx,00000032H
+ 0b3f  7d 19                             jge     L80
+ 0b41  ba 32 00 00 00                    mov     edx,00000032H
+ 0b46  29 ca                             sub     edx,ecx
+ 0b48  c1 e2 12                          shl     edx,12H
+ 0b4b  b9 32 00 00 00                    mov     ecx,00000032H
+ 0b50  89 d0                             mov     eax,edx
+ 0b52  c1 fa 1f                          sar     edx,1fH
+ 0b55  f7 f9                             idiv    ecx
+ 0b57  29 43 15                          sub     +15H[ebx],eax
+ 0b5a  8b 0b             L80             mov     ecx,[ebx]
+ 0b5c  8b 43 4a                          mov     eax,+4aH[ebx]
+ 0b5f  8b 51 25                          mov     edx,+25H[ecx]
+ 0b62  8b 79 1d                          mov     edi,+1dH[ecx]
+ 0b65  8b 70 34                          mov     esi,+34H[eax]
+ 0b68  29 fa                             sub     edx,edi
+ 0b6a  c1 fe 10                          sar     esi,10H
+ 0b6d  89 d1                             mov     ecx,edx
+ 0b6f  8b 68 53                          mov     ebp,+53H[eax]
+ 0b72  29 f1                             sub     ecx,esi
+ 0b74  85 ed                             test    ebp,ebp
+ 0b76  74 18                             je      L81
+ 0b78  f6 45 08 08                       test    byte ptr +8H[ebp],08H
+ 0b7c  74 12                             je      L81
+ 0b7e  c1 e2 03                          shl     edx,03H
+ 0b81  89 d0                             mov     eax,edx
+ 0b83  c1 fa 1f                          sar     edx,1fH
+ 0b86  c1 e2 04                          shl     edx,04H
+ 0b89  1b c2                             sbb     eax,edx
+ 0b8b  c1 f8 04                          sar     eax,04H
+ 0b8e  29 c1                             sub     ecx,eax
+ 0b90  85 c9             L81             test    ecx,ecx
+ 0b92  7d 02                             jge     L82
+ 0b94  31 c9                             xor     ecx,ecx
+ 0b96  83 f9 32          L82             cmp     ecx,00000032H
+ 0b99  7d 19                             jge     L83
+ 0b9b  ba 32 00 00 00                    mov     edx,00000032H
+ 0ba0  29 ca                             sub     edx,ecx
+ 0ba2  c1 e2 12                          shl     edx,12H
+ 0ba5  b9 32 00 00 00                    mov     ecx,00000032H
+ 0baa  89 d0                             mov     eax,edx
+ 0bac  c1 fa 1f                          sar     edx,1fH
+ 0baf  f7 f9                             idiv    ecx
+ 0bb1  01 43 15                          add     +15H[ebx],eax
+ 0bb4  5d                L83             pop     ebp
+ 0bb5  5f                                pop     edi
+ 0bb6  5e                                pop     esi
+ 0bb7  5a                                pop     edx
+ 0bb8  59                                pop     ecx
+ 0bb9  5b                                pop     ebx
+ 0bba  c3                                ret     
+ 0bbb  90                                nop     
+ 0bbc                    bgchunk near * near bgobject::getchunkptr( int, int ):
+ 0bbc  51                                push    ecx
+ 0bbd  56                                push    esi
+ 0bbe  55                                push    ebp
+ 0bbf  89 c6                             mov     esi,eax
+ 0bc1  89 d9                             mov     ecx,ebx
+ 0bc3  8b 58 26                          mov     ebx,+26H[eax]
+ 0bc6  29 da                             sub     edx,ebx
+ 0bc8  89 d3                             mov     ebx,edx
+ 0bca  85 d2                             test    edx,edx
+ 0bcc  7d 04                             jge     L84
+ 0bce  31 d3                             xor     ebx,edx
+ 0bd0  eb 61                             jmp     L87
+ 0bd2  2b 48 2a          L84             sub     ecx,+2aH[eax]
+ 0bd5  85 c9                             test    ecx,ecx
+ 0bd7  7d 08                             jge     L85
+ 0bd9  31 d3                             xor     ebx,edx
+ 0bdb  89 d8                             mov     eax,ebx
+ 0bdd  5d                                pop     ebp
+ 0bde  5e                                pop     esi
+ 0bdf  59                                pop     ecx
+ 0be0  c3                                ret     
+ 0be1  89 d0             L85             mov     eax,edx
+ 0be3  c1 fa 1f                          sar     edx,1fH
+ 0be6  c1 e2 06                          shl     edx,06H
+ 0be9  1b c2                             sbb     eax,edx
+ 0beb  c1 f8 06                          sar     eax,06H
+ 0bee  89 c3                             mov     ebx,eax
+ 0bf0  89 ca                             mov     edx,ecx
+ 0bf2  89 c8                             mov     eax,ecx
+ 0bf4  c1 fa 1f                          sar     edx,1fH
+ 0bf7  c1 e2 06                          shl     edx,06H
+ 0bfa  1b c2                             sbb     eax,edx
+ 0bfc  c1 f8 06                          sar     eax,06H
+ 0bff  89 c1                             mov     ecx,eax
+ 0c01  85 db                             test    ebx,ebx
+ 0c03  7c 2c                             jl      L86
+ 0c05  85 c0                             test    eax,eax
+ 0c07  7c 28                             jl      L86
+ 0c09  8b 6e 3a                          mov     ebp,+3aH[esi]
+ 0c0c  39 eb                             cmp     ebx,ebp
+ 0c0e  7d 21                             jge     L86
+ 0c10  3b 4e 3e                          cmp     ecx,+3eH[esi]
+ 0c13  7d 1c                             jge     L86
+ 0c15  0f af cd                          imul    ecx,ebp
+ 0c18  01 d9                             add     ecx,ebx
+ 0c1a  8d 1c cd 00 00 00 
+       00                                lea     ebx,+0H[ecx*8]
+ 0c21  29 cb                             sub     ebx,ecx
+ 0c23  8b 56 42                          mov     edx,+42H[esi]
+ 0c26  c1 e3 02                          shl     ebx,02H
+ 0c29  01 d3                             add     ebx,edx
+ 0c2b  89 d8                             mov     eax,ebx
+ 0c2d  5d                                pop     ebp
+ 0c2e  5e                                pop     esi
+ 0c2f  59                                pop     ecx
+ 0c30  c3                                ret     
+ 0c31  31 db             L86             xor     ebx,ebx
+ 0c33  89 d8             L87             mov     eax,ebx
+ 0c35  5d                                pop     ebp
+ 0c36  5e                                pop     esi
+ 0c37  59                                pop     ecx
+ 0c38  c3                                ret     
+ 0c39  8d 40 00                          lea     eax,+0H[eax]
+ 0c3c                    void near bgobject::drawbgscr( char near * ):
+ 0c3c  53                                push    ebx
+ 0c3d  51                                push    ecx
+ 0c3e  56                                push    esi
+ 0c3f  57                                push    edi
+ 0c40  55                                push    ebp
+ 0c41  83 ec 18                          sub     esp,00000018H
+ 0c44  89 44 24 0c                       mov     +0cH[esp],eax
+ 0c48  89 54 24 08                       mov     +8H[esp],edx
+ 0c4c  8b 70 0d                          mov     esi,+0dH[eax]
+ 0c4f  bb c8 00 00 00                    mov     ebx,000000c8H
+ 0c54  c1 fe 13                          sar     esi,13H
+ 0c57  8b 78 09                          mov     edi,+9H[eax]
+ 0c5a  89 f2                             mov     edx,esi
+ 0c5c  89 f0                             mov     eax,esi
+ 0c5e  c1 fa 1f                          sar     edx,1fH
+ 0c61  f7 fb                             idiv    ebx
+ 0c63  89 c5                             mov     ebp,eax
+ 0c65  89 f2                             mov     edx,esi
+ 0c67  89 f0                             mov     eax,esi
+ 0c69  c1 fa 1f                          sar     edx,1fH
+ 0c6c  f7 fb                             idiv    ebx
+ 0c6e  c1 ff 13                          sar     edi,13H
+ 0c71  89 54 24 10                       mov     +10H[esp],edx
+ 0c75  f7 da                             neg     edx
+ 0c77  8b 1d 00 00 00 00                 mov     ebx,_SCREENY
+ 0c7d  89 54 24 10                       mov     +10H[esp],edx
+ 0c81  39 da                             cmp     edx,ebx
+ 0c83  0f 8d ba 00 00 00                 jge     L93
+ 0c89  bb 40 01 00 00                    mov     ebx,00000140H
+ 0c8e  89 fa                             mov     edx,edi
+ 0c90  89 f8                             mov     eax,edi
+ 0c92  c1 fa 1f                          sar     edx,1fH
+ 0c95  f7 fb                             idiv    ebx
+ 0c97  89 44 24 04                       mov     +4H[esp],eax
+ 0c9b  89 fa                             mov     edx,edi
+ 0c9d  89 f8                             mov     eax,edi
+ 0c9f  c1 fa 1f                          sar     edx,1fH
+ 0ca2  f7 fb                             idiv    ebx
+ 0ca4  89 14 24                          mov     [esp],edx
+ 0ca7  8b 34 24          L88             mov     esi,[esp]
+ 0caa  a1 00 00 00 00                    mov     eax,_SCREENX
+ 0caf  f7 de                             neg     esi
+ 0cb1  8b 7c 24 04                       mov     edi,+4H[esp]
+ 0cb5  39 c6                             cmp     esi,eax
+ 0cb7  7c 1f                             jl      L90
+ 0cb9  8b 4c 24 10       L89             mov     ecx,+10H[esp]
+ 0cbd  8b 35 00 00 00 00                 mov     esi,_SCREENY
+ 0cc3  81 c1 c8 00 00 00                 add     ecx,000000c8H
+ 0cc9  45                                inc     ebp
+ 0cca  89 4c 24 10                       mov     +10H[esp],ecx
+ 0cce  39 f1                             cmp     ecx,esi
+ 0cd0  0f 8d 6d 00 00 00                 jge     L93
+ 0cd6  eb cf                             jmp     L88
+ 0cd8  89 f8             L90             mov     eax,edi
+ 0cda  c1 e0 06                          shl     eax,06H
+ 0cdd  89 44 24 14                       mov     +14H[esp],eax
+ 0ce1  85 ff             L91             test    edi,edi
+ 0ce3  7c 3c                             jl      L92
+ 0ce5  85 ed                             test    ebp,ebp
+ 0ce7  7c 38                             jl      L92
+ 0ce9  83 ff 40                          cmp     edi,00000040H
+ 0cec  7d 33                             jge     L92
+ 0cee  83 fd 40                          cmp     ebp,00000040H
+ 0cf1  7d 2e                             jge     L92
+ 0cf3  8b 44 24 0c                       mov     eax,+0cH[esp]
+ 0cf7  8b 40 05                          mov     eax,+5H[eax]
+ 0cfa  8b 4c 24 14                       mov     ecx,+14H[esp]
+ 0cfe  8b 50 73                          mov     edx,+73H[eax]
+ 0d01  01 ca                             add     edx,ecx
+ 0d03  8a 14 2a                          mov     dl,[edx+ebp]
+ 0d06  81 e2 ff 00 00 00                 and     edx,000000ffH
+ 0d0c  8b 40 6b                          mov     eax,+6bH[eax]
+ 0d0f  8b 4c 24 10                       mov     ecx,+10H[esp]
+ 0d13  89 f3                             mov     ebx,esi
+ 0d15  8b 04 90                          mov     eax,[eax+edx*4]
+ 0d18  8b 54 24 08                       mov     edx,+8H[esp]
+ 0d1c  e8 00 00 00 00                    call    void near SCR::draw( char near *, int, int )
+ 0d21  8b 54 24 14       L92             mov     edx,+14H[esp]
+ 0d25  8b 1d 00 00 00 00                 mov     ebx,_SCREENX
+ 0d2b  81 c6 40 01 00 00                 add     esi,00000140H
+ 0d31  83 c2 40                          add     edx,00000040H
+ 0d34  47                                inc     edi
+ 0d35  89 54 24 14                       mov     +14H[esp],edx
+ 0d39  39 de                             cmp     esi,ebx
+ 0d3b  0f 8d 78 ff ff ff                 jge     L89
+ 0d41  eb 9e                             jmp     L91
+ 0d43  83 c4 18          L93             add     esp,00000018H
+ 0d46  5d                                pop     ebp
+ 0d47  5f                                pop     edi
+ 0d48  5e                                pop     esi
+ 0d49  59                                pop     ecx
+ 0d4a  5b                                pop     ebx
+ 0d4b  c3                                ret     
+ 0d4c                    void near bgobject::drawbg( char near * ):
+ 0d4c  53                                push    ebx
+ 0d4d  51                                push    ecx
+ 0d4e  56                                push    esi
+ 0d4f  57                                push    edi
+ 0d50  55                                push    ebp
+ 0d51  83 ec 28                          sub     esp,00000028H
+ 0d54  89 04 24                          mov     [esp],eax
+ 0d57  89 d5                             mov     ebp,edx
+ 0d59  8b 40 05                          mov     eax,+5H[eax]
+ 0d5c  f6 40 04 01                       test    byte ptr +4H[eax],01H
+ 0d60  0f 84 84 02 00 00                 je      L101
+ 0d66  8b 04 24                          mov     eax,[esp]
+ 0d69  8b 40 09                          mov     eax,+9H[eax]
+ 0d6c  c1 f8 10                          sar     eax,10H
+ 0d6f  89 44 24 24                       mov     +24H[esp],eax
+ 0d73  8b 04 24                          mov     eax,[esp]
+ 0d76  8b 40 0d                          mov     eax,+0dH[eax]
+ 0d79  c1 f8 10                          sar     eax,10H
+ 0d7c  89 ea                             mov     edx,ebp
+ 0d7e  89 44 24 20                       mov     +20H[esp],eax
+ 0d82  8b 04 24                          mov     eax,[esp]
+ 0d85  e8 00 00 00 00                    call    void near bgobject::drawbgscr( char near * )
+ 0d8a  8b 04 24                          mov     eax,[esp]
+ 0d8d  f6 40 25 01                       test    byte ptr +25H[eax],01H
+ 0d91  0f 85 fa 00 00 00                 jne     L97
+ 0d97  8b 70 05                          mov     esi,+5H[eax]
+ 0d9a  8b 5e 63                          mov     ebx,+63H[esi]
+ 0d9d  8b 76 5f                          mov     esi,+5fH[esi]
+ 0da0  eb 78                             jmp     L96
+ 0da2  8a 43 01          L94             mov     al,+1H[ebx]
+ 0da5  24 03                             and     al,03H
+ 0da7  25 ff 00 00 00                    and     eax,000000ffH
+ 0dac  8b 7b 04                          mov     edi,+4H[ebx]
+ 0daf  89 44 24 04                       mov     +4H[esp],eax
+ 0db3  c1 ff 10                          sar     edi,10H
+ 0db6  8b 44 24 20                       mov     eax,+20H[esp]
+ 0dba  8d 97 80 00 00 00                 lea     edx,+80H[edi]
+ 0dc0  0f af d0                          imul    edx,eax
+ 0dc3  89 d0                             mov     eax,edx
+ 0dc5  c1 fa 1f                          sar     edx,1fH
+ 0dc8  c1 e2 07                          shl     edx,07H
+ 0dcb  1b c2                             sbb     eax,edx
+ 0dcd  c1 f8 07                          sar     eax,07H
+ 0dd0  8b 53 02                          mov     edx,+2H[ebx]
+ 0dd3  c1 fa 10                          sar     edx,10H
+ 0dd6  29 c2                             sub     edx,eax
+ 0dd8  89 54 24 08                       mov     +8H[esp],edx
+ 0ddc  8d 57 40                          lea     edx,+40H[edi]
+ 0ddf  8b 7c 24 24                       mov     edi,+24H[esp]
+ 0de3  0f af d7                          imul    edx,edi
+ 0de6  89 d0                             mov     eax,edx
+ 0de8  c1 fa 1f                          sar     edx,1fH
+ 0deb  c1 e2 06                          shl     edx,06H
+ 0dee  1b c2                             sbb     eax,edx
+ 0df0  c1 f8 06                          sar     eax,06H
+ 0df3  8b 13                             mov     edx,[ebx]
+ 0df5  c1 fa 10                          sar     edx,10H
+ 0df8  29 c2                             sub     edx,eax
+ 0dfa  31 c0                             xor     eax,eax
+ 0dfc  8a 03                             mov     al,[ebx]
+ 0dfe  8b 04 81                          mov     eax,[ecx+eax*4]
+ 0e01  8b 4c 24 04                       mov     ecx,+4H[esp]
+ 0e05  51                                push    ecx
+ 0e06  8b 7c 24 0c                       mov     edi,+0cH[esp]
+ 0e0a  57                                push    edi
+ 0e0b  52                                push    edx
+ 0e0c  55                                push    ebp
+ 0e0d  50                                push    eax
+ 0e0e  e8 00 00 00 00                    call    _drawimager2
+ 0e13  83 c4 14                          add     esp,00000014H
+ 0e16  4e                L95             dec     esi
+ 0e17  83 c3 08                          add     ebx,00000008H
+ 0e1a  85 f6             L96             test    esi,esi
+ 0e1c  0f 8e c8 01 00 00                 jle     L101
+ 0e22  8b 0c 24                          mov     ecx,[esp]
+ 0e25  31 c0                             xor     eax,eax
+ 0e27  8b 49 05                          mov     ecx,+5H[ecx]
+ 0e2a  8a 03                             mov     al,[ebx]
+ 0e2c  8b 49 1b                          mov     ecx,+1bH[ecx]
+ 0e2f  3d ff 00 00 00                    cmp     eax,000000ffH
+ 0e34  74 e0                             je      L95
+ 0e36  8b 43 04                          mov     eax,+4H[ebx]
+ 0e39  c1 f8 10                          sar     eax,10H
+ 0e3c  99                                cdq     
+ 0e3d  31 d0                             xor     eax,edx
+ 0e3f  29 d0                             sub     eax,edx
+ 0e41  83 f8 05                          cmp     eax,00000005H
+ 0e44  0f 8d 58 ff ff ff                 jge     L94
+ 0e4a  8a 43 01                          mov     al,+1H[ebx]
+ 0e4d  24 03                             and     al,03H
+ 0e4f  25 ff 00 00 00                    and     eax,000000ffH
+ 0e54  89 44 24 04                       mov     +4H[esp],eax
+ 0e58  8b 43 02                          mov     eax,+2H[ebx]
+ 0e5b  8b 54 24 20                       mov     edx,+20H[esp]
+ 0e5f  c1 f8 10                          sar     eax,10H
+ 0e62  29 d0                             sub     eax,edx
+ 0e64  31 d2                             xor     edx,edx
+ 0e66  8b 7c 24 24                       mov     edi,+24H[esp]
+ 0e6a  8a 13                             mov     dl,[ebx]
+ 0e6c  89 44 24 08                       mov     +8H[esp],eax
+ 0e70  8b 03                             mov     eax,[ebx]
+ 0e72  8b 14 91                          mov     edx,[ecx+edx*4]
+ 0e75  8b 4c 24 04                       mov     ecx,+4H[esp]
+ 0e79  c1 f8 10                          sar     eax,10H
+ 0e7c  51                                push    ecx
+ 0e7d  29 f8                             sub     eax,edi
+ 0e7f  8b 7c 24 0c                       mov     edi,+0cH[esp]
+ 0e83  57                                push    edi
+ 0e84  50                                push    eax
+ 0e85  55                                push    ebp
+ 0e86  52                                push    edx
+ 0e87  e8 00 00 00 00                    call    _drawimager2
+ 0e8c  83 c4 14                          add     esp,00000014H
+ 0e8f  eb 85                             jmp     L95
+ 0e91  8b 5c 24 20       L97             mov     ebx,+20H[esp]
+ 0e95  8b 54 24 24                       mov     edx,+24H[esp]
+ 0e99  e8 00 00 00 00                    call    bgchunk near * near bgobject::getchunkptr( int, int )
+ 0e9e  85 c0                             test    eax,eax
+ 0ea0  0f 84 44 01 00 00                 je      L101
+ 0ea6  8b 54 24 24                       mov     edx,+24H[esp]
+ 0eaa  89 54 24 0c                       mov     +0cH[esp],edx
+ 0eae  8b 54 24 20                       mov     edx,+20H[esp]
+ 0eb2  89 54 24 1c                       mov     +1cH[esp],edx
+ 0eb6  8b 14 24                          mov     edx,[esp]
+ 0eb9  89 44 24 10                       mov     +10H[esp],eax
+ 0ebd  8b 52 05                          mov     edx,+5H[edx]
+ 0ec0  89 6c 24 18                       mov     +18H[esp],ebp
+ 0ec4  89 54 24 14                       mov     +14H[esp],edx
+ 0ec8  8b 50 08                          mov     edx,+8H[eax]
+ 0ecb  31 f6                             xor     esi,esi
+ 0ecd  85 d2                             test    edx,edx
+ 0ecf  0f 8e 15 01 00 00                 jle     L101
+ 0ed5  31 ff                             xor     edi,edi
+ 0ed7  8b 44 24 10       L98             mov     eax,+10H[esp]
+ 0edb  8b 40 04                          mov     eax,+4H[eax]
+ 0ede  8b 1c 07                          mov     ebx,[edi+eax]
+ 0ee1  8b 44 24 14                       mov     eax,+14H[esp]
+ 0ee5  c1 e3 03                          shl     ebx,03H
+ 0ee8  8b 40 63                          mov     eax,+63H[eax]
+ 0eeb  01 c3                             add     ebx,eax
+ 0eed  31 c0                             xor     eax,eax
+ 0eef  8b 6c 24 14                       mov     ebp,+14H[esp]
+ 0ef3  8a 03                             mov     al,[ebx]
+ 0ef5  8b 6d 1b                          mov     ebp,+1bH[ebp]
+ 0ef8  3d ff 00 00 00                    cmp     eax,000000ffH
+ 0efd  74 55                             je      L99
+ 0eff  8b 43 04                          mov     eax,+4H[ebx]
+ 0f02  c1 f8 10                          sar     eax,10H
+ 0f05  99                                cdq     
+ 0f06  31 d0                             xor     eax,edx
+ 0f08  29 d0                             sub     eax,edx
+ 0f0a  83 f8 05                          cmp     eax,00000005H
+ 0f0d  7d 5d                             jge     L100
+ 0f0f  8a 43 01                          mov     al,+1H[ebx]
+ 0f12  31 d2                             xor     edx,edx
+ 0f14  24 03                             and     al,03H
+ 0f16  88 c2                             mov     dl,al
+ 0f18  8b 43 02                          mov     eax,+2H[ebx]
+ 0f1b  8b 4c 24 1c                       mov     ecx,+1cH[esp]
+ 0f1f  c1 f8 10                          sar     eax,10H
+ 0f22  29 c8                             sub     eax,ecx
+ 0f24  89 44 24 04                       mov     +4H[esp],eax
+ 0f28  8b 03                             mov     eax,[ebx]
+ 0f2a  8b 4c 24 0c                       mov     ecx,+0cH[esp]
+ 0f2e  c1 f8 10                          sar     eax,10H
+ 0f31  8a 1b                             mov     bl,[ebx]
+ 0f33  29 c8                             sub     eax,ecx
+ 0f35  81 e3 ff 00 00 00                 and     ebx,000000ffH
+ 0f3b  52                                push    edx
+ 0f3c  8b 5c 9d 00                       mov     ebx,+0H[ebp+ebx*4]
+ 0f40  8b 6c 24 08                       mov     ebp,+8H[esp]
+ 0f44  55                                push    ebp
+ 0f45  50                                push    eax
+ 0f46  8b 44 24 24                       mov     eax,+24H[esp]
+ 0f4a  50                                push    eax
+ 0f4b  53                                push    ebx
+ 0f4c  e8 00 00 00 00                    call    _drawimager2
+ 0f51  83 c4 14                          add     esp,00000014H
+ 0f54  8b 44 24 10       L99             mov     eax,+10H[esp]
+ 0f58  46                                inc     esi
+ 0f59  8b 68 08                          mov     ebp,+8H[eax]
+ 0f5c  83 c7 04                          add     edi,00000004H
+ 0f5f  39 ee                             cmp     esi,ebp
+ 0f61  0f 8d 83 00 00 00                 jge     L101
+ 0f67  e9 6b ff ff ff                    jmp     L98
+ 0f6c  8a 43 01          L100            mov     al,+1H[ebx]
+ 0f6f  24 03                             and     al,03H
+ 0f71  25 ff 00 00 00                    and     eax,000000ffH
+ 0f76  8b 4b 04                          mov     ecx,+4H[ebx]
+ 0f79  89 44 24 08                       mov     +8H[esp],eax
+ 0f7d  c1 f9 10                          sar     ecx,10H
+ 0f80  8b 44 24 1c                       mov     eax,+1cH[esp]
+ 0f84  8d 91 80 00 00 00                 lea     edx,+80H[ecx]
+ 0f8a  0f af d0                          imul    edx,eax
+ 0f8d  89 d0                             mov     eax,edx
+ 0f8f  c1 fa 1f                          sar     edx,1fH
+ 0f92  c1 e2 07                          shl     edx,07H
+ 0f95  1b c2                             sbb     eax,edx
+ 0f97  c1 f8 07                          sar     eax,07H
+ 0f9a  8b 53 02                          mov     edx,+2H[ebx]
+ 0f9d  c1 fa 10                          sar     edx,10H
+ 0fa0  29 c2                             sub     edx,eax
+ 0fa2  89 54 24 04                       mov     +4H[esp],edx
+ 0fa6  8d 51 40                          lea     edx,+40H[ecx]
+ 0fa9  8b 4c 24 0c                       mov     ecx,+0cH[esp]
+ 0fad  0f af d1                          imul    edx,ecx
+ 0fb0  89 d0                             mov     eax,edx
+ 0fb2  c1 fa 1f                          sar     edx,1fH
+ 0fb5  c1 e2 06                          shl     edx,06H
+ 0fb8  1b c2                             sbb     eax,edx
+ 0fba  c1 f8 06                          sar     eax,06H
+ 0fbd  8b 13                             mov     edx,[ebx]
+ 0fbf  c1 fa 10                          sar     edx,10H
+ 0fc2  29 c2                             sub     edx,eax
+ 0fc4  31 c0                             xor     eax,eax
+ 0fc6  8a 03                             mov     al,[ebx]
+ 0fc8  8b 44 85 00                       mov     eax,+0H[ebp+eax*4]
+ 0fcc  8b 6c 24 08                       mov     ebp,+8H[esp]
+ 0fd0  55                                push    ebp
+ 0fd1  8b 5c 24 08                       mov     ebx,+8H[esp]
+ 0fd5  53                                push    ebx
+ 0fd6  52                                push    edx
+ 0fd7  8b 4c 24 24                       mov     ecx,+24H[esp]
+ 0fdb  51                                push    ecx
+ 0fdc  50                                push    eax
+ 0fdd  e8 00 00 00 00                    call    _drawimager2
+ 0fe2  83 c4 14                          add     esp,00000014H
+ 0fe5  e9 6a ff ff ff                    jmp     L99
+ 0fea  83 c4 28          L101            add     esp,00000028H
+ 0fed  5d                                pop     ebp
+ 0fee  5f                                pop     edi
+ 0fef  5e                                pop     esi
+ 0ff0  59                                pop     ecx
+ 0ff1  5b                                pop     ebx
+ 0ff2  c3                                ret     
+ 0ff3  90                                nop     
+ 0ff4                    void near bgobject::drawfg( char near * ):
+ 0ff4  53                                push    ebx
+ 0ff5  51                                push    ecx
+ 0ff6  56                                push    esi
+ 0ff7  57                                push    edi
+ 0ff8  55                                push    ebp
+ 0ff9  83 ec 1c                          sub     esp,0000001cH
+ 0ffc  89 c1                             mov     ecx,eax
+ 0ffe  89 d5                             mov     ebp,edx
+ 1000  8b 40 05                          mov     eax,+5H[eax]
+ 1003  f6 40 04 01                       test    byte ptr +4H[eax],01H
+ 1007  0f 84 69 01 00 00                 je      L105
+ 100d  8b 79 09                          mov     edi,+9H[ecx]
+ 1010  8b 71 0d                          mov     esi,+0dH[ecx]
+ 1013  8a 71 25                          mov     dh,+25H[ecx]
+ 1016  c1 ff 10                          sar     edi,10H
+ 1019  c1 fe 10                          sar     esi,10H
+ 101c  f6 c6 01                          test    dh,01H
+ 101f  0f 84 51 01 00 00                 je      L105
+ 1025  89 f3                             mov     ebx,esi
+ 1027  89 fa                             mov     edx,edi
+ 1029  89 c8                             mov     eax,ecx
+ 102b  e8 00 00 00 00                    call    bgchunk near * near bgobject::getchunkptr( int, int )
+ 1030  85 c0                             test    eax,eax
+ 1032  0f 84 3e 01 00 00                 je      L105
+ 1038  89 44 24 10                       mov     +10H[esp],eax
+ 103c  89 6c 24 14                       mov     +14H[esp],ebp
+ 1040  8b 51 05                          mov     edx,+5H[ecx]
+ 1043  89 74 24 0c                       mov     +0cH[esp],esi
+ 1047  89 54 24 18                       mov     +18H[esp],edx
+ 104b  8b 70 08                          mov     esi,+8H[eax]
+ 104e  8b 10                             mov     edx,[eax]
+ 1050  89 3c 24                          mov     [esp],edi
+ 1053  39 d6                             cmp     esi,edx
+ 1055  0f 8d 1b 01 00 00                 jge     L105
+ 105b  8d 3c b5 00 00 00 
+       00                                lea     edi,+0H[esi*4]
+ 1062  8b 44 24 10       L102            mov     eax,+10H[esp]
+ 1066  8b 40 04                          mov     eax,+4H[eax]
+ 1069  8b 1c 07                          mov     ebx,[edi+eax]
+ 106c  8b 44 24 18                       mov     eax,+18H[esp]
+ 1070  c1 e3 03                          shl     ebx,03H
+ 1073  8b 40 63                          mov     eax,+63H[eax]
+ 1076  01 c3                             add     ebx,eax
+ 1078  31 c0                             xor     eax,eax
+ 107a  8b 6c 24 18                       mov     ebp,+18H[esp]
+ 107e  8a 03                             mov     al,[ebx]
+ 1080  8b 6d 1b                          mov     ebp,+1bH[ebp]
+ 1083  3d ff 00 00 00                    cmp     eax,000000ffH
+ 1088  74 58                             je      L103
+ 108a  8b 43 04                          mov     eax,+4H[ebx]
+ 108d  c1 f8 10                          sar     eax,10H
+ 1090  99                                cdq     
+ 1091  31 d0                             xor     eax,edx
+ 1093  29 d0                             sub     eax,edx
+ 1095  83 f8 05                          cmp     eax,00000005H
+ 1098  7d 5f                             jge     L104
+ 109a  8a 43 01                          mov     al,+1H[ebx]
+ 109d  31 d2                             xor     edx,edx
+ 109f  24 03                             and     al,03H
+ 10a1  88 c2                             mov     dl,al
+ 10a3  8b 43 02                          mov     eax,+2H[ebx]
+ 10a6  8b 4c 24 0c                       mov     ecx,+0cH[esp]
+ 10aa  c1 f8 10                          sar     eax,10H
+ 10ad  29 c8                             sub     eax,ecx
+ 10af  89 44 24 04                       mov     +4H[esp],eax
+ 10b3  8b 03                             mov     eax,[ebx]
+ 10b5  8b 0c 24                          mov     ecx,[esp]
+ 10b8  c1 f8 10                          sar     eax,10H
+ 10bb  29 c8                             sub     eax,ecx
+ 10bd  89 44 24 08                       mov     +8H[esp],eax
+ 10c1  31 c0                             xor     eax,eax
+ 10c3  8a 03                             mov     al,[ebx]
+ 10c5  52                                push    edx
+ 10c6  8b 44 85 00                       mov     eax,+0H[ebp+eax*4]
+ 10ca  8b 6c 24 08                       mov     ebp,+8H[esp]
+ 10ce  55                                push    ebp
+ 10cf  8b 54 24 10                       mov     edx,+10H[esp]
+ 10d3  52                                push    edx
+ 10d4  8b 5c 24 20                       mov     ebx,+20H[esp]
+ 10d8  53                                push    ebx
+ 10d9  50                                push    eax
+ 10da  e8 00 00 00 00                    call    _drawimager2
+ 10df  83 c4 14                          add     esp,00000014H
+ 10e2  8b 44 24 10       L103            mov     eax,+10H[esp]
+ 10e6  46                                inc     esi
+ 10e7  8b 18                             mov     ebx,[eax]
+ 10e9  83 c7 04                          add     edi,00000004H
+ 10ec  39 de                             cmp     esi,ebx
+ 10ee  0f 8d 82 00 00 00                 jge     L105
+ 10f4  e9 69 ff ff ff                    jmp     L102
+ 10f9  8a 43 01          L104            mov     al,+1H[ebx]
+ 10fc  24 03                             and     al,03H
+ 10fe  25 ff 00 00 00                    and     eax,000000ffH
+ 1103  8b 4b 04                          mov     ecx,+4H[ebx]
+ 1106  89 44 24 08                       mov     +8H[esp],eax
+ 110a  c1 f9 10                          sar     ecx,10H
+ 110d  8b 44 24 0c                       mov     eax,+0cH[esp]
+ 1111  8d 91 80 00 00 00                 lea     edx,+80H[ecx]
+ 1117  0f af d0                          imul    edx,eax
+ 111a  89 d0                             mov     eax,edx
+ 111c  c1 fa 1f                          sar     edx,1fH
+ 111f  c1 e2 07                          shl     edx,07H
+ 1122  1b c2                             sbb     eax,edx
+ 1124  c1 f8 07                          sar     eax,07H
+ 1127  8b 53 02                          mov     edx,+2H[ebx]
+ 112a  c1 fa 10                          sar     edx,10H
+ 112d  29 c2                             sub     edx,eax
+ 112f  89 54 24 04                       mov     +4H[esp],edx
+ 1133  8d 51 40                          lea     edx,+40H[ecx]
+ 1136  8b 0c 24                          mov     ecx,[esp]
+ 1139  0f af d1                          imul    edx,ecx
+ 113c  89 d0                             mov     eax,edx
+ 113e  c1 fa 1f                          sar     edx,1fH
+ 1141  c1 e2 06                          shl     edx,06H
+ 1144  1b c2                             sbb     eax,edx
+ 1146  c1 f8 06                          sar     eax,06H
+ 1149  8b 13                             mov     edx,[ebx]
+ 114b  c1 fa 10                          sar     edx,10H
+ 114e  29 c2                             sub     edx,eax
+ 1150  31 c0                             xor     eax,eax
+ 1152  8a 03                             mov     al,[ebx]
+ 1154  8b 44 85 00                       mov     eax,+0H[ebp+eax*4]
+ 1158  8b 6c 24 08                       mov     ebp,+8H[esp]
+ 115c  55                                push    ebp
+ 115d  8b 5c 24 08                       mov     ebx,+8H[esp]
+ 1161  53                                push    ebx
+ 1162  52                                push    edx
+ 1163  8b 4c 24 20                       mov     ecx,+20H[esp]
+ 1167  51                                push    ecx
+ 1168  50                                push    eax
+ 1169  e8 00 00 00 00                    call    _drawimager2
+ 116e  83 c4 14                          add     esp,00000014H
+ 1171  e9 6c ff ff ff                    jmp     L103
+ 1176  83 c4 1c          L105            add     esp,0000001cH
+ 1179  5d                                pop     ebp
+ 117a  5f                                pop     edi
+ 117b  5e                                pop     esi
+ 117c  59                                pop     ecx
+ 117d  5b                                pop     ebx
+ 117e  c3                                ret     
+ 117f  90                                nop     
+ 1180                    void near bgobject::drawbglines( char near * ):
+ 1180  53                                push    ebx
+ 1181  51                                push    ecx
+ 1182  56                                push    esi
+ 1183  57                                push    edi
+ 1184  55                                push    ebp
+ 1185  83 ec 10                          sub     esp,00000010H
+ 1188  89 44 24 08                       mov     +8H[esp],eax
+ 118c  89 54 24 0c                       mov     +0cH[esp],edx
+ 1190  31 d2                             xor     edx,edx
+ 1192  89 14 24                          mov     [esp],edx
+ 1195  89 54 24 04                       mov     +4H[esp],edx
+ 1199  e9 26 01 00 00                    jmp     L110
+ 119e  8b 1d 1c 00 00 00 L106            mov     ebx,A95VOL near a95vol+1cH
+ 11a4  8b 43 0c                          mov     eax,+0cH[ebx]
+ 11a7  89 c2                             mov     edx,eax
+ 11a9  c1 fa 1f                          sar     edx,1fH
+ 11ac  2b c2                             sub     eax,edx
+ 11ae  d1 f8                             sar     eax,1
+ 11b0  8b 56 03                          mov     edx,+3H[esi]
+ 11b3  01 c7                             add     edi,eax
+ 11b5  c1 fa 10                          sar     edx,10H
+ 11b8  6a 00                             push    00000000H
+ 11ba  29 fa                             sub     edx,edi
+ 11bc  0f bf 46 01                       movsx   eax,word ptr +1H[esi]
+ 11c0  52                                push    edx
+ 11c1  29 e8                             sub     eax,ebp
+ 11c3  50                                push    eax
+ 11c4  8b 4c 24 18                       mov     ecx,+18H[esp]
+ 11c8  51                                push    ecx
+ 11c9  53                                push    ebx
+ 11ca  e8 00 00 00 00                    call    _drawimager2
+ 11cf  83 c4 14                          add     esp,00000014H
+ 11d2  8b 5e 05                          mov     ebx,+5H[esi]
+ 11d5  8b 46 01                          mov     eax,+1H[esi]
+ 11d8  c1 fb 10                          sar     ebx,10H
+ 11db  6a 00                             push    00000000H
+ 11dd  29 fb                             sub     ebx,edi
+ 11df  c1 f8 10                          sar     eax,10H
+ 11e2  53                                push    ebx
+ 11e3  29 e8                             sub     eax,ebp
+ 11e5  50                                push    eax
+ 11e6  8b 74 24 18                       mov     esi,+18H[esp]
+ 11ea  56                                push    esi
+ 11eb  8b 15 1c 00 00 00                 mov     edx,A95VOL near a95vol+1cH
+ 11f1  52                                push    edx
+ 11f2  e8 00 00 00 00                    call    _drawimager2
+ 11f7  83 c4 14                          add     esp,00000014H
+ 11fa  e9 b3 00 00 00                    jmp     L109
+ 11ff  8b 1d 20 00 00 00 L107            mov     ebx,A95VOL near a95vol+20H
+ 1205  03 6b 08                          add     ebp,+8H[ebx]
+ 1208  8b 43 0c                          mov     eax,+0cH[ebx]
+ 120b  89 c2                             mov     edx,eax
+ 120d  c1 fa 1f                          sar     edx,1fH
+ 1210  2b c2                             sub     eax,edx
+ 1212  d1 f8                             sar     eax,1
+ 1214  8b 56 03                          mov     edx,+3H[esi]
+ 1217  01 c7                             add     edi,eax
+ 1219  c1 fa 10                          sar     edx,10H
+ 121c  6a 00                             push    00000000H
+ 121e  29 fa                             sub     edx,edi
+ 1220  0f bf 46 01                       movsx   eax,word ptr +1H[esi]
+ 1224  52                                push    edx
+ 1225  29 e8                             sub     eax,ebp
+ 1227  50                                push    eax
+ 1228  8b 54 24 18                       mov     edx,+18H[esp]
+ 122c  52                                push    edx
+ 122d  53                                push    ebx
+ 122e  e8 00 00 00 00                    call    _drawimager2
+ 1233  83 c4 14                          add     esp,00000014H
+ 1236  8b 5e 05                          mov     ebx,+5H[esi]
+ 1239  8b 56 01                          mov     edx,+1H[esi]
+ 123c  c1 fb 10                          sar     ebx,10H
+ 123f  6a 00                             push    00000000H
+ 1241  29 fb                             sub     ebx,edi
+ 1243  c1 fa 10                          sar     edx,10H
+ 1246  53                                push    ebx
+ 1247  29 ea                             sub     edx,ebp
+ 1249  52                                push    edx
+ 124a  8b 5c 24 18                       mov     ebx,+18H[esp]
+ 124e  53                                push    ebx
+ 124f  a1 20 00 00 00                    mov     eax,A95VOL near a95vol+20H
+ 1254  50                                push    eax
+ 1255  e8 00 00 00 00                    call    _drawimager2
+ 125a  83 c4 14                          add     esp,00000014H
+ 125d  eb 53                             jmp     L109
+ 125f  8b 6c 24 08       L108            mov     ebp,+8H[esp]
+ 1263  8b 7c 24 08                       mov     edi,+8H[esp]
+ 1267  50                                push    eax
+ 1268  8b 4e 01                          mov     ecx,+1H[esi]
+ 126b  8b 5e 03                          mov     ebx,+3H[esi]
+ 126e  0f bf 56 01                       movsx   edx,word ptr +1H[esi]
+ 1272  c1 f9 10                          sar     ecx,10H
+ 1275  c1 fb 10                          sar     ebx,10H
+ 1278  8b 6d 09                          mov     ebp,+9H[ebp]
+ 127b  8b 7f 0d                          mov     edi,+0dH[edi]
+ 127e  8b 46 05                          mov     eax,+5H[esi]
+ 1281  c1 ff 10                          sar     edi,10H
+ 1284  c1 f8 10                          sar     eax,10H
+ 1287  c1 fd 10                          sar     ebp,10H
+ 128a  29 f8                             sub     eax,edi
+ 128c  29 e9                             sub     ecx,ebp
+ 128e  29 fb                             sub     ebx,edi
+ 1290  50                                push    eax
+ 1291  29 ea                             sub     edx,ebp
+ 1293  8b 44 24 14                       mov     eax,+14H[esp]
+ 1297  e8 00 00 00 00                    call    void near line( char near *, int, int, int, int, int )
+ 129c  8a 1e                             mov     bl,[esi]
+ 129e  80 fb 02                          cmp     bl,02H
+ 12a1  72 0f                             jb      L109
+ 12a3  0f 86 56 ff ff ff                 jbe     L107
+ 12a9  80 fb 03                          cmp     bl,03H
+ 12ac  0f 84 ec fe ff ff                 je      L106
+ 12b2  8b 4c 24 04       L109            mov     ecx,+4H[esp]
+ 12b6  8b 34 24                          mov     esi,[esp]
+ 12b9  83 c1 09                          add     ecx,00000009H
+ 12bc  46                                inc     esi
+ 12bd  89 4c 24 04                       mov     +4H[esp],ecx
+ 12c1  89 34 24                          mov     [esp],esi
+ 12c4  8b 44 24 08       L110            mov     eax,+8H[esp]
+ 12c8  8b 40 05                          mov     eax,+5H[eax]
+ 12cb  8b 14 24                          mov     edx,[esp]
+ 12ce  3b 50 77                          cmp     edx,+77H[eax]
+ 12d1  7d 20                             jge     L111
+ 12d3  8b 5c 24 04                       mov     ebx,+4H[esp]
+ 12d7  8b 70 7b                          mov     esi,+7bH[eax]
+ 12da  01 de                             add     esi,ebx
+ 12dc  31 c0                             xor     eax,eax
+ 12de  8a 06                             mov     al,[esi]
+ 12e0  8a 16                             mov     dl,[esi]
+ 12e2  8b 04 85 00 00 00 
+       00                                mov     eax,int near bglinecolor[][eax*4]
+ 12e9  84 d2                             test    dl,dl
+ 12eb  0f 85 6e ff ff ff                 jne     L108
+ 12f1  eb bf                             jmp     L109
+ 12f3  8b 44 24 08       L111            mov     eax,+8H[esp]
+ 12f7  8b 70 4e                          mov     esi,+4eH[eax]
+ 12fa  85 f6                             test    esi,esi
+ 12fc  0f 84 32 01 00 00                 je      L115
+ 1302  80 3e 00                          cmp     byte ptr [esi],00H
+ 1305  0f 85 d7 00 00 00                 jne     L114
+ 130b  83 c4 10                          add     esp,00000010H
+ 130e  5d                                pop     ebp
+ 130f  5f                                pop     edi
+ 1310  5e                                pop     esi
+ 1311  59                                pop     ecx
+ 1312  5b                                pop     ebx
+ 1313  c3                                ret     
+ 1314  8b 1d 1c 00 00 00 L112            mov     ebx,A95VOL near a95vol+1cH
+ 131a  8b 43 0c                          mov     eax,+0cH[ebx]
+ 131d  89 c2                             mov     edx,eax
+ 131f  c1 fa 1f                          sar     edx,1fH
+ 1322  2b c2                             sub     eax,edx
+ 1324  d1 f8                             sar     eax,1
+ 1326  8b 56 03                          mov     edx,+3H[esi]
+ 1329  01 c7                             add     edi,eax
+ 132b  c1 fa 10                          sar     edx,10H
+ 132e  6a 00                             push    00000000H
+ 1330  29 fa                             sub     edx,edi
+ 1332  0f bf 46 01                       movsx   eax,word ptr +1H[esi]
+ 1336  52                                push    edx
+ 1337  29 e8                             sub     eax,ebp
+ 1339  50                                push    eax
+ 133a  8b 44 24 18                       mov     eax,+18H[esp]
+ 133e  50                                push    eax
+ 133f  53                                push    ebx
+ 1340  e8 00 00 00 00                    call    _drawimager2
+ 1345  83 c4 14                          add     esp,00000014H
+ 1348  8b 5e 05                          mov     ebx,+5H[esi]
+ 134b  8b 46 01                          mov     eax,+1H[esi]
+ 134e  c1 fb 10                          sar     ebx,10H
+ 1351  6a 00                             push    00000000H
+ 1353  29 fb                             sub     ebx,edi
+ 1355  c1 f8 10                          sar     eax,10H
+ 1358  53                                push    ebx
+ 1359  29 e8                             sub     eax,ebp
+ 135b  50                                push    eax
+ 135c  8b 5c 24 18                       mov     ebx,+18H[esp]
+ 1360  53                                push    ebx
+ 1361  8b 15 1c 00 00 00                 mov     edx,A95VOL near a95vol+1cH
+ 1367  52                                push    edx
+ 1368  e8 00 00 00 00                    call    _drawimager2
+ 136d  83 c4 14                          add     esp,00000014H
+ 1370  83 c4 10                          add     esp,00000010H
+ 1373  5d                                pop     ebp
+ 1374  5f                                pop     edi
+ 1375  5e                                pop     esi
+ 1376  59                                pop     ecx
+ 1377  5b                                pop     ebx
+ 1378  c3                                ret     
+ 1379  8b 1d 20 00 00 00 L113            mov     ebx,A95VOL near a95vol+20H
+ 137f  8b 43 0c                          mov     eax,+0cH[ebx]
+ 1382  89 c2                             mov     edx,eax
+ 1384  c1 fa 1f                          sar     edx,1fH
+ 1387  2b c2                             sub     eax,edx
+ 1389  d1 f8                             sar     eax,1
+ 138b  6a 00                             push    00000000H
+ 138d  8b 4b 08                          mov     ecx,+8H[ebx]
+ 1390  8b 56 03                          mov     edx,+3H[esi]
+ 1393  01 c7                             add     edi,eax
+ 1395  c1 fa 10                          sar     edx,10H
+ 1398  01 cd                             add     ebp,ecx
+ 139a  29 fa                             sub     edx,edi
+ 139c  0f bf 46 01                       movsx   eax,word ptr +1H[esi]
+ 13a0  52                                push    edx
+ 13a1  29 e8                             sub     eax,ebp
+ 13a3  50                                push    eax
+ 13a4  8b 44 24 18                       mov     eax,+18H[esp]
+ 13a8  50                                push    eax
+ 13a9  53                                push    ebx
+ 13aa  e8 00 00 00 00                    call    _drawimager2
+ 13af  83 c4 14                          add     esp,00000014H
+ 13b2  8b 5e 05                          mov     ebx,+5H[esi]
+ 13b5  8b 56 01                          mov     edx,+1H[esi]
+ 13b8  c1 fb 10                          sar     ebx,10H
+ 13bb  6a 00                             push    00000000H
+ 13bd  29 fb                             sub     ebx,edi
+ 13bf  c1 fa 10                          sar     edx,10H
+ 13c2  53                                push    ebx
+ 13c3  29 ea                             sub     edx,ebp
+ 13c5  52                                push    edx
+ 13c6  8b 54 24 18                       mov     edx,+18H[esp]
+ 13ca  52                                push    edx
+ 13cb  a1 20 00 00 00                    mov     eax,A95VOL near a95vol+20H
+ 13d0  50                                push    eax
+ 13d1  e8 00 00 00 00                    call    _drawimager2
+ 13d6  83 c4 14                          add     esp,00000014H
+ 13d9  83 c4 10                          add     esp,00000010H
+ 13dc  5d                                pop     ebp
+ 13dd  5f                                pop     edi
+ 13de  5e                                pop     esi
+ 13df  59                                pop     ecx
+ 13e0  5b                                pop     ebx
+ 13e1  c3                                ret     
+ 13e2  8b 6c 24 08       L114            mov     ebp,+8H[esp]
+ 13e6  8b 7c 24 08                       mov     edi,+8H[esp]
+ 13ea  6a 02                             push    00000002H
+ 13ec  8b 46 05                          mov     eax,+5H[esi]
+ 13ef  8b 4e 01                          mov     ecx,+1H[esi]
+ 13f2  8b 5e 03                          mov     ebx,+3H[esi]
+ 13f5  0f bf 56 01                       movsx   edx,word ptr +1H[esi]
+ 13f9  c1 f8 10                          sar     eax,10H
+ 13fc  c1 f9 10                          sar     ecx,10H
+ 13ff  c1 fb 10                          sar     ebx,10H
+ 1402  8b 7f 0d                          mov     edi,+0dH[edi]
+ 1405  8b 6d 09                          mov     ebp,+9H[ebp]
+ 1408  c1 ff 10                          sar     edi,10H
+ 140b  c1 fd 10                          sar     ebp,10H
+ 140e  29 f8                             sub     eax,edi
+ 1410  29 e9                             sub     ecx,ebp
+ 1412  29 fb                             sub     ebx,edi
+ 1414  50                                push    eax
+ 1415  29 ea                             sub     edx,ebp
+ 1417  8b 44 24 14                       mov     eax,+14H[esp]
+ 141b  e8 00 00 00 00                    call    void near line( char near *, int, int, int, int, int )
+ 1420  8a 06                             mov     al,[esi]
+ 1422  3c 02                             cmp     al,02H
+ 1424  72 0e                             jb      L115
+ 1426  0f 86 4d ff ff ff                 jbe     L113
+ 142c  3c 03                             cmp     al,03H
+ 142e  0f 84 e0 fe ff ff                 je      L112
+ 1434  83 c4 10          L115            add     esp,00000010H
+ 1437  5d                                pop     ebp
+ 1438  5f                                pop     edi
+ 1439  5e                                pop     esi
+ 143a  59                                pop     ecx
+ 143b  5b                                pop     ebx
+ 143c  c3                                ret     
+ 143d  8d 40 00                          lea     eax,+0H[eax]
+ 1440  06 15 00 00       L116            DD      L118
+ 1444  6e 14 00 00                       DD      L117
+ 1448  3c 16 00 00                       DD      L120
+ 144c  a4 15 00 00                       DD      L119
+ 1450                    void near bgobject::drawboundary( char near * ):
+ 1450  53                                push    ebx
+ 1451  51                                push    ecx
+ 1452  56                                push    esi
+ 1453  57                                push    edi
+ 1454  55                                push    ebp
+ 1455  83 ec 10                          sub     esp,00000010H
+ 1458  89 44 24 0c                       mov     +0cH[esp],eax
+ 145c  89 54 24 04                       mov     +4H[esp],edx
+ 1460  31 d2                             xor     edx,edx
+ 1462  89 54 24 08                       mov     +8H[esp],edx
+ 1466  89 14 24                          mov     [esp],edx
+ 1469  e9 75 02 00 00                    jmp     L122
+ 146e  8b 1d 14 00 00 00 L117            mov     ebx,A95VOL near a95vol+14H
+ 1474  8b 43 08                          mov     eax,+8H[ebx]
+ 1477  89 c2                             mov     edx,eax
+ 1479  c1 fa 1f                          sar     edx,1fH
+ 147c  2b c2                             sub     eax,edx
+ 147e  d1 f8                             sar     eax,1
+ 1480  8b 56 03                          mov     edx,+3H[esi]
+ 1483  6a 00                             push    00000000H
+ 1485  c1 fa 10                          sar     edx,10H
+ 1488  01 c7                             add     edi,eax
+ 148a  29 ea                             sub     edx,ebp
+ 148c  0f bf 46 01                       movsx   eax,word ptr +1H[esi]
+ 1490  52                                push    edx
+ 1491  29 f8                             sub     eax,edi
+ 1493  50                                push    eax
+ 1494  8b 44 24 10                       mov     eax,+10H[esp]
+ 1498  50                                push    eax
+ 1499  53                                push    ebx
+ 149a  e8 00 00 00 00                    call    _drawimager2
+ 149f  8b 46 01                          mov     eax,+1H[esi]
+ 14a2  0f bf 56 01                       movsx   edx,word ptr +1H[esi]
+ 14a6  c1 f8 10                          sar     eax,10H
+ 14a9  01 c2                             add     edx,eax
+ 14ab  89 d0                             mov     eax,edx
+ 14ad  c1 fa 1f                          sar     edx,1fH
+ 14b0  2b c2                             sub     eax,edx
+ 14b2  d1 f8                             sar     eax,1
+ 14b4  8b 5e 03                          mov     ebx,+3H[esi]
+ 14b7  83 c4 14                          add     esp,00000014H
+ 14ba  c1 fb 10                          sar     ebx,10H
+ 14bd  6a 00                             push    00000000H
+ 14bf  29 eb                             sub     ebx,ebp
+ 14c1  53                                push    ebx
+ 14c2  29 f8                             sub     eax,edi
+ 14c4  50                                push    eax
+ 14c5  8b 5c 24 10                       mov     ebx,+10H[esp]
+ 14c9  53                                push    ebx
+ 14ca  8b 15 14 00 00 00                 mov     edx,A95VOL near a95vol+14H
+ 14d0  52                                push    edx
+ 14d1  e8 00 00 00 00                    call    _drawimager2
+ 14d6  83 c4 14                          add     esp,00000014H
+ 14d9  8b 46 03                          mov     eax,+3H[esi]
+ 14dc  8b 56 01                          mov     edx,+1H[esi]
+ 14df  c1 f8 10                          sar     eax,10H
+ 14e2  6a 00                             push    00000000H
+ 14e4  29 e8                             sub     eax,ebp
+ 14e6  c1 fa 10                          sar     edx,10H
+ 14e9  50                                push    eax
+ 14ea  29 fa                             sub     edx,edi
+ 14ec  52                                push    edx
+ 14ed  8b 4c 24 10                       mov     ecx,+10H[esp]
+ 14f1  51                                push    ecx
+ 14f2  8b 1d 14 00 00 00                 mov     ebx,A95VOL near a95vol+14H
+ 14f8  53                                push    ebx
+ 14f9  e8 00 00 00 00                    call    _drawimager2
+ 14fe  83 c4 14                          add     esp,00000014H
+ 1501  e9 cb 01 00 00                    jmp     L121
+ 1506  8b 1d 18 00 00 00 L118            mov     ebx,A95VOL near a95vol+18H
+ 150c  8b 43 08                          mov     eax,+8H[ebx]
+ 150f  89 c2                             mov     edx,eax
+ 1511  c1 fa 1f                          sar     edx,1fH
+ 1514  2b c2                             sub     eax,edx
+ 1516  d1 f8                             sar     eax,1
+ 1518  8b 56 03                          mov     edx,+3H[esi]
+ 151b  01 c7                             add     edi,eax
+ 151d  8b 43 0c                          mov     eax,+0cH[ebx]
+ 1520  c1 fa 10                          sar     edx,10H
+ 1523  01 c5                             add     ebp,eax
+ 1525  6a 00                             push    00000000H
+ 1527  29 ea                             sub     edx,ebp
+ 1529  0f bf 46 01                       movsx   eax,word ptr +1H[esi]
+ 152d  52                                push    edx
+ 152e  29 f8                             sub     eax,edi
+ 1530  50                                push    eax
+ 1531  8b 54 24 10                       mov     edx,+10H[esp]
+ 1535  52                                push    edx
+ 1536  53                                push    ebx
+ 1537  e8 00 00 00 00                    call    _drawimager2
+ 153c  8b 46 01                          mov     eax,+1H[esi]
+ 153f  0f bf 56 01                       movsx   edx,word ptr +1H[esi]
+ 1543  c1 f8 10                          sar     eax,10H
+ 1546  01 c2                             add     edx,eax
+ 1548  89 d0                             mov     eax,edx
+ 154a  c1 fa 1f                          sar     edx,1fH
+ 154d  2b c2                             sub     eax,edx
+ 154f  d1 f8                             sar     eax,1
+ 1551  8b 5e 03                          mov     ebx,+3H[esi]
+ 1554  83 c4 14                          add     esp,00000014H
+ 1557  c1 fb 10                          sar     ebx,10H
+ 155a  6a 00                             push    00000000H
+ 155c  29 eb                             sub     ebx,ebp
+ 155e  89 c2                             mov     edx,eax
+ 1560  53                                push    ebx
+ 1561  29 fa                             sub     edx,edi
+ 1563  52                                push    edx
+ 1564  8b 5c 24 10                       mov     ebx,+10H[esp]
+ 1568  53                                push    ebx
+ 1569  a1 18 00 00 00                    mov     eax,A95VOL near a95vol+18H
+ 156e  50                                push    eax
+ 156f  e8 00 00 00 00                    call    _drawimager2
+ 1574  83 c4 14                          add     esp,00000014H
+ 1577  8b 5e 03                          mov     ebx,+3H[esi]
+ 157a  8b 46 01                          mov     eax,+1H[esi]
+ 157d  c1 fb 10                          sar     ebx,10H
+ 1580  6a 00                             push    00000000H
+ 1582  29 eb                             sub     ebx,ebp
+ 1584  c1 f8 10                          sar     eax,10H
+ 1587  53                                push    ebx
+ 1588  29 f8                             sub     eax,edi
+ 158a  50                                push    eax
+ 158b  8b 4c 24 10                       mov     ecx,+10H[esp]
+ 158f  51                                push    ecx
+ 1590  8b 15 18 00 00 00                 mov     edx,A95VOL near a95vol+18H
+ 1596  52                                push    edx
+ 1597  e8 00 00 00 00                    call    _drawimager2
+ 159c  83 c4 14                          add     esp,00000014H
+ 159f  e9 2d 01 00 00                    jmp     L121
+ 15a4  8b 1d 1c 00 00 00 L119            mov     ebx,A95VOL near a95vol+1cH
+ 15aa  8b 43 0c                          mov     eax,+0cH[ebx]
+ 15ad  89 c2                             mov     edx,eax
+ 15af  c1 fa 1f                          sar     edx,1fH
+ 15b2  2b c2                             sub     eax,edx
+ 15b4  d1 f8                             sar     eax,1
+ 15b6  8b 56 03                          mov     edx,+3H[esi]
+ 15b9  01 c5                             add     ebp,eax
+ 15bb  c1 fa 10                          sar     edx,10H
+ 15be  6a 00                             push    00000000H
+ 15c0  29 ea                             sub     edx,ebp
+ 15c2  0f bf 46 01                       movsx   eax,word ptr +1H[esi]
+ 15c6  52                                push    edx
+ 15c7  29 f8                             sub     eax,edi
+ 15c9  50                                push    eax
+ 15ca  8b 44 24 10                       mov     eax,+10H[esp]
+ 15ce  50                                push    eax
+ 15cf  53                                push    ebx
+ 15d0  e8 00 00 00 00                    call    _drawimager2
+ 15d5  8b 46 03                          mov     eax,+3H[esi]
+ 15d8  8b 56 05                          mov     edx,+5H[esi]
+ 15db  c1 f8 10                          sar     eax,10H
+ 15de  c1 fa 10                          sar     edx,10H
+ 15e1  01 c2                             add     edx,eax
+ 15e3  89 d0                             mov     eax,edx
+ 15e5  c1 fa 1f                          sar     edx,1fH
+ 15e8  2b c2                             sub     eax,edx
+ 15ea  d1 f8                             sar     eax,1
+ 15ec  83 c4 14                          add     esp,00000014H
+ 15ef  89 c3                             mov     ebx,eax
+ 15f1  6a 00                             push    00000000H
+ 15f3  29 eb                             sub     ebx,ebp
+ 15f5  0f bf 46 01                       movsx   eax,word ptr +1H[esi]
+ 15f9  53                                push    ebx
+ 15fa  29 f8                             sub     eax,edi
+ 15fc  50                                push    eax
+ 15fd  8b 5c 24 10                       mov     ebx,+10H[esp]
+ 1601  53                                push    ebx
+ 1602  8b 15 1c 00 00 00                 mov     edx,A95VOL near a95vol+1cH
+ 1608  52                                push    edx
+ 1609  e8 00 00 00 00                    call    _drawimager2
+ 160e  8b 46 05                          mov     eax,+5H[esi]
+ 1611  83 c4 14                          add     esp,00000014H
+ 1614  c1 f8 10                          sar     eax,10H
+ 1617  6a 00                             push    00000000H
+ 1619  29 e8                             sub     eax,ebp
+ 161b  0f bf 56 01                       movsx   edx,word ptr +1H[esi]
+ 161f  50                                push    eax
+ 1620  29 fa                             sub     edx,edi
+ 1622  52                                push    edx
+ 1623  8b 4c 24 10                       mov     ecx,+10H[esp]
+ 1627  51                                push    ecx
+ 1628  8b 1d 1c 00 00 00                 mov     ebx,A95VOL near a95vol+1cH
+ 162e  53                                push    ebx
+ 162f  e8 00 00 00 00                    call    _drawimager2
+ 1634  83 c4 14                          add     esp,00000014H
+ 1637  e9 95 00 00 00                    jmp     L121
+ 163c  8b 1d 20 00 00 00 L120            mov     ebx,A95VOL near a95vol+20H
+ 1642  03 7b 08                          add     edi,+8H[ebx]
+ 1645  8b 43 0c                          mov     eax,+0cH[ebx]
+ 1648  89 c2                             mov     edx,eax
+ 164a  c1 fa 1f                          sar     edx,1fH
+ 164d  2b c2                             sub     eax,edx
+ 164f  d1 f8                             sar     eax,1
+ 1651  8b 56 03                          mov     edx,+3H[esi]
+ 1654  01 c5                             add     ebp,eax
+ 1656  c1 fa 10                          sar     edx,10H
+ 1659  6a 00                             push    00000000H
+ 165b  29 ea                             sub     edx,ebp
+ 165d  0f bf 46 01                       movsx   eax,word ptr +1H[esi]
+ 1661  52                                push    edx
+ 1662  29 f8                             sub     eax,edi
+ 1664  50                                push    eax
+ 1665  8b 54 24 10                       mov     edx,+10H[esp]
+ 1669  52                                push    edx
+ 166a  53                                push    ebx
+ 166b  e8 00 00 00 00                    call    _drawimager2
+ 1670  8b 56 03                          mov     edx,+3H[esi]
+ 1673  8b 46 05                          mov     eax,+5H[esi]
+ 1676  c1 fa 10                          sar     edx,10H
+ 1679  c1 f8 10                          sar     eax,10H
+ 167c  01 c2                             add     edx,eax
+ 167e  89 d0                             mov     eax,edx
+ 1680  c1 fa 1f                          sar     edx,1fH
+ 1683  2b c2                             sub     eax,edx
+ 1685  d1 f8                             sar     eax,1
+ 1687  83 c4 14                          add     esp,00000014H
+ 168a  89 c3                             mov     ebx,eax
+ 168c  6a 00                             push    00000000H
+ 168e  29 eb                             sub     ebx,ebp
+ 1690  0f bf 56 01                       movsx   edx,word ptr +1H[esi]
+ 1694  53                                push    ebx
+ 1695  29 fa                             sub     edx,edi
+ 1697  52                                push    edx
+ 1698  8b 5c 24 10                       mov     ebx,+10H[esp]
+ 169c  53                                push    ebx
+ 169d  a1 20 00 00 00                    mov     eax,A95VOL near a95vol+20H
+ 16a2  50                                push    eax
+ 16a3  e8 00 00 00 00                    call    _drawimager2
+ 16a8  8b 56 05                          mov     edx,+5H[esi]
+ 16ab  83 c4 14                          add     esp,00000014H
+ 16ae  c1 fa 10                          sar     edx,10H
+ 16b1  6a 00                             push    00000000H
+ 16b3  29 ea                             sub     edx,ebp
+ 16b5  0f bf 46 01                       movsx   eax,word ptr +1H[esi]
+ 16b9  52                                push    edx
+ 16ba  29 f8                             sub     eax,edi
+ 16bc  50                                push    eax
+ 16bd  8b 4c 24 10                       mov     ecx,+10H[esp]
+ 16c1  51                                push    ecx
+ 16c2  8b 1d 20 00 00 00                 mov     ebx,A95VOL near a95vol+20H
+ 16c8  53                                push    ebx
+ 16c9  e8 00 00 00 00                    call    _drawimager2
+ 16ce  83 c4 14                          add     esp,00000014H
+ 16d1  8b 34 24          L121            mov     esi,[esp]
+ 16d4  8b 7c 24 08                       mov     edi,+8H[esp]
+ 16d8  83 c6 09                          add     esi,00000009H
+ 16db  47                                inc     edi
+ 16dc  89 34 24                          mov     [esp],esi
+ 16df  89 7c 24 08                       mov     +8H[esp],edi
+ 16e3  8b 44 24 0c       L122            mov     eax,+0cH[esp]
+ 16e7  8b 40 05                          mov     eax,+5H[eax]
+ 16ea  8b 54 24 08                       mov     edx,+8H[esp]
+ 16ee  3b 50 7f                          cmp     edx,+7fH[eax]
+ 16f1  0f 8d 3d fd ff ff                 jge     L115
+ 16f7  8b 3c 24                          mov     edi,[esp]
+ 16fa  8b b0 83 00 00 00                 mov     esi,+83H[eax]
+ 1700  01 fe                             add     esi,edi
+ 1702  80 3e 00                          cmp     byte ptr [esi],00H
+ 1705  74 ca                             je      L121
+ 1707  8b 7c 24 0c                       mov     edi,+0cH[esp]
+ 170b  8b 6c 24 0c                       mov     ebp,+0cH[esp]
+ 170f  6a 04                             push    00000004H
+ 1711  8b 46 05                          mov     eax,+5H[esi]
+ 1714  8b 4e 01                          mov     ecx,+1H[esi]
+ 1717  8b 5e 03                          mov     ebx,+3H[esi]
+ 171a  0f bf 56 01                       movsx   edx,word ptr +1H[esi]
+ 171e  c1 f8 10                          sar     eax,10H
+ 1721  c1 f9 10                          sar     ecx,10H
+ 1724  c1 fb 10                          sar     ebx,10H
+ 1727  8b 6d 0d                          mov     ebp,+0dH[ebp]
+ 172a  8b 7f 09                          mov     edi,+9H[edi]
+ 172d  c1 fd 10                          sar     ebp,10H
+ 1730  c1 ff 10                          sar     edi,10H
+ 1733  29 e8                             sub     eax,ebp
+ 1735  29 f9                             sub     ecx,edi
+ 1737  29 eb                             sub     ebx,ebp
+ 1739  50                                push    eax
+ 173a  29 fa                             sub     edx,edi
+ 173c  8b 44 24 0c                       mov     eax,+0cH[esp]
+ 1740  e8 00 00 00 00                    call    void near line( char near *, int, int, int, int, int )
+ 1745  8a 06                             mov     al,[esi]
+ 1747  fe c8                             dec     al
+ 1749  3c 03                             cmp     al,03H
+ 174b  77 84                             ja      L121
+ 174d  25 ff 00 00 00                    and     eax,000000ffH
+ 1752  2e ff 24 85 40 14 
+       00 00                             jmp     dword ptr cs:L116[eax*4]
+ 175a  8b c0                             mov     eax,eax
+ 175c                    void near bgobject::refreshbg( char near * ):
+ 175c  53                                push    ebx
+ 175d  51                                push    ecx
+ 175e  56                                push    esi
+ 175f  57                                push    edi
+ 1760  89 c6                             mov     esi,eax
+ 1762  89 d7                             mov     edi,edx
+ 1764  8b 40 05                          mov     eax,+5H[eax]
+ 1767  f6 40 04 01                       test    byte ptr +4H[eax],01H
+ 176b  0f 84 c6 00 00 00                 je      L131
+ 1771  f6 46 25 01                       test    byte ptr +25H[esi],01H
+ 1775  74 09                             je      L123
+ 1777  83 3d 00 00 00 00 
+       00                                cmp     dword ptr int near alwaysredrawbg,00000000H
+ 177e  74 1c                             je      L124
+ 1780  89 f0             L123            mov     eax,esi
+ 1782  e8 00 00 00 00                    call    int near bgobject::scroll()
+ 1787  89 fa                             mov     edx,edi
+ 1789  89 f0                             mov     eax,esi
+ 178b  e8 00 00 00 00                    call    void near bgobject::drawbg( char near * )
+ 1790  c7 46 21 00 00 00 
+       00                                mov     dword ptr +21H[esi],00000000H
+ 1797  e9 89 00 00 00                    jmp     L130
+ 179c  89 f0             L124            mov     eax,esi
+ 179e  e8 00 00 00 00                    call    int near bgobject::scroll()
+ 17a3  85 c0                             test    eax,eax
+ 17a5  74 19                             je      L125
+ 17a7  89 fa                             mov     edx,edi
+ 17a9  89 f0                             mov     eax,esi
+ 17ab  e8 00 00 00 00                    call    void near bgobject::drawbg( char near * )
+ 17b0  8b 4e 52                          mov     ecx,+52H[esi]
+ 17b3  c7 46 21 05 00 00 
+       00                                mov     dword ptr +21H[esi],00000005H
+ 17ba  41                                inc     ecx
+ 17bb  89 4e 52                          mov     +52H[esi],ecx
+ 17be  eb 65                             jmp     L130
+ 17c0  8b 5e 21          L125            mov     ebx,+21H[esi]
+ 17c3  85 db                             test    ebx,ebx
+ 17c5  7e 19                             jle     L126
+ 17c7  89 fa                             mov     edx,edi
+ 17c9  89 f0                             mov     eax,esi
+ 17cb  e8 00 00 00 00                    call    void near bgobject::drawbg( char near * )
+ 17d0  8b 56 21                          mov     edx,+21H[esi]
+ 17d3  8b 5e 52                          mov     ebx,+52H[esi]
+ 17d6  4a                                dec     edx
+ 17d7  43                                inc     ebx
+ 17d8  89 56 21                          mov     +21H[esi],edx
+ 17db  89 5e 52                          mov     +52H[esi],ebx
+ 17de  eb 45                             jmp     L130
+ 17e0  75 1e             L126            jne     L127
+ 17e2  8b 46 46                          mov     eax,+46H[esi]
+ 17e5  e8 00 00 00 00                    call    char near * near surface::lock()
+ 17ea  89 c2                             mov     edx,eax
+ 17ec  89 f0                             mov     eax,esi
+ 17ee  e8 00 00 00 00                    call    void near bgobject::drawbg( char near * )
+ 17f3  8b 46 46                          mov     eax,+46H[esi]
+ 17f6  e8 00 00 00 00                    call    void near surface::unlock()
+ 17fb  ff 46 56                          inc     dword ptr +56H[esi]
+ 17fe  eb 03                             jmp     L128
+ 1800  ff 46 5a          L127            inc     dword ptr +5aH[esi]
+ 1803  8b 06             L128            mov     eax,[esi]
+ 1805  89 fa                             mov     edx,edi
+ 1807  8b 48 1d                          mov     ecx,+1dH[eax]
+ 180a  8b 58 19                          mov     ebx,+19H[eax]
+ 180d  8b 46 46                          mov     eax,+46H[esi]
+ 1810  e8 00 00 00 00                    call    int near surface::blt( char near *, int, int )
+ 1815  85 c0                             test    eax,eax
+ 1817  75 05                             jne     L129
+ 1819  89 46 21                          mov     +21H[esi],eax
+ 181c  eb 07                             jmp     L130
+ 181e  c7 46 21 ff ff ff 
+       ff                L129            mov     dword ptr +21H[esi],0ffffffffH
+ 1825  83 3d 00 00 00 00 
+       00                L130            cmp     dword ptr int near showbglines,00000000H
+ 182c  74 09                             je      L131
+ 182e  89 fa                             mov     edx,edi
+ 1830  89 f0                             mov     eax,esi
+ 1832  e8 00 00 00 00                    call    void near bgobject::drawbglines( char near * )
+ 1837  5f                L131            pop     edi
+ 1838  5e                                pop     esi
+ 1839  59                                pop     ecx
+ 183a  5b                                pop     ebx
+ 183b  c3                                ret     
+ 183c                    int near bgline::calcy( int ):
+ 183c  53                                push    ebx
+ 183d  51                                push    ecx
+ 183e  56                                push    esi
+ 183f  8b 70 05                          mov     esi,+5H[eax]
+ 1842  8b 58 03                          mov     ebx,+3H[eax]
+ 1845  0f bf 48 01                       movsx   ecx,word ptr +1H[eax]
+ 1849  c1 fe 10                          sar     esi,10H
+ 184c  c1 fb 10                          sar     ebx,10H
+ 184f  29 ca                             sub     edx,ecx
+ 1851  29 de                             sub     esi,ebx
+ 1853  0f af d6                          imul    edx,esi
+ 1856  8b 40 01                          mov     eax,+1H[eax]
+ 1859  c1 f8 10                          sar     eax,10H
+ 185c  29 c8                             sub     eax,ecx
+ 185e  89 c1                             mov     ecx,eax
+ 1860  89 d0                             mov     eax,edx
+ 1862  c1 fa 1f                          sar     edx,1fH
+ 1865  f7 f9                             idiv    ecx
+ 1867  01 d8                             add     eax,ebx
+ 1869  5e                                pop     esi
+ 186a  59                                pop     ecx
+ 186b  5b                                pop     ebx
+ 186c  c3                                ret     
+ 186d  8d 40 00                          lea     eax,+0H[eax]
+ 1870                    int near bgline::calcx( int ):
+ 1870  53                                push    ebx
+ 1871  51                                push    ecx
+ 1872  56                                push    esi
+ 1873  8b 70 01                          mov     esi,+1H[eax]
+ 1876  0f bf 58 01                       movsx   ebx,word ptr +1H[eax]
+ 187a  8b 48 03                          mov     ecx,+3H[eax]
+ 187d  c1 fe 10                          sar     esi,10H
+ 1880  c1 f9 10                          sar     ecx,10H
+ 1883  29 de                             sub     esi,ebx
+ 1885  29 ca                             sub     edx,ecx
+ 1887  0f af d6                          imul    edx,esi
+ 188a  8b 40 05                          mov     eax,+5H[eax]
+ 188d  c1 f8 10                          sar     eax,10H
+ 1890  29 c8                             sub     eax,ecx
+ 1892  89 c1                             mov     ecx,eax
+ 1894  89 d0                             mov     eax,edx
+ 1896  c1 fa 1f                          sar     edx,1fH
+ 1899  f7 f9                             idiv    ecx
+ 189b  01 d8                             add     eax,ebx
+ 189d  5e                                pop     esi
+ 189e  59                                pop     ecx
+ 189f  5b                                pop     ebx
+ 18a0  c3                                ret     
+ 18a1  8d 40 00                          lea     eax,+0H[eax]
+ 18a4                    int near bgline::wallintersect( lrect near & ):
+ 18a4  53                                push    ebx
+ 18a5  51                                push    ecx
+ 18a6  56                                push    esi
+ 18a7  57                                push    edi
+ 18a8  8b 58 03                          mov     ebx,+3H[eax]
+ 18ab  8b 4a 0c                          mov     ecx,+0cH[edx]
+ 18ae  c1 fb 10                          sar     ebx,10H
+ 18b1  39 cb                             cmp     ebx,ecx
+ 18b3  7f 5b                             jg      L134
+ 18b5  8b 58 05                          mov     ebx,+5H[eax]
+ 18b8  8b 72 04                          mov     esi,+4H[edx]
+ 18bb  c1 fb 10                          sar     ebx,10H
+ 18be  39 f3                             cmp     ebx,esi
+ 18c0  7c 4e                             jl      L134
+ 18c2  66 8b 58 01                       mov     bx,+1H[eax]
+ 18c6  66 3b 58 03                       cmp     bx,+3H[eax]
+ 18ca  7d 25                             jge     L133
+ 18cc  0f bf db                          movsx   ebx,bx
+ 18cf  3b 5a 08                          cmp     ebx,+8H[edx]
+ 18d2  7f 16                             jg      L132
+ 18d4  8b 40 01                          mov     eax,+1H[eax]
+ 18d7  8b 32                             mov     esi,[edx]
+ 18d9  c1 f8 10                          sar     eax,10H
+ 18dc  39 f0                             cmp     eax,esi
+ 18de  7c 0a                             jl      L132
+ 18e0  b8 01 00 00 00                    mov     eax,00000001H
+ 18e5  5f                                pop     edi
+ 18e6  5e                                pop     esi
+ 18e7  59                                pop     ecx
+ 18e8  5b                                pop     ebx
+ 18e9  c3                                ret     
+ 18ea  31 c0             L132            xor     eax,eax
+ 18ec  5f                                pop     edi
+ 18ed  5e                                pop     esi
+ 18ee  59                                pop     ecx
+ 18ef  5b                                pop     ebx
+ 18f0  c3                                ret     
+ 18f1  8b 58 01          L133            mov     ebx,+1H[eax]
+ 18f4  8b 7a 08                          mov     edi,+8H[edx]
+ 18f7  c1 fb 10                          sar     ebx,10H
+ 18fa  39 fb                             cmp     ebx,edi
+ 18fc  7f 12                             jg      L134
+ 18fe  0f bf 40 01                       movsx   eax,word ptr +1H[eax]
+ 1902  3b 02                             cmp     eax,[edx]
+ 1904  7c 0a                             jl      L134
+ 1906  b8 01 00 00 00                    mov     eax,00000001H
+ 190b  5f                                pop     edi
+ 190c  5e                                pop     esi
+ 190d  59                                pop     ecx
+ 190e  5b                                pop     ebx
+ 190f  c3                                ret     
+ 1910  31 c0             L134            xor     eax,eax
+ 1912  5f                                pop     edi
+ 1913  5e                                pop     esi
+ 1914  59                                pop     ecx
+ 1915  5b                                pop     ebx
+ 1916  c3                                ret     
+ 1917  90                                nop     
+ 1918                    int near bgline::ceilingintersect( lrect near & ):
+ 1918  53                                push    ebx
+ 1919  51                                push    ecx
+ 191a  56                                push    esi
+ 191b  57                                push    edi
+ 191c  55                                push    ebp
+ 191d  89 c3                             mov     ebx,eax
+ 191f  89 d1                             mov     ecx,edx
+ 1921  8b 12                             mov     edx,[edx]
+ 1923  8b 71 08                          mov     esi,+8H[ecx]
+ 1926  01 f2                             add     edx,esi
+ 1928  89 d0                             mov     eax,edx
+ 192a  c1 fa 1f                          sar     edx,1fH
+ 192d  2b c2                             sub     eax,edx
+ 192f  d1 f8                             sar     eax,1
+ 1931  0f bf 53 01                       movsx   edx,word ptr +1H[ebx]
+ 1935  39 c2                             cmp     edx,eax
+ 1937  7f 0a                             jg      L135
+ 1939  8b 53 01                          mov     edx,+1H[ebx]
+ 193c  c1 fa 10                          sar     edx,10H
+ 193f  39 d0                             cmp     eax,edx
+ 1941  7e 07                             jle     L136
+ 1943  31 c0             L135            xor     eax,eax
+ 1945  e9 a2 00 00 00                    jmp     L144
+ 194a  66 8b 53 05       L136            mov     dx,+5H[ebx]
+ 194e  66 3b 53 07                       cmp     dx,+7H[ebx]
+ 1952  7d 25                             jge     L138
+ 1954  8b 53 03                          mov     edx,+3H[ebx]
+ 1957  8b 71 0c                          mov     esi,+0cH[ecx]
+ 195a  c1 fa 10                          sar     edx,10H
+ 195d  39 f2                             cmp     edx,esi
+ 195f  7e 14                             jle     L137
+ 1961  8b 53 05                          mov     edx,+5H[ebx]
+ 1964  8b 79 04                          mov     edi,+4H[ecx]
+ 1967  c1 fa 10                          sar     edx,10H
+ 196a  39 fa                             cmp     edx,edi
+ 196c  7d 07                             jge     L137
+ 196e  ba 01 00 00 00                    mov     edx,00000001H
+ 1973  eb 31                             jmp     L140
+ 1975  31 d2             L137            xor     edx,edx
+ 1977  eb 2d                             jmp     L140
+ 1979  8b 53 05          L138            mov     edx,+5H[ebx]
+ 197c  8b 79 0c                          mov     edi,+0cH[ecx]
+ 197f  c1 fa 10                          sar     edx,10H
+ 1982  39 fa                             cmp     edx,edi
+ 1984  7e 1e                             jle     L139
+ 1986  8b 53 03                          mov     edx,+3H[ebx]
+ 1989  8b 69 04                          mov     ebp,+4H[ecx]
+ 198c  c1 fa 10                          sar     edx,10H
+ 198f  39 ea                             cmp     edx,ebp
+ 1991  7d 11                             jge     L139
+ 1993  ba 01 00 00 00                    mov     edx,00000001H
+ 1998  85 d2                             test    edx,edx
+ 199a  74 16                             je      L141
+ 199c  31 c0                             xor     eax,eax
+ 199e  5d                                pop     ebp
+ 199f  5f                                pop     edi
+ 19a0  5e                                pop     esi
+ 19a1  59                                pop     ecx
+ 19a2  5b                                pop     ebx
+ 19a3  c3                                ret     
+ 19a4  31 d2             L139            xor     edx,edx
+ 19a6  85 d2             L140            test    edx,edx
+ 19a8  74 08                             je      L141
+ 19aa  31 c0                             xor     eax,eax
+ 19ac  5d                                pop     ebp
+ 19ad  5f                                pop     edi
+ 19ae  5e                                pop     esi
+ 19af  59                                pop     ecx
+ 19b0  5b                                pop     ebx
+ 19b1  c3                                ret     
+ 19b2  89 c2             L141            mov     edx,eax
+ 19b4  89 d8                             mov     eax,ebx
+ 19b6  e8 00 00 00 00                    call    int near bgline::calcy( int )
+ 19bb  8b 69 04                          mov     ebp,+4H[ecx]
+ 19be  89 c3                             mov     ebx,eax
+ 19c0  39 e8                             cmp     eax,ebp
+ 19c2  7d 08                             jge     L142
+ 19c4  31 c0                             xor     eax,eax
+ 19c6  5d                                pop     ebp
+ 19c7  5f                                pop     edi
+ 19c8  5e                                pop     esi
+ 19c9  59                                pop     ecx
+ 19ca  5b                                pop     ebx
+ 19cb  c3                                ret     
+ 19cc  8b 41 0c          L142            mov     eax,+0cH[ecx]
+ 19cf  8d 14 28                          lea     edx,[eax+ebp]
+ 19d2  89 d0                             mov     eax,edx
+ 19d4  c1 fa 1f                          sar     edx,1fH
+ 19d7  2b c2                             sub     eax,edx
+ 19d9  d1 f8                             sar     eax,1
+ 19db  39 c3                             cmp     ebx,eax
+ 19dd  7e 08                             jle     L143
+ 19df  31 c0                             xor     eax,eax
+ 19e1  5d                                pop     ebp
+ 19e2  5f                                pop     edi
+ 19e3  5e                                pop     esi
+ 19e4  59                                pop     ecx
+ 19e5  5b                                pop     ebx
+ 19e6  c3                                ret     
+ 19e7  b8 01 00 00 00    L143            mov     eax,00000001H
+ 19ec  5d                L144            pop     ebp
+ 19ed  5f                                pop     edi
+ 19ee  5e                                pop     esi
+ 19ef  59                                pop     ecx
+ 19f0  5b                                pop     ebx
+ 19f1  c3                                ret     
+ 19f2  8b c0                             mov     eax,eax
+ 19f4                    bgline near * near bgobject::hitwallleft( lrect near & ):
+ 19f4  53                                push    ebx
+ 19f5  51                                push    ecx
+ 19f6  56                                push    esi
+ 19f7  57                                push    edi
+ 19f8  55                                push    ebp
+ 19f9  83 ec 04                          sub     esp,00000004H
+ 19fc  89 04 24                          mov     [esp],eax
+ 19ff  89 d1                             mov     ecx,edx
+ 1a01  f6 40 25 01                       test    byte ptr +25H[eax],01H
+ 1a05  75 3b                             jne     L147
+ 1a07  8b 58 05                          mov     ebx,+5H[eax]
+ 1a0a  8b 73 77                          mov     esi,+77H[ebx]
+ 1a0d  8b 5b 7b                          mov     ebx,+7bH[ebx]
+ 1a10  85 f6                             test    esi,esi
+ 1a12  7f 11                             jg      L146
+ 1a14  e9 9a 00 00 00                    jmp     L151
+ 1a19  4e                L145            dec     esi
+ 1a1a  83 c3 09                          add     ebx,00000009H
+ 1a1d  85 f6                             test    esi,esi
+ 1a1f  0f 8e 8e 00 00 00                 jle     L151
+ 1a25  31 c0             L146            xor     eax,eax
+ 1a27  8a 03                             mov     al,[ebx]
+ 1a29  83 f8 02                          cmp     eax,00000002H
+ 1a2c  75 eb                             jne     L145
+ 1a2e  89 ca                             mov     edx,ecx
+ 1a30  89 d8                             mov     eax,ebx
+ 1a32  e8 00 00 00 00                    call    int near bgline::wallintersect( lrect near & )
+ 1a37  85 c0                             test    eax,eax
+ 1a39  74 de                             je      L145
+ 1a3b  89 d8                             mov     eax,ebx
+ 1a3d  e9 73 00 00 00                    jmp     L152
+ 1a42  8b 59 0c          L147            mov     ebx,+0cH[ecx]
+ 1a45  8b 11                             mov     edx,[ecx]
+ 1a47  e8 00 00 00 00                    call    bgchunk near * near bgobject::getchunkptr( int, int )
+ 1a4c  89 c5                             mov     ebp,eax
+ 1a4e  85 c0                             test    eax,eax
+ 1a50  74 61                             je      L151
+ 1a52  8b 50 14                          mov     edx,+14H[eax]
+ 1a55  31 f6                             xor     esi,esi
+ 1a57  85 d2                             test    edx,edx
+ 1a59  7f 21                             jg      L149
+ 1a5b  31 c0                             xor     eax,eax
+ 1a5d  83 c4 04                          add     esp,00000004H
+ 1a60  5d                                pop     ebp
+ 1a61  5f                                pop     edi
+ 1a62  5e                                pop     esi
+ 1a63  59                                pop     ecx
+ 1a64  5b                                pop     ebx
+ 1a65  c3                                ret     
+ 1a66  46                L148            inc     esi
+ 1a67  8b 5d 14                          mov     ebx,+14H[ebp]
+ 1a6a  83 c7 04                          add     edi,00000004H
+ 1a6d  39 de                             cmp     esi,ebx
+ 1a6f  7c 0d                             jl      L150
+ 1a71  31 c0                             xor     eax,eax
+ 1a73  83 c4 04                          add     esp,00000004H
+ 1a76  5d                                pop     ebp
+ 1a77  5f                                pop     edi
+ 1a78  5e                                pop     esi
+ 1a79  59                                pop     ecx
+ 1a7a  5b                                pop     ebx
+ 1a7b  c3                                ret     
+ 1a7c  31 ff             L149            xor     edi,edi
+ 1a7e  8b 45 18          L150            mov     eax,+18H[ebp]
+ 1a81  8b 1c 07                          mov     ebx,[edi+eax]
+ 1a84  8b 04 24                          mov     eax,[esp]
+ 1a87  8b 40 05                          mov     eax,+5H[eax]
+ 1a8a  8d 1c db                          lea     ebx,[ebx+ebx*8]
+ 1a8d  8b 40 7b                          mov     eax,+7bH[eax]
+ 1a90  01 c3                             add     ebx,eax
+ 1a92  31 c0                             xor     eax,eax
+ 1a94  8a 03                             mov     al,[ebx]
+ 1a96  83 f8 02                          cmp     eax,00000002H
+ 1a99  75 cb                             jne     L148
+ 1a9b  89 ca                             mov     edx,ecx
+ 1a9d  89 d8                             mov     eax,ebx
+ 1a9f  e8 00 00 00 00                    call    int near bgline::wallintersect( lrect near & )
+ 1aa4  85 c0                             test    eax,eax
+ 1aa6  74 be                             je      L148
+ 1aa8  89 d8                             mov     eax,ebx
+ 1aaa  83 c4 04                          add     esp,00000004H
+ 1aad  5d                                pop     ebp
+ 1aae  5f                                pop     edi
+ 1aaf  5e                                pop     esi
+ 1ab0  59                                pop     ecx
+ 1ab1  5b                                pop     ebx
+ 1ab2  c3                                ret     
+ 1ab3  31 c0             L151            xor     eax,eax
+ 1ab5  83 c4 04          L152            add     esp,00000004H
+ 1ab8  5d                                pop     ebp
+ 1ab9  5f                                pop     edi
+ 1aba  5e                                pop     esi
+ 1abb  59                                pop     ecx
+ 1abc  5b                                pop     ebx
+ 1abd  c3                                ret     
+ 1abe  8b c0                             mov     eax,eax
+ 1ac0                    bgline near * near bgobject::hitwallright( lrect near & ):
+ 1ac0  53                                push    ebx
+ 1ac1  51                                push    ecx
+ 1ac2  56                                push    esi
+ 1ac3  57                                push    edi
+ 1ac4  55                                push    ebp
+ 1ac5  83 ec 04                          sub     esp,00000004H
+ 1ac8  89 04 24                          mov     [esp],eax
+ 1acb  89 d1                             mov     ecx,edx
+ 1acd  f6 40 25 01                       test    byte ptr +25H[eax],01H
+ 1ad1  75 3b                             jne     L155
+ 1ad3  8b 58 05                          mov     ebx,+5H[eax]
+ 1ad6  8b 73 77                          mov     esi,+77H[ebx]
+ 1ad9  8b 5b 7b                          mov     ebx,+7bH[ebx]
+ 1adc  85 f6                             test    esi,esi
+ 1ade  7f 11                             jg      L154
+ 1ae0  e9 9b 00 00 00                    jmp     L159
+ 1ae5  4e                L153            dec     esi
+ 1ae6  83 c3 09                          add     ebx,00000009H
+ 1ae9  85 f6                             test    esi,esi
+ 1aeb  0f 8e 8f 00 00 00                 jle     L159
+ 1af1  31 c0             L154            xor     eax,eax
+ 1af3  8a 03                             mov     al,[ebx]
+ 1af5  83 f8 03                          cmp     eax,00000003H
+ 1af8  75 eb                             jne     L153
+ 1afa  89 ca                             mov     edx,ecx
+ 1afc  89 d8                             mov     eax,ebx
+ 1afe  e8 00 00 00 00                    call    int near bgline::wallintersect( lrect near & )
+ 1b03  85 c0                             test    eax,eax
+ 1b05  74 de                             je      L153
+ 1b07  89 d8                             mov     eax,ebx
+ 1b09  e9 74 00 00 00                    jmp     L160
+ 1b0e  8b 59 0c          L155            mov     ebx,+0cH[ecx]
+ 1b11  8b 51 08                          mov     edx,+8H[ecx]
+ 1b14  e8 00 00 00 00                    call    bgchunk near * near bgobject::getchunkptr( int, int )
+ 1b19  89 c5                             mov     ebp,eax
+ 1b1b  85 c0                             test    eax,eax
+ 1b1d  74 61                             je      L159
+ 1b1f  8b 50 14                          mov     edx,+14H[eax]
+ 1b22  31 f6                             xor     esi,esi
+ 1b24  85 d2                             test    edx,edx
+ 1b26  7f 21                             jg      L157
+ 1b28  31 c0                             xor     eax,eax
+ 1b2a  83 c4 04                          add     esp,00000004H
+ 1b2d  5d                                pop     ebp
+ 1b2e  5f                                pop     edi
+ 1b2f  5e                                pop     esi
+ 1b30  59                                pop     ecx
+ 1b31  5b                                pop     ebx
+ 1b32  c3                                ret     
+ 1b33  46                L156            inc     esi
+ 1b34  8b 5d 14                          mov     ebx,+14H[ebp]
+ 1b37  83 c7 04                          add     edi,00000004H
+ 1b3a  39 de                             cmp     esi,ebx
+ 1b3c  7c 0d                             jl      L158
+ 1b3e  31 c0                             xor     eax,eax
+ 1b40  83 c4 04                          add     esp,00000004H
+ 1b43  5d                                pop     ebp
+ 1b44  5f                                pop     edi
+ 1b45  5e                                pop     esi
+ 1b46  59                                pop     ecx
+ 1b47  5b                                pop     ebx
+ 1b48  c3                                ret     
+ 1b49  31 ff             L157            xor     edi,edi
+ 1b4b  8b 45 18          L158            mov     eax,+18H[ebp]
+ 1b4e  8b 1c 07                          mov     ebx,[edi+eax]
+ 1b51  8b 04 24                          mov     eax,[esp]
+ 1b54  8b 40 05                          mov     eax,+5H[eax]
+ 1b57  8d 1c db                          lea     ebx,[ebx+ebx*8]
+ 1b5a  8b 40 7b                          mov     eax,+7bH[eax]
+ 1b5d  01 c3                             add     ebx,eax
+ 1b5f  31 c0                             xor     eax,eax
+ 1b61  8a 03                             mov     al,[ebx]
+ 1b63  83 f8 03                          cmp     eax,00000003H
+ 1b66  75 cb                             jne     L156
+ 1b68  89 ca                             mov     edx,ecx
+ 1b6a  89 d8                             mov     eax,ebx
+ 1b6c  e8 00 00 00 00                    call    int near bgline::wallintersect( lrect near & )
+ 1b71  85 c0                             test    eax,eax
+ 1b73  74 be                             je      L156
+ 1b75  89 d8                             mov     eax,ebx
+ 1b77  83 c4 04                          add     esp,00000004H
+ 1b7a  5d                                pop     ebp
+ 1b7b  5f                                pop     edi
+ 1b7c  5e                                pop     esi
+ 1b7d  59                                pop     ecx
+ 1b7e  5b                                pop     ebx
+ 1b7f  c3                                ret     
+ 1b80  31 c0             L159            xor     eax,eax
+ 1b82  83 c4 04          L160            add     esp,00000004H
+ 1b85  5d                                pop     ebp
+ 1b86  5f                                pop     edi
+ 1b87  5e                                pop     esi
+ 1b88  59                                pop     ecx
+ 1b89  5b                                pop     ebx
+ 1b8a  c3                                ret     
+ 1b8b  90                                nop     
+ 1b8c                    bgline near * near bgobject::hitceiling( lrect near & ):
+ 1b8c  53                                push    ebx
+ 1b8d  51                                push    ecx
+ 1b8e  56                                push    esi
+ 1b8f  57                                push    edi
+ 1b90  55                                push    ebp
+ 1b91  83 ec 04                          sub     esp,00000004H
+ 1b94  89 04 24                          mov     [esp],eax
+ 1b97  89 d1                             mov     ecx,edx
+ 1b99  f6 40 25 01                       test    byte ptr +25H[eax],01H
+ 1b9d  75 3b                             jne     L163
+ 1b9f  8b 58 05                          mov     ebx,+5H[eax]
+ 1ba2  8b 73 77                          mov     esi,+77H[ebx]
+ 1ba5  8b 5b 7b                          mov     ebx,+7bH[ebx]
+ 1ba8  85 f6                             test    esi,esi
+ 1baa  7f 11                             jg      L162
+ 1bac  e9 9b 00 00 00                    jmp     L167
+ 1bb1  4e                L161            dec     esi
+ 1bb2  83 c3 09                          add     ebx,00000009H
+ 1bb5  85 f6                             test    esi,esi
+ 1bb7  0f 8e 8f 00 00 00                 jle     L167
+ 1bbd  31 c0             L162            xor     eax,eax
+ 1bbf  8a 03                             mov     al,[ebx]
+ 1bc1  83 f8 04                          cmp     eax,00000004H
+ 1bc4  75 eb                             jne     L161
+ 1bc6  89 ca                             mov     edx,ecx
+ 1bc8  89 d8                             mov     eax,ebx
+ 1bca  e8 00 00 00 00                    call    int near bgline::ceilingintersect( lrect near & )
+ 1bcf  85 c0                             test    eax,eax
+ 1bd1  74 de                             je      L161
+ 1bd3  89 d8                             mov     eax,ebx
+ 1bd5  e9 74 00 00 00                    jmp     L168
+ 1bda  8b 59 0c          L163            mov     ebx,+0cH[ecx]
+ 1bdd  8b 51 08                          mov     edx,+8H[ecx]
+ 1be0  e8 00 00 00 00                    call    bgchunk near * near bgobject::getchunkptr( int, int )
+ 1be5  89 c5                             mov     ebp,eax
+ 1be7  85 c0                             test    eax,eax
+ 1be9  74 61                             je      L167
+ 1beb  8b 50 14                          mov     edx,+14H[eax]
+ 1bee  31 ff                             xor     edi,edi
+ 1bf0  85 d2                             test    edx,edx
+ 1bf2  7f 21                             jg      L165
+ 1bf4  31 c0                             xor     eax,eax
+ 1bf6  83 c4 04                          add     esp,00000004H
+ 1bf9  5d                                pop     ebp
+ 1bfa  5f                                pop     edi
+ 1bfb  5e                                pop     esi
+ 1bfc  59                                pop     ecx
+ 1bfd  5b                                pop     ebx
+ 1bfe  c3                                ret     
+ 1bff  47                L164            inc     edi
+ 1c00  8b 5d 14                          mov     ebx,+14H[ebp]
+ 1c03  83 c6 04                          add     esi,00000004H
+ 1c06  39 df                             cmp     edi,ebx
+ 1c08  7c 0d                             jl      L166
+ 1c0a  31 c0                             xor     eax,eax
+ 1c0c  83 c4 04                          add     esp,00000004H
+ 1c0f  5d                                pop     ebp
+ 1c10  5f                                pop     edi
+ 1c11  5e                                pop     esi
+ 1c12  59                                pop     ecx
+ 1c13  5b                                pop     ebx
+ 1c14  c3                                ret     
+ 1c15  31 f6             L165            xor     esi,esi
+ 1c17  8b 45 18          L166            mov     eax,+18H[ebp]
+ 1c1a  8b 1c 06                          mov     ebx,[esi+eax]
+ 1c1d  8b 04 24                          mov     eax,[esp]
+ 1c20  8b 40 05                          mov     eax,+5H[eax]
+ 1c23  8d 1c db                          lea     ebx,[ebx+ebx*8]
+ 1c26  8b 40 7b                          mov     eax,+7bH[eax]
+ 1c29  01 c3                             add     ebx,eax
+ 1c2b  31 c0                             xor     eax,eax
+ 1c2d  8a 03                             mov     al,[ebx]
+ 1c2f  83 f8 04                          cmp     eax,00000004H
+ 1c32  75 cb                             jne     L164
+ 1c34  89 ca                             mov     edx,ecx
+ 1c36  89 d8                             mov     eax,ebx
+ 1c38  e8 00 00 00 00                    call    int near bgline::ceilingintersect( lrect near & )
+ 1c3d  85 c0                             test    eax,eax
+ 1c3f  74 be                             je      L164
+ 1c41  89 d8                             mov     eax,ebx
+ 1c43  83 c4 04                          add     esp,00000004H
+ 1c46  5d                                pop     ebp
+ 1c47  5f                                pop     edi
+ 1c48  5e                                pop     esi
+ 1c49  59                                pop     ecx
+ 1c4a  5b                                pop     ebx
+ 1c4b  c3                                ret     
+ 1c4c  31 c0             L167            xor     eax,eax
+ 1c4e  83 c4 04          L168            add     esp,00000004H
+ 1c51  5d                                pop     ebp
+ 1c52  5f                                pop     edi
+ 1c53  5e                                pop     esi
+ 1c54  59                                pop     ecx
+ 1c55  5b                                pop     ebx
+ 1c56  c3                                ret     
+ 1c57  90                                nop     
+ 1c58                    bgline near * near bgobject::getbasey( int, int, int near & ):
+ 1c58  56                                push    esi
+ 1c59  57                                push    edi
+ 1c5a  55                                push    ebp
+ 1c5b  83 ec 18                          sub     esp,00000018H
+ 1c5e  89 44 24 08                       mov     +8H[esp],eax
+ 1c62  89 d6                             mov     esi,edx
+ 1c64  89 5c 24 14                       mov     +14H[esp],ebx
+ 1c68  89 4c 24 04                       mov     +4H[esp],ecx
+ 1c6c  8b 50 09                          mov     edx,+9H[eax]
+ 1c6f  b9 00 7f 00 00                    mov     ecx,00007f00H
+ 1c74  01 d6                             add     esi,edx
+ 1c76  8b 54 24 08                       mov     edx,+8H[esp]
+ 1c7a  31 ff                             xor     edi,edi
+ 1c7c  89 d8                             mov     eax,ebx
+ 1c7e  8b 5a 0d                          mov     ebx,+0dH[edx]
+ 1c81  89 7c 24 10                       mov     +10H[esp],edi
+ 1c85  01 d8                             add     eax,ebx
+ 1c87  c1 fe 10                          sar     esi,10H
+ 1c8a  c1 f8 10                          sar     eax,10H
+ 1c8d  8a 52 25                          mov     dl,+25H[edx]
+ 1c90  89 44 24 14                       mov     +14H[esp],eax
+ 1c94  f6 c2 01                          test    dl,01H
+ 1c97  75 5b                             jne     L174
+ 1c99  8b 5c 24 08                       mov     ebx,+8H[esp]
+ 1c9d  8b 5b 05                          mov     ebx,+5H[ebx]
+ 1ca0  8b 7b 77                          mov     edi,+77H[ebx]
+ 1ca3  8b 5b 7b                          mov     ebx,+7bH[ebx]
+ 1ca6  eb 22                             jmp     L172
+ 1ca8  89 f2             L169            mov     edx,esi
+ 1caa  89 d8                             mov     eax,ebx
+ 1cac  e8 00 00 00 00                    call    int near bgline::calcy( int )
+ 1cb1  39 c8             L170            cmp     eax,ecx
+ 1cb3  7d 11                             jge     L171
+ 1cb5  8b 54 24 14                       mov     edx,+14H[esp]
+ 1cb9  8d 68 03                          lea     ebp,+3H[eax]
+ 1cbc  39 d5                             cmp     ebp,edx
+ 1cbe  7c 06                             jl      L171
+ 1cc0  89 c1                             mov     ecx,eax
+ 1cc2  89 5c 24 10                       mov     +10H[esp],ebx
+ 1cc6  4f                L171            dec     edi
+ 1cc7  83 c3 09                          add     ebx,00000009H
+ 1cca  85 ff             L172            test    edi,edi
+ 1ccc  0f 8e b6 00 00 00                 jle     L180
+ 1cd2  31 c0                             xor     eax,eax
+ 1cd4  8a 03                             mov     al,[ebx]
+ 1cd6  83 f8 01                          cmp     eax,00000001H
+ 1cd9  75 eb                             jne     L171
+ 1cdb  0f bf 43 01                       movsx   eax,word ptr +1H[ebx]
+ 1cdf  39 c6                             cmp     esi,eax
+ 1ce1  7c 0a                             jl      L173
+ 1ce3  8b 43 01                          mov     eax,+1H[ebx]
+ 1ce6  c1 f8 10                          sar     eax,10H
+ 1ce9  39 c6                             cmp     esi,eax
+ 1ceb  7e bb                             jle     L169
+ 1ced  b8 00 7f 00 00    L173            mov     eax,00007f00H
+ 1cf2  eb bd                             jmp     L170
+ 1cf4  89 c3             L174            mov     ebx,eax
+ 1cf6  89 f2                             mov     edx,esi
+ 1cf8  8b 44 24 08                       mov     eax,+8H[esp]
+ 1cfc  e8 00 00 00 00                    call    bgchunk near * near bgobject::getchunkptr( int, int )
+ 1d01  89 44 24 0c                       mov     +0cH[esp],eax
+ 1d05  85 c0                             test    eax,eax
+ 1d07  0f 84 7b 00 00 00                 je      L180
+ 1d0d  8b 50 0c                          mov     edx,+0cH[eax]
+ 1d10  31 ed                             xor     ebp,ebp
+ 1d12  85 d2                             test    edx,edx
+ 1d14  0f 8e 6e 00 00 00                 jle     L180
+ 1d1a  eb 31                             jmp     L178
+ 1d1c  89 f2             L175            mov     edx,esi
+ 1d1e  89 d8                             mov     eax,ebx
+ 1d20  e8 00 00 00 00                    call    int near bgline::calcy( int )
+ 1d25  39 c8             L176            cmp     eax,ecx
+ 1d27  7d 15                             jge     L177
+ 1d29  8d 50 03                          lea     edx,+3H[eax]
+ 1d2c  89 14 24                          mov     [esp],edx
+ 1d2f  8b 54 24 14                       mov     edx,+14H[esp]
+ 1d33  3b 14 24                          cmp     edx,[esp]
+ 1d36  7f 06                             jg      L177
+ 1d38  89 c1                             mov     ecx,eax
+ 1d3a  89 5c 24 10                       mov     +10H[esp],ebx
+ 1d3e  8b 44 24 0c       L177            mov     eax,+0cH[esp]
+ 1d42  45                                inc     ebp
+ 1d43  8b 58 0c                          mov     ebx,+0cH[eax]
+ 1d46  83 c7 04                          add     edi,00000004H
+ 1d49  39 dd                             cmp     ebp,ebx
+ 1d4b  7d 3b                             jge     L180
+ 1d4d  8b 44 24 0c       L178            mov     eax,+0cH[esp]
+ 1d51  8b 40 10                          mov     eax,+10H[eax]
+ 1d54  8b 1c 07                          mov     ebx,[edi+eax]
+ 1d57  8b 44 24 08                       mov     eax,+8H[esp]
+ 1d5b  8b 40 05                          mov     eax,+5H[eax]
+ 1d5e  8d 1c db                          lea     ebx,[ebx+ebx*8]
+ 1d61  8b 40 7b                          mov     eax,+7bH[eax]
+ 1d64  01 c3                             add     ebx,eax
+ 1d66  31 c0                             xor     eax,eax
+ 1d68  8a 03                             mov     al,[ebx]
+ 1d6a  83 f8 01                          cmp     eax,00000001H
+ 1d6d  75 cf                             jne     L177
+ 1d6f  0f bf 43 01                       movsx   eax,word ptr +1H[ebx]
+ 1d73  39 c6                             cmp     esi,eax
+ 1d75  7c 0a                             jl      L179
+ 1d77  8b 43 01                          mov     eax,+1H[ebx]
+ 1d7a  c1 f8 10                          sar     eax,10H
+ 1d7d  39 c6                             cmp     esi,eax
+ 1d7f  7e 9b                             jle     L175
+ 1d81  b8 00 7f 00 00    L179            mov     eax,00007f00H
+ 1d86  eb 9d                             jmp     L176
+ 1d88  8b 44 24 08       L180            mov     eax,+8H[esp]
+ 1d8c  c1 e1 10                          shl     ecx,10H
+ 1d8f  8b 40 0d                          mov     eax,+0dH[eax]
+ 1d92  29 c1                             sub     ecx,eax
+ 1d94  8b 44 24 04                       mov     eax,+4H[esp]
+ 1d98  89 08                             mov     [eax],ecx
+ 1d9a  8b 44 24 10                       mov     eax,+10H[esp]
+ 1d9e  83 c4 18                          add     esp,00000018H
+ 1da1  5d                                pop     ebp
+ 1da2  5f                                pop     edi
+ 1da3  5e                                pop     esi
+ 1da4  c3                                ret     
+ 1da5  8d 40 00                          lea     eax,+0H[eax]
+ 1da8                    int near object::getbasey():
+ 1da8  53                                push    ebx
+ 1da9  51                                push    ecx
+ 1daa  52                                push    edx
+ 1dab  56                                push    esi
+ 1dac  57                                push    edi
+ 1dad  55                                push    ebp
+ 1dae  89 c6                             mov     esi,eax
+ 1db0  8b 10                             mov     edx,[eax]
+ 1db2  83 7a 5d 00                       cmp     dword ptr +5dH[edx],00000000H
+ 1db6  75 26                             jne     L181
+ 1db8  8b 42 25                          mov     eax,+25H[edx]
+ 1dbb  8b 4a 1d                          mov     ecx,+1dH[edx]
+ 1dbe  29 c8                             sub     eax,ecx
+ 1dc0  89 c2                             mov     edx,eax
+ 1dc2  c1 e0 02                          shl     eax,02H
+ 1dc5  01 c2                             add     edx,eax
+ 1dc7  bb 06 00 00 00                    mov     ebx,00000006H
+ 1dcc  89 d0                             mov     eax,edx
+ 1dce  c1 fa 1f                          sar     edx,1fH
+ 1dd1  f7 fb                             idiv    ebx
+ 1dd3  c1 e0 10                          shl     eax,10H
+ 1dd6  89 46 3c                          mov     +3cH[esi],eax
+ 1dd9  e9 b6 00 00 00                    jmp     L188
+ 1dde  8b 78 16          L181            mov     edi,+16H[eax]
+ 1de1  85 ff                             test    edi,edi
+ 1de3  74 1e                             je      L182
+ 1de5  f6 47 0a 02                       test    byte ptr +0aH[edi],02H
+ 1de9  74 18                             je      L182
+ 1deb  c7 40 5b 00 00 00 
+       00                                mov     dword ptr +5bH[eax],00000000H
+ 1df2  c7 40 3c 00 00 00 
+       7f                                mov     dword ptr +3cH[eax],7f000000H
+ 1df9  8b 40 3c                          mov     eax,+3cH[eax]
+ 1dfc  5d                                pop     ebp
+ 1dfd  5f                                pop     edi
+ 1dfe  5e                                pop     esi
+ 1dff  5a                                pop     edx
+ 1e00  59                                pop     ecx
+ 1e01  5b                                pop     ebx
+ 1e02  c3                                ret     
+ 1e03  8b 6e 5b          L182            mov     ebp,+5bH[esi]
+ 1e06  85 ed                             test    ebp,ebp
+ 1e08  74 5f                             je      L186
+ 1e0a  8b 46 34                          mov     eax,+34H[esi]
+ 1e0d  3b 46 3c                          cmp     eax,+3cH[esi]
+ 1e10  75 57                             jne     L186
+ 1e12  8b 06                             mov     eax,[esi]
+ 1e14  8b 50 5d                          mov     edx,+5dH[eax]
+ 1e17  8b 46 30                          mov     eax,+30H[esi]
+ 1e1a  8b 5a 09                          mov     ebx,+9H[edx]
+ 1e1d  8d 14 18                          lea     edx,[eax+ebx]
+ 1e20  c1 fa 10                          sar     edx,10H
+ 1e23  0f bf 5d 01                       movsx   ebx,word ptr +1H[ebp]
+ 1e27  89 e8                             mov     eax,ebp
+ 1e29  39 da                             cmp     edx,ebx
+ 1e2b  7c 0a                             jl      L183
+ 1e2d  8b 5d 01                          mov     ebx,+1H[ebp]
+ 1e30  c1 fb 10                          sar     ebx,10H
+ 1e33  39 da                             cmp     edx,ebx
+ 1e35  7e 07                             jle     L184
+ 1e37  b8 00 7f 00 00    L183            mov     eax,00007f00H
+ 1e3c  eb 05                             jmp     L185
+ 1e3e  e8 00 00 00 00    L184            call    int near bgline::calcy( int )
+ 1e43  c1 e0 10          L185            shl     eax,10H
+ 1e46  89 46 3c                          mov     +3cH[esi],eax
+ 1e49  3d 00 00 00 7f                    cmp     eax,7f000000H
+ 1e4e  74 19                             je      L186
+ 1e50  8b 06                             mov     eax,[esi]
+ 1e52  8b 40 5d                          mov     eax,+5dH[eax]
+ 1e55  8b 6e 3c                          mov     ebp,+3cH[esi]
+ 1e58  8b 40 0d                          mov     eax,+0dH[eax]
+ 1e5b  29 c5                             sub     ebp,eax
+ 1e5d  89 e8                             mov     eax,ebp
+ 1e5f  89 6e 3c                          mov     +3cH[esi],ebp
+ 1e62  5d                                pop     ebp
+ 1e63  5f                                pop     edi
+ 1e64  5e                                pop     esi
+ 1e65  5a                                pop     edx
+ 1e66  59                                pop     ecx
+ 1e67  5b                                pop     ebx
+ 1e68  c3                                ret     
+ 1e69  8d 4e 3c          L186            lea     ecx,+3cH[esi]
+ 1e6c  8b 06                             mov     eax,[esi]
+ 1e6e  8b 5e 34                          mov     ebx,+34H[esi]
+ 1e71  8b 56 30                          mov     edx,+30H[esi]
+ 1e74  8b 40 5d                          mov     eax,+5dH[eax]
+ 1e77  e8 00 00 00 00                    call    bgline near * near bgobject::getbasey( int, int, int near & )
+ 1e7c  89 46 5b                          mov     +5bH[esi],eax
+ 1e7f  8b 06                             mov     eax,[esi]
+ 1e81  8b 78 59                          mov     edi,+59H[eax]
+ 1e84  39 fe                             cmp     esi,edi
+ 1e86  75 09                             jne     L187
+ 1e88  8b 50 5d                          mov     edx,+5dH[eax]
+ 1e8b  8b 47 5b                          mov     eax,+5bH[edi]
+ 1e8e  89 42 4e                          mov     +4eH[edx],eax
+ 1e91  8b 46 3c          L187            mov     eax,+3cH[esi]
+ 1e94  5d                L188            pop     ebp
+ 1e95  5f                                pop     edi
+ 1e96  5e                                pop     esi
+ 1e97  5a                                pop     edx
+ 1e98  59                                pop     ecx
+ 1e99  5b                                pop     ebx
+ 1e9a  c3                                ret     
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: _DATA  DWORD USE32  00000014 bytes  
+ 0000                          int near bglinecolor[] LABEL BYTE
+ 0000  00 00 00 00 01 00 00 00                 - ........
+ 0008  05 00 00 00 05 00 00 00                 - ........
+ 0010  06 00 00 00                             - ....
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: _BSS  DWORD USE32  00000014 bytes  
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: int near GUIrect::width()  SEGMENT ANY '_TEXT'  0000000c bytes  
+ 0000  52                                push    edx
+ 0001  89 c2                             mov     edx,eax
+ 0003  8b 40 21                          mov     eax,+21H[eax]
+ 0006  2b 42 19                          sub     eax,+19H[edx]
+ 0009  5a                                pop     edx
+ 000a  c3                                ret     
+ 000b  90                                nop     
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: int near GUIrect::height()  SEGMENT ANY '_TEXT'  0000000c bytes  
+ 0000  52                                push    edx
+ 0001  89 c2                             mov     edx,eax
+ 0003  8b 40 25                          mov     eax,+25H[eax]
+ 0006  2b 42 1d                          sub     eax,+1dH[edx]
+ 0009  5a                                pop     edx
+ 000a  c3                                ret     
+ 000b  90                                nop     
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: void near IMG::draw( char near *, int, int, int )  SEGMENT ANY '_TEXT'  00000016 bytes  
+ 0000  56                                push    esi
+ 0001  8b 74 24 08                       mov     esi,+8H[esp]
+ 0005  56                                push    esi
+ 0006  51                                push    ecx
+ 0007  53                                push    ebx
+ 0008  52                                push    edx
+ 0009  50                                push    eax
+ 000a  e8 00 00 00 00                    call    _drawimager2
+ 000f  83 c4 14                          add     esp,00000014H
+ 0012  5e                                pop     esi
+ 0013  c2 04 00                          ret     0004H
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: void (near * const near __vftbl[])()  SEGMENT ANY 'DGROUP:CONST2'  00000004 bytes  
+ 0000  00 00 00 00                             DD      near bgobject::~bgobject()
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: char unsigned const near __typesig[]  SEGMENT ANY 'DGROUP:CONST2'  00000011 bytes  
+ 0000  00 00 00 00 00                          - .....
+ 0005  00 00 00 00                             DD      near bgobject::bgobject( bgobject const near & )
+ 0009  00 00 00 00                             DD      near bgobject::~bgobject()
+ 000d  62 00 00 00                             - b...
+
+No disassembly errors
+
+------------------------------------------------------------

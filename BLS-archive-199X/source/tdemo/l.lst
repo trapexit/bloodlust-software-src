@@ -1,0 +1,2548 @@
+
+Module: c:\test\smix.c
+Group: 'DGROUP' CONST,CONST2,_DATA,_BSS
+
+Segment: _TEXT  PARA USE32  00001a05 bytes  
+ 0000  53                write_dsp_      push    ebx
+ 0001  51                                push    ecx
+ 0002  52                                push    edx
+ 0003  56                                push    esi
+ 0004  57                                push    edi
+ 0005  55                                push    ebp
+ 0006  89 e5                             mov     ebp,esp
+ 0008  81 ec 04 00 00 00                 sub     esp,00000004H
+ 000e  88 45 fc                          mov     -4H[ebp],al
+ 0011  a1 00 00 00 00    L1              mov     eax,_writeport
+ 0016  e8 00 00 00 00                    call    inp_
+ 001b  a8 80                             test    al,80H
+ 001d  75 f2                             jne     L1
+ 001f  31 d2                             xor     edx,edx
+ 0021  8a 55 fc                          mov     dl,-4H[ebp]
+ 0024  a1 00 00 00 00                    mov     eax,_writeport
+ 0029  e8 00 00 00 00                    call    outp_
+ 002e  89 ec                             mov     esp,ebp
+ 0030  5d                                pop     ebp
+ 0031  5f                                pop     edi
+ 0032  5e                                pop     esi
+ 0033  5a                                pop     edx
+ 0034  59                                pop     ecx
+ 0035  5b                                pop     ebx
+ 0036  c3                                ret     
+ 0037  90                                nop     
+ 0038  53                read_dsp_       push    ebx
+ 0039  51                                push    ecx
+ 003a  52                                push    edx
+ 003b  56                                push    esi
+ 003c  57                                push    edi
+ 003d  55                                push    ebp
+ 003e  89 e5                             mov     ebp,esp
+ 0040  81 ec 04 00 00 00                 sub     esp,00000004H
+ 0046  a1 00 00 00 00    L2              mov     eax,_pollport
+ 004b  e8 00 00 00 00                    call    inp_
+ 0050  a8 80                             test    al,80H
+ 0052  74 f2                             je      L2
+ 0054  a1 00 00 00 00                    mov     eax,_readport
+ 0059  e8 00 00 00 00                    call    inp_
+ 005e  88 45 fc                          mov     -4H[ebp],al
+ 0061  8a 45 fc                          mov     al,-4H[ebp]
+ 0064  89 ec                             mov     esp,ebp
+ 0066  5d                                pop     ebp
+ 0067  5f                                pop     edi
+ 0068  5e                                pop     esi
+ 0069  5a                                pop     edx
+ 006a  59                                pop     ecx
+ 006b  5b                                pop     ebx
+ 006c  c3                                ret     
+ 006d  8d 40 00                          lea     eax,+0H[eax]
+ 0070  53                reset_dsp_      push    ebx
+ 0071  51                                push    ecx
+ 0072  52                                push    edx
+ 0073  56                                push    esi
+ 0074  57                                push    edi
+ 0075  55                                push    ebp
+ 0076  89 e5                             mov     ebp,esp
+ 0078  81 ec 0c 00 00 00                 sub     esp,0000000cH
+ 007e  ba 01 00 00 00                    mov     edx,00000001H
+ 0083  a1 00 00 00 00                    mov     eax,_resetport
+ 0088  e8 00 00 00 00                    call    outp_
+ 008d  b8 2c 01 00 00                    mov     eax,0000012cH
+ 0092  e8 00 00 00 00                    call    delay_
+ 0097  31 d2                             xor     edx,edx
+ 0099  a1 00 00 00 00                    mov     eax,_resetport
+ 009e  e8 00 00 00 00                    call    outp_
+ 00a3  c7 45 f8 64 00 00 
+       00                                mov     dword ptr -8H[ebp],00000064H
+ 00aa  8b 45 f8          L3              mov     eax,-8H[ebp]
+ 00ad  ff 4d f8                          dec     dword ptr -8H[ebp]
+ 00b0  85 c0                             test    eax,eax
+ 00b2  7e 09                             jle     L4
+ 00b4  e8 00 00 00 00                    call    read_dsp_
+ 00b9  3c aa                             cmp     al,0aaH
+ 00bb  75 02                             jne     L5
+ 00bd  eb 02             L4              jmp     L6
+ 00bf  eb e9             L5              jmp     L3
+ 00c1  83 7d f8 00       L6              cmp     dword ptr -8H[ebp],00000000H
+ 00c5  7e 09                             jle     L7
+ 00c7  c7 45 f4 01 00 00 
+       00                                mov     dword ptr -0cH[ebp],00000001H
+ 00ce  eb 07                             jmp     L8
+ 00d0  c7 45 f4 00 00 00 
+       00                L7              mov     dword ptr -0cH[ebp],00000000H
+ 00d7  8b 45 f4          L8              mov     eax,-0cH[ebp]
+ 00da  89 45 fc                          mov     -4H[ebp],eax
+ 00dd  8b 45 fc                          mov     eax,-4H[ebp]
+ 00e0  89 ec                             mov     esp,ebp
+ 00e2  5d                                pop     ebp
+ 00e3  5f                                pop     edi
+ 00e4  5e                                pop     esi
+ 00e5  5a                                pop     edx
+ 00e6  59                                pop     ecx
+ 00e7  5b                                pop     ebx
+ 00e8  c3                                ret     
+ 00e9  8d 40 00                          lea     eax,+0H[eax]
+ 00ec  56                init_sb_        push    esi
+ 00ed  57                                push    edi
+ 00ee  55                                push    ebp
+ 00ef  89 e5                             mov     ebp,esp
+ 00f1  81 ec 2c 00 00 00                 sub     esp,0000002cH
+ 00f7  89 45 ec                          mov     -14H[ebp],eax
+ 00fa  89 55 f0                          mov     -10H[ebp],edx
+ 00fd  89 5d f4                          mov     -0cH[ebp],ebx
+ 0100  89 4d f8                          mov     -8H[ebp],ecx
+ 0103  8b 45 ec                          mov     eax,-14H[ebp]
+ 0106  83 c0 06                          add     eax,00000006H
+ 0109  a3 00 00 00 00                    mov     _resetport,eax
+ 010e  8b 45 ec                          mov     eax,-14H[ebp]
+ 0111  83 c0 0a                          add     eax,0000000aH
+ 0114  a3 00 00 00 00                    mov     _readport,eax
+ 0119  8b 45 ec                          mov     eax,-14H[ebp]
+ 011c  83 c0 0c                          add     eax,0000000cH
+ 011f  a3 00 00 00 00                    mov     _writeport,eax
+ 0124  8b 45 ec                          mov     eax,-14H[ebp]
+ 0127  83 c0 0e                          add     eax,0000000eH
+ 012a  a3 00 00 00 00                    mov     _pollport,eax
+ 012f  e8 00 00 00 00                    call    _disable_
+ 0134  e8 00 00 00 00                    call    reset_dsp_
+ 0139  85 c0                             test    eax,eax
+ 013b  75 0c                             jne     L9
+ 013d  c7 45 fc 00 00 00 
+       00                                mov     dword ptr -4H[ebp],00000000H
+ 0144  e9 3b 03 00 00                    jmp     L39
+ 0149  c6 45 e4 e1       L9              mov     byte ptr -1cH[ebp],0e1H
+ 014d  8a 45 e4                          mov     al,-1cH[ebp]
+ 0150  88 45 e8                          mov     -18H[ebp],al
+ 0153  a1 00 00 00 00    L10             mov     eax,_writeport
+ 0158  e8 00 00 00 00                    call    inp_
+ 015d  a8 80                             test    al,80H
+ 015f  75 f2                             jne     L10
+ 0161  31 d2                             xor     edx,edx
+ 0163  8a 55 e8                          mov     dl,-18H[ebp]
+ 0166  a1 00 00 00 00                    mov     eax,_writeport
+ 016b  e8 00 00 00 00                    call    outp_
+ 0170  a1 00 00 00 00    L11             mov     eax,_pollport
+ 0175  e8 00 00 00 00                    call    inp_
+ 017a  a8 80                             test    al,80H
+ 017c  74 f2                             je      L11
+ 017e  a1 00 00 00 00                    mov     eax,_readport
+ 0183  e8 00 00 00 00                    call    inp_
+ 0188  88 45 e0                          mov     -20H[ebp],al
+ 018b  31 c0                             xor     eax,eax
+ 018d  8a 45 e0                          mov     al,-20H[ebp]
+ 0190  6b c0 64                          imul    eax,64H
+ 0193  a3 00 00 00 00                    mov     _dspversion,eax
+ 0198  a1 00 00 00 00    L12             mov     eax,_pollport
+ 019d  e8 00 00 00 00                    call    inp_
+ 01a2  a8 80                             test    al,80H
+ 01a4  74 f2                             je      L12
+ 01a6  a1 00 00 00 00                    mov     eax,_readport
+ 01ab  e8 00 00 00 00                    call    inp_
+ 01b0  88 45 dc                          mov     -24H[ebp],al
+ 01b3  31 c0                             xor     eax,eax
+ 01b5  8a 45 dc                          mov     al,-24H[ebp]
+ 01b8  01 05 00 00 00 00                 add     _dspversion,eax
+ 01be  81 3d 00 00 00 00 
+       c8 00 00 00                       cmp     dword ptr _dspversion,000000c8H
+ 01c8  7e 09                             jle     L13
+ 01ca  c7 45 d8 01 00 00 
+       00                                mov     dword ptr -28H[ebp],00000001H
+ 01d1  eb 07                             jmp     L14
+ 01d3  c7 45 d8 00 00 00 
+       00                L13             mov     dword ptr -28H[ebp],00000000H
+ 01da  8b 45 d8          L14             mov     eax,-28H[ebp]
+ 01dd  a3 00 00 00 00                    mov     _autoinit,eax
+ 01e2  81 3d 00 00 00 00 
+       90 01 00 00                       cmp     dword ptr _dspversion,00000190H
+ 01ec  7e 06                             jle     L15
+ 01ee  83 7d f8 00                       cmp     dword ptr -8H[ebp],00000000H
+ 01f2  75 02                             jne     L16
+ 01f4  eb 06             L15             jmp     L17
+ 01f6  83 7d f8 03       L16             cmp     dword ptr -8H[ebp],00000003H
+ 01fa  7f 02                             jg      L18
+ 01fc  eb 09             L17             jmp     L19
+ 01fe  c7 45 d4 01 00 00 
+       00                L18             mov     dword ptr -2cH[ebp],00000001H
+ 0205  eb 07                             jmp     L20
+ 0207  c7 45 d4 00 00 00 
+       00                L19             mov     dword ptr -2cH[ebp],00000000H
+ 020e  8b 45 d4          L20             mov     eax,-2cH[ebp]
+ 0211  a3 00 00 00 00                    mov     _sixteenbit,eax
+ 0216  e8 00 00 00 00                    call    _enable_
+ 021b  bb 64 00 00 00                    mov     ebx,00000064H
+ 0220  a1 00 00 00 00                    mov     eax,_dspversion
+ 0225  8b 15 00 00 00 00                 mov     edx,_dspversion
+ 022b  c1 fa 1f                          sar     edx,1fH
+ 022e  f7 fb                             idiv    ebx
+ 0230  52                                push    edx
+ 0231  bb 64 00 00 00                    mov     ebx,00000064H
+ 0236  a1 00 00 00 00                    mov     eax,_dspversion
+ 023b  8b 15 00 00 00 00                 mov     edx,_dspversion
+ 0241  c1 fa 1f                          sar     edx,1fH
+ 0244  f7 fb                             idiv    ebx
+ 0246  50                                push    eax
+ 0247  b8 00 00 00 00                    mov     eax,offset L177
+ 024c  50                                push    eax
+ 024d  e8 00 00 00 00                    call    printf_
+ 0252  83 c4 0c                          add     esp,0000000cH
+ 0255  83 7d f0 08                       cmp     dword ptr -10H[ebp],00000008H
+ 0259  7d 20                             jge     L21
+ 025b  8a 45 f0                          mov     al,-10H[ebp]
+ 025e  04 08                             add     al,08H
+ 0260  a2 00 00 00 00                    mov     _irq_intvector,al
+ 0265  c7 05 00 00 00 00 
+       20 00 00 00                       mov     dword ptr _pic_rotateport,00000020H
+ 026f  c7 05 00 00 00 00 
+       21 00 00 00                       mov     dword ptr _pic_maskport,00000021H
+ 0279  eb 1e                             jmp     L22
+ 027b  8a 45 f0          L21             mov     al,-10H[ebp]
+ 027e  04 68                             add     al,68H
+ 0280  a2 00 00 00 00                    mov     _irq_intvector,al
+ 0285  c7 05 00 00 00 00 
+       a0 00 00 00                       mov     dword ptr _pic_rotateport,000000a0H
+ 028f  c7 05 00 00 00 00 
+       a1 00 00 00                       mov     dword ptr _pic_maskport,000000a1H
+ 0299  bb 08 00 00 00    L22             mov     ebx,00000008H
+ 029e  8b 45 f0                          mov     eax,-10H[ebp]
+ 02a1  8b 55 f0                          mov     edx,-10H[ebp]
+ 02a4  c1 fa 1f                          sar     edx,1fH
+ 02a7  f7 fb                             idiv    ebx
+ 02a9  88 d1                             mov     cl,dl
+ 02ab  ba 01 00 00 00                    mov     edx,00000001H
+ 02b0  d3 e2                             shl     edx,cl
+ 02b2  88 15 00 00 00 00                 mov     _irq_stopmask,dl
+ 02b8  8a 15 00 00 00 00                 mov     dl,_irq_stopmask
+ 02be  88 15 00 00 00 00                 mov     _irq_startmask,dl
+ 02c4  f6 15 00 00 00 00                 not     byte ptr _irq_startmask
+ 02ca  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _sixteenbit,00000000H
+ 02d1  0f 84 d9 00 00 00                 je      L30
+ 02d7  b8 18 00 00 00                    mov     eax,offset L178
+ 02dc  50                                push    eax
+ 02dd  e8 00 00 00 00                    call    printf_
+ 02e2  83 c4 04                          add     esp,00000004H
+ 02e5  c7 05 00 00 00 00 
+       d4 00 00 00                       mov     dword ptr _dma_maskport,000000d4H
+ 02ef  c7 05 00 00 00 00 
+       d8 00 00 00                       mov     dword ptr _dma_clrptrport,000000d8H
+ 02f9  c7 05 00 00 00 00 
+       d6 00 00 00                       mov     dword ptr _dma_modeport,000000d6H
+ 0303  8b 45 f8                          mov     eax,-8H[ebp]
+ 0306  c1 e0 02                          shl     eax,02H
+ 0309  05 b0 00 00 00                    add     eax,000000b0H
+ 030e  a3 00 00 00 00                    mov     _dma_addrport,eax
+ 0313  8b 45 f8                          mov     eax,-8H[ebp]
+ 0316  c1 e0 02                          shl     eax,02H
+ 0319  05 b2 00 00 00                    add     eax,000000b2H
+ 031e  a3 00 00 00 00                    mov     _dma_countport,eax
+ 0323  83 7d f8 06                       cmp     dword ptr -8H[ebp],00000006H
+ 0327  72 0e                             jb      L23
+ 0329  83 7d f8 06                       cmp     dword ptr -8H[ebp],00000006H
+ 032d  76 1a                             jbe     L24
+ 032f  83 7d f8 07                       cmp     dword ptr -8H[ebp],00000007H
+ 0333  74 20                             je      L25
+ 0335  eb 28                             jmp     L26
+ 0337  83 7d f8 05       L23             cmp     dword ptr -8H[ebp],00000005H
+ 033b  75 22                             jne     L26
+ 033d  c7 05 00 00 00 00 
+       8b 00 00 00                       mov     dword ptr _dma_pageport,0000008bH
+ 0347  eb 16                             jmp     L26
+ 0349  c7 05 00 00 00 00 
+       89 00 00 00       L24             mov     dword ptr _dma_pageport,00000089H
+ 0353  eb 0a                             jmp     L26
+ 0355  c7 05 00 00 00 00 
+       8a 00 00 00       L25             mov     dword ptr _dma_pageport,0000008aH
+ 035f  8a 45 f8          L26             mov     al,-8H[ebp]
+ 0362  a2 00 00 00 00                    mov     _dma_stopmask,al
+ 0367  8a 45 f8                          mov     al,-8H[ebp]
+ 036a  2c 04                             sub     al,04H
+ 036c  a2 00 00 00 00                    mov     _dma_startmask,al
+ 0371  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _autoinit,00000000H
+ 0378  74 0c                             je      L27
+ 037a  8a 45 f8                          mov     al,-8H[ebp]
+ 037d  04 54                             add     al,54H
+ 037f  a2 00 00 00 00                    mov     _dma_mode,al
+ 0384  eb 0a                             jmp     L28
+ 0386  8a 45 f8          L27             mov     al,-8H[ebp]
+ 0389  04 44                             add     al,44H
+ 038b  a2 00 00 00 00                    mov     _dma_mode,al
+ 0390  8b 45 ec          L28             mov     eax,-14H[ebp]
+ 0393  83 c0 0f                          add     eax,0000000fH
+ 0396  a3 00 00 00 00                    mov     _ackport,eax
+ 039b  e9 ce 00 00 00                    jmp     L38
+ 03a0  04 04 00 00       L29             DD      L31
+ 03a4  10 04 00 00                       DD      L32
+ 03a8  1c 04 00 00                       DD      L33
+ 03ac  28 04 00 00                       DD      L34
+ 03b0  b8 28 00 00 00    L30             mov     eax,offset L179
+ 03b5  50                                push    eax
+ 03b6  e8 00 00 00 00                    call    printf_
+ 03bb  83 c4 04                          add     esp,00000004H
+ 03be  c7 05 00 00 00 00 
+       0a 00 00 00                       mov     dword ptr _dma_maskport,0000000aH
+ 03c8  c7 05 00 00 00 00 
+       0c 00 00 00                       mov     dword ptr _dma_clrptrport,0000000cH
+ 03d2  c7 05 00 00 00 00 
+       0b 00 00 00                       mov     dword ptr _dma_modeport,0000000bH
+ 03dc  8b 45 f4                          mov     eax,-0cH[ebp]
+ 03df  01 c0                             add     eax,eax
+ 03e1  a3 00 00 00 00                    mov     _dma_addrport,eax
+ 03e6  8b 45 f4                          mov     eax,-0cH[ebp]
+ 03e9  01 c0                             add     eax,eax
+ 03eb  40                                inc     eax
+ 03ec  a3 00 00 00 00                    mov     _dma_countport,eax
+ 03f1  83 7d f4 03                       cmp     dword ptr -0cH[ebp],00000003H
+ 03f5  77 3b                             ja      L35
+ 03f7  8b 45 f4                          mov     eax,-0cH[ebp]
+ 03fa  c1 e0 02                          shl     eax,02H
+ 03fd  2e ff a0 a0 03 00 
+       00                                jmp     dword ptr cs:L29[eax]
+ 0404  c7 05 00 00 00 00 
+       87 00 00 00       L31             mov     dword ptr _dma_pageport,00000087H
+ 040e  eb 22                             jmp     L35
+ 0410  c7 05 00 00 00 00 
+       83 00 00 00       L32             mov     dword ptr _dma_pageport,00000083H
+ 041a  eb 16                             jmp     L35
+ 041c  c7 05 00 00 00 00 
+       81 00 00 00       L33             mov     dword ptr _dma_pageport,00000081H
+ 0426  eb 0a                             jmp     L35
+ 0428  c7 05 00 00 00 00 
+       82 00 00 00       L34             mov     dword ptr _dma_pageport,00000082H
+ 0432  8a 45 f4          L35             mov     al,-0cH[ebp]
+ 0435  04 04                             add     al,04H
+ 0437  a2 00 00 00 00                    mov     _dma_stopmask,al
+ 043c  8a 45 f4                          mov     al,-0cH[ebp]
+ 043f  a2 00 00 00 00                    mov     _dma_startmask,al
+ 0444  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _autoinit,00000000H
+ 044b  74 0c                             je      L36
+ 044d  8a 45 f4                          mov     al,-0cH[ebp]
+ 0450  04 58                             add     al,58H
+ 0452  a2 00 00 00 00                    mov     _dma_mode,al
+ 0457  eb 0a                             jmp     L37
+ 0459  8a 45 f4          L36             mov     al,-0cH[ebp]
+ 045c  04 48                             add     al,48H
+ 045e  a2 00 00 00 00                    mov     _dma_mode,al
+ 0463  8b 45 ec          L37             mov     eax,-14H[ebp]
+ 0466  83 c0 0e                          add     eax,0000000eH
+ 0469  a3 00 00 00 00                    mov     _ackport,eax
+ 046e  e8 00 00 00 00    L38             call    install_handler_
+ 0473  b8 00 00 00 00                    mov     eax,offset smix_exitproc_
+ 0478  e8 00 00 00 00                    call    atexit_
+ 047d  c7 45 fc 01 00 00 
+       00                                mov     dword ptr -4H[ebp],00000001H
+ 0484  8b 45 fc          L39             mov     eax,-4H[ebp]
+ 0487  89 ec                             mov     esp,ebp
+ 0489  5d                                pop     ebp
+ 048a  5f                                pop     edi
+ 048b  5e                                pop     esi
+ 048c  c3                                ret     
+ 048d  8d 40 00                          lea     eax,+0H[eax]
+ 0490  53                shutdown_sb_    push    ebx
+ 0491  51                                push    ecx
+ 0492  52                                push    edx
+ 0493  56                                push    esi
+ 0494  57                                push    edi
+ 0495  55                                push    ebp
+ 0496  89 e5                             mov     ebp,esp
+ 0498  81 ec 00 00 00 00                 sub     esp,00000000H
+ 049e  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _handler_installed,00000000H
+ 04a5  74 51                             je      L40
+ 04a7  e8 00 00 00 00                    call    _disable_
+ 04ac  a1 00 00 00 00                    mov     eax,_pic_maskport
+ 04b1  e8 00 00 00 00                    call    inp_
+ 04b6  31 d2                             xor     edx,edx
+ 04b8  8a 15 00 00 00 00                 mov     dl,_irq_stopmask
+ 04be  09 c2                             or      edx,eax
+ 04c0  a1 00 00 00 00                    mov     eax,_pic_maskport
+ 04c5  e8 00 00 00 00                    call    outp_
+ 04ca  66 8b 1d 04 00 00 
+       00                                mov     bx,_oldintvector+4H
+ 04d1  a1 00 00 00 00                    mov     eax,_oldintvector
+ 04d6  31 d2                             xor     edx,edx
+ 04d8  8a 15 00 00 00 00                 mov     dl,_irq_intvector
+ 04de  89 d9                             mov     ecx,ebx
+ 04e0  89 c3                             mov     ebx,eax
+ 04e2  89 d0                             mov     eax,edx
+ 04e4  e8 00 00 00 00                    call    _dos_setvect_
+ 04e9  e8 00 00 00 00                    call    _enable_
+ 04ee  c7 05 00 00 00 00 
+       00 00 00 00                       mov     dword ptr _handler_installed,00000000H
+ 04f8  e8 00 00 00 00    L40             call    reset_dsp_
+ 04fd  5d                                pop     ebp
+ 04fe  5f                                pop     edi
+ 04ff  5e                                pop     esi
+ 0500  5a                                pop     edx
+ 0501  59                                pop     ecx
+ 0502  5b                                pop     ebx
+ 0503  c3                                ret     
+ 0504  53                _start_dac      push    ebx
+ 0505  56                                push    esi
+ 0506  57                                push    edi
+ 0507  55                                push    ebp
+ 0508  89 e5                             mov     ebp,esp
+ 050a  81 ec a0 00 00 00                 sub     esp,000000a0H
+ 0510  e8 00 00 00 00                    call    _disable_
+ 0515  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _autoinit,00000000H
+ 051c  0f 84 a0 00 00 00                 je      L41
+ 0522  31 d2                             xor     edx,edx
+ 0524  8a 15 00 00 00 00                 mov     dl,_dma_stopmask
+ 052a  a1 00 00 00 00                    mov     eax,_dma_maskport
+ 052f  e8 00 00 00 00                    call    outp_
+ 0534  31 d2                             xor     edx,edx
+ 0536  a1 00 00 00 00                    mov     eax,_dma_clrptrport
+ 053b  e8 00 00 00 00                    call    outp_
+ 0540  31 d2                             xor     edx,edx
+ 0542  8a 15 00 00 00 00                 mov     dl,_dma_mode
+ 0548  a1 00 00 00 00                    mov     eax,_dma_modeport
+ 054d  e8 00 00 00 00                    call    outp_
+ 0552  a0 00 00 00 00                    mov     al,_buffer_ofs
+ 0557  31 d2                             xor     edx,edx
+ 0559  88 c2                             mov     dl,al
+ 055b  a1 00 00 00 00                    mov     eax,_dma_addrport
+ 0560  e8 00 00 00 00                    call    outp_
+ 0565  a1 00 00 00 00                    mov     eax,_buffer_ofs
+ 056a  c1 e8 08                          shr     eax,08H
+ 056d  31 d2                             xor     edx,edx
+ 056f  88 c2                             mov     dl,al
+ 0571  a1 00 00 00 00                    mov     eax,_dma_addrport
+ 0576  e8 00 00 00 00                    call    outp_
+ 057b  ba ff 00 00 00                    mov     edx,000000ffH
+ 0580  a1 00 00 00 00                    mov     eax,_dma_countport
+ 0585  e8 00 00 00 00                    call    outp_
+ 058a  ba 07 00 00 00                    mov     edx,00000007H
+ 058f  a1 00 00 00 00                    mov     eax,_dma_countport
+ 0594  e8 00 00 00 00                    call    outp_
+ 0599  31 d2                             xor     edx,edx
+ 059b  8a 15 00 00 00 00                 mov     dl,_buffer_page
+ 05a1  a1 00 00 00 00                    mov     eax,_dma_pageport
+ 05a6  e8 00 00 00 00                    call    outp_
+ 05ab  31 d2                             xor     edx,edx
+ 05ad  8a 15 00 00 00 00                 mov     dl,_dma_startmask
+ 05b3  a1 00 00 00 00                    mov     eax,_dma_maskport
+ 05b8  e8 00 00 00 00                    call    outp_
+ 05bd  e9 9b 00 00 00                    jmp     L42
+ 05c2  31 d2             L41             xor     edx,edx
+ 05c4  8a 15 00 00 00 00                 mov     dl,_dma_stopmask
+ 05ca  a1 00 00 00 00                    mov     eax,_dma_maskport
+ 05cf  e8 00 00 00 00                    call    outp_
+ 05d4  31 d2                             xor     edx,edx
+ 05d6  a1 00 00 00 00                    mov     eax,_dma_clrptrport
+ 05db  e8 00 00 00 00                    call    outp_
+ 05e0  31 d2                             xor     edx,edx
+ 05e2  8a 15 00 00 00 00                 mov     dl,_dma_mode
+ 05e8  a1 00 00 00 00                    mov     eax,_dma_modeport
+ 05ed  e8 00 00 00 00                    call    outp_
+ 05f2  a0 00 00 00 00                    mov     al,_buffer_ofs
+ 05f7  31 d2                             xor     edx,edx
+ 05f9  88 c2                             mov     dl,al
+ 05fb  a1 00 00 00 00                    mov     eax,_dma_addrport
+ 0600  e8 00 00 00 00                    call    outp_
+ 0605  a1 00 00 00 00                    mov     eax,_buffer_ofs
+ 060a  c1 e8 08                          shr     eax,08H
+ 060d  31 d2                             xor     edx,edx
+ 060f  88 c2                             mov     dl,al
+ 0611  a1 00 00 00 00                    mov     eax,_dma_addrport
+ 0616  e8 00 00 00 00                    call    outp_
+ 061b  ba ff 00 00 00                    mov     edx,000000ffH
+ 0620  a1 00 00 00 00                    mov     eax,_dma_countport
+ 0625  e8 00 00 00 00                    call    outp_
+ 062a  ba 03 00 00 00                    mov     edx,00000003H
+ 062f  a1 00 00 00 00                    mov     eax,_dma_countport
+ 0634  e8 00 00 00 00                    call    outp_
+ 0639  31 d2                             xor     edx,edx
+ 063b  8a 15 00 00 00 00                 mov     dl,_buffer_page
+ 0641  a1 00 00 00 00                    mov     eax,_dma_pageport
+ 0646  e8 00 00 00 00                    call    outp_
+ 064b  31 d2                             xor     edx,edx
+ 064d  8a 15 00 00 00 00                 mov     dl,_dma_startmask
+ 0653  a1 00 00 00 00                    mov     eax,_dma_maskport
+ 0658  e8 00 00 00 00                    call    outp_
+ 065d  83 3d 00 00 00 00 
+       00                L42             cmp     dword ptr _sixteenbit,00000000H
+ 0664  0f 84 16 01 00 00                 je      L50
+ 066a  c6 45 f8 41                       mov     byte ptr -8H[ebp],41H
+ 066e  8a 45 f8                          mov     al,-8H[ebp]
+ 0671  88 45 fc                          mov     -4H[ebp],al
+ 0674  a1 00 00 00 00    L43             mov     eax,_writeport
+ 0679  e8 00 00 00 00                    call    inp_
+ 067e  a8 80                             test    al,80H
+ 0680  75 f2                             jne     L43
+ 0682  31 d2                             xor     edx,edx
+ 0684  8a 55 fc                          mov     dl,-4H[ebp]
+ 0687  a1 00 00 00 00                    mov     eax,_writeport
+ 068c  e8 00 00 00 00                    call    outp_
+ 0691  c6 45 f0 3e                       mov     byte ptr -10H[ebp],3eH
+ 0695  8a 45 f0                          mov     al,-10H[ebp]
+ 0698  88 45 f4                          mov     -0cH[ebp],al
+ 069b  a1 00 00 00 00    L44             mov     eax,_writeport
+ 06a0  e8 00 00 00 00                    call    inp_
+ 06a5  a8 80                             test    al,80H
+ 06a7  75 f2                             jne     L44
+ 06a9  31 d2                             xor     edx,edx
+ 06ab  8a 55 f4                          mov     dl,-0cH[ebp]
+ 06ae  a1 00 00 00 00                    mov     eax,_writeport
+ 06b3  e8 00 00 00 00                    call    outp_
+ 06b8  c6 45 e8 80                       mov     byte ptr -18H[ebp],80H
+ 06bc  8a 45 e8                          mov     al,-18H[ebp]
+ 06bf  88 45 ec                          mov     -14H[ebp],al
+ 06c2  a1 00 00 00 00    L45             mov     eax,_writeport
+ 06c7  e8 00 00 00 00                    call    inp_
+ 06cc  a8 80                             test    al,80H
+ 06ce  75 f2                             jne     L45
+ 06d0  31 d2                             xor     edx,edx
+ 06d2  8a 55 ec                          mov     dl,-14H[ebp]
+ 06d5  a1 00 00 00 00                    mov     eax,_writeport
+ 06da  e8 00 00 00 00                    call    outp_
+ 06df  c6 45 e0 b6                       mov     byte ptr -20H[ebp],0b6H
+ 06e3  8a 45 e0                          mov     al,-20H[ebp]
+ 06e6  88 45 e4                          mov     -1cH[ebp],al
+ 06e9  a1 00 00 00 00    L46             mov     eax,_writeport
+ 06ee  e8 00 00 00 00                    call    inp_
+ 06f3  a8 80                             test    al,80H
+ 06f5  75 f2                             jne     L46
+ 06f7  31 d2                             xor     edx,edx
+ 06f9  8a 55 e4                          mov     dl,-1cH[ebp]
+ 06fc  a1 00 00 00 00                    mov     eax,_writeport
+ 0701  e8 00 00 00 00                    call    outp_
+ 0706  c6 45 d8 10                       mov     byte ptr -28H[ebp],10H
+ 070a  8a 45 d8                          mov     al,-28H[ebp]
+ 070d  88 45 dc                          mov     -24H[ebp],al
+ 0710  a1 00 00 00 00    L47             mov     eax,_writeport
+ 0715  e8 00 00 00 00                    call    inp_
+ 071a  a8 80                             test    al,80H
+ 071c  75 f2                             jne     L47
+ 071e  31 d2                             xor     edx,edx
+ 0720  8a 55 dc                          mov     dl,-24H[ebp]
+ 0723  a1 00 00 00 00                    mov     eax,_writeport
+ 0728  e8 00 00 00 00                    call    outp_
+ 072d  c6 45 d0 ff                       mov     byte ptr -30H[ebp],0ffH
+ 0731  8a 45 d0                          mov     al,-30H[ebp]
+ 0734  88 45 d4                          mov     -2cH[ebp],al
+ 0737  a1 00 00 00 00    L48             mov     eax,_writeport
+ 073c  e8 00 00 00 00                    call    inp_
+ 0741  a8 80                             test    al,80H
+ 0743  75 f2                             jne     L48
+ 0745  31 d2                             xor     edx,edx
+ 0747  8a 55 d4                          mov     dl,-2cH[ebp]
+ 074a  a1 00 00 00 00                    mov     eax,_writeport
+ 074f  e8 00 00 00 00                    call    outp_
+ 0754  c6 45 c8 03                       mov     byte ptr -38H[ebp],03H
+ 0758  8a 45 c8                          mov     al,-38H[ebp]
+ 075b  88 45 cc                          mov     -34H[ebp],al
+ 075e  a1 00 00 00 00    L49             mov     eax,_writeport
+ 0763  e8 00 00 00 00                    call    inp_
+ 0768  a8 80                             test    al,80H
+ 076a  75 f2                             jne     L49
+ 076c  31 d2                             xor     edx,edx
+ 076e  8a 55 cc                          mov     dl,-34H[ebp]
+ 0771  a1 00 00 00 00                    mov     eax,_writeport
+ 0776  e8 00 00 00 00                    call    outp_
+ 077b  e9 3d 02 00 00                    jmp     L65
+ 0780  83 3d 00 00 00 00 
+       00                L50             cmp     dword ptr _autoinit,00000000H
+ 0787  0f 84 16 01 00 00                 je      L58
+ 078d  c6 45 c0 d1                       mov     byte ptr -40H[ebp],0d1H
+ 0791  8a 45 c0                          mov     al,-40H[ebp]
+ 0794  88 45 c4                          mov     -3cH[ebp],al
+ 0797  a1 00 00 00 00    L51             mov     eax,_writeport
+ 079c  e8 00 00 00 00                    call    inp_
+ 07a1  a8 80                             test    al,80H
+ 07a3  75 f2                             jne     L51
+ 07a5  31 d2                             xor     edx,edx
+ 07a7  8a 55 c4                          mov     dl,-3cH[ebp]
+ 07aa  a1 00 00 00 00                    mov     eax,_writeport
+ 07af  e8 00 00 00 00                    call    outp_
+ 07b4  c6 45 b8 40                       mov     byte ptr -48H[ebp],40H
+ 07b8  8a 45 b8                          mov     al,-48H[ebp]
+ 07bb  88 45 bc                          mov     -44H[ebp],al
+ 07be  a1 00 00 00 00    L52             mov     eax,_writeport
+ 07c3  e8 00 00 00 00                    call    inp_
+ 07c8  a8 80                             test    al,80H
+ 07ca  75 f2                             jne     L52
+ 07cc  31 d2                             xor     edx,edx
+ 07ce  8a 55 bc                          mov     dl,-44H[ebp]
+ 07d1  a1 00 00 00 00                    mov     eax,_writeport
+ 07d6  e8 00 00 00 00                    call    outp_
+ 07db  c6 45 b0 bf                       mov     byte ptr -50H[ebp],0bfH
+ 07df  8a 45 b0                          mov     al,-50H[ebp]
+ 07e2  88 45 b4                          mov     -4cH[ebp],al
+ 07e5  a1 00 00 00 00    L53             mov     eax,_writeport
+ 07ea  e8 00 00 00 00                    call    inp_
+ 07ef  a8 80                             test    al,80H
+ 07f1  75 f2                             jne     L53
+ 07f3  31 d2                             xor     edx,edx
+ 07f5  8a 55 b4                          mov     dl,-4cH[ebp]
+ 07f8  a1 00 00 00 00                    mov     eax,_writeport
+ 07fd  e8 00 00 00 00                    call    outp_
+ 0802  c6 45 a8 48                       mov     byte ptr -58H[ebp],48H
+ 0806  8a 45 a8                          mov     al,-58H[ebp]
+ 0809  88 45 ac                          mov     -54H[ebp],al
+ 080c  a1 00 00 00 00    L54             mov     eax,_writeport
+ 0811  e8 00 00 00 00                    call    inp_
+ 0816  a8 80                             test    al,80H
+ 0818  75 f2                             jne     L54
+ 081a  31 d2                             xor     edx,edx
+ 081c  8a 55 ac                          mov     dl,-54H[ebp]
+ 081f  a1 00 00 00 00                    mov     eax,_writeport
+ 0824  e8 00 00 00 00                    call    outp_
+ 0829  c6 45 a0 ff                       mov     byte ptr -60H[ebp],0ffH
+ 082d  8a 45 a0                          mov     al,-60H[ebp]
+ 0830  88 45 a4                          mov     -5cH[ebp],al
+ 0833  a1 00 00 00 00    L55             mov     eax,_writeport
+ 0838  e8 00 00 00 00                    call    inp_
+ 083d  a8 80                             test    al,80H
+ 083f  75 f2                             jne     L55
+ 0841  31 d2                             xor     edx,edx
+ 0843  8a 55 a4                          mov     dl,-5cH[ebp]
+ 0846  a1 00 00 00 00                    mov     eax,_writeport
+ 084b  e8 00 00 00 00                    call    outp_
+ 0850  c6 45 98 03                       mov     byte ptr -68H[ebp],03H
+ 0854  8a 45 98                          mov     al,-68H[ebp]
+ 0857  88 45 9c                          mov     -64H[ebp],al
+ 085a  a1 00 00 00 00    L56             mov     eax,_writeport
+ 085f  e8 00 00 00 00                    call    inp_
+ 0864  a8 80                             test    al,80H
+ 0866  75 f2                             jne     L56
+ 0868  31 d2                             xor     edx,edx
+ 086a  8a 55 9c                          mov     dl,-64H[ebp]
+ 086d  a1 00 00 00 00                    mov     eax,_writeport
+ 0872  e8 00 00 00 00                    call    outp_
+ 0877  c6 45 90 1c                       mov     byte ptr -70H[ebp],1cH
+ 087b  8a 45 90                          mov     al,-70H[ebp]
+ 087e  88 45 94                          mov     -6cH[ebp],al
+ 0881  a1 00 00 00 00    L57             mov     eax,_writeport
+ 0886  e8 00 00 00 00                    call    inp_
+ 088b  a8 80                             test    al,80H
+ 088d  75 f2                             jne     L57
+ 088f  31 d2                             xor     edx,edx
+ 0891  8a 55 94                          mov     dl,-6cH[ebp]
+ 0894  a1 00 00 00 00                    mov     eax,_writeport
+ 0899  e8 00 00 00 00                    call    outp_
+ 089e  e9 1a 01 00 00                    jmp     L65
+ 08a3  c6 45 88 d1       L58             mov     byte ptr -78H[ebp],0d1H
+ 08a7  8a 45 88                          mov     al,-78H[ebp]
+ 08aa  88 45 8c                          mov     -74H[ebp],al
+ 08ad  a1 00 00 00 00    L59             mov     eax,_writeport
+ 08b2  e8 00 00 00 00                    call    inp_
+ 08b7  a8 80                             test    al,80H
+ 08b9  75 f2                             jne     L59
+ 08bb  31 d2                             xor     edx,edx
+ 08bd  8a 55 8c                          mov     dl,-74H[ebp]
+ 08c0  a1 00 00 00 00                    mov     eax,_writeport
+ 08c5  e8 00 00 00 00                    call    outp_
+ 08ca  c6 45 80 40                       mov     byte ptr -80H[ebp],40H
+ 08ce  8a 45 80                          mov     al,-80H[ebp]
+ 08d1  88 45 84                          mov     -7cH[ebp],al
+ 08d4  a1 00 00 00 00    L60             mov     eax,_writeport
+ 08d9  e8 00 00 00 00                    call    inp_
+ 08de  a8 80                             test    al,80H
+ 08e0  75 f2                             jne     L60
+ 08e2  31 d2                             xor     edx,edx
+ 08e4  8a 55 84                          mov     dl,-7cH[ebp]
+ 08e7  a1 00 00 00 00                    mov     eax,_writeport
+ 08ec  e8 00 00 00 00                    call    outp_
+ 08f1  c6 85 78 ff ff ff 
+       bf                                mov     byte ptr -88H[ebp],0bfH
+ 08f8  8a 85 78 ff ff ff                 mov     al,-88H[ebp]
+ 08fe  88 85 7c ff ff ff                 mov     -84H[ebp],al
+ 0904  a1 00 00 00 00    L61             mov     eax,_writeport
+ 0909  e8 00 00 00 00                    call    inp_
+ 090e  a8 80                             test    al,80H
+ 0910  75 f2                             jne     L61
+ 0912  31 d2                             xor     edx,edx
+ 0914  8a 95 7c ff ff ff                 mov     dl,-84H[ebp]
+ 091a  a1 00 00 00 00                    mov     eax,_writeport
+ 091f  e8 00 00 00 00                    call    outp_
+ 0924  c6 85 70 ff ff ff 
+       14                                mov     byte ptr -90H[ebp],14H
+ 092b  8a 85 70 ff ff ff                 mov     al,-90H[ebp]
+ 0931  88 85 74 ff ff ff                 mov     -8cH[ebp],al
+ 0937  a1 00 00 00 00    L62             mov     eax,_writeport
+ 093c  e8 00 00 00 00                    call    inp_
+ 0941  a8 80                             test    al,80H
+ 0943  75 f2                             jne     L62
+ 0945  31 d2                             xor     edx,edx
+ 0947  8a 95 74 ff ff ff                 mov     dl,-8cH[ebp]
+ 094d  a1 00 00 00 00                    mov     eax,_writeport
+ 0952  e8 00 00 00 00                    call    outp_
+ 0957  c6 85 68 ff ff ff 
+       ff                                mov     byte ptr -98H[ebp],0ffH
+ 095e  8a 85 68 ff ff ff                 mov     al,-98H[ebp]
+ 0964  88 85 6c ff ff ff                 mov     -94H[ebp],al
+ 096a  a1 00 00 00 00    L63             mov     eax,_writeport
+ 096f  e8 00 00 00 00                    call    inp_
+ 0974  a8 80                             test    al,80H
+ 0976  75 f2                             jne     L63
+ 0978  31 d2                             xor     edx,edx
+ 097a  8a 95 6c ff ff ff                 mov     dl,-94H[ebp]
+ 0980  a1 00 00 00 00                    mov     eax,_writeport
+ 0985  e8 00 00 00 00                    call    outp_
+ 098a  c6 85 60 ff ff ff 
+       03                                mov     byte ptr -0a0H[ebp],03H
+ 0991  8a 85 60 ff ff ff                 mov     al,-0a0H[ebp]
+ 0997  88 85 64 ff ff ff                 mov     -9cH[ebp],al
+ 099d  a1 00 00 00 00    L64             mov     eax,_writeport
+ 09a2  e8 00 00 00 00                    call    inp_
+ 09a7  a8 80                             test    al,80H
+ 09a9  75 f2                             jne     L64
+ 09ab  31 d2                             xor     edx,edx
+ 09ad  8a 95 64 ff ff ff                 mov     dl,-9cH[ebp]
+ 09b3  a1 00 00 00 00                    mov     eax,_writeport
+ 09b8  e8 00 00 00 00                    call    outp_
+ 09bd  e8 00 00 00 00    L65             call    _enable_
+ 09c2  89 ec                             mov     esp,ebp
+ 09c4  5d                                pop     ebp
+ 09c5  5f                                pop     edi
+ 09c6  5e                                pop     esi
+ 09c7  5b                                pop     ebx
+ 09c8  c3                                ret     
+ 09c9  8d 40 00                          lea     eax,+0H[eax]
+ 09cc  53                stop_dac_       push    ebx
+ 09cd  51                                push    ecx
+ 09ce  52                                push    edx
+ 09cf  56                                push    esi
+ 09d0  57                                push    edi
+ 09d1  55                                push    ebp
+ 09d2  89 e5                             mov     ebp,esp
+ 09d4  81 ec 18 00 00 00                 sub     esp,00000018H
+ 09da  e8 00 00 00 00                    call    _disable_
+ 09df  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _sixteenbit,00000000H
+ 09e6  74 29                             je      L67
+ 09e8  c6 45 f8 d5                       mov     byte ptr -8H[ebp],0d5H
+ 09ec  8a 45 f8                          mov     al,-8H[ebp]
+ 09ef  88 45 fc                          mov     -4H[ebp],al
+ 09f2  a1 00 00 00 00    L66             mov     eax,_writeport
+ 09f7  e8 00 00 00 00                    call    inp_
+ 09fc  a8 80                             test    al,80H
+ 09fe  75 f2                             jne     L66
+ 0a00  31 d2                             xor     edx,edx
+ 0a02  8a 55 fc                          mov     dl,-4H[ebp]
+ 0a05  a1 00 00 00 00                    mov     eax,_writeport
+ 0a0a  e8 00 00 00 00                    call    outp_
+ 0a0f  eb 27                             jmp     L69
+ 0a11  c6 45 f0 d0       L67             mov     byte ptr -10H[ebp],0d0H
+ 0a15  8a 45 f0                          mov     al,-10H[ebp]
+ 0a18  88 45 f4                          mov     -0cH[ebp],al
+ 0a1b  a1 00 00 00 00    L68             mov     eax,_writeport
+ 0a20  e8 00 00 00 00                    call    inp_
+ 0a25  a8 80                             test    al,80H
+ 0a27  75 f2                             jne     L68
+ 0a29  31 d2                             xor     edx,edx
+ 0a2b  8a 55 f4                          mov     dl,-0cH[ebp]
+ 0a2e  a1 00 00 00 00                    mov     eax,_writeport
+ 0a33  e8 00 00 00 00                    call    outp_
+ 0a38  c6 45 e8 d3       L69             mov     byte ptr -18H[ebp],0d3H
+ 0a3c  8a 45 e8                          mov     al,-18H[ebp]
+ 0a3f  88 45 ec                          mov     -14H[ebp],al
+ 0a42  a1 00 00 00 00    L70             mov     eax,_writeport
+ 0a47  e8 00 00 00 00                    call    inp_
+ 0a4c  a8 80                             test    al,80H
+ 0a4e  75 f2                             jne     L70
+ 0a50  31 d2                             xor     edx,edx
+ 0a52  8a 55 ec                          mov     dl,-14H[ebp]
+ 0a55  a1 00 00 00 00                    mov     eax,_writeport
+ 0a5a  e8 00 00 00 00                    call    outp_
+ 0a5f  31 d2                             xor     edx,edx
+ 0a61  8a 15 00 00 00 00                 mov     dl,_dma_stopmask
+ 0a67  a1 00 00 00 00                    mov     eax,_dma_maskport
+ 0a6c  e8 00 00 00 00                    call    outp_
+ 0a71  e8 00 00 00 00                    call    _enable_
+ 0a76  89 ec                             mov     esp,ebp
+ 0a78  5d                                pop     ebp
+ 0a79  5f                                pop     edi
+ 0a7a  5e                                pop     esi
+ 0a7b  5a                                pop     edx
+ 0a7c  59                                pop     ecx
+ 0a7d  5b                                pop     ebx
+ 0a7e  c3                                ret     
+ 0a7f  90                                nop     
+ 0a80                    init_volume_table_:
+ 0a80  53                                push    ebx
+ 0a81  51                                push    ecx
+ 0a82  52                                push    edx
+ 0a83  56                                push    esi
+ 0a84  57                                push    edi
+ 0a85  55                                push    ebp
+ 0a86  89 e5                             mov     ebp,esp
+ 0a88  81 ec 0c 00 00 00                 sub     esp,0000000cH
+ 0a8e  b8 00 10 00 00                    mov     eax,00001000H
+ 0a93  e8 00 00 00 00                    call    malloc_
+ 0a98  a3 00 00 00 00                    mov     _volume_table,eax
+ 0a9d  c7 45 f4 00 00 00 
+       00                                mov     dword ptr -0cH[ebp],00000000H
+ 0aa4  83 7d f4 08       L71             cmp     dword ptr -0cH[ebp],00000008H
+ 0aa8  7c 0a                             jl      L73
+ 0aaa  eb 5c                             jmp     L78
+ 0aac  8b 45 f4          L72             mov     eax,-0cH[ebp]
+ 0aaf  ff 45 f4                          inc     dword ptr -0cH[ebp]
+ 0ab2  eb f0                             jmp     L71
+ 0ab4  c7 45 f8 80 ff ff 
+       ff                L73             mov     dword ptr -8H[ebp],0ffffff80H
+ 0abb  83 7d f8 7f       L74             cmp     dword ptr -8H[ebp],0000007fH
+ 0abf  7e 0a                             jle     L76
+ 0ac1  eb 43                             jmp     L77
+ 0ac3  8b 45 f8          L75             mov     eax,-8H[ebp]
+ 0ac6  ff 45 f8                          inc     dword ptr -8H[ebp]
+ 0ac9  eb f0                             jmp     L74
+ 0acb  8a 45 f8          L76             mov     al,-8H[ebp]
+ 0ace  88 45 fc                          mov     -4H[ebp],al
+ 0ad1  6b 55 f4 37                       imul    edx,-0cH[ebp],37H
+ 0ad5  0f be 45 fc                       movsx   eax,byte ptr -4H[ebp]
+ 0ad9  0f af d0                          imul    edx,eax
+ 0adc  bb 07 00 00 00                    mov     ebx,00000007H
+ 0ae1  89 d0                             mov     eax,edx
+ 0ae3  c1 fa 1f                          sar     edx,1fH
+ 0ae6  f7 fb                             idiv    ebx
+ 0ae8  89 c3                             mov     ebx,eax
+ 0aea  8b 45 f4                          mov     eax,-0cH[ebp]
+ 0aed  c1 e0 09                          shl     eax,09H
+ 0af0  8b 15 00 00 00 00                 mov     edx,_volume_table
+ 0af6  01 c2                             add     edx,eax
+ 0af8  31 c0                             xor     eax,eax
+ 0afa  8a 45 fc                          mov     al,-4H[ebp]
+ 0afd  01 c0                             add     eax,eax
+ 0aff  01 d0                             add     eax,edx
+ 0b01  66 89 18                          mov     [eax],bx
+ 0b04  eb bd                             jmp     L75
+ 0b06  eb a4             L77             jmp     L72
+ 0b08  c6 05 00 00 00 00 
+       ff                L78             mov     byte ptr _sound_volume,0ffH
+ 0b0f  89 ec                             mov     esp,ebp
+ 0b11  5d                                pop     ebp
+ 0b12  5f                                pop     edi
+ 0b13  5e                                pop     esi
+ 0b14  5a                                pop     edx
+ 0b15  59                                pop     ecx
+ 0b16  5b                                pop     ebx
+ 0b17  c3                                ret     
+ 0b18                    set_sound_volume_:
+ 0b18  53                                push    ebx
+ 0b19  51                                push    ecx
+ 0b1a  52                                push    edx
+ 0b1b  56                                push    esi
+ 0b1c  57                                push    edi
+ 0b1d  55                                push    ebp
+ 0b1e  89 e5                             mov     ebp,esp
+ 0b20  81 ec 04 00 00 00                 sub     esp,00000004H
+ 0b26  88 45 fc                          mov     -4H[ebp],al
+ 0b29  8a 45 fc                          mov     al,-4H[ebp]
+ 0b2c  a2 00 00 00 00                    mov     _sound_volume,al
+ 0b31  89 ec                             mov     esp,ebp
+ 0b33  5d                                pop     ebp
+ 0b34  5f                                pop     edi
+ 0b35  5e                                pop     esi
+ 0b36  5a                                pop     edx
+ 0b37  59                                pop     ecx
+ 0b38  5b                                pop     ebx
+ 0b39  c3                                ret     
+ 0b3a  8b c0                             mov     eax,eax
+ 0b3c  53                init_clip8_     push    ebx
+ 0b3d  51                                push    ecx
+ 0b3e  52                                push    edx
+ 0b3f  56                                push    esi
+ 0b40  57                                push    edi
+ 0b41  55                                push    ebp
+ 0b42  89 e5                             mov     ebp,esp
+ 0b44  81 ec 10 00 00 00                 sub     esp,00000010H
+ 0b4a  b8 00 08 00 00                    mov     eax,00000800H
+ 0b4f  e8 00 00 00 00                    call    malloc_
+ 0b54  a3 00 00 00 00                    mov     _clip_8_buf,eax
+ 0b59  a1 00 00 00 00                    mov     eax,_clip_8_buf
+ 0b5e  05 00 04 00 00                    add     eax,00000400H
+ 0b63  a3 00 00 00 00                    mov     _clip_8,eax
+ 0b68  c7 45 f8 00 fc ff 
+       ff                                mov     dword ptr -8H[ebp],0fffffc00H
+ 0b6f  81 7d f8 00 04 00 
+       00                L79             cmp     dword ptr -8H[ebp],00000400H
+ 0b76  7c 0a                             jl      L81
+ 0b78  eb 56                             jmp     L86
+ 0b7a  8b 45 f8          L80             mov     eax,-8H[ebp]
+ 0b7d  ff 45 f8                          inc     dword ptr -8H[ebp]
+ 0b80  eb ed                             jmp     L79
+ 0b82  8b 45 f8          L81             mov     eax,-8H[ebp]
+ 0b85  89 45 fc                          mov     -4H[ebp],eax
+ 0b88  83 7d fc 80                       cmp     dword ptr -4H[ebp],0ffffff80H
+ 0b8c  7e 08                             jle     L82
+ 0b8e  8b 45 fc                          mov     eax,-4H[ebp]
+ 0b91  89 45 f0                          mov     -10H[ebp],eax
+ 0b94  eb 07                             jmp     L83
+ 0b96  c7 45 f0 80 ff ff 
+       ff                L82             mov     dword ptr -10H[ebp],0ffffff80H
+ 0b9d  8b 45 f0          L83             mov     eax,-10H[ebp]
+ 0ba0  89 45 fc                          mov     -4H[ebp],eax
+ 0ba3  83 7d fc 7f                       cmp     dword ptr -4H[ebp],0000007fH
+ 0ba7  7d 08                             jge     L84
+ 0ba9  8b 45 fc                          mov     eax,-4H[ebp]
+ 0bac  89 45 f4                          mov     -0cH[ebp],eax
+ 0baf  eb 07                             jmp     L85
+ 0bb1  c7 45 f4 7f 00 00 
+       00                L84             mov     dword ptr -0cH[ebp],0000007fH
+ 0bb8  8b 45 f4          L85             mov     eax,-0cH[ebp]
+ 0bbb  89 45 fc                          mov     -4H[ebp],eax
+ 0bbe  8a 55 fc                          mov     dl,-4H[ebp]
+ 0bc1  80 c2 80                          add     dl,80H
+ 0bc4  a1 00 00 00 00                    mov     eax,_clip_8
+ 0bc9  03 45 f8                          add     eax,-8H[ebp]
+ 0bcc  88 10                             mov     [eax],dl
+ 0bce  eb aa                             jmp     L80
+ 0bd0  89 ec             L86             mov     esp,ebp
+ 0bd2  5d                                pop     ebp
+ 0bd3  5f                                pop     edi
+ 0bd4  5e                                pop     esi
+ 0bd5  5a                                pop     edx
+ 0bd6  59                                pop     ecx
+ 0bd7  5b                                pop     ebx
+ 0bd8  c3                                ret     
+ 0bd9  8d 40 00                          lea     eax,+0H[eax]
+ 0bdc  53                linear_addr_    push    ebx
+ 0bdd  51                                push    ecx
+ 0bde  52                                push    edx
+ 0bdf  56                                push    esi
+ 0be0  57                                push    edi
+ 0be1  55                                push    ebp
+ 0be2  89 e5                             mov     ebp,esp
+ 0be4  81 ec 08 00 00 00                 sub     esp,00000008H
+ 0bea  89 45 f8                          mov     -8H[ebp],eax
+ 0bed  8b 45 f8                          mov     eax,-8H[ebp]
+ 0bf0  89 45 fc                          mov     -4H[ebp],eax
+ 0bf3  8b 45 fc                          mov     eax,-4H[ebp]
+ 0bf6  89 ec                             mov     esp,ebp
+ 0bf8  5d                                pop     ebp
+ 0bf9  5f                                pop     edi
+ 0bfa  5e                                pop     esi
+ 0bfb  5a                                pop     edx
+ 0bfc  59                                pop     ecx
+ 0bfd  5b                                pop     ebx
+ 0bfe  c3                                ret     
+ 0bff  90                                nop     
+ 0c00  53                init_mixing_    push    ebx
+ 0c01  51                                push    ecx
+ 0c02  52                                push    edx
+ 0c03  56                                push    esi
+ 0c04  57                                push    edi
+ 0c05  55                                push    ebp
+ 0c06  89 e5                             mov     ebp,esp
+ 0c08  81 ec 34 00 00 00                 sub     esp,00000034H
+ 0c0e  c7 45 fc 00 00 00 
+       00                                mov     dword ptr -4H[ebp],00000000H
+ 0c15  83 7d fc 08       L87             cmp     dword ptr -4H[ebp],00000008H
+ 0c19  7c 0a                             jl      L89
+ 0c1b  eb 12                             jmp     L90
+ 0c1d  8b 45 fc          L88             mov     eax,-4H[ebp]
+ 0c20  ff 45 fc                          inc     dword ptr -4H[ebp]
+ 0c23  eb f0                             jmp     L87
+ 0c25  8b 45 fc          L89             mov     eax,-4H[ebp]
+ 0c28  e8 00 00 00 00                    call    deallocate_voice_
+ 0c2d  eb ee                             jmp     L88
+ 0c2f  c7 05 00 00 00 00 
+       00 00 00 00       L90             mov     dword ptr _voicecount,00000000H
+ 0c39  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _sixteenbit,00000000H
+ 0c40  0f 84 d5 00 00 00                 je      L96
+ 0c46  ba 00 00 00 00                    mov     edx,offset _outmemarea_sel
+ 0c4b  b8 00 20 00 00                    mov     eax,00002000H
+ 0c50  e8 00 00 00 00                    call    low_malloc_
+ 0c55  a3 00 00 00 00                    mov     _outmemarea,eax
+ 0c5a  a1 00 00 00 00                    mov     eax,_outmemarea
+ 0c5f  a3 00 00 00 00                    mov     _out16buf,eax
+ 0c64  a1 00 00 00 00                    mov     eax,_out16buf
+ 0c69  89 45 f0                          mov     -10H[ebp],eax
+ 0c6c  8b 45 f0                          mov     eax,-10H[ebp]
+ 0c6f  89 45 f4                          mov     -0cH[ebp],eax
+ 0c72  8b 45 f4                          mov     eax,-0cH[ebp]
+ 0c75  89 45 f8                          mov     -8H[ebp],eax
+ 0c78  8b 45 f8                          mov     eax,-8H[ebp]
+ 0c7b  d1 e8                             shr     eax,1
+ 0c7d  25 ff ff 00 00                    and     eax,0000ffffH
+ 0c82  05 00 08 00 00                    add     eax,00000800H
+ 0c87  3d 00 00 01 00                    cmp     eax,00010000H
+ 0c8c  76 0a                             jbe     L91
+ 0c8e  81 05 00 00 00 00 
+       00 08 00 00                       add     dword ptr _out16buf,00000800H
+ 0c98  c7 45 fc 00 00 00 
+       00                L91             mov     dword ptr -4H[ebp],00000000H
+ 0c9f  83 7d fc 02       L92             cmp     dword ptr -4H[ebp],00000002H
+ 0ca3  7c 0a                             jl      L94
+ 0ca5  eb 24                             jmp     L95
+ 0ca7  8b 45 fc          L93             mov     eax,-4H[ebp]
+ 0caa  ff 45 fc                          inc     dword ptr -4H[ebp]
+ 0cad  eb f0                             jmp     L92
+ 0caf  8b 45 fc          L94             mov     eax,-4H[ebp]
+ 0cb2  c1 e0 0b                          shl     eax,0bH
+ 0cb5  8b 15 00 00 00 00                 mov     edx,_out16buf
+ 0cbb  01 d0                             add     eax,edx
+ 0cbd  8b 55 fc                          mov     edx,-4H[ebp]
+ 0cc0  c1 e2 02                          shl     edx,02H
+ 0cc3  89 82 00 00 00 00                 mov     _blockptr[edx],eax
+ 0cc9  eb dc                             jmp     L93
+ 0ccb  a1 00 00 00 00    L95             mov     eax,_out16buf
+ 0cd0  89 45 e4                          mov     -1cH[ebp],eax
+ 0cd3  8b 45 e4                          mov     eax,-1cH[ebp]
+ 0cd6  89 45 e8                          mov     -18H[ebp],eax
+ 0cd9  8b 45 e8                          mov     eax,-18H[ebp]
+ 0cdc  89 45 ec                          mov     -14H[ebp],eax
+ 0cdf  8b 45 ec                          mov     eax,-14H[ebp]
+ 0ce2  a3 00 00 00 00                    mov     _buffer_addr,eax
+ 0ce7  a1 00 00 00 00                    mov     eax,_buffer_addr
+ 0cec  c1 e8 10                          shr     eax,10H
+ 0cef  a2 00 00 00 00                    mov     _buffer_page,al
+ 0cf4  a1 00 00 00 00                    mov     eax,_buffer_addr
+ 0cf9  d1 e8                             shr     eax,1
+ 0cfb  25 ff ff 00 00                    and     eax,0000ffffH
+ 0d00  a3 00 00 00 00                    mov     _buffer_ofs,eax
+ 0d05  bb 00 10 00 00                    mov     ebx,00001000H
+ 0d0a  31 d2                             xor     edx,edx
+ 0d0c  a1 00 00 00 00                    mov     eax,_out16buf
+ 0d11  e8 00 00 00 00                    call    memset_
+ 0d16  e9 96 01 00 00                    jmp     L106
+ 0d1b  ba 00 00 00 00    L96             mov     edx,offset _outmemarea_sel
+ 0d20  b8 00 10 00 00                    mov     eax,00001000H
+ 0d25  e8 00 00 00 00                    call    low_malloc_
+ 0d2a  a3 00 00 00 00                    mov     _outmemarea,eax
+ 0d2f  a1 00 00 00 00                    mov     eax,_outmemarea
+ 0d34  a3 00 00 00 00                    mov     _out8buf,eax
+ 0d39  a1 00 00 00 00                    mov     eax,_out8buf
+ 0d3e  89 45 d8                          mov     -28H[ebp],eax
+ 0d41  8b 45 d8                          mov     eax,-28H[ebp]
+ 0d44  89 45 dc                          mov     -24H[ebp],eax
+ 0d47  8b 45 dc                          mov     eax,-24H[ebp]
+ 0d4a  89 45 e0                          mov     -20H[ebp],eax
+ 0d4d  8b 45 e0                          mov     eax,-20H[ebp]
+ 0d50  25 ff ff 00 00                    and     eax,0000ffffH
+ 0d55  05 00 08 00 00                    add     eax,00000800H
+ 0d5a  3d 00 00 01 00                    cmp     eax,00010000H
+ 0d5f  76 18                             jbe     L97
+ 0d61  81 05 00 00 00 00 
+       00 08 00 00                       add     dword ptr _out8buf,00000800H
+ 0d6b  b8 38 00 00 00                    mov     eax,offset L180
+ 0d70  50                                push    eax
+ 0d71  e8 00 00 00 00                    call    printf_
+ 0d76  83 c4 04                          add     esp,00000004H
+ 0d79  c7 45 fc 00 00 00 
+       00                L97             mov     dword ptr -4H[ebp],00000000H
+ 0d80  83 7d fc 02       L98             cmp     dword ptr -4H[ebp],00000002H
+ 0d84  7c 0a                             jl      L100
+ 0d86  eb 24                             jmp     L101
+ 0d88  8b 45 fc          L99             mov     eax,-4H[ebp]
+ 0d8b  ff 45 fc                          inc     dword ptr -4H[ebp]
+ 0d8e  eb f0                             jmp     L98
+ 0d90  8b 45 fc          L100            mov     eax,-4H[ebp]
+ 0d93  c1 e0 0a                          shl     eax,0aH
+ 0d96  8b 15 00 00 00 00                 mov     edx,_out8buf
+ 0d9c  01 d0                             add     eax,edx
+ 0d9e  8b 55 fc                          mov     edx,-4H[ebp]
+ 0da1  c1 e2 02                          shl     edx,02H
+ 0da4  89 82 00 00 00 00                 mov     _blockptr[edx],eax
+ 0daa  eb dc                             jmp     L99
+ 0dac  b8 50 00 00 00    L101            mov     eax,offset L181
+ 0db1  50                                push    eax
+ 0db2  e8 00 00 00 00                    call    printf_
+ 0db7  83 c4 04                          add     esp,00000004H
+ 0dba  a1 00 00 00 00                    mov     eax,_out8buf
+ 0dbf  89 45 cc                          mov     -34H[ebp],eax
+ 0dc2  8b 45 cc                          mov     eax,-34H[ebp]
+ 0dc5  89 45 d0                          mov     -30H[ebp],eax
+ 0dc8  8b 45 d0                          mov     eax,-30H[ebp]
+ 0dcb  89 45 d4                          mov     -2cH[ebp],eax
+ 0dce  8b 45 d4                          mov     eax,-2cH[ebp]
+ 0dd1  a3 00 00 00 00                    mov     _buffer_addr,eax
+ 0dd6  a1 00 00 00 00                    mov     eax,_buffer_addr
+ 0ddb  c1 e8 10                          shr     eax,10H
+ 0dde  a2 00 00 00 00                    mov     _buffer_page,al
+ 0de3  a1 00 00 00 00                    mov     eax,_buffer_addr
+ 0de8  25 ff ff 00 00                    and     eax,0000ffffH
+ 0ded  a3 00 00 00 00                    mov     _buffer_ofs,eax
+ 0df2  b8 5c 00 00 00                    mov     eax,offset L182
+ 0df7  50                                push    eax
+ 0df8  e8 00 00 00 00                    call    printf_
+ 0dfd  83 c4 04                          add     esp,00000004H
+ 0e00  c7 45 fc 00 00 00 
+       00                                mov     dword ptr -4H[ebp],00000000H
+ 0e07  83 7d fc 02       L102            cmp     dword ptr -4H[ebp],00000002H
+ 0e0b  7c 0a                             jl      L104
+ 0e0d  eb 5c                             jmp     L105
+ 0e0f  8b 45 fc          L103            mov     eax,-4H[ebp]
+ 0e12  ff 45 fc                          inc     dword ptr -4H[ebp]
+ 0e15  eb f0                             jmp     L102
+ 0e17  8b 45 fc          L104            mov     eax,-4H[ebp]
+ 0e1a  c1 e0 02                          shl     eax,02H
+ 0e1d  8b 80 00 00 00 00                 mov     eax,_blockptr[eax]
+ 0e23  e8 00 00 00 00                    call    linear_addr_
+ 0e28  8b 55 fc                          mov     edx,-4H[ebp]
+ 0e2b  c1 e2 02                          shl     edx,02H
+ 0e2e  89 82 00 00 00 00                 mov     _block_addr[edx],eax
+ 0e34  8b 45 fc                          mov     eax,-4H[ebp]
+ 0e37  c1 e0 02                          shl     eax,02H
+ 0e3a  8b 90 00 00 00 00                 mov     edx,_block_addr[eax]
+ 0e40  c1 ea 10                          shr     edx,10H
+ 0e43  8b 45 fc                          mov     eax,-4H[ebp]
+ 0e46  88 90 00 00 00 00                 mov     _block_page[eax],dl
+ 0e4c  8b 45 fc                          mov     eax,-4H[ebp]
+ 0e4f  c1 e0 02                          shl     eax,02H
+ 0e52  8b 80 00 00 00 00                 mov     eax,_block_addr[eax]
+ 0e58  25 ff ff 00 00                    and     eax,0000ffffH
+ 0e5d  8b 55 fc                          mov     edx,-4H[ebp]
+ 0e60  c1 e2 02                          shl     edx,02H
+ 0e63  89 82 00 00 00 00                 mov     _block_ofs[edx],eax
+ 0e69  eb a4                             jmp     L103
+ 0e6b  68 00 08 00 00    L105            push    00000800H
+ 0e70  ff 35 00 00 00 00                 push    _out8buf
+ 0e76  ff 35 00 00 00 00                 push    _outmemarea
+ 0e7c  b8 68 00 00 00                    mov     eax,offset L183
+ 0e81  50                                push    eax
+ 0e82  e8 00 00 00 00                    call    printf_
+ 0e87  83 c4 10                          add     esp,00000010H
+ 0e8a  bb 00 08 00 00                    mov     ebx,00000800H
+ 0e8f  ba 80 00 00 00                    mov     edx,00000080H
+ 0e94  a1 00 00 00 00                    mov     eax,_out8buf
+ 0e99  e8 00 00 00 00                    call    memset_
+ 0e9e  b8 7c 00 00 00                    mov     eax,offset L184
+ 0ea3  50                                push    eax
+ 0ea4  e8 00 00 00 00                    call    printf_
+ 0ea9  83 c4 04                          add     esp,00000004H
+ 0eac  e8 00 00 00 00                    call    init_clip8_
+ 0eb1  c7 05 00 00 00 00 
+       00 00 00 00       L106            mov     dword ptr _curblock,00000000H
+ 0ebb  c7 05 00 00 00 00 
+       00 00 00 00                       mov     dword ptr _intcount,00000000H
+ 0ec5  b8 88 00 00 00                    mov     eax,offset L185
+ 0eca  50                                push    eax
+ 0ecb  e8 00 00 00 00                    call    printf_
+ 0ed0  83 c4 04                          add     esp,00000004H
+ 0ed3  e8 00 00 00 00                    call    init_volume_table_
+ 0ed8  b8 98 00 00 00                    mov     eax,offset L186
+ 0edd  50                                push    eax
+ 0ede  e8 00 00 00 00                    call    printf_
+ 0ee3  83 c4 04                          add     esp,00000004H
+ 0ee6  b8 a4 00 00 00                    mov     eax,offset L187
+ 0eeb  50                                push    eax
+ 0eec  e8 00 00 00 00                    call    printf_
+ 0ef1  83 c4 04                          add     esp,00000004H
+ 0ef4  89 ec                             mov     esp,ebp
+ 0ef6  5d                                pop     ebp
+ 0ef7  5f                                pop     edi
+ 0ef8  5e                                pop     esi
+ 0ef9  5a                                pop     edx
+ 0efa  59                                pop     ecx
+ 0efb  5b                                pop     ebx
+ 0efc  c3                                ret     
+ 0efd  8d 40 00                          lea     eax,+0H[eax]
+ 0f00                    shutdown_mixing_:
+ 0f00  53                                push    ebx
+ 0f01  51                                push    ecx
+ 0f02  52                                push    edx
+ 0f03  56                                push    esi
+ 0f04  57                                push    edi
+ 0f05  55                                push    ebp
+ 0f06  89 e5                             mov     ebp,esp
+ 0f08  81 ec 00 00 00 00                 sub     esp,00000000H
+ 0f0e  e8 00 00 00 00                    call    _disable_
+ 0f13  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _sixteenbit,00000000H
+ 0f1a  74 0c                             je      L107
+ 0f1c  b8 d5 00 00 00                    mov     eax,000000d5H
+ 0f21  e8 00 00 00 00                    call    write_dsp_
+ 0f26  eb 0a                             jmp     L108
+ 0f28  b8 d0 00 00 00    L107            mov     eax,000000d0H
+ 0f2d  e8 00 00 00 00                    call    write_dsp_
+ 0f32  b8 d3 00 00 00    L108            mov     eax,000000d3H
+ 0f37  e8 00 00 00 00                    call    write_dsp_
+ 0f3c  31 d2                             xor     edx,edx
+ 0f3e  8a 15 00 00 00 00                 mov     dl,_dma_stopmask
+ 0f44  a1 00 00 00 00                    mov     eax,_dma_maskport
+ 0f49  e8 00 00 00 00                    call    outp_
+ 0f4e  e8 00 00 00 00                    call    _enable_
+ 0f53  a1 00 00 00 00                    mov     eax,_volume_table
+ 0f58  e8 00 00 00 00                    call    free_
+ 0f5d  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _sixteenbit,00000000H
+ 0f64  75 0a                             jne     L109
+ 0f66  a1 00 00 00 00                    mov     eax,_clip_8_buf
+ 0f6b  e8 00 00 00 00                    call    free_
+ 0f70  a1 fe ff ff ff    L109            mov     eax,_outmemarea_sel-2H
+ 0f75  c1 f8 10                          sar     eax,10H
+ 0f78  50                                push    eax
+ 0f79  e8 00 00 00 00                    call    _low_free
+ 0f7e  83 c4 04                          add     esp,00000004H
+ 0f81  5d                                pop     ebp
+ 0f82  5f                                pop     edi
+ 0f83  5e                                pop     esi
+ 0f84  5a                                pop     edx
+ 0f85  59                                pop     ecx
+ 0f86  5b                                pop     ebx
+ 0f87  c3                                ret     
+ 0f88                    deallocate_voice_:
+ 0f88  53                                push    ebx
+ 0f89  51                                push    ecx
+ 0f8a  52                                push    edx
+ 0f8b  56                                push    esi
+ 0f8c  57                                push    edi
+ 0f8d  55                                push    ebp
+ 0f8e  89 e5                             mov     ebp,esp
+ 0f90  81 ec 04 00 00 00                 sub     esp,00000004H
+ 0f96  89 45 fc                          mov     -4H[ebp],eax
+ 0f99  8b 45 fc                          mov     eax,-4H[ebp]
+ 0f9c  c1 e0 02                          shl     eax,02H
+ 0f9f  c7 80 00 00 00 00 
+       00 00 00 00                       mov     dword ptr _inuse[eax],00000000H
+ 0fa9  6b 45 fc 18                       imul    eax,-4H[ebp],18H
+ 0fad  c7 80 00 00 00 00 
+       00 00 00 00                       mov     dword ptr _voice[eax],00000000H
+ 0fb7  6b 45 fc 18                       imul    eax,-4H[ebp],18H
+ 0fbb  c7 80 04 00 00 00 
+       ff ff ff ff                       mov     dword ptr _voice+4H[eax],0ffffffffH
+ 0fc5  6b 45 fc 18                       imul    eax,-4H[ebp],18H
+ 0fc9  c7 80 08 00 00 00 
+       00 00 00 00                       mov     dword ptr _voice+8H[eax],00000000H
+ 0fd3  6b 45 fc 18                       imul    eax,-4H[ebp],18H
+ 0fd7  c7 80 10 00 00 00 
+       ff ff ff ff                       mov     dword ptr _voice+10H[eax],0ffffffffH
+ 0fe1  6b 45 fc 18                       imul    eax,-4H[ebp],18H
+ 0fe5  c7 80 0c 00 00 00 
+       00 00 00 00                       mov     dword ptr _voice+0cH[eax],00000000H
+ 0fef  6b 45 fc 18                       imul    eax,-4H[ebp],18H
+ 0ff3  c7 80 14 00 00 00 
+       00 00 00 00                       mov     dword ptr _voice+14H[eax],00000000H
+ 0ffd  89 ec                             mov     esp,ebp
+ 0fff  5d                                pop     ebp
+ 1000  5f                                pop     edi
+ 1001  5e                                pop     esi
+ 1002  5a                                pop     edx
+ 1003  59                                pop     ecx
+ 1004  5b                                pop     ebx
+ 1005  c3                                ret     
+ 1006  8b c0                             mov     eax,eax
+ 1008  56                start_sound_    push    esi
+ 1009  57                                push    edi
+ 100a  55                                push    ebp
+ 100b  89 e5                             mov     ebp,esp
+ 100d  81 ec 18 00 00 00                 sub     esp,00000018H
+ 1013  89 45 e8                          mov     -18H[ebp],eax
+ 1016  89 55 ec                          mov     -14H[ebp],edx
+ 1019  88 5d fc                          mov     -4H[ebp],bl
+ 101c  89 4d f4                          mov     -0cH[ebp],ecx
+ 101f  c7 45 f0 ff ff ff 
+       ff                                mov     dword ptr -10H[ebp],0ffffffffH
+ 1026  c7 45 f8 00 00 00 
+       00                                mov     dword ptr -8H[ebp],00000000H
+ 102d  8b 45 f8          L110            mov     eax,-8H[ebp]
+ 1030  c1 e0 02                          shl     eax,02H
+ 1033  83 b8 00 00 00 00 
+       00                                cmp     dword ptr _inuse[eax],00000000H
+ 103a  75 06                             jne     L111
+ 103c  8b 45 f8                          mov     eax,-8H[ebp]
+ 103f  89 45 f0                          mov     -10H[ebp],eax
+ 1042  8b 45 f8          L111            mov     eax,-8H[ebp]
+ 1045  ff 45 f8                          inc     dword ptr -8H[ebp]
+ 1048  83 7d f0 ff                       cmp     dword ptr -10H[ebp],0ffffffffH
+ 104c  75 06                             jne     L112
+ 104e  83 7d f8 08                       cmp     dword ptr -8H[ebp],00000008H
+ 1052  7c d9                             jl      L110
+ 1054  83 7d f0 ff       L112            cmp     dword ptr -10H[ebp],0ffffffffH
+ 1058  74 6d                             je      L113
+ 105a  6b 55 f0 18                       imul    edx,-10H[ebp],18H
+ 105e  8b 45 e8                          mov     eax,-18H[ebp]
+ 1061  89 82 00 00 00 00                 mov     _voice[edx],eax
+ 1067  6b 55 f0 18                       imul    edx,-10H[ebp],18H
+ 106b  8b 45 ec                          mov     eax,-14H[ebp]
+ 106e  89 82 04 00 00 00                 mov     _voice+4H[edx],eax
+ 1074  31 c0                             xor     eax,eax
+ 1076  8a 45 fc                          mov     al,-4H[ebp]
+ 1079  6b 55 f0 18                       imul    edx,-10H[ebp],18H
+ 107d  89 82 08 00 00 00                 mov     _voice+8H[edx],eax
+ 1083  6b 45 f0 18                       imul    eax,-10H[ebp],18H
+ 1087  c7 80 10 00 00 00 
+       00 00 00 00                       mov     dword ptr _voice+10H[eax],00000000H
+ 1091  6b 55 f0 18                       imul    edx,-10H[ebp],18H
+ 1095  8b 45 f4                          mov     eax,-0cH[ebp]
+ 1098  89 82 0c 00 00 00                 mov     _voice+0cH[edx],eax
+ 109e  6b 45 f0 18                       imul    eax,-10H[ebp],18H
+ 10a2  c7 80 14 00 00 00 
+       00 00 00 00                       mov     dword ptr _voice+14H[eax],00000000H
+ 10ac  8b 45 f0                          mov     eax,-10H[ebp]
+ 10af  c1 e0 02                          shl     eax,02H
+ 10b2  c7 80 00 00 00 00 
+       01 00 00 00                       mov     dword ptr _inuse[eax],00000001H
+ 10bc  a1 00 00 00 00                    mov     eax,_voicecount
+ 10c1  ff 05 00 00 00 00                 inc     dword ptr _voicecount
+ 10c7  89 ec             L113            mov     esp,ebp
+ 10c9  5d                                pop     ebp
+ 10ca  5f                                pop     edi
+ 10cb  5e                                pop     esi
+ 10cc  c3                                ret     
+ 10cd  8d 40 00                          lea     eax,+0H[eax]
+ 10d0  53                stop_sound_     push    ebx
+ 10d1  51                                push    ecx
+ 10d2  52                                push    edx
+ 10d3  56                                push    esi
+ 10d4  57                                push    edi
+ 10d5  55                                push    ebp
+ 10d6  89 e5                             mov     ebp,esp
+ 10d8  81 ec 08 00 00 00                 sub     esp,00000008H
+ 10de  89 45 f8                          mov     -8H[ebp],eax
+ 10e1  c7 45 fc 00 00 00 
+       00                                mov     dword ptr -4H[ebp],00000000H
+ 10e8  83 7d fc 08       L114            cmp     dword ptr -4H[ebp],00000008H
+ 10ec  7c 0a                             jl      L116
+ 10ee  eb 2c                             jmp     L118
+ 10f0  8b 45 fc          L115            mov     eax,-4H[ebp]
+ 10f3  ff 45 fc                          inc     dword ptr -4H[ebp]
+ 10f6  eb f0                             jmp     L114
+ 10f8  6b 45 fc 18       L116            imul    eax,-4H[ebp],18H
+ 10fc  8b 80 04 00 00 00                 mov     eax,_voice+4H[eax]
+ 1102  3b 45 f8                          cmp     eax,-8H[ebp]
+ 1105  75 13                             jne     L117
+ 1107  a1 00 00 00 00                    mov     eax,_voicecount
+ 110c  ff 0d 00 00 00 00                 dec     dword ptr _voicecount
+ 1112  8b 45 fc                          mov     eax,-4H[ebp]
+ 1115  e8 00 00 00 00                    call    deallocate_voice_
+ 111a  eb d4             L117            jmp     L115
+ 111c  89 ec             L118            mov     esp,ebp
+ 111e  5d                                pop     ebp
+ 111f  5f                                pop     edi
+ 1120  5e                                pop     esi
+ 1121  5a                                pop     edx
+ 1122  59                                pop     ecx
+ 1123  5b                                pop     ebx
+ 1124  c3                                ret     
+ 1125  8d 40 00                          lea     eax,+0H[eax]
+ 1128  53                sound_playing_  push    ebx
+ 1129  51                                push    ecx
+ 112a  52                                push    edx
+ 112b  56                                push    esi
+ 112c  57                                push    edi
+ 112d  55                                push    ebp
+ 112e  89 e5                             mov     ebp,esp
+ 1130  81 ec 0c 00 00 00                 sub     esp,0000000cH
+ 1136  89 45 f4                          mov     -0cH[ebp],eax
+ 1139  c7 45 f8 00 00 00 
+       00                                mov     dword ptr -8H[ebp],00000000H
+ 1140  83 7d f8 08       L119            cmp     dword ptr -8H[ebp],00000008H
+ 1144  7c 0a                             jl      L121
+ 1146  eb 22                             jmp     L123
+ 1148  8b 45 f8          L120            mov     eax,-8H[ebp]
+ 114b  ff 45 f8                          inc     dword ptr -8H[ebp]
+ 114e  eb f0                             jmp     L119
+ 1150  6b 45 f8 18       L121            imul    eax,-8H[ebp],18H
+ 1154  8b 80 04 00 00 00                 mov     eax,_voice+4H[eax]
+ 115a  3b 45 f4                          cmp     eax,-0cH[ebp]
+ 115d  75 09                             jne     L122
+ 115f  c7 45 fc 01 00 00 
+       00                                mov     dword ptr -4H[ebp],00000001H
+ 1166  eb 09                             jmp     L124
+ 1168  eb de             L122            jmp     L120
+ 116a  c7 45 fc 00 00 00 
+       00                L123            mov     dword ptr -4H[ebp],00000000H
+ 1171  8b 45 fc          L124            mov     eax,-4H[ebp]
+ 1174  89 ec                             mov     esp,ebp
+ 1176  5d                                pop     ebp
+ 1177  5f                                pop     edi
+ 1178  5e                                pop     esi
+ 1179  5a                                pop     edx
+ 117a  59                                pop     ecx
+ 117b  5b                                pop     ebx
+ 117c  c3                                ret     
+ 117d  8d 40 00                          lea     eax,+0H[eax]
+ 1180  53                update_voices_  push    ebx
+ 1181  51                                push    ecx
+ 1182  52                                push    edx
+ 1183  56                                push    esi
+ 1184  57                                push    edi
+ 1185  55                                push    ebp
+ 1186  89 e5                             mov     ebp,esp
+ 1188  81 ec 04 00 00 00                 sub     esp,00000004H
+ 118e  c7 45 fc 00 00 00 
+       00                                mov     dword ptr -4H[ebp],00000000H
+ 1195  83 7d fc 08       L125            cmp     dword ptr -4H[ebp],00000008H
+ 1199  7c 0a                             jl      L127
+ 119b  eb 39                             jmp     L129
+ 119d  8b 45 fc          L126            mov     eax,-4H[ebp]
+ 11a0  ff 45 fc                          inc     dword ptr -4H[ebp]
+ 11a3  eb f0                             jmp     L125
+ 11a5  8b 45 fc          L127            mov     eax,-4H[ebp]
+ 11a8  c1 e0 02                          shl     eax,02H
+ 11ab  83 b8 00 00 00 00 
+       00                                cmp     dword ptr _inuse[eax],00000000H
+ 11b2  74 20                             je      L128
+ 11b4  6b 45 fc 18                       imul    eax,-4H[ebp],18H
+ 11b8  83 b8 14 00 00 00 
+       00                                cmp     dword ptr _voice+14H[eax],00000000H
+ 11bf  74 13                             je      L128
+ 11c1  a1 00 00 00 00                    mov     eax,_voicecount
+ 11c6  ff 0d 00 00 00 00                 dec     dword ptr _voicecount
+ 11cc  8b 45 fc                          mov     eax,-4H[ebp]
+ 11cf  e8 00 00 00 00                    call    deallocate_voice_
+ 11d4  eb c7             L128            jmp     L126
+ 11d6  89 ec             L129            mov     esp,ebp
+ 11d8  5d                                pop     ebp
+ 11d9  5f                                pop     edi
+ 11da  5e                                pop     esi
+ 11db  5a                                pop     edx
+ 11dc  59                                pop     ecx
+ 11dd  5b                                pop     ebx
+ 11de  c3                                ret     
+ 11df  90                                nop     
+ 11e0  53                mix_voice_      push    ebx
+ 11e1  51                                push    ecx
+ 11e2  52                                push    edx
+ 11e3  56                                push    esi
+ 11e4  57                                push    edi
+ 11e5  55                                push    ebp
+ 11e6  89 e5                             mov     ebp,esp
+ 11e8  81 ec 10 00 00 00                 sub     esp,00000010H
+ 11ee  89 45 f8                          mov     -8H[ebp],eax
+ 11f1  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _sixteenbit,00000000H
+ 11f8  74 15                             je      L130
+ 11fa  a1 00 00 00 00                    mov     eax,_curblock
+ 11ff  c1 e0 02                          shl     eax,02H
+ 1202  8b 80 00 00 00 00                 mov     eax,_blockptr[eax]
+ 1208  a3 00 00 00 00                    mov     _dest,eax
+ 120d  eb 0a                             jmp     L131
+ 120f  c7 05 00 00 00 00 
+       00 00 00 00       L130            mov     dword ptr _dest,offset _mixingblock
+ 1219  83 3d 00 00 00 00 
+       00                L131            cmp     dword ptr _sixteenbit,00000000H
+ 1220  74 14                             je      L132
+ 1222  a1 00 00 00 00                    mov     eax,_curblock
+ 1227  c1 e0 02                          shl     eax,02H
+ 122a  c7 80 00 00 00 00 
+       00 00 00 00                       mov     dword ptr _wassilenced[eax],00000000H
+ 1234  eb 0a                             jmp     L133
+ 1236  c7 05 00 00 00 00 
+       00 00 00 00       L132            mov     dword ptr _wassilenced,00000000H
+ 1240  6b 45 f8 18       L133            imul    eax,-8H[ebp],18H
+ 1244  8b 80 00 00 00 00                 mov     eax,_voice[eax]
+ 124a  89 45 fc                          mov     -4H[ebp],eax
+ 124d  6b 55 f8 18                       imul    edx,-8H[ebp],18H
+ 1251  8b 45 fc                          mov     eax,-4H[ebp]
+ 1254  8b 18                             mov     ebx,[eax]
+ 1256  8b 82 10 00 00 00                 mov     eax,_voice+10H[edx]
+ 125c  01 c3                             add     ebx,eax
+ 125e  89 1d 00 00 00 00                 mov     _sourceptr,ebx
+ 1264  c7 05 00 00 00 00 
+       00 00 00 00                       mov     dword ptr _destindex,00000000H
+ 126e  6b 45 f8 18                       imul    eax,-8H[ebp],18H
+ 1272  83 b8 0c 00 00 00 
+       00                                cmp     dword ptr _voice+0cH[eax],00000000H
+ 1279  74 0c                             je      L134
+ 127b  c7 05 00 00 00 00 
+       00 04 00 00                       mov     dword ptr _mixlength,00000400H
+ 1285  eb 3b                             jmp     L137
+ 1287  6b 55 f8 18       L134            imul    edx,-8H[ebp],18H
+ 128b  8b 45 fc                          mov     eax,-4H[ebp]
+ 128e  8b 40 04                          mov     eax,+4H[eax]
+ 1291  2b 82 10 00 00 00                 sub     eax,_voice+10H[edx]
+ 1297  3d 00 04 00 00                    cmp     eax,00000400H
+ 129c  73 15                             jae     L135
+ 129e  6b 55 f8 18                       imul    edx,-8H[ebp],18H
+ 12a2  8b 45 fc                          mov     eax,-4H[ebp]
+ 12a5  8b 40 04                          mov     eax,+4H[eax]
+ 12a8  2b 82 10 00 00 00                 sub     eax,_voice+10H[edx]
+ 12ae  89 45 f4                          mov     -0cH[ebp],eax
+ 12b1  eb 07                             jmp     L136
+ 12b3  c7 45 f4 00 04 00 
+       00                L135            mov     dword ptr -0cH[ebp],00000400H
+ 12ba  8b 45 f4          L136            mov     eax,-0cH[ebp]
+ 12bd  a3 00 00 00 00                    mov     _mixlength,eax
+ 12c2  a1 00 00 00 00    L137            mov     eax,_volume_table
+ 12c7  05 00 0e 00 00                    add     eax,00000e00H
+ 12cc  a3 00 00 00 00                    mov     _volume_lookup,eax
+ 12d1  6b 55 f8 18       L138            imul    edx,-8H[ebp],18H
+ 12d5  8b 45 fc                          mov     eax,-4H[ebp]
+ 12d8  8b 40 04                          mov     eax,+4H[eax]
+ 12db  2b 82 10 00 00 00                 sub     eax,_voice+10H[edx]
+ 12e1  3b 05 00 00 00 00                 cmp     eax,_mixlength
+ 12e7  73 15                             jae     L139
+ 12e9  6b 55 f8 18                       imul    edx,-8H[ebp],18H
+ 12ed  8b 45 fc                          mov     eax,-4H[ebp]
+ 12f0  8b 40 04                          mov     eax,+4H[eax]
+ 12f3  2b 82 10 00 00 00                 sub     eax,_voice+10H[edx]
+ 12f9  89 45 f0                          mov     -10H[ebp],eax
+ 12fc  eb 08                             jmp     L140
+ 12fe  a1 00 00 00 00    L139            mov     eax,_mixlength
+ 1303  89 45 f0                          mov     -10H[ebp],eax
+ 1306  8b 45 f0          L140            mov     eax,-10H[ebp]
+ 1309  a3 00 00 00 00                    mov     _chunklength,eax
+ 130e  6b 45 f8 18                       imul    eax,-8H[ebp],18H
+ 1312  8b 15 00 00 00 00                 mov     edx,_chunklength
+ 1318  01 90 10 00 00 00                 add     _voice+10H[eax],edx
+ 131e  a1 00 00 00 00                    mov     eax,_chunklength
+ 1323  29 05 00 00 00 00                 sub     _mixlength,eax
+ 1329  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _chunklength,00000000H
+ 1330  0f 84 dd 00 00 00                 je      L143
+ 1336  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _donefirst,00000000H
+ 133d  0f 85 86 00 00 00                 jne     L142
+ 1343  ff 35 00 00 00 00                 push    _volume_lookup
+ 1349  ff 35 00 00 00 00                 push    _chunklength
+ 134f  ff 35 00 00 00 00                 push    _sourceptr
+ 1355  a1 00 00 00 00                    mov     eax,_destindex
+ 135a  01 c0                             add     eax,eax
+ 135c  8b 15 00 00 00 00                 mov     edx,_dest
+ 1362  01 d0                             add     eax,edx
+ 1364  50                                push    eax
+ 1365  e8 00 00 00 00                    call    _COPYASM
+ 136a  83 c4 10                          add     esp,00000010H
+ 136d  c7 05 00 00 00 00 
+       01 00 00 00                       mov     dword ptr _donefirst,00000001H
+ 1377  a1 00 00 00 00                    mov     eax,_chunklength
+ 137c  01 05 00 00 00 00                 add     _sourceptr,eax
+ 1382  a1 00 00 00 00                    mov     eax,_chunklength
+ 1387  01 05 00 00 00 00                 add     _destindex,eax
+ 138d  c7 05 00 00 00 00 
+       00 00 00 00                       mov     dword ptr _chunklength,00000000H
+ 1397  81 3d 00 00 00 00 
+       00 04 00 00                       cmp     dword ptr _destindex,00000400H
+ 13a1  7d 24                             jge     L141
+ 13a3  b8 00 04 00 00                    mov     eax,00000400H
+ 13a8  2b 05 00 00 00 00                 sub     eax,_destindex
+ 13ae  50                                push    eax
+ 13af  a1 00 00 00 00                    mov     eax,_destindex
+ 13b4  01 c0                             add     eax,eax
+ 13b6  8b 15 00 00 00 00                 mov     edx,_dest
+ 13bc  01 d0                             add     eax,edx
+ 13be  50                                push    eax
+ 13bf  e8 00 00 00 00                    call    _SILENCEASM
+ 13c4  83 c4 08                          add     esp,00000008H
+ 13c7  eb 4a             L141            jmp     L143
+ 13c9  ff 35 00 00 00 00 L142            push    _volume_lookup
+ 13cf  ff 35 00 00 00 00                 push    _chunklength
+ 13d5  ff 35 00 00 00 00                 push    _sourceptr
+ 13db  a1 00 00 00 00                    mov     eax,_destindex
+ 13e0  01 c0                             add     eax,eax
+ 13e2  8b 15 00 00 00 00                 mov     edx,_dest
+ 13e8  01 d0                             add     eax,edx
+ 13ea  50                                push    eax
+ 13eb  e8 00 00 00 00                    call    _MIXASM
+ 13f0  83 c4 10                          add     esp,00000010H
+ 13f3  a1 00 00 00 00                    mov     eax,_chunklength
+ 13f8  01 05 00 00 00 00                 add     _sourceptr,eax
+ 13fe  a1 00 00 00 00                    mov     eax,_chunklength
+ 1403  01 05 00 00 00 00                 add     _destindex,eax
+ 1409  c7 05 00 00 00 00 
+       00 00 00 00                       mov     dword ptr _chunklength,00000000H
+ 1413  8b 45 fc          L143            mov     eax,-4H[ebp]
+ 1416  8b 10                             mov     edx,[eax]
+ 1418  8b 45 fc                          mov     eax,-4H[ebp]
+ 141b  03 50 04                          add     edx,+4H[eax]
+ 141e  3b 15 00 00 00 00                 cmp     edx,_sourceptr
+ 1424  75 35                             jne     L145
+ 1426  6b 45 f8 18                       imul    eax,-8H[ebp],18H
+ 142a  83 b8 0c 00 00 00 
+       00                                cmp     dword ptr _voice+0cH[eax],00000000H
+ 1431  74 1a                             je      L144
+ 1433  6b 45 f8 18                       imul    eax,-8H[ebp],18H
+ 1437  c7 80 10 00 00 00 
+       00 00 00 00                       mov     dword ptr _voice+10H[eax],00000000H
+ 1441  8b 45 fc                          mov     eax,-4H[ebp]
+ 1444  8b 00                             mov     eax,[eax]
+ 1446  a3 00 00 00 00                    mov     _sourceptr,eax
+ 144b  eb 0e                             jmp     L145
+ 144d  6b 45 f8 18       L144            imul    eax,-8H[ebp],18H
+ 1451  c7 80 14 00 00 00 
+       01 00 00 00                       mov     dword ptr _voice+14H[eax],00000001H
+ 145b  83 3d 00 00 00 00 
+       00                L145            cmp     dword ptr _mixlength,00000000H
+ 1462  0f 85 69 fe ff ff                 jne     L138
+ 1468  89 ec                             mov     esp,ebp
+ 146a  5d                                pop     ebp
+ 146b  5f                                pop     edi
+ 146c  5e                                pop     esi
+ 146d  5a                                pop     edx
+ 146e  59                                pop     ecx
+ 146f  5b                                pop     ebx
+ 1470  c3                                ret     
+ 1471  8d 40 00                          lea     eax,+0H[eax]
+ 1474  53                silenceblock_   push    ebx
+ 1475  51                                push    ecx
+ 1476  52                                push    edx
+ 1477  56                                push    esi
+ 1478  57                                push    edi
+ 1479  55                                push    ebp
+ 147a  89 e5                             mov     ebp,esp
+ 147c  81 ec 00 00 00 00                 sub     esp,00000000H
+ 1482  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _sixteenbit,00000000H
+ 1489  74 1d                             je      L146
+ 148b  68 00 04 00 00                    push    00000400H
+ 1490  a1 00 00 00 00                    mov     eax,_curblock
+ 1495  c1 e0 02                          shl     eax,02H
+ 1498  ff b0 00 00 00 00                 push    _blockptr[eax]
+ 149e  e8 00 00 00 00                    call    _SILENCEASM
+ 14a3  83 c4 08                          add     esp,00000008H
+ 14a6  eb 13                             jmp     L147
+ 14a8  68 00 04 00 00    L146            push    00000400H
+ 14ad  b8 00 00 00 00                    mov     eax,offset _mixingblock
+ 14b2  50                                push    eax
+ 14b3  e8 00 00 00 00                    call    _SILENCEASM
+ 14b8  83 c4 08                          add     esp,00000008H
+ 14bb  5d                L147            pop     ebp
+ 14bc  5f                                pop     edi
+ 14bd  5e                                pop     esi
+ 14be  5a                                pop     edx
+ 14bf  59                                pop     ecx
+ 14c0  5b                                pop     ebx
+ 14c1  c3                                ret     
+ 14c2  8b c0                             mov     eax,eax
+ 14c4  53                mix_voices_     push    ebx
+ 14c5  51                                push    ecx
+ 14c6  52                                push    edx
+ 14c7  56                                push    esi
+ 14c8  57                                push    edi
+ 14c9  55                                push    ebp
+ 14ca  89 e5                             mov     ebp,esp
+ 14cc  81 ec 04 00 00 00                 sub     esp,00000004H
+ 14d2  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _voicecount,00000000H
+ 14d9  0f 85 b5 00 00 00                 jne     L155
+ 14df  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _sixteenbit,00000000H
+ 14e6  74 5e                             je      L151
+ 14e8  a1 00 00 00 00                    mov     eax,_curblock
+ 14ed  c1 e0 02                          shl     eax,02H
+ 14f0  83 b8 00 00 00 00 
+       00                                cmp     dword ptr _wassilenced[eax],00000000H
+ 14f7  75 4b                             jne     L150
+ 14f9  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _sixteenbit,00000000H
+ 1500  74 1d                             je      L148
+ 1502  68 00 04 00 00                    push    00000400H
+ 1507  a1 00 00 00 00                    mov     eax,_curblock
+ 150c  c1 e0 02                          shl     eax,02H
+ 150f  ff b0 00 00 00 00                 push    _blockptr[eax]
+ 1515  e8 00 00 00 00                    call    _SILENCEASM
+ 151a  83 c4 08                          add     esp,00000008H
+ 151d  eb 13                             jmp     L149
+ 151f  68 00 04 00 00    L148            push    00000400H
+ 1524  b8 00 00 00 00                    mov     eax,offset _mixingblock
+ 1529  50                                push    eax
+ 152a  e8 00 00 00 00                    call    _SILENCEASM
+ 152f  83 c4 08                          add     esp,00000008H
+ 1532  a1 00 00 00 00    L149            mov     eax,_curblock
+ 1537  c1 e0 02                          shl     eax,02H
+ 153a  c7 80 00 00 00 00 
+       01 00 00 00                       mov     dword ptr _wassilenced[eax],00000001H
+ 1544  eb 4c             L150            jmp     L154
+ 1546  83 3d 00 00 00 00 
+       00                L151            cmp     dword ptr _wassilenced,00000000H
+ 154d  75 43                             jne     L154
+ 154f  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _sixteenbit,00000000H
+ 1556  74 1d                             je      L152
+ 1558  68 00 04 00 00                    push    00000400H
+ 155d  a1 00 00 00 00                    mov     eax,_curblock
+ 1562  c1 e0 02                          shl     eax,02H
+ 1565  ff b0 00 00 00 00                 push    _blockptr[eax]
+ 156b  e8 00 00 00 00                    call    _SILENCEASM
+ 1570  83 c4 08                          add     esp,00000008H
+ 1573  eb 13                             jmp     L153
+ 1575  68 00 04 00 00    L152            push    00000400H
+ 157a  b8 00 00 00 00                    mov     eax,offset _mixingblock
+ 157f  50                                push    eax
+ 1580  e8 00 00 00 00                    call    _SILENCEASM
+ 1585  83 c4 08                          add     esp,00000008H
+ 1588  c7 05 00 00 00 00 
+       01 00 00 00       L153            mov     dword ptr _wassilenced,00000001H
+ 1592  eb 3a             L154            jmp     L160
+ 1594  c7 05 00 00 00 00 
+       00 00 00 00       L155            mov     dword ptr _donefirst,00000000H
+ 159e  c7 45 fc 00 00 00 
+       00                                mov     dword ptr -4H[ebp],00000000H
+ 15a5  83 7d fc 08       L156            cmp     dword ptr -4H[ebp],00000008H
+ 15a9  7c 0a                             jl      L158
+ 15ab  eb 21                             jmp     L160
+ 15ad  8b 45 fc          L157            mov     eax,-4H[ebp]
+ 15b0  ff 45 fc                          inc     dword ptr -4H[ebp]
+ 15b3  eb f0                             jmp     L156
+ 15b5  8b 45 fc          L158            mov     eax,-4H[ebp]
+ 15b8  c1 e0 02                          shl     eax,02H
+ 15bb  83 b8 00 00 00 00 
+       00                                cmp     dword ptr _inuse[eax],00000000H
+ 15c2  74 08                             je      L159
+ 15c4  8b 45 fc                          mov     eax,-4H[ebp]
+ 15c7  e8 00 00 00 00                    call    mix_voice_
+ 15cc  eb df             L159            jmp     L157
+ 15ce  89 ec             L160            mov     esp,ebp
+ 15d0  5d                                pop     ebp
+ 15d1  5f                                pop     edi
+ 15d2  5e                                pop     esi
+ 15d3  5a                                pop     edx
+ 15d4  59                                pop     ecx
+ 15d5  5b                                pop     ebx
+ 15d6  c3                                ret     
+ 15d7  90                                nop     
+ 15d8  53                copy_sound_     push    ebx
+ 15d9  51                                push    ecx
+ 15da  52                                push    edx
+ 15db  56                                push    esi
+ 15dc  57                                push    edi
+ 15dd  55                                push    ebp
+ 15de  89 e5                             mov     ebp,esp
+ 15e0  81 ec 00 00 00 00                 sub     esp,00000000H
+ 15e6  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _sixteenbit,00000000H
+ 15ed  75 22                             jne     L161
+ 15ef  ff 35 00 00 00 00                 push    _clip_8
+ 15f5  b8 00 00 00 00                    mov     eax,offset _mixingblock
+ 15fa  50                                push    eax
+ 15fb  a1 00 00 00 00                    mov     eax,_curblock
+ 1600  c1 e0 02                          shl     eax,02H
+ 1603  ff b0 00 00 00 00                 push    _blockptr[eax]
+ 1609  e8 00 00 00 00                    call    _COPYSOUND8
+ 160e  83 c4 0c                          add     esp,0000000cH
+ 1611  5d                L161            pop     ebp
+ 1612  5f                                pop     edi
+ 1613  5e                                pop     esi
+ 1614  5a                                pop     edx
+ 1615  59                                pop     ecx
+ 1616  5b                                pop     ebx
+ 1617  c3                                ret     
+ 1618  53                startblock_sc_  push    ebx
+ 1619  51                                push    ecx
+ 161a  52                                push    edx
+ 161b  56                                push    esi
+ 161c  57                                push    edi
+ 161d  55                                push    ebp
+ 161e  89 e5                             mov     ebp,esp
+ 1620  81 ec 18 00 00 00                 sub     esp,00000018H
+ 1626  31 d2                             xor     edx,edx
+ 1628  8a 15 00 00 00 00                 mov     dl,_dma_stopmask
+ 162e  a1 00 00 00 00                    mov     eax,_dma_maskport
+ 1633  e8 00 00 00 00                    call    outp_
+ 1638  31 d2                             xor     edx,edx
+ 163a  a1 00 00 00 00                    mov     eax,_dma_clrptrport
+ 163f  e8 00 00 00 00                    call    outp_
+ 1644  31 d2                             xor     edx,edx
+ 1646  8a 15 00 00 00 00                 mov     dl,_dma_mode
+ 164c  a1 00 00 00 00                    mov     eax,_dma_modeport
+ 1651  e8 00 00 00 00                    call    outp_
+ 1656  a1 00 00 00 00                    mov     eax,_curblock
+ 165b  c1 e0 02                          shl     eax,02H
+ 165e  8a 80 00 00 00 00                 mov     al,_block_ofs[eax]
+ 1664  31 d2                             xor     edx,edx
+ 1666  88 c2                             mov     dl,al
+ 1668  a1 00 00 00 00                    mov     eax,_dma_addrport
+ 166d  e8 00 00 00 00                    call    outp_
+ 1672  a1 00 00 00 00                    mov     eax,_curblock
+ 1677  c1 e0 02                          shl     eax,02H
+ 167a  8b 80 00 00 00 00                 mov     eax,_block_ofs[eax]
+ 1680  c1 e8 08                          shr     eax,08H
+ 1683  31 d2                             xor     edx,edx
+ 1685  88 c2                             mov     dl,al
+ 1687  a1 00 00 00 00                    mov     eax,_dma_addrport
+ 168c  e8 00 00 00 00                    call    outp_
+ 1691  ba ff 00 00 00                    mov     edx,000000ffH
+ 1696  a1 00 00 00 00                    mov     eax,_dma_countport
+ 169b  e8 00 00 00 00                    call    outp_
+ 16a0  ba 03 00 00 00                    mov     edx,00000003H
+ 16a5  a1 00 00 00 00                    mov     eax,_dma_countport
+ 16aa  e8 00 00 00 00                    call    outp_
+ 16af  8b 15 00 00 00 00                 mov     edx,_curblock
+ 16b5  8a 92 00 00 00 00                 mov     dl,_block_page[edx]
+ 16bb  81 e2 ff 00 00 00                 and     edx,000000ffH
+ 16c1  a1 00 00 00 00                    mov     eax,_dma_pageport
+ 16c6  e8 00 00 00 00                    call    outp_
+ 16cb  31 d2                             xor     edx,edx
+ 16cd  8a 15 00 00 00 00                 mov     dl,_dma_startmask
+ 16d3  a1 00 00 00 00                    mov     eax,_dma_maskport
+ 16d8  e8 00 00 00 00                    call    outp_
+ 16dd  c6 45 f8 14                       mov     byte ptr -8H[ebp],14H
+ 16e1  8a 45 f8                          mov     al,-8H[ebp]
+ 16e4  88 45 fc                          mov     -4H[ebp],al
+ 16e7  a1 00 00 00 00    L162            mov     eax,_writeport
+ 16ec  e8 00 00 00 00                    call    inp_
+ 16f1  a8 80                             test    al,80H
+ 16f3  75 f2                             jne     L162
+ 16f5  31 d2                             xor     edx,edx
+ 16f7  8a 55 fc                          mov     dl,-4H[ebp]
+ 16fa  a1 00 00 00 00                    mov     eax,_writeport
+ 16ff  e8 00 00 00 00                    call    outp_
+ 1704  c6 45 f0 ff                       mov     byte ptr -10H[ebp],0ffH
+ 1708  8a 45 f0                          mov     al,-10H[ebp]
+ 170b  88 45 f4                          mov     -0cH[ebp],al
+ 170e  a1 00 00 00 00    L163            mov     eax,_writeport
+ 1713  e8 00 00 00 00                    call    inp_
+ 1718  a8 80                             test    al,80H
+ 171a  75 f2                             jne     L163
+ 171c  31 d2                             xor     edx,edx
+ 171e  8a 55 f4                          mov     dl,-0cH[ebp]
+ 1721  a1 00 00 00 00                    mov     eax,_writeport
+ 1726  e8 00 00 00 00                    call    outp_
+ 172b  c6 45 e8 03                       mov     byte ptr -18H[ebp],03H
+ 172f  8a 45 e8                          mov     al,-18H[ebp]
+ 1732  88 45 ec                          mov     -14H[ebp],al
+ 1735  a1 00 00 00 00    L164            mov     eax,_writeport
+ 173a  e8 00 00 00 00                    call    inp_
+ 173f  a8 80                             test    al,80H
+ 1741  75 f2                             jne     L164
+ 1743  31 d2                             xor     edx,edx
+ 1745  8a 55 ec                          mov     dl,-14H[ebp]
+ 1748  a1 00 00 00 00                    mov     eax,_writeport
+ 174d  e8 00 00 00 00                    call    outp_
+ 1752  89 ec                             mov     esp,ebp
+ 1754  5d                                pop     ebp
+ 1755  5f                                pop     edi
+ 1756  5e                                pop     esi
+ 1757  5a                                pop     edx
+ 1758  59                                pop     ecx
+ 1759  5b                                pop     ebx
+ 175a  c3                                ret     
+ 175b  90                                nop     
+ 175c  60                inthandler_     pushad  
+ 175d  1e                                push    ds
+ 175e  06                                push    es
+ 175f  0f a0                             push    fs
+ 1761  0f a8                             push    gs
+ 1763  89 e5                             mov     ebp,esp
+ 1765  81 ec 08 00 00 00                 sub     esp,00000008H
+ 176b  fc                                cld     
+ 176c  e8 00 00 00 00                    call    __GETDS
+ 1771  a1 00 00 00 00                    mov     eax,_intcount
+ 1776  ff 05 00 00 00 00                 inc     dword ptr _intcount
+ 177c  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _smixbusy,00000000H
+ 1783  0f 85 d2 00 00 00                 jne     L173
+ 1789  c7 05 00 00 00 00 
+       01 00 00 00                       mov     dword ptr _smixbusy,00000001H
+ 1793  e8 00 00 00 00                    call    _loades
+ 1798  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _autoinit,00000000H
+ 179f  75 51                             jne     L168
+ 17a1  e8 00 00 00 00                    call    startblock_sc_
+ 17a6  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _sixteenbit,00000000H
+ 17ad  75 22                             jne     L165
+ 17af  ff 35 00 00 00 00                 push    _clip_8
+ 17b5  b8 00 00 00 00                    mov     eax,offset _mixingblock
+ 17ba  50                                push    eax
+ 17bb  a1 00 00 00 00                    mov     eax,_curblock
+ 17c0  c1 e0 02                          shl     eax,02H
+ 17c3  ff b0 00 00 00 00                 push    _blockptr[eax]
+ 17c9  e8 00 00 00 00                    call    _COPYSOUND8
+ 17ce  83 c4 0c                          add     esp,0000000cH
+ 17d1  83 3d 00 00 00 00 
+       00                L165            cmp     dword ptr _curblock,00000000H
+ 17d8  75 09                             jne     L166
+ 17da  c7 45 fc 01 00 00 
+       00                                mov     dword ptr -4H[ebp],00000001H
+ 17e1  eb 07                             jmp     L167
+ 17e3  c7 45 fc 00 00 00 
+       00                L166            mov     dword ptr -4H[ebp],00000000H
+ 17ea  8b 45 fc          L167            mov     eax,-4H[ebp]
+ 17ed  a3 00 00 00 00                    mov     _curblock,eax
+ 17f2  e8 00 00 00 00    L168            call    update_voices_
+ 17f7  e8 00 00 00 00                    call    mix_voices_
+ 17fc  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _autoinit,00000000H
+ 1803  74 4c                             je      L172
+ 1805  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _sixteenbit,00000000H
+ 180c  75 22                             jne     L169
+ 180e  ff 35 00 00 00 00                 push    _clip_8
+ 1814  b8 00 00 00 00                    mov     eax,offset _mixingblock
+ 1819  50                                push    eax
+ 181a  a1 00 00 00 00                    mov     eax,_curblock
+ 181f  c1 e0 02                          shl     eax,02H
+ 1822  ff b0 00 00 00 00                 push    _blockptr[eax]
+ 1828  e8 00 00 00 00                    call    _COPYSOUND8
+ 182d  83 c4 0c                          add     esp,0000000cH
+ 1830  83 3d 00 00 00 00 
+       00                L169            cmp     dword ptr _curblock,00000000H
+ 1837  75 09                             jne     L170
+ 1839  c7 45 f8 01 00 00 
+       00                                mov     dword ptr -8H[ebp],00000001H
+ 1840  eb 07                             jmp     L171
+ 1842  c7 45 f8 00 00 00 
+       00                L170            mov     dword ptr -8H[ebp],00000000H
+ 1849  8b 45 f8          L171            mov     eax,-8H[ebp]
+ 184c  a3 00 00 00 00                    mov     _curblock,eax
+ 1851  c7 05 00 00 00 00 
+       00 00 00 00       L172            mov     dword ptr _smixbusy,00000000H
+ 185b  a1 00 00 00 00    L173            mov     eax,_ackport
+ 1860  e8 00 00 00 00                    call    inp_
+ 1865  ba 20 00 00 00                    mov     edx,00000020H
+ 186a  b8 a0 00 00 00                    mov     eax,000000a0H
+ 186f  e8 00 00 00 00                    call    outp_
+ 1874  ba 20 00 00 00                    mov     edx,00000020H
+ 1879  b8 20 00 00 00                    mov     eax,00000020H
+ 187e  e8 00 00 00 00                    call    outp_
+ 1883  89 ec                             mov     esp,ebp
+ 1885  0f a9                             pop     gs
+ 1887  0f a1                             pop     fs
+ 1889  07                                pop     es
+ 188a  1f                                pop     ds
+ 188b  61                                popad   
+ 188c  cf                                iretd   
+ 188d  8d 40 00                          lea     eax,+0H[eax]
+ 1890                    install_handler_:
+ 1890  53                                push    ebx
+ 1891  51                                push    ecx
+ 1892  52                                push    edx
+ 1893  56                                push    esi
+ 1894  57                                push    edi
+ 1895  55                                push    ebp
+ 1896  89 e5                             mov     ebp,esp
+ 1898  81 ec 00 00 00 00                 sub     esp,00000000H
+ 189e  e8 00 00 00 00                    call    _disable_
+ 18a3  a1 00 00 00 00                    mov     eax,_pic_maskport
+ 18a8  e8 00 00 00 00                    call    inp_
+ 18ad  31 d2                             xor     edx,edx
+ 18af  8a 15 00 00 00 00                 mov     dl,_irq_stopmask
+ 18b5  09 c2                             or      edx,eax
+ 18b7  a1 00 00 00 00                    mov     eax,_pic_maskport
+ 18bc  e8 00 00 00 00                    call    outp_
+ 18c1  31 c0                             xor     eax,eax
+ 18c3  a0 00 00 00 00                    mov     al,_irq_intvector
+ 18c8  e8 00 00 00 00                    call    _dos_getvect_
+ 18cd  89 d3                             mov     ebx,edx
+ 18cf  89 c1                             mov     ecx,eax
+ 18d1  66 89 1d 04 00 00 
+       00                                mov     _oldintvector+4H,bx
+ 18d8  89 0d 00 00 00 00                 mov     _oldintvector,ecx
+ 18de  8c c8                             mov     ax,cs
+ 18e0  b9 00 00 00 00                    mov     ecx,offset inthandler_
+ 18e5  89 c3                             mov     ebx,eax
+ 18e7  89 c8                             mov     eax,ecx
+ 18e9  31 d2                             xor     edx,edx
+ 18eb  8a 15 00 00 00 00                 mov     dl,_irq_intvector
+ 18f1  89 d9                             mov     ecx,ebx
+ 18f3  89 c3                             mov     ebx,eax
+ 18f5  89 d0                             mov     eax,edx
+ 18f7  e8 00 00 00 00                    call    _dos_setvect_
+ 18fc  a1 00 00 00 00                    mov     eax,_pic_maskport
+ 1901  e8 00 00 00 00                    call    inp_
+ 1906  31 d2                             xor     edx,edx
+ 1908  8a 15 00 00 00 00                 mov     dl,_irq_startmask
+ 190e  21 c2                             and     edx,eax
+ 1910  a1 00 00 00 00                    mov     eax,_pic_maskport
+ 1915  e8 00 00 00 00                    call    outp_
+ 191a  e8 00 00 00 00                    call    _enable_
+ 191f  c7 05 00 00 00 00 
+       01 00 00 00                       mov     dword ptr _handler_installed,00000001H
+ 1929  5d                                pop     ebp
+ 192a  5f                                pop     edi
+ 192b  5e                                pop     esi
+ 192c  5a                                pop     edx
+ 192d  59                                pop     ecx
+ 192e  5b                                pop     ebx
+ 192f  c3                                ret     
+ 1930                    uninstall_handler_:
+ 1930  53                                push    ebx
+ 1931  51                                push    ecx
+ 1932  52                                push    edx
+ 1933  56                                push    esi
+ 1934  57                                push    edi
+ 1935  55                                push    ebp
+ 1936  89 e5                             mov     ebp,esp
+ 1938  81 ec 00 00 00 00                 sub     esp,00000000H
+ 193e  e8 00 00 00 00                    call    _disable_
+ 1943  a1 00 00 00 00                    mov     eax,_pic_maskport
+ 1948  e8 00 00 00 00                    call    inp_
+ 194d  31 d2                             xor     edx,edx
+ 194f  8a 15 00 00 00 00                 mov     dl,_irq_stopmask
+ 1955  09 c2                             or      edx,eax
+ 1957  a1 00 00 00 00                    mov     eax,_pic_maskport
+ 195c  e8 00 00 00 00                    call    outp_
+ 1961  66 8b 1d 04 00 00 
+       00                                mov     bx,_oldintvector+4H
+ 1968  a1 00 00 00 00                    mov     eax,_oldintvector
+ 196d  31 d2                             xor     edx,edx
+ 196f  8a 15 00 00 00 00                 mov     dl,_irq_intvector
+ 1975  89 d9                             mov     ecx,ebx
+ 1977  89 c3                             mov     ebx,eax
+ 1979  89 d0                             mov     eax,edx
+ 197b  e8 00 00 00 00                    call    _dos_setvect_
+ 1980  e8 00 00 00 00                    call    _enable_
+ 1985  c7 05 00 00 00 00 
+       00 00 00 00                       mov     dword ptr _handler_installed,00000000H
+ 198f  5d                                pop     ebp
+ 1990  5f                                pop     edi
+ 1991  5e                                pop     esi
+ 1992  5a                                pop     edx
+ 1993  59                                pop     ecx
+ 1994  5b                                pop     ebx
+ 1995  c3                                ret     
+ 1996  8b c0                             mov     eax,eax
+ 1998  53                smix_exitproc_  push    ebx
+ 1999  51                                push    ecx
+ 199a  52                                push    edx
+ 199b  56                                push    esi
+ 199c  57                                push    edi
+ 199d  55                                push    ebp
+ 199e  89 e5                             mov     ebp,esp
+ 19a0  81 ec 00 00 00 00                 sub     esp,00000000H
+ 19a6  e8 00 00 00 00                    call    _disable_
+ 19ab  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _sixteenbit,00000000H
+ 19b2  74 0c                             je      L174
+ 19b4  b8 d5 00 00 00                    mov     eax,000000d5H
+ 19b9  e8 00 00 00 00                    call    write_dsp_
+ 19be  eb 0a                             jmp     L175
+ 19c0  b8 d0 00 00 00    L174            mov     eax,000000d0H
+ 19c5  e8 00 00 00 00                    call    write_dsp_
+ 19ca  b8 d3 00 00 00    L175            mov     eax,000000d3H
+ 19cf  e8 00 00 00 00                    call    write_dsp_
+ 19d4  31 d2                             xor     edx,edx
+ 19d6  8a 15 00 00 00 00                 mov     dl,_dma_stopmask
+ 19dc  a1 00 00 00 00                    mov     eax,_dma_maskport
+ 19e1  e8 00 00 00 00                    call    outp_
+ 19e6  e8 00 00 00 00                    call    _enable_
+ 19eb  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _handler_installed,00000000H
+ 19f2  74 05                             je      L176
+ 19f4  e8 00 00 00 00                    call    uninstall_handler_
+ 19f9  e8 00 00 00 00    L176            call    reset_dsp_
+ 19fe  5d                                pop     ebp
+ 19ff  5f                                pop     edi
+ 1a00  5e                                pop     esi
+ 1a01  5a                                pop     edx
+ 1a02  59                                pop     ecx
+ 1a03  5b                                pop     ebx
+ 1a04  c3                                ret     
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: CONST  DWORD USE32  000000aa bytes  
+ 0000  44 53 50 20 76 65 72 73 L177            - DSP vers
+ 0008  69 6f 6e 20 25 64 2e 25                 - ion %d.%
+ 0010  30 32 64 2e 2e 2e 00 00                 - 02d.....
+ 0018  31 36 2d 62 69 74 20 44 L178            - 16-bit D
+ 0020  41 43 2e 2e 2e 00 00 00                 - AC......
+ 0028  38 2d 62 69 74 20 44 41 L179            - 8-bit DA
+ 0030  43 2e 2e 2e 00 00 00 00                 - C.......
+ 0038  61 64 64 69 6e 67 20 74 L180            - adding t
+ 0040  6f 20 64 6d 61 20 62 75                 - o dma bu
+ 0048  66 66 65 72 0a 00 00 00                 - ffer....
+ 0050  69 6e 69 74 64 6d 61 0a L181            - initdma.
+ 0058  00 00 00 00                             - ....
+ 005c  69 6e 69 74 66 75 63 6b L182            - initfuck
+ 0064  0a 00 00 00                             - ....
+ 0068  69 6e 69 74 66 75 63 6b L183            - initfuck
+ 0070  32 20 25 58 20 25 58 20                 - 2 %X %X 
+ 0078  25 58 0a 00                             - %X..
+ 007c  69 6e 69 74 63 6c 69 70 L184            - initclip
+ 0084  38 0a 00 00                             - 8...
+ 0088  69 6e 69 74 76 6f 6c 74 L185            - initvolt
+ 0090  61 62 6c 65 0a 00 00 00                 - able....
+ 0098  73 74 61 72 74 64 61 63 L186            - startdac
+ 00a0  0a 00 00 00                             - ....
+ 00a4  64 6f 6e 65 0a 00       L187            - done..
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: _DATA  DWORD USE32  0000001c bytes  
+ 0000  00 00 00 00             _outmemarea     - ....
+ 0004  00 00 00 00             _out8buf        - ....
+ 0008  00 00 00 00             _out16buf       - ....
+ 000c  00 00 00 00 00 00 00 00 _wassilenced    - ........
+ 0014  00 00 00 00             _smixbusy       - ....
+ 0018  00 00 00 00             _timerbusy      - ....
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: _BSS  PARA USE32  000009b4 bytes  
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: $$SYMBOLS  BYTE USE16  000008e3 bytes  
+ 0000  14 12                                   - ..
+ 0002  00 00 00 00 00 00                       DP      _wassilenced
+ 0008  17 77 61 73 73 69 6c 65                 - .wassile
+ 0010  6e 63 65 64 0e 12                       - nced..
+ 0016  00 00 00 00 00 00                       DP      _inuse
+ 001c  18 69 6e 75 73 65 11 12                 - .inuse..
+ 0024  00 00 00 00 00 00                       DP      _blockptr
+ 002a  1a 62 6c 6f 63 6b 70 74                 - .blockpt
+ 0032  72 14 12                                - r..
+ 0035  00 00 00 00 00 00                       DP      _mixingblock
+ 003b  1b 6d 69 78 69 6e 67 62                 - .mixingb
+ 0043  6c 6f 63 6b 12 12                       - lock..
+ 0049  00 00 00 00 00 00                       DP      _block_ofs
+ 004f  1c 62 6c 6f 63 6b 5f 6f                 - .block_o
+ 0057  66 73 13 12                             - fs..
+ 005b  00 00 00 00 00 00                       DP      _block_addr
+ 0061  1e 62 6c 6f 63 6b 5f 61                 - .block_a
+ 0069  64 64 72 0e 12                          - ddr..
+ 006e  00 00 00 00 00 00                       DP      _voice
+ 0074  25 76 6f 69 63 65 0b 12                 - %voice..
+ 007c  00 00 00 00 00 00                       DP      _sr
+ 0082  27 73 72 0a 12                          - 'sr..
+ 0087  00 00 00 00 00 00                       DP      _r
+ 008d  2f 72 12 12                             - /r..
+ 0091  00 00 00 00 00 00                       DP      _timerbusy
+ 0097  08 74 69 6d 65 72 62 75                 - .timerbu
+ 009f  73 79 11 12                             - sy..
+ 00a3  00 00 00 00 00 00                       DP      _smixbusy
+ 00a9  08 73 6d 69 78 62 75 73                 - .smixbus
+ 00b1  79 14 12                                - y..
+ 00b4  00 00 00 00 00 00                       DP      _chunklength
+ 00ba  08 63 68 75 6e 6b 6c 65                 - .chunkle
+ 00c2  6e 67 74 68 16 12                       - ngth..
+ 00c8  00 00 00 00 00 00                       DP      _volume_lookup
+ 00ce  30 76 6f 6c 75 6d 65 5f                 - 0volume_
+ 00d6  6c 6f 6f 6b 75 70 12 12                 - lookup..
+ 00de  00 00 00 00 00 00                       DP      _sourceptr
+ 00e4  1f 73 6f 75 72 63 65 70                 - .sourcep
+ 00ec  74 72 12 12                             - tr..
+ 00f0  00 00 00 00 00 00                       DP      _mixlength
+ 00f6  08 6d 69 78 6c 65 6e 67                 - .mixleng
+ 00fe  74 68 0d 12                             - th..
+ 0102  00 00 00 00 00 00                       DP      _dest
+ 0108  30 64 65 73 74 12 12                    - 0dest..
+ 010f  00 00 00 00 00 00                       DP      _destindex
+ 0115  08 64 65 73 74 69 6e 64                 - .destind
+ 011d  65 78 12 12                             - ex..
+ 0121  00 00 00 00 00 00                       DP      _donefirst
+ 0127  08 64 6f 6e 65 66 69 72                 - .donefir
+ 012f  73 74 11 12                             - st..
+ 0133  00 00 00 00 00 00                       DP      _curblock
+ 0139  08 63 75 72 62 6c 6f 63                 - .curbloc
+ 0141  6b 11 12                                - k..
+ 0144  00 00 00 00 00 00                       DP      _out16buf
+ 014a  33 6f 75 74 31 36 62 75                 - 3out16bu
+ 0152  66 15 12                                - f..
+ 0155  00 00 00 00 00 00                       DP      _volume_table
+ 015b  36 76 6f 6c 75 6d 65 5f                 - 6volume_
+ 0163  74 61 62 6c 65 13 12                    - table..
+ 016a  00 00 00 00 00 00                       DP      _outmemarea
+ 0170  37 6f 75 74 6d 65 6d 61                 - 7outmema
+ 0178  72 65 61 13 12                          - rea..
+ 017d  00 00 00 00 00 00                       DP      _buffer_ofs
+ 0183  09 62 75 66 66 65 72 5f                 - .buffer_
+ 018b  6f 66 73 13 12                          - ofs..
+ 0190  00 00 00 00 00 00                       DP      _clip_8_buf
+ 0196  39 63 6c 69 70 5f 38 5f                 - 9clip_8_
+ 019e  62 75 66 14 12                          - buf..
+ 01a3  00 00 00 00 00 00                       DP      _buffer_addr
+ 01a9  1d 62 75 66 66 65 72 5f                 - .buffer_
+ 01b1  61 64 64 72 10 12                       - addr..
+ 01b7  00 00 00 00 00 00                       DP      _out8buf
+ 01bd  3c 6f 75 74 38 62 75 66                 - <out8buf
+ 01c5  0f 12                                   - ..
+ 01c7  00 00 00 00 00 00                       DP      _clip_8
+ 01cd  3e 63 6c 69 70 5f 38 16                 - >clip_8.
+ 01d5  12                                      - .
+ 01d6  00 00 00 00 00 00                       DP      _dma_countport
+ 01dc  08 64 6d 61 5f 63 6f 75                 - .dma_cou
+ 01e4  6e 74 70 6f 72 74 15 12                 - ntport..
+ 01ec  00 00 00 00 00 00                       DP      _dma_addrport
+ 01f2  08 64 6d 61 5f 61 64 64                 - .dma_add
+ 01fa  72 70 6f 72 74 1a 12                    - rport..
+ 0201  00 00 00 00 00 00                       DP      _handler_installed
+ 0207  08 68 61 6e 64 6c 65 72                 - .handler
+ 020f  5f 69 6e 73 74 61 6c 6c                 - _install
+ 0217  65 64 15 12                             - ed..
+ 021b  00 00 00 00 00 00                       DP      _dma_pageport
+ 0221  08 64 6d 61 5f 70 61 67                 - .dma_pag
+ 0229  65 70 6f 72 74 15 12                    - eport..
+ 0230  00 00 00 00 00 00                       DP      _dma_modeport
+ 0236  08 64 6d 61 5f 6d 6f 64                 - .dma_mod
+ 023e  65 70 6f 72 74 17 12                    - eport..
+ 0245  00 00 00 00 00 00                       DP      _pic_rotateport
+ 024b  08 70 69 63 5f 72 6f 74                 - .pic_rot
+ 0253  61 74 65 70 6f 72 74 15                 - ateport.
+ 025b  12                                      - .
+ 025c  00 00 00 00 00 00                       DP      _dma_maskport
+ 0262  08 64 6d 61 5f 6d 61 73                 - .dma_mas
+ 026a  6b 70 6f 72 74 11 12                    - kport..
+ 0271  00 00 00 00 00 00                       DP      _readport
+ 0277  08 72 65 61 64 70 6f 72                 - .readpor
+ 027f  74 15 12                                - t..
+ 0282  00 00 00 00 00 00                       DP      _pic_maskport
+ 0288  08 70 69 63 5f 6d 61 73                 - .pic_mas
+ 0290  6b 70 6f 72 74 17 12                    - kport..
+ 0297  00 00 00 00 00 00                       DP      _dma_clrptrport
+ 029d  08 64 6d 61 5f 63 6c 72                 - .dma_clr
+ 02a5  70 74 72 70 6f 72 74 10                 - ptrport.
+ 02ad  12                                      - .
+ 02ae  00 00 00 00 00 00                       DP      _ackport
+ 02b4  08 61 63 6b 70 6f 72 74                 - .ackport
+ 02bc  12 12                                   - ..
+ 02be  00 00 00 00 00 00                       DP      _resetport
+ 02c4  08 72 65 73 65 74 70 6f                 - .resetpo
+ 02cc  72 74 11 12                             - rt..
+ 02d0  00 00 00 00 00 00                       DP      _pollport
+ 02d6  08 70 6f 6c 6c 70 6f 72                 - .pollpor
+ 02de  74 12 12                                - t..
+ 02e1  00 00 00 00 00 00                       DP      _writeport
+ 02e7  08 77 72 69 74 65 70 6f                 - .writepo
+ 02ef  72 74 13 12                             - rt..
+ 02f3  00 00 00 00 00 00                       DP      _sixteenbit
+ 02f9  08 73 69 78 74 65 65 6e                 - .sixteen
+ 0301  62 69 74 13 12                          - bit..
+ 0306  00 00 00 00 00 00                       DP      _dspversion
+ 030c  08 64 73 70 76 65 72 73                 - .dspvers
+ 0314  69 6f 6e 11 12                          - ion..
+ 0319  00 00 00 00 00 00                       DP      _autoinit
+ 031f  08 61 75 74 6f 69 6e 69                 - .autoini
+ 0327  74 13 12                                - t..
+ 032a  00 00 00 00 00 00                       DP      _voicecount
+ 0330  08 76 6f 69 63 65 63 6f                 - .voiceco
+ 0338  75 6e 74 11 12                          - unt..
+ 033d  00 00 00 00 00 00                       DP      _intcount
+ 0343  3f 69 6e 74 63 6f 75 6e                 - ?intcoun
+ 034b  74 15 12                                - t..
+ 034e  00 00 00 00 00 00                       DP      _oldintvector
+ 0354  41 6f 6c 64 69 6e 74 76                 - Aoldintv
+ 035c  65 63 74 6f 72 17 12                    - ector..
+ 0363  00 00 00 00 00 00                       DP      _outmemarea_sel
+ 0369  06 6f 75 74 6d 65 6d 61                 - .outmema
+ 0371  72 65 61 5f 73 65 6c 13                 - rea_sel.
+ 0379  12                                      - .
+ 037a  00 00 00 00 00 00                       DP      _block_page
+ 0380  42 62 6c 6f 63 6b 5f 70                 - Bblock_p
+ 0388  61 67 65 15 12                          - age..
+ 038d  00 00 00 00 00 00                       DP      _sound_volume
+ 0393  05 73 6f 75 6e 64 5f 76                 - .sound_v
+ 039b  6f 6c 75 6d 65 14 12                    - olume..
+ 03a2  00 00 00 00 00 00                       DP      _buffer_page
+ 03a8  05 62 75 66 66 65 72 5f                 - .buffer_
+ 03b0  70 61 67 65 15 12                       - page..
+ 03b6  00 00 00 00 00 00                       DP      _dma_stopmask
+ 03bc  05 64 6d 61 5f 73 74 6f                 - .dma_sto
+ 03c4  70 6d 61 73 6b 16 12                    - pmask..
+ 03cb  00 00 00 00 00 00                       DP      _dma_startmask
+ 03d1  05 64 6d 61 5f 73 74 61                 - .dma_sta
+ 03d9  72 74 6d 61 73 6b 16 12                 - rtmask..
+ 03e1  00 00 00 00 00 00                       DP      _irq_startmask
+ 03e7  05 69 72 71 5f 73 74 61                 - .irq_sta
+ 03ef  72 74 6d 61 73 6b 16 12                 - rtmask..
+ 03f7  00 00 00 00 00 00                       DP      _irq_intvector
+ 03fd  05 69 72 71 5f 69 6e 74                 - .irq_int
+ 0405  76 65 63 74 6f 72 11 12                 - vector..
+ 040d  00 00 00 00 00 00                       DP      _dma_mode
+ 0413  05 64 6d 61 5f 6d 6f 64                 - .dma_mod
+ 041b  65 15 12                                - e..
+ 041e  00 00 00 00 00 00                       DP      _irq_stopmask
+ 0424  05 69 72 71 5f 73 74 6f                 - .irq_sto
+ 042c  70 6d 61 73 6b 08 32                    - pmask.2
+ 0433  00 00 00 00 00 00                       DP      write_dsp_
+ 0439  20 24 00 00 00 00 37 00                 -  $....7.
+ 0441  00 00 00 00 0e 09 18 00                 - ........
+ 0449  00 00 43 00 01 30 1c 77                 - ..C..0.w
+ 0451  72 69 74 65 5f 64 73 70                 - rite_dsp
+ 0459  0a 11 10 fc 05 76 61 6c                 - .....val
+ 0461  75 65 1d 24 38 00 00 00                 - ue.$8...
+ 0469  35 00 00 00 00 00 0e 09                 - 5.......
+ 0471  18 00 00 00 44 40 00 72                 - ....D@.r
+ 0479  65 61 64 5f 64 73 70 1f                 - ead_dsp.
+ 0481  24 70 00 00 00 79 00 00                 - $p...y..
+ 0489  00 00 00 0e 09 18 00 00                 - ........
+ 0491  00 45 30 1c 00 72 65 73                 - .E0..res
+ 0499  65 74 5f 64 73 70 06 11                 - et_dsp..
+ 04a1  10 f8 08 69 25 24 ec 00                 - ...i%$..
+ 04a9  00 00 a1 03 00 00 00 00                 - ........
+ 04b1  0b 06 0c 00 00 00 46 30                 - ......F0
+ 04b9  1c 04 30 1c 30 1f 30 1d                 - ..0.0.0.
+ 04c1  30 1e 69 6e 69 74 5f 73                 - 0.init_s
+ 04c9  62 0b 11 10 ec 08 62 61                 - b.....ba
+ 04d1  73 65 69 6f 08 11 10 f0                 - seio....
+ 04d9  08 69 72 71 08 11 10 f4                 - .irq....
+ 04e1  08 64 6d 61 0a 11 10 f8                 - .dma....
+ 04e9  08 64 6d 61 31 36 20 24                 - .dma16 $
+ 04f1  90 04 00 00 74 00 00 00                 - ....t...
+ 04f9  00 00 0e 07 18 00 00 00                 - ........
+ 0501  47 00 00 73 68 75 74 64                 - G..shutd
+ 0509  6f 77 6e 5f 73 62 1e 24                 - own_sb.$
+ 0511  04 05 00 00 c5 04 00 00                 - ........
+ 0519  00 00 0c 07 10 00 00 00                 - ........
+ 0521  48 00 00 73 74 61 72 74                 - H..start
+ 0529  5f 64 61 63 1d 24 cc 09                 - _dac.$..
+ 0531  00 00 b3 00 00 00 00 00                 - ........
+ 0539  0e 09 18 00 00 00 47 00                 - ......G.
+ 0541  00 73 74 6f 70 5f 64 61                 - .stop_da
+ 0549  63 26 24 80 0a 00 00 98                 - c&$.....
+ 0551  00 00 00 00 00 0e 09 18                 - ........
+ 0559  00 00 00 47 00 00 69 6e                 - ...G..in
+ 0561  69 74 5f 76 6f 6c 75 6d                 - it_volum
+ 0569  65 5f 74 61 62 6c 65 0b                 - e_table.
+ 0571  11 10 f4 08 76 6f 6c 75                 - ....volu
+ 0579  6d 65 0d 11 10 f8 08 69                 - me.....i
+ 0581  6e 73 61 6d 70 6c 65 0c                 - nsample.
+ 0589  11 10 fc 04 69 6e 76 61                 - ....inva
+ 0591  6c 75 65 27 24 18 0b 00                 - lue'$...
+ 0599  00 22 00 00 00 00 00 0e                 - ."......
+ 05a1  09 18 00 00 00 43 00 01                 - .....C..
+ 05a9  30 1c 73 65 74 5f 73 6f                 - 0.set_so
+ 05b1  75 6e 64 5f 76 6f 6c 75                 - und_volu
+ 05b9  6d 65 0f 11 10 fc 05 6e                 - me.....n
+ 05c1  65 77 5f 76 6f 6c 75 6d                 - ew_volum
+ 05c9  65 1f 24 3c 0b 00 00 9d                 - e.$<....
+ 05d1  00 00 00 00 00 0e 09 18                 - ........
+ 05d9  00 00 00 47 00 00 69 6e                 - ...G..in
+ 05e1  69 74 5f 63 6c 69 70 38                 - it_clip8
+ 05e9  06 11 10 f8 08 69 0a 11                 - .....i..
+ 05f1  10 fc 08 76 61 6c 75 65                 - ...value
+ 05f9  23 24 dc 0b 00 00 23 00                 - #$....#.
+ 0601  00 00 00 00 0e 09 18 00                 - ........
+ 0609  00 00 49 30 1c 01 30 1c                 - ..I0..0.
+ 0611  6c 69 6e 65 61 72 5f 61                 - linear_a
+ 0619  64 64 72 08 11 10 f8 19                 - ddr.....
+ 0621  70 74 72 20 24 00 0c 00                 - ptr $...
+ 0629  00 fd 02 00 00 00 00 0e                 - ........
+ 0631  09 18 00 00 00 47 00 00                 - .....G..
+ 0639  69 6e 69 74 5f 6d 69 78                 - init_mix
+ 0641  69 6e 67 06 11 10 fc 08                 - ing.....
+ 0649  69 24 24 00 0f 00 00 88                 - i$$.....
+ 0651  00 00 00 00 00 0e 07 18                 - ........
+ 0659  00 00 00 47 00 00 73 68                 - ...G..sh
+ 0661  75 74 64 6f 77 6e 5f 6d                 - utdown_m
+ 0669  69 78 69 6e 67 27 24 88                 - ixing'$.
+ 0671  0f 00 00 7e 00 00 00 00                 - ...~....
+ 0679  00 0e 09 18 00 00 00 4a                 - .......J
+ 0681  00 01 30 1c 64 65 61 6c                 - ..0.deal
+ 0689  6c 6f 63 61 74 65 5f 76                 - locate_v
+ 0691  6f 69 63 65 0d 11 10 fc                 - oice....
+ 0699  08 76 6f 69 63 65 6e 75                 - .voicenu
+ 06a1  6d 28 24 08 10 00 00 c5                 - m($.....
+ 06a9  00 00 00 00 00 0b 06 0c                 - ........
+ 06b1  00 00 00 4b 00 04 30 1c                 - ...K..0.
+ 06b9  30 1f 30 1d 30 1e 73 74                 - 0.0.0.st
+ 06c1  61 72 74 5f 73 6f 75 6e                 - art_soun
+ 06c9  64 0a 11 10 e8 22 73 6f                 - d...."so
+ 06d1  75 6e 64 0a 11 10 ec 08                 - und.....
+ 06d9  69 6e 64 65 78 0b 11 10                 - index...
+ 06e1  fc 05 76 6f 6c 75 6d 65                 - ..volume
+ 06e9  09 11 10 f4 08 6c 6f 6f                 - .....loo
+ 06f1  70 06 11 10 f8 08 69 0d                 - p.....i.
+ 06f9  11 10 f0 08 76 6f 69 63                 - ....voic
+ 0701  65 6e 75 6d 21 24 d0 10                 - enum!$..
+ 0709  00 00 55 00 00 00 00 00                 - ..U.....
+ 0711  0e 09 18 00 00 00 4a 00                 - ......J.
+ 0719  01 30 1c 73 74 6f 70 5f                 - .0.stop_
+ 0721  73 6f 75 6e 64 0a 11 10                 - sound...
+ 0729  f8 08 69 6e 64 65 78 06                 - ..index.
+ 0731  11 10 fc 08 69 25 24 28                 - ....i%$(
+ 0739  11 00 00 55 00 00 00 00                 - ...U....
+ 0741  00 0e 09 18 00 00 00 4c                 - .......L
+ 0749  30 1c 01 30 1c 73 6f 75                 - 0..0.sou
+ 0751  6e 64 5f 70 6c 61 79 69                 - nd_playi
+ 0759  6e 67 0a 11 10 f4 08 69                 - ng.....i
+ 0761  6e 64 65 78 06 11 10 f8                 - ndex....
+ 0769  08 69 22 24 80 11 00 00                 - .i"$....
+ 0771  5f 00 00 00 00 00 0e 09                 - _.......
+ 0779  18 00 00 00 47 00 00 75                 - ....G..u
+ 0781  70 64 61 74 65 5f 76 6f                 - pdate_vo
+ 0789  69 63 65 73 0d 11 10 fc                 - ices....
+ 0791  08 76 6f 69 63 65 6e 75                 - .voicenu
+ 0799  6d 20 24 e0 11 00 00 91                 - m $.....
+ 07a1  02 00 00 00 00 0e 09 18                 - ........
+ 07a9  00 00 00 4a 00 01 30 1c                 - ...J..0.
+ 07b1  6d 69 78 5f 76 6f 69 63                 - mix_voic
+ 07b9  65 0d 11 10 f8 08 76 6f                 - e.....vo
+ 07c1  69 63 65 6e 75 6d 0a 11                 - icenum..
+ 07c9  10 fc 22 73 6f 75 6e 64                 - .."sound
+ 07d1  21 24 74 14 00 00 4e 00                 - !$t...N.
+ 07d9  00 00 00 00 0e 07 18 00                 - ........
+ 07e1  00 00 14 00 00 73 69 6c                 - .....sil
+ 07e9  65 6e 63 65 62 6c 6f 63                 - encebloc
+ 07f1  6b 1f 24 c4 14 00 00 13                 - k.$.....
+ 07f9  01 00 00 00 00 0e 09 18                 - ........
+ 0801  00 00 00 47 00 00 6d 69                 - ...G..mi
+ 0809  78 5f 76 6f 69 63 65 73                 - x_voices
+ 0811  06 11 10 fc 08 69 1f 24                 - .....i.$
+ 0819  d8 15 00 00 40 00 00 00                 - ....@...
+ 0821  00 00 0e 07 18 00 00 00                 - ........
+ 0829  47 00 00 63 6f 70 79 5f                 - G..copy_
+ 0831  73 6f 75 6e 64 22 24 18                 - sound"$.
+ 0839  16 00 00 43 01 00 00 00                 - ...C....
+ 0841  00 0e 09 18 00 00 00 47                 - .......G
+ 0849  00 00 73 74 61 72 74 62                 - ..startb
+ 0851  6c 6f 63 6b 5f 73 63 1f                 - lock_sc.
+ 0859  25 5c 17 00 00 31 01 00                 - %\...1..
+ 0861  00 00 00 15 0a 30 00 00                 - .....0..
+ 0869  00 40 00 00 69 6e 74 68                 - .@..inth
+ 0871  61 6e 64 6c 65 72 24 24                 - andler$$
+ 0879  90 18 00 00 a0 00 00 00                 - ........
+ 0881  00 00 0e 07 18 00 00 00                 - ........
+ 0889  47 00 00 69 6e 73 74 61                 - G..insta
+ 0891  6c 6c 5f 68 61 6e 64 6c                 - ll_handl
+ 0899  65 72 26 24 30 19 00 00                 - er&$0...
+ 08a1  66 00 00 00 00 00 0e 07                 - f.......
+ 08a9  18 00 00 00 47 00 00 75                 - ....G..u
+ 08b1  6e 69 6e 73 74 61 6c 6c                 - ninstall
+ 08b9  5f 68 61 6e 64 6c 65 72                 - _handler
+ 08c1  22 24 98 19 00 00 6d 00                 - "$....m.
+ 08c9  00 00 00 00 0e 07 18 00                 - ........
+ 08d1  00 00 47 00 00 73 6d 69                 - ..G..smi
+ 08d9  78 5f 65 78 69 74 70 72                 - x_exitpr
+ 08e1  6f 63                                   - oc
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: $$TYPES  BYTE USE16  0000035b bytes  
+ 0000  06 13 5b 03 00 00 08 11                 - ..[.....
+ 0008  73 74 72 75 63 74 07 11                 - struct..
+ 0010  75 6e 69 6f 6e 06 11 65                 - union..e
+ 0018  6e 75 6d 0e 10 00 73 69                 - num...si
+ 0020  67 6e 65 64 20 63 68 61                 - gned cha
+ 0028  72 10 10 10 75 6e 73 69                 - r...unsi
+ 0030  67 6e 65 64 20 63 68 61                 - gned cha
+ 0038  72 08 10 01 73 68 6f 72                 - r...shor
+ 0040  74 11 10 11 75 6e 73 69                 - t...unsi
+ 0048  67 6e 65 64 20 73 68 6f                 - gned sho
+ 0050  72 74 06 10 03 69 6e 74                 - rt...int
+ 0058  0f 10 13 75 6e 73 69 67                 - ...unsig
+ 0060  6e 65 64 20 69 6e 74 0b                 - ned int.
+ 0068  12 00 07 77 63 68 61 72                 - ...wchar
+ 0070  5f 74 0a 12 00 09 73 69                 - _t....si
+ 0078  7a 65 5f 74 03 46 05 04                 - ze_t.F..
+ 0080  20 00 0c 0d 12 00 0d 5f                 -  ......_
+ 0088  5f 76 61 5f 6c 69 73 74                 - _va_list
+ 0090  07 10 03 6c 6f 6e 67 0a                 - ...long.
+ 0098  12 00 0f 66 70 6f 73 5f                 - ...fpos_
+ 00a0  74 0a 12 00 0f 66 70 6f                 - t....fpo
+ 00a8  73 5f 74 0b 12 00 07 77                 - s_t....w
+ 00b0  63 68 61 72 5f 74 07 10                 - char_t..
+ 00b8  30 76 6f 69 64 04 72 13                 - 0void.r.
+ 00c0  00 03 46 14 0c 12 00 15                 - ..F.....
+ 00c8  6f 6e 65 78 69 74 5f 74                 - onexit_t
+ 00d0  04 20 01 08 04 20 07 08                 - . ... ..
+ 00d8  03 46 13 04 20 01 19 05                 - .F.. ...
+ 00e0  21 ff 03 06 04 20 01 09                 - !.... ..
+ 00e8  10 10 13 75 6e 73 69 67                 - ...unsig
+ 00f0  6e 65 64 20 6c 6f 6e 67                 - ned long
+ 00f8  04 20 01 1d 03 46 04 08                 - . ...F..
+ 0100  60 02 00 08 00 00 00 0d                 - `.......
+ 0108  61 04 1d 73 6f 75 6e 64                 - a..sound
+ 0110  73 69 7a 65 0c 61 00 1f                 - size.a..
+ 0118  73 6f 75 6e 64 70 74 72                 - soundptr
+ 0120  09 12 00 20 53 4f 55 4e                 - ... SOUN
+ 0128  44 03 46 21 08 60 06 00                 - D.F!.`..
+ 0130  18 00 00 00 08 61 14 08                 - .....a..
+ 0138  64 6f 6e 65 0a 61 10 0f                 - done.a..
+ 0140  63 75 72 70 6f 73 08 61                 - curpos.a
+ 0148  0c 08 6c 6f 6f 70 0a 61                 - ..loop.a
+ 0150  08 08 76 6f 6c 75 6d 65                 - ..volume
+ 0158  09 61 04 08 69 6e 64 65                 - .a..inde
+ 0160  78 09 61 00 22 73 6f 75                 - x.a."sou
+ 0168  6e 64 09 12 00 23 56 4f                 - nd...#VO
+ 0170  49 43 45 04 20 07 24 08                 - ICE. .$.
+ 0178  60 06 00 0c 00 00 00 06                 - `.......
+ 0180  61 0a 07 67 73 06 61 08                 - a..gs.a.
+ 0188  07 66 73 06 61 06 07 64                 - .fs.a..d
+ 0190  73 06 61 04 07 73 73 06                 - s.a..ss.
+ 0198  61 02 07 63 73 06 61 00                 - a..cs.a.
+ 01a0  07 65 73 09 12 01 26 53                 - .es...&S
+ 01a8  52 45 47 53 08 60 07 00                 - REGS.`..
+ 01b0  1c 00 00 00 09 61 18 09                 - .....a..
+ 01b8  63 66 6c 61 67 07 61 14                 - cflag.a.
+ 01c0  09 65 64 69 07 61 10 09                 - .edi.a..
+ 01c8  65 73 69 07 61 0c 09 65                 - esi.a..e
+ 01d0  64 78 07 61 08 09 65 63                 - dx.a..ec
+ 01d8  78 07 61 04 09 65 62 78                 - x.a..ebx
+ 01e0  07 61 00 09 65 61 78 0d                 - .a..eax.
+ 01e8  12 01 28 44 57 4f 52 44                 - ..(DWORD
+ 01f0  52 45 47 53 08 60 0d 00                 - REGS.`..
+ 01f8  1c 00 00 00 09 61 18 09                 - .....a..
+ 0200  63 66 6c 61 67 06 61 16                 - cflag.a.
+ 0208  07 5f 36 06 61 14 07 64                 - ._6.a..d
+ 0210  69 06 61 12 07 5f 35 06                 - i.a.._5.
+ 0218  61 10 07 73 69 06 61 0e                 - a..si.a.
+ 0220  07 5f 34 06 61 0c 07 64                 - ._4.a..d
+ 0228  78 06 61 0a 07 5f 33 06                 - x.a.._3.
+ 0230  61 08 07 63 78 06 61 06                 - a..cx.a.
+ 0238  07 5f 32 06 61 04 07 62                 - ._2.a..b
+ 0240  78 06 61 02 07 5f 31 06                 - x.a.._1.
+ 0248  61 00 07 61 78 0c 12 01                 - a..ax...
+ 0250  2a 57 4f 52 44 52 45 47                 - *WORDREG
+ 0258  53 08 60 0c 00 10 00 00                 - S.`.....
+ 0260  00 06 61 0e 07 5f 34 06                 - ..a.._4.
+ 0268  61 0d 05 64 68 06 61 0c                 - a..dh.a.
+ 0270  05 64 6c 06 61 0a 07 5f                 - .dl.a.._
+ 0278  33 06 61 09 05 63 68 06                 - 3.a..ch.
+ 0280  61 08 05 63 6c 06 61 06                 - a..cl.a.
+ 0288  07 5f 32 06 61 05 05 62                 - ._2.a..b
+ 0290  68 06 61 04 05 62 6c 06                 - h.a..bl.
+ 0298  61 02 07 5f 31 06 61 01                 - a.._1.a.
+ 02a0  05 61 68 06 61 00 05 61                 - .ah.a..a
+ 02a8  6c 0c 12 01 2c 42 59 54                 - l...,BYT
+ 02b0  45 52 45 47 53 08 60 03                 - EREGS.`.
+ 02b8  00 1c 00 00 00 05 61 00                 - ......a.
+ 02c0  2d 68 05 61 00 2b 77 05                 - -h.a.+w.
+ 02c8  61 00 29 78 08 12 02 2e                 - a.)x....
+ 02d0  52 45 47 53 03 46 06 05                 - REGS.F..
+ 02d8  21 ff 03 06 04 20 01 31                 - !.... .1
+ 02e0  03 46 32 05 21 ff 00 06                 - .F2.!...
+ 02e8  04 20 07 34 03 46 35 03                 - . .4.F5.
+ 02f0  46 05 05 21 ff 07 05 03                 - F..!....
+ 02f8  46 38 05 21 ff 03 05 04                 - F8.!....
+ 0300  20 01 3a 03 46 3b 05 21                 -  .:.F;.!
+ 0308  ff 07 05 03 46 3d 07 10                 - ....F=..
+ 0310  03 6c 6f 6e 67 05 73 13                 - .long.s.
+ 0318  01 13 03 47 40 04 20 01                 - ...G@. .
+ 0320  05 05 72 13 01 05 05 72                 - ..r....r
+ 0328  05 01 13 05 72 08 01 13                 - ....r...
+ 0330  08 72 08 04 08 08 08 08                 - .r......
+ 0338  05 72 13 01 13 05 72 13                 - .r....r.
+ 0340  01 13 05 72 1d 01 19 05                 - ...r....
+ 0348  72 13 01 08 08 72 13 04                 - r....r..
+ 0350  22 08 05 08 05 72 08 01                 - "....r..
+ 0358  08 02 14                                - ...
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: $$TYPES  BYTE USE16  000000aa bytes  
+ 0000  00 00 08 00 00 00 0f 00                 - ........
+ 0008  21 00 33 00 47 00 5c 00                 - !.3.G.\.
+ 0010  70 00 85 00 63 3a 5c 74                 - p...c:\t
+ 0018  65 73 74 5c 73 6d 69 78                 - est\smix
+ 0020  2e 63 00 43 3a 5c 57 41                 - .c.C:\WA
+ 0028  54 43 4f 4d 5c 68 5c 64                 - TCOM\h\d
+ 0030  6f 73 2e 68 00 43 3a 5c                 - os.h.C:\
+ 0038  57 41 54 43 4f 4d 5c 68                 - WATCOM\h
+ 0040  5c 69 38 36 2e 68 00 43                 - \i86.h.C
+ 0048  3a 5c 57 41 54 43 4f 4d                 - :\WATCOM
+ 0050  5c 68 5c 73 74 64 69 6f                 - \h\stdio
+ 0058  2e 68 00 43 3a 5c 57 41                 - .h.C:\WA
+ 0060  54 43 4f 4d 5c 68 5c 73                 - TCOM\h\s
+ 0068  74 64 6c 69 62 2e 68 00                 - tdlib.h.
+ 0070  43 3a 5c 57 41 54 43 4f                 - C:\WATCO
+ 0078  4d 5c 68 5c 63 6f 6e 69                 - M\h\coni
+ 0080  6f 2e 68 00 43 3a 5c 57                 - o.h.C:\W
+ 0088  41 54 43 4f 4d 5c 68 5c                 - ATCOM\h\
+ 0090  73 74 72 69 6e 67 2e 68                 - string.h
+ 0098  00 63 3a 5c 74 65 73 74                 - .c:\test
+ 00a0  5c 6c 6f 77 6d 65 6d 2e                 - \lowmem.
+ 00a8  68 00                                   - h.
+
+No disassembly errors
+
+------------------------------------------------------------

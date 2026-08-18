@@ -1,0 +1,332 @@
+#include <windows.h>
+#include "ddraw.h"
+
+#include <stdio.h>
+#include "glib.h"
+
+#include "net.h"
+
+#include "keyb.h"
+
+//functions that need to be supplied by the game
+int  initgame();
+void updatescreen();
+void terminategame();
+void gametimer();
+
+int SCREENX=640;
+int SCREENY=480;
+
+
+
+//Global variables and shit
+char appname[]="Disgruntled";
+
+//direct draw objects
+LPDIRECTDRAW DDO	=0;
+LPDIRECTDRAWSURFACE ddprimary=0;  //DD primary surface
+LPDIRECTDRAWSURFACE ddbackbuffer=0,ddoff=0;  //DD backbuffer surface
+LPDIRECTDRAWPALETTE ddpalette=0; //DD palette
+
+//window handle
+HWND        hwnd ;
+//window function
+LRESULT CALLBACK WndProc (HWND, UINT, WPARAM, LPARAM) ;
+UINT timerid=0;
+
+BOOL  ActiveApp; //Is this program active?
+char *video;   // Pointer to video memory
+char *screen; // Pointer to virtual screen
+
+PALETTEENTRY palentries[256]; //palette entries for all colors
+
+//mouse coords
+int mx,my,mb;
+
+
+//message box printf
+void winprintf(char *format, ...)
+{
+char s[200];
+char *args=(char *)&format+sizeof(format);
+vsprintf(s,format,args);
+MessageBox(hwnd,s,appname,MB_OK|MB_SETFOREGROUND);
+}
+
+
+char errstr[80];
+void cleanexit(int x)
+{
+ DestroyWindow( hwnd);
+}
+
+
+//directdraw initialization/termination funcs
+//returns <0 on failure
+int initddraw(HWND hwnd)
+{
+  //create ddraw object
+  if (DirectDrawCreate(NULL,&DDO,NULL)!=DD_OK) return -1;
+  DDO->SetCooperativeLevel( hwnd, DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN | DDSCL_ALLOWMODEX);
+
+  //set video mode
+  if (DDO->SetDisplayMode( SCREENX,SCREENY,8)!=DD_OK) return -2;
+
+  //create surface(s)
+  DDSURFACEDESC   ddsd;
+  ddsd.dwSize = sizeof ( ddsd );
+  ddsd.dwFlags = DDSD_CAPS | DDSD_BACKBUFFERCOUNT;
+  ddsd.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE | DDSCAPS_FLIP | DDSCAPS_COMPLEX;
+  ddsd.dwBackBufferCount=1;
+  if (DDO->CreateSurface( &ddsd,&ddprimary, NULL )!=DD_OK) return -3;
+
+  //get pointer to backbuffer
+  DDSCAPS ddscaps;
+  ddscaps.dwCaps=DDSCAPS_BACKBUFFER;
+  if (ddprimary->GetAttachedSurface(&ddscaps,&ddbackbuffer)!=DD_OK) return -4;
+
+
+  //create palette
+  DDO->CreatePalette(DDPCAPS_8BIT|DDPCAPS_ALLOW256,palentries,&ddpalette,0);
+  return 0;
+}
+
+void terminateddraw()
+{
+ if (!DDO) return;
+ if (ddbackbuffer) ddbackbuffer->Release();
+ if (ddprimary) ddprimary->Release();
+ if (ddpalette) ddpalette->Release();
+
+ DDO->RestoreDisplayMode();
+ DDO->Release();
+ DDO=0;
+}
+
+
+void setpalette(color *pal)
+{
+ //copy from color format to palleteentry format
+ for (int i=0; i<256; i++)
+  {
+   palentries[i].peRed=pal[i].r<<2;
+   palentries[i].peGreen=pal[i].g<<2;
+   palentries[i].peBlue=pal[i].b<<2;
+   palentries[i].peFlags=0;
+  }
+ ddpalette->SetEntries(0,0,256,palentries);
+ ddprimary->SetPalette(ddpalette);
+
+}
+
+
+
+//TIMER STUFF
+
+volatile int timerbusy=0,timerdisabled=0;
+
+void _disable() {timerdisabled++;}
+void _enable() {timerdisabled--;}
+
+void CALLBACK mmtimer(UINT uID, UINT uMsg, DWORD dwUser, DWORD dw1,DWORD dw2)
+{
+ if (timerbusy || timerdisabled || !ActiveApp) return;
+ timerbusy++;
+ gametimer();
+ timerbusy--;
+}
+
+
+extern int fps;
+//Windows main func
+int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
+                    PSTR szCmdLine, int iCmdShow)
+  {
+   //register window class
+   WNDCLASSEX  wndclass ;
+   wndclass.cbSize        = sizeof (wndclass) ;
+   wndclass.style         = CS_HREDRAW | CS_VREDRAW ;
+   wndclass.lpfnWndProc   = WndProc ;
+   wndclass.cbClsExtra    = 0 ;
+   wndclass.cbWndExtra    = 0 ;
+   wndclass.hInstance     = hInstance ;
+   wndclass.hIcon         = LoadIcon (NULL, IDI_APPLICATION) ;
+   wndclass.hCursor       = LoadCursor (NULL, IDC_ARROW) ;
+   wndclass.hbrBackground = NULL; //(HBRUSH) GetStockObject (WHITE_BRUSH) ;
+   wndclass.lpszMenuName  = NULL;
+   wndclass.lpszClassName = appname;
+   wndclass.hIconSm       = LoadIcon (NULL, IDI_APPLICATION) ;
+   RegisterClassEx (&wndclass) ;
+
+   //create window for app
+   hwnd = CreateWindowEx(
+        0, //WS_EX_TOPMOST,
+        appname, appname,
+        WS_POPUP, 0, 0,
+        GetSystemMetrics(SM_CXSCREEN),
+        GetSystemMetrics(SM_CYSCREEN),
+        NULL, NULL, hInstance, NULL );
+
+   if (!hwnd) return (FALSE);
+
+   ShowWindow (hwnd, iCmdShow) ;
+   UpdateWindow (hwnd) ;
+   SetFocus(hwnd);
+   ShowCursor( FALSE );
+
+      //initialize timer
+   timerid=(UINT)timeSetEvent(10,5,mmtimer,0,TIME_PERIODIC);
+   if (!timerid)
+     {
+      winprintf("Unable to initialize timer");
+      ShowCursor(TRUE);
+      return -1;
+     }
+
+     //initialize directdraw
+   int err;
+   if ((err=initddraw(hwnd))!=0)
+    {
+     terminateddraw();
+     ShowCursor(TRUE);
+     timeKillEvent(timerid);
+     winprintf("Failure to initialize DirectDraw %X",err&0xFFFF);
+     return -1;
+    }
+
+   if (initgame())
+    {
+     terminateddraw();
+     timeKillEvent(timerid);
+     ShowCursor(TRUE);
+     return -1;
+    };
+
+    //make virtual screen
+  // screen=(char *)malloc(640*480);
+
+   //Main loop
+   MSG  msg;
+   while ( 1 )
+    {
+     if( PeekMessage( &msg, NULL, 0, 0, PM_NOREMOVE ) )
+        {
+         if( !GetMessage( &msg, NULL, 0, 0 ) )  break;
+         TranslateMessage(&msg);
+         DispatchMessage(&msg);
+        }
+     else
+     if( ActiveApp )
+        {
+          //clear backbuffer
+         DDBLTFX bltfx;
+         bltfx.dwSize=sizeof(bltfx);
+         bltfx.dwFillColor=1;
+         ddbackbuffer->Blt(NULL,NULL,NULL,DDBLT_COLORFILL|DDBLT_WAIT,&bltfx);
+
+         //draw next frame
+         DDSURFACEDESC  ddsd;
+         memset(&ddsd,0,sizeof(ddsd));
+         ddsd.dwSize = sizeof( ddsd );
+         //Lock it
+         HRESULT lockerr=ddbackbuffer->Lock( NULL, &ddsd, DDLOCK_WAIT, NULL );
+         if (lockerr==DD_OK)
+         {
+          //get pointer to video memory
+          screen=video=(char *)ddsd.lpSurface;
+          //draw next frame
+          updatescreen();
+          // Unlock the video memory.
+          ddbackbuffer->Unlock( NULL );
+
+          //Flip the surfaces
+          ddprimary->Flip(NULL,DDFLIP_WAIT);
+ //         memcpy(video,screen,640*480);
+         }
+         if (lockerr==DDERR_SURFACELOST)
+          ddprimary->Restore();
+        }
+    }
+
+// free(screen);
+ terminategame();
+  //clean up directdraw
+ terminateddraw();
+ if (timerid) {timeKillEvent(timerid); timerid=0;}
+
+ ShowCursor(TRUE);
+ return msg.wParam;
+}
+
+void quitgame()
+{
+ DestroyWindow( hwnd );
+ ActiveApp=0;
+}
+
+
+LRESULT CALLBACK WndProc (HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
+     {
+     HDC         hdc ;
+
+     switch (iMsg)
+          {
+      case WM_ACTIVATEAPP:
+            ActiveApp = wParam;
+            break;
+
+      case WM_KEYDOWN:
+//         if (lParam&(1<<30)) break; //it was previously down
+         wm_keydown((lParam>>16)&0xFF);
+        break;
+
+      case WM_KEYUP:
+         wm_keyup((lParam>>16)&0xFF);
+         break;
+
+      case WM_MOUSEMOVE:
+           //store mouse coords
+           mx=LOWORD(lParam)*SCREENX/640;
+           my=HIWORD(lParam)*SCREENY/480;
+           mb=0;
+           if (wParam&MK_LBUTTON) mb|=1;
+           if (wParam&MK_RBUTTON) mb|=2;
+     		return 0;
+
+      case WM_SOCKET:
+        if (!WSAGETSELECTERROR(lParam))
+          wm_socket(wParam,WSAGETSELECTEVENT(lParam));
+        else
+          wm_socketerror(wParam,WSAGETSELECTEVENT(lParam),WSAGETSELECTERROR(lParam));
+       break;
+
+
+      case WM_CREATE :
+      break;
+      case WM_DESTROY :
+       PostQuitMessage (0) ;
+       if (timerid) {timeKillEvent(timerid); timerid=0;}
+       ::hwnd=0;
+      break;
+
+      }
+
+
+   return DefWindowProc (hwnd, iMsg, wParam, lParam) ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

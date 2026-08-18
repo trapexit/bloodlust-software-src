@@ -1,0 +1,1141 @@
+
+Module: c:\source\a32\region.cpp
+Group: 'DGROUP' CONST,CONST2,_DATA,_BSS
+
+Segment: _TEXT  PARA USE32  00000720 bytes  
+
+//region and collision intersections
+#include "region.h"
+#include "bg.h"
+#include "objspace.h"
+#include "object.h"
+
+#include "r2img.h"
+#include "dd.h"
+#include "message.h"
+
+static char rcolor[3]={2,9*16+1,4};
+void region::draw(char *dest)
+{
+ 0000                    void near region::draw( char near * ):
+ 0000  53                                push    ebx
+ 0001  51                                push    ecx
+ 0002  56                                push    esi
+ 0003  57                                push    edi
+ 0004  55                                push    ebp
+
+ if (!osp->bg)
+ 0005  8b 50 19                          mov     edx,+19H[eax]
+ 0008  83 7a 5d 00                       cmp     dword ptr +5dH[edx],00000000H
+ 000c  75 24                             jne     L1
+
+  drawrect(screen,rcolor[type],r.x1+osp->x1,r.y1+osp->y1,r.x2-r.x1,r.y2-r.y1);
+ else
+ 000e  8b 58 31                          mov     ebx,+31H[eax]
+ 0011  8b 48 29                          mov     ecx,+29H[eax]
+ 0014  29 cb                             sub     ebx,ecx
+ 0016  8b 70 25                          mov     esi,+25H[eax]
+ 0019  53                                push    ebx
+ 001a  8b 58 2d                          mov     ebx,+2dH[eax]
+ 001d  8b 7a 1d                          mov     edi,+1dH[edx]
+ 0020  29 f3                             sub     ebx,esi
+ 0022  8b 6a 19                          mov     ebp,+19H[edx]
+ 0025  53                                push    ebx
+ 0026  8d 1c 39                          lea     ebx,[ecx+edi]
+ 0029  8b 40 08                          mov     eax,+8H[eax]
+ 002c  53                                push    ebx
+ 002d  8d 1c 2e                          lea     ebx,[esi+ebp]
+ 0030  eb 37                             jmp     L2
+
+  drawrect(screen,rcolor[type],r.x1+osp->x1-(osp->bg->x>>16),r.y1+osp->y1-(osp->bg->y>>16),r.x2-r.x1,r.y2-r.y1);
+ 0032  8b 58 31          L1              mov     ebx,+31H[eax]
+ 0035  8b 48 29                          mov     ecx,+29H[eax]
+ 0038  29 cb                             sub     ebx,ecx
+ 003a  8b 70 25                          mov     esi,+25H[eax]
+ 003d  53                                push    ebx
+ 003e  8b 58 2d                          mov     ebx,+2dH[eax]
+ 0041  8b 7a 1d                          mov     edi,+1dH[edx]
+ 0044  29 f3                             sub     ebx,esi
+ 0046  8d 34 39                          lea     esi,[ecx+edi]
+ 0049  8b 4a 5d                          mov     ecx,+5dH[edx]
+ 004c  8b 6a 19                          mov     ebp,+19H[edx]
+ 004f  53                                push    ebx
+ 0050  8b 59 0d                          mov     ebx,+0dH[ecx]
+ 0053  8b 51 09                          mov     edx,+9H[ecx]
+ 0056  c1 fb 10                          sar     ebx,10H
+ 0059  c1 fa 10                          sar     edx,10H
+ 005c  29 de                             sub     esi,ebx
+ 005e  8b 58 25                          mov     ebx,+25H[eax]
+ 0061  8b 40 08                          mov     eax,+8H[eax]
+ 0064  01 eb                             add     ebx,ebp
+ 0066  56                                push    esi
+ 0067  29 d3                             sub     ebx,edx
+ 0069  8a 80 00 00 00 00 L2              mov     al,char near rcolor[][eax]
+ 006f  53                                push    ebx
+ 0070  25 ff 00 00 00                    and     eax,000000ffH
+ 0075  50                                push    eax
+ 0076  a1 00 00 00 00                    mov     eax,char near * near screen
+ 007b  50                                push    eax
+ 007c  e8 00 00 00 00                    call    _drawrect
+ 0081  83 c4 18                          add     esp,00000018H
+
+}
+
+ 0084  5d                                pop     ebp
+ 0085  5f                                pop     edi
+ 0086  5e                                pop     esi
+ 0087  59                                pop     ecx
+ 0088  5b                                pop     ebx
+ 0089  c3                                ret     
+ 008a  8b c0                             mov     eax,eax
+
+void region::update(e_region *t)
+{
+ if (e!=t)
+  {
+ 008c                    void near region::update( e_region near * ):
+ 008c  3b 50 21                          cmp     edx,+21H[eax]
+ 008f  74 08                             je      L3
+
+   e=t; //set region
+ 0091  89 50 21                          mov     +21H[eax],edx
+
+   getabsregion();
+  }
+ 0094  e8 00 00 00 00                    call    void near region::getabsregion()
+
+}
+
+//region constructor
+ 0099  c3                L3              ret     
+ 009a  8b c0                             mov     eax,eax
+
+region::region(object *x,e_region *t):o(x),e(0),osp(x->osp),platform(0)
+{
+ 009c                    near region::region( object near *, e_region near * ):
+ 009c  51                                push    ecx
+ 009d  89 c1                             mov     ecx,eax
+ 009f  89 d0                             mov     eax,edx
+ 00a1  89 da                             mov     edx,ebx
+ 00a3  c7 41 0c 00 00 00 
+       00                                mov     dword ptr +0cH[ecx],00000000H
+ 00aa  8b 18                             mov     ebx,[eax]
+ 00ac  c7 41 21 00 00 00 
+       00                                mov     dword ptr +21H[ecx],00000000H
+ 00b3  89 41 1d                          mov     +1dH[ecx],eax
+
+ update(t);
+ 00b6  89 c8                             mov     eax,ecx
+ 00b8  89 59 19                          mov     +19H[ecx],ebx
+ 00bb  e8 00 00 00 00                    call    void near region::update( e_region near * )
+
+ type=e->type;
+
+  //link to chain
+// list=&osp->rlist[e->type];
+ 00c0  8b 41 21                          mov     eax,+21H[ecx]
+ 00c3  8a 40 01                          mov     al,+1H[eax]
+ 00c6  24 07                             and     al,07H
+ 00c8  25 ff 00 00 00                    and     eax,000000ffH
+ 00cd  89 41 08                          mov     +8H[ecx],eax
+
+ prev=0; next=osp->rlist[type];
+ 00d0  8b 51 19                          mov     edx,+19H[ecx]
+ 00d3  8b 41 08                          mov     eax,+8H[ecx]
+ 00d6  c7 01 00 00 00 00                 mov     dword ptr [ecx],00000000H
+ 00dc  8b 44 82 61                       mov     eax,+61H[edx+eax*4]
+ 00e0  89 41 04                          mov     +4H[ecx],eax
+
+ if (next) next->prev=this;
+ 00e3  85 c0                             test    eax,eax
+ 00e5  74 02                             je      L4
+ 00e7  89 08                             mov     [eax],ecx
+
+ osp->rlist[type]=this;
+
+ //bind to object
+ 00e9  8b 41 19          L4              mov     eax,+19H[ecx]
+ 00ec  8b 51 08                          mov     edx,+8H[ecx]
+ 00ef  89 4c 90 61                       mov     +61H[eax+edx*4],ecx
+
+ o->r[type]=this;
+ 00f3  8b 51 1d                          mov     edx,+1dH[ecx]
+ 00f6  8b 41 08                          mov     eax,+8H[ecx]
+ 00f9  89 4c 82 45                       mov     +45H[edx+eax*4],ecx
+
+}
+
+//region destructor
+ 00fd  89 c8                             mov     eax,ecx
+ 00ff  59                                pop     ecx
+ 0100  c3                                ret     
+ 0101  8d 40 00                          lea     eax,+0H[eax]
+
+region::~region()
+{
+  //unlink from list
+ 0104                    near region::~region():
+ 0104  53                                push    ebx
+ 0105  51                                push    ecx
+ 0106  89 c3                             mov     ebx,eax
+
+ if (prev) prev->next=next; else osp->rlist[type]=next;
+ 0108  8b 10                             mov     edx,[eax]
+ 010a  85 d2                             test    edx,edx
+ 010c  74 08                             je      L5
+ 010e  8b 40 04                          mov     eax,+4H[eax]
+ 0111  89 42 04                          mov     +4H[edx],eax
+ 0114  eb 11                             jmp     L6
+ 0116  8b 50 19          L5              mov     edx,+19H[eax]
+ 0119  8b 40 08                          mov     eax,+8H[eax]
+ 011c  c1 e0 02                          shl     eax,02H
+ 011f  01 c2                             add     edx,eax
+ 0121  8b 43 04                          mov     eax,+4H[ebx]
+ 0124  89 42 61                          mov     +61H[edx],eax
+
+ if (next) next->prev=prev;
+
+ //unbind from object
+ 0127  8b 4b 04          L6              mov     ecx,+4H[ebx]
+ 012a  85 c9                             test    ecx,ecx
+ 012c  74 04                             je      L7
+ 012e  8b 03                             mov     eax,[ebx]
+ 0130  89 01                             mov     [ecx],eax
+
+ o->r[type]=0;
+
+ //update all other regions that have us as platform
+ 0132  8b 53 1d          L7              mov     edx,+1dH[ebx]
+ 0135  8b 43 08                          mov     eax,+8H[ebx]
+ 0138  c7 44 82 45 00 00 
+       00 00                             mov     dword ptr +45H[edx+eax*4],00000000H
+
+ if (type==R_IMPERM)
+ 0140  83 7b 08 00                       cmp     dword ptr +8H[ebx],00000000H
+ 0144  75 2c                             jne     L10
+
+   for (region *t=osp->rlist[R_IMPERM]; t; t=t->next)
+ 0146  8b 43 19                          mov     eax,+19H[ebx]
+ 0149  8b 40 61                          mov     eax,+61H[eax]
+ 014c  85 c0                             test    eax,eax
+ 014e  75 0c                             jne     L9
+ 0150  89 d8                             mov     eax,ebx
+ 0152  59                                pop     ecx
+ 0153  5b                                pop     ebx
+ 0154  c3                                ret     
+ 0155  8b 40 04          L8              mov     eax,+4H[eax]
+ 0158  85 c0                             test    eax,eax
+ 015a  74 16                             je      L10
+
+    if (t->platform==this) t->clearplatform();
+ 015c  3b 58 0c          L9              cmp     ebx,+0cH[eax]
+ 015f  75 f4                             jne     L8
+ 0161  8a 50 18                          mov     dl,+18H[eax]
+ 0164  c7 40 0c 00 00 00 
+       00                                mov     dword ptr +0cH[eax],00000000H
+ 016b  fe c2                             inc     dl
+ 016d  88 50 18                          mov     +18H[eax],dl
+ 0170  eb e3                             jmp     L8
+
+}
+
+
+extern int blah;
+ 0172  89 d8             L10             mov     eax,ebx
+ 0174  59                                pop     ecx
+ 0175  5b                                pop     ebx
+ 0176  c3                                ret     
+ 0177  90                                nop     
+
+void region::getabsregion()
+{
+ //get abs coords of object
+/* if (osp->bg)
+ {
+  r.x1=r.x2=(o->x+osp->bg->x)>>16;
+  r.y1=r.y2=(o->y+osp->bg->y)>>16;
+ } else
+ {
+  r.x1=r.x2=o->x>>16;
+  r.y1=r.y2=o->y>>16;
+ }*/
+ 0178                    void near region::getabsregion():
+ 0178  53                                push    ebx
+ 0179  51                                push    ecx
+ 017a  52                                push    edx
+ 017b  56                                push    esi
+ 017c  57                                push    edi
+ 017d  55                                push    ebp
+
+  r.x1=r.x2=o->x>>16;
+ 017e  8b 50 1d                          mov     edx,+1dH[eax]
+ 0181  8b 52 30                          mov     edx,+30H[edx]
+ 0184  c1 fa 10                          sar     edx,10H
+ 0187  89 50 2d                          mov     +2dH[eax],edx
+ 018a  89 50 25                          mov     +25H[eax],edx
+
+  r.y1=r.y2=o->y>>16;
+
+ //add region boundaries
+ 018d  8b 50 1d                          mov     edx,+1dH[eax]
+ 0190  8b 52 34                          mov     edx,+34H[edx]
+ 0193  c1 fa 10                          sar     edx,10H
+ 0196  89 50 31                          mov     +31H[eax],edx
+ 0199  89 50 29                          mov     +29H[eax],edx
+
+ if (!o->d) {r.x1+=e->r.p1.x; r.x2+=e->r.p2.x;}
+ 019c  8b 50 1d                          mov     edx,+1dH[eax]
+ 019f  80 7a 40 00                       cmp     byte ptr +40H[edx],00H
+ 01a3  75 23                             jne     L11
+ 01a5  8b 50 21                          mov     edx,+21H[eax]
+ 01a8  8b 12                             mov     edx,[edx]
+ 01aa  8b 58 25                          mov     ebx,+25H[eax]
+ 01ad  c1 fa 10                          sar     edx,10H
+ 01b0  01 d3                             add     ebx,edx
+ 01b2  8b 50 21                          mov     edx,+21H[eax]
+ 01b5  89 58 25                          mov     +25H[eax],ebx
+ 01b8  8b 52 06                          mov     edx,+6H[edx]
+ 01bb  8b 48 2d                          mov     ecx,+2dH[eax]
+ 01be  c1 fa 10                          sar     edx,10H
+ 01c1  01 d1                             add     ecx,edx
+ 01c3  89 48 2d                          mov     +2dH[eax],ecx
+ 01c6  eb 21                             jmp     L12
+
+       else {r.x1-=e->r.p2.x; r.x2-=e->r.p1.x;}
+ 01c8  8b 50 21          L11             mov     edx,+21H[eax]
+ 01cb  8b 52 06                          mov     edx,+6H[edx]
+ 01ce  8b 70 25                          mov     esi,+25H[eax]
+ 01d1  c1 fa 10                          sar     edx,10H
+ 01d4  29 d6                             sub     esi,edx
+ 01d6  8b 50 21                          mov     edx,+21H[eax]
+ 01d9  89 70 25                          mov     +25H[eax],esi
+ 01dc  8b 12                             mov     edx,[edx]
+ 01de  8b 78 2d                          mov     edi,+2dH[eax]
+ 01e1  c1 fa 10                          sar     edx,10H
+ 01e4  29 d7                             sub     edi,edx
+ 01e6  89 78 2d                          mov     +2dH[eax],edi
+
+ r.y1+=e->r.p1.y; r.y2+=e->r.p2.y;
+ 01e9  8b 50 21          L12             mov     edx,+21H[eax]
+ 01ec  8b 52 04                          mov     edx,+4H[edx]
+ 01ef  8b 68 29                          mov     ebp,+29H[eax]
+ 01f2  c1 fa 10                          sar     edx,10H
+ 01f5  01 d5                             add     ebp,edx
+ 01f7  8b 50 21                          mov     edx,+21H[eax]
+ 01fa  89 68 29                          mov     +29H[eax],ebp
+ 01fd  8b 52 0a                          mov     edx,+0aH[edx]
+ 0200  8b 58 31                          mov     ebx,+31H[eax]
+ 0203  c1 fa 10                          sar     edx,10H
+ 0206  01 d3                             add     ebx,edx
+ 0208  89 58 31                          mov     +31H[eax],ebx
+
+ updated++;
+ 020b  fe 40 18                          inc     byte ptr +18H[eax]
+
+}
+
+//sees if two regions intersect
+inline int intersect(lrect &a, lrect &b)
+{
+   //see if NO intersection
+ if (b.x1>a.x2 || a.x1>b.x2 ||
+     b.y1>a.y2 || a.y1>b.y2) return 0;
+  //must be some intersection
+ return 1;
+}
+
+//get rect of intersection
+inline void getintersectionrect(lrect &a,lrect &b,lrect &i)
+{
+ i.x1=(a.x1<b.x1) ? b.x1 : a.x1;
+ i.x2=(b.x2<a.x2) ? b.x2 : a.x2;
+ i.y1=(a.y1<b.y1) ? b.y1 : a.y1;
+ i.y2=(b.y2<a.y2) ? b.y2 : a.y2;
+}
+
+//get center of a rectangle
+inline void getcenter(lrect &r,lpoint &p)
+{
+ p.x=(r.x1+r.x2)/2;
+ p.y=(r.y1+r.y2)/2;
+}
+
+// msg.printf(2,"%d,%d-%d,%d",r.x1,r.y1,r.x2,r.y2);
+
+//get relative orientation of a to b
+inline int getorient(lrect &a,lrect &b,lrect &i)
+{
+ if ((i.x2-i.x1)>(i.y2-i.y1)) //if xw is greater than yw
+  {
+   if (a.y1<=b.y1) return R_ABOVE;
+   if (a.y2>=b.y2) return R_BELOW;
+  } else
+  {
+   if (a.x1<=b.x1) return R_LEFT;
+   if (a.x2>=b.x2) return R_RIGHT;
+  }
+ return 0;
+}
+
+
+
+ 020e  5d                                pop     ebp
+ 020f  5f                                pop     edi
+ 0210  5e                                pop     esi
+ 0211  5a                                pop     edx
+ 0212  59                                pop     ecx
+ 0213  5b                                pop     ebx
+ 0214  c3                                ret     
+ 0215  8d 40 00                          lea     eax,+0H[eax]
+
+void region::clearplatform()
+{
+ platform=0;
+ 0218                    void near region::clearplatform():
+ 0218  52                                push    edx
+
+ 0219  8a 50 18                          mov     dl,+18H[eax]
+
+ updated++;
+ 021c  c7 40 0c 00 00 00 
+       00                                mov     dword ptr +0cH[eax],00000000H
+ 0223  fe c2                             inc     dl
+ 0225  88 50 18                          mov     +18H[eax],dl
+
+}
+
+ 0228  5a                                pop     edx
+ 0229  c3                                ret     
+ 022a  8b c0                             mov     eax,eax
+
+void region::setplatform(region *p)
+{
+ if (p!=platform)
+  {
+ 022c                    void near region::setplatform( region near * ):
+ 022c  3b 50 0c                          cmp     edx,+0cH[eax]
+ 022f  74 18                             je      L13
+
+   platform=p;
+ 0231  89 50 0c                          mov     +0cH[eax],edx
+
+   px=platform->o->x;
+ 0234  8b 52 1d                          mov     edx,+1dH[edx]
+ 0237  8b 52 30                          mov     edx,+30H[edx]
+ 023a  89 50 10                          mov     +10H[eax],edx
+
+   py=platform->o->y;
+  }
+ 023d  8b 50 0c                          mov     edx,+0cH[eax]
+ 0240  8b 52 1d                          mov     edx,+1dH[edx]
+ 0243  8b 52 34                          mov     edx,+34H[edx]
+ 0246  89 50 14                          mov     +14H[eax],edx
+
+}
+
+
+
+
+ 0249  c3                L13             ret     
+ 024a  8b c0                             mov     eax,eax
+
+int imperm_intersection(region &a,region &b)
+{
+ lrect i;
+ int o;
+
+ //get rect of intersection
+ 024c                    int near imperm_intersection( region near &, region near & ):
+ 024c  53                                push    ebx
+ 024d  51                                push    ecx
+ 024e  56                                push    esi
+ 024f  57                                push    edi
+ 0250  55                                push    ebp
+ 0251  83 ec 14                          sub     esp,00000014H
+ 0254  89 c3                             mov     ebx,eax
+ 0256  89 d6                             mov     esi,edx
+
+ getintersectionrect(a.r,b.r,i);
+ //get orientation of intersection
+ 0258  8d 48 25                          lea     ecx,+25H[eax]
+ 025b  8d 7a 25                          lea     edi,+25H[edx]
+ 025e  89 ca                             mov     edx,ecx
+ 0260  8b 29                             mov     ebp,[ecx]
+ 0262  89 f8                             mov     eax,edi
+ 0264  3b 2f                             cmp     ebp,[edi]
+ 0266  7d 04                             jge     L14
+ 0268  8b 0f                             mov     ecx,[edi]
+ 026a  eb 02                             jmp     L15
+ 026c  89 e9             L14             mov     ecx,ebp
+ 026e  89 0c 24          L15             mov     [esp],ecx
+ 0271  8b 48 08                          mov     ecx,+8H[eax]
+ 0274  8b 7a 08                          mov     edi,+8H[edx]
+ 0277  39 f9                             cmp     ecx,edi
+ 0279  7c 02                             jl      L16
+ 027b  89 f9                             mov     ecx,edi
+ 027d  89 4c 24 08       L16             mov     +8H[esp],ecx
+ 0281  8b 4a 04                          mov     ecx,+4H[edx]
+ 0284  8b 68 04                          mov     ebp,+4H[eax]
+ 0287  39 e9                             cmp     ecx,ebp
+ 0289  7d 02                             jge     L17
+ 028b  89 e9                             mov     ecx,ebp
+ 028d  89 4c 24 04       L17             mov     +4H[esp],ecx
+ 0291  8b 48 0c                          mov     ecx,+0cH[eax]
+ 0294  8b 7a 0c                          mov     edi,+0cH[edx]
+ 0297  39 f9                             cmp     ecx,edi
+ 0299  7c 02                             jl      L18
+ 029b  89 f9                             mov     ecx,edi
+ 029d  8b 6c 24 04       L18             mov     ebp,+4H[esp]
+ 02a1  8b 7c 24 08                       mov     edi,+8H[esp]
+ 02a5  89 4c 24 0c                       mov     +0cH[esp],ecx
+ 02a9  29 e9                             sub     ecx,ebp
+ 02ab  8b 2c 24                          mov     ebp,[esp]
+
+ o=getorient(a.r,b.r,i);
+
+ 02ae  8d 43 25                          lea     eax,+25H[ebx]
+ 02b1  29 ef                             sub     edi,ebp
+ 02b3  8d 56 25                          lea     edx,+25H[esi]
+ 02b6  39 cf                             cmp     edi,ecx
+ 02b8  7e 1e                             jle     L20
+ 02ba  8b 48 04                          mov     ecx,+4H[eax]
+ 02bd  3b 4a 04                          cmp     ecx,+4H[edx]
+ 02c0  7f 07                             jg      L19
+ 02c2  b8 04 00 00 00                    mov     eax,00000004H
+ 02c7  eb 2d                             jmp     L23
+ 02c9  8b 40 0c          L19             mov     eax,+0cH[eax]
+ 02cc  3b 42 0c                          cmp     eax,+0cH[edx]
+ 02cf  7c 23                             jl      L22
+ 02d1  b8 08 00 00 00                    mov     eax,00000008H
+ 02d6  eb 1e                             jmp     L23
+ 02d8  8b 08             L20             mov     ecx,[eax]
+ 02da  3b 0a                             cmp     ecx,[edx]
+ 02dc  7f 07                             jg      L21
+ 02de  b8 01 00 00 00                    mov     eax,00000001H
+ 02e3  eb 11                             jmp     L23
+ 02e5  8b 40 08          L21             mov     eax,+8H[eax]
+ 02e8  3b 42 08                          cmp     eax,+8H[edx]
+ 02eb  7c 07                             jl      L22
+ 02ed  b8 02 00 00 00                    mov     eax,00000002H
+ 02f2  eb 02                             jmp     L23
+ 02f4  31 c0             L22             xor     eax,eax
+
+ int xw=i.width();  if (xw>5) xw=5; xw<<=16;
+ int yw=i.height(); //if (yw>10) yw=10; yw<<=16;
+
+ switch (o)
+ {
+  case R_RIGHT:
+ 02f6  8b 54 24 08       L23             mov     edx,+8H[esp]
+ 02fa  89 44 24 10                       mov     +10H[esp],eax
+ 02fe  8b 04 24                          mov     eax,[esp]
+ 0301  29 c2                             sub     edx,eax
+ 0303  89 d0                             mov     eax,edx
+ 0305  83 fa 05                          cmp     edx,00000005H
+ 0308  0f 8e 05 00 00 00                 jle     L24
+ 030e  b8 05 00 00 00                    mov     eax,00000005H
+ 0313  8b 4c 24 0c       L24             mov     ecx,+0cH[esp]
+ 0317  8b 54 24 04                       mov     edx,+4H[esp]
+ 031b  8b 7c 24 10                       mov     edi,+10H[esp]
+ 031f  c1 e0 10                          shl     eax,10H
+ 0322  29 d1                             sub     ecx,edx
+ 0324  83 ff 02                          cmp     edi,00000002H
+ 0327  0f 82 3e 01 00 00                 jb      L31
+ 032d  76 0e                             jbe     L25
+ 032f  83 ff 04                          cmp     edi,00000004H
+ 0332  0f 84 db 00 00 00                 je      L29
+ 0338  e9 37 01 00 00                    jmp     L32
+
+    if (yw<20) break;
+ 033d  83 f9 14          L25             cmp     ecx,00000014H
+ 0340  0f 8c 2e 01 00 00                 jl      L32
+
+    if ((a.e->getflags()&R_PUSH) && (b.e->getflags()&R_PUSH)) break;
+
+    //if ((a.o->z>>16)==(b.o->z>>16))
+ 0346  8b 53 21                          mov     edx,+21H[ebx]
+ 0349  8a 52 0e                          mov     dl,+0eH[edx]
+ 034c  81 e2 ff 00 00 00                 and     edx,000000ffH
+ 0352  f6 c2 01                          test    dl,01H
+ 0355  74 15                             je      L26
+ 0357  8b 56 21                          mov     edx,+21H[esi]
+ 035a  8a 52 0e                          mov     dl,+0eH[edx]
+ 035d  81 e2 ff 00 00 00                 and     edx,000000ffH
+ 0363  f6 c2 01                          test    dl,01H
+ 0366  0f 85 08 01 00 00                 jne     L32
+
+    a.o->z=b.o->z+1;
+ 036c  8b 56 1d          L26             mov     edx,+1dH[esi]
+
+    a.o->moveabs(xw>>1,0,0);
+ 036f  89 c7                             mov     edi,eax
+ 0371  8b 52 38                          mov     edx,+38H[edx]
+ 0374  8b 4b 1d                          mov     ecx,+1dH[ebx]
+ 0377  42                                inc     edx
+ 0378  d1 ff                             sar     edi,1
+ 037a  89 51 38                          mov     +38H[ecx],edx
+ 037d  89 fa                             mov     edx,edi
+ 037f  8b 43 1d                          mov     eax,+1dH[ebx]
+ 0382  31 c9                             xor     ecx,ecx
+ 0384  31 db                             xor     ebx,ebx
+ 0386  e8 00 00 00 00                    call    void near object::moveabs( int, int, int )
+
+    b.o->moveabs(-(xw>>1),0,0);
+  break;
+  case R_LEFT:
+ 038b  89 fa                             mov     edx,edi
+ 038d  8b 46 1d                          mov     eax,+1dH[esi]
+ 0390  31 c9                             xor     ecx,ecx
+ 0392  31 db                             xor     ebx,ebx
+ 0394  f7 da                             neg     edx
+ 0396  e8 00 00 00 00                    call    void near object::moveabs( int, int, int )
+ 039b  8b 44 24 10                       mov     eax,+10H[esp]
+ 039f  83 c4 14                          add     esp,00000014H
+ 03a2  5d                                pop     ebp
+ 03a3  5f                                pop     edi
+ 03a4  5e                                pop     esi
+ 03a5  59                                pop     ecx
+ 03a6  5b                                pop     ebx
+ 03a7  c3                                ret     
+
+    if (yw<20) break;
+ 03a8  83 f9 14          L27             cmp     ecx,00000014H
+ 03ab  0f 8c c3 00 00 00                 jl      L32
+
+    if ((a.e->getflags()&R_PUSH) && (b.e->getflags()&R_PUSH)) break;
+
+    //if ((a.o->z>>16)==(b.o->z>>16))
+ 03b1  8b 53 21                          mov     edx,+21H[ebx]
+ 03b4  8a 52 0e                          mov     dl,+0eH[edx]
+ 03b7  81 e2 ff 00 00 00                 and     edx,000000ffH
+ 03bd  f6 c2 01                          test    dl,01H
+ 03c0  74 15                             je      L28
+ 03c2  8b 56 21                          mov     edx,+21H[esi]
+ 03c5  8a 52 0e                          mov     dl,+0eH[edx]
+ 03c8  81 e2 ff 00 00 00                 and     edx,000000ffH
+ 03ce  f6 c2 01                          test    dl,01H
+ 03d1  0f 85 9d 00 00 00                 jne     L32
+
+    a.o->z=b.o->z-1;
+ 03d7  8b 56 1d          L28             mov     edx,+1dH[esi]
+
+    a.o->moveabs(-(xw>>1),0,0);
+ 03da  89 c7                             mov     edi,eax
+ 03dc  8b 52 38                          mov     edx,+38H[edx]
+ 03df  8b 4b 1d                          mov     ecx,+1dH[ebx]
+ 03e2  4a                                dec     edx
+ 03e3  d1 ff                             sar     edi,1
+ 03e5  89 51 38                          mov     +38H[ecx],edx
+ 03e8  89 fa                             mov     edx,edi
+ 03ea  8b 43 1d                          mov     eax,+1dH[ebx]
+ 03ed  31 c9                             xor     ecx,ecx
+ 03ef  f7 da                             neg     edx
+ 03f1  31 db                             xor     ebx,ebx
+ 03f3  e8 00 00 00 00                    call    void near object::moveabs( int, int, int )
+ 03f8  89 fa                             mov     edx,edi
+
+    b.o->moveabs(xw>>1,0,0);
+  break;
+  case R_ABOVE:
+ 03fa  8b 46 1d                          mov     eax,+1dH[esi]
+ 03fd  31 c9                             xor     ecx,ecx
+ 03ff  31 db                             xor     ebx,ebx
+ 0401  e8 00 00 00 00                    call    void near object::moveabs( int, int, int )
+ 0406  8b 44 24 10                       mov     eax,+10H[esp]
+ 040a  83 c4 14                          add     esp,00000014H
+ 040d  5d                                pop     ebp
+ 040e  5f                                pop     edi
+ 040f  5e                                pop     esi
+ 0410  59                                pop     ecx
+ 0411  5b                                pop     ebx
+ 0412  c3                                ret     
+
+    if (!(b.e->getflags()&R_STANDONTOPABLE))
+ 0413  8b 46 21          L29             mov     eax,+21H[esi]
+ 0416  8a 40 0e                          mov     al,+0eH[eax]
+ 0419  25 ff 00 00 00                    and     eax,000000ffH
+ 041e  a8 04                             test    al,04H
+ 0420  75 12                             jne     L30
+
+     { o&=~R_ABOVE; break;}
+ 0422  80 64 24 10 fb                    and     byte ptr +10H[esp],0fbH
+ 0427  8b 44 24 10                       mov     eax,+10H[esp]
+ 042b  83 c4 14                          add     esp,00000014H
+ 042e  5d                                pop     ebp
+ 042f  5f                                pop     edi
+ 0430  5e                                pop     esi
+ 0431  59                                pop     ecx
+ 0432  5b                                pop     ebx
+ 0433  c3                                ret     
+
+    a.setplatform(&b);
+
+    //if ((a.o->z>>16)==(b.o->z>>16))
+ 0434  89 f2             L30             mov     edx,esi
+ 0436  89 d8                             mov     eax,ebx
+ 0438  e8 00 00 00 00                    call    void near region::setplatform( region near * )
+
+    a.o->z=b.o->z+1;
+ 043d  8b 46 1d                          mov     eax,+1dH[esi]
+ 0440  8b 40 38                          mov     eax,+38H[eax]
+ 0443  8b 53 1d                          mov     edx,+1dH[ebx]
+ 0446  40                                inc     eax
+ 0447  89 42 38                          mov     +38H[edx],eax
+ 044a  89 ca                             mov     edx,ecx
+
+    a.o->hitground(a.o->y-(yw<<16));
+//    a.o->hitground((b.o->y>>16)+b.e->r.y1-a.e->r.y2 );
+//    if (!a.osp->bg) a.o->hitground(b.r.y1<<16);
+//               else a.o->hitground((b.r.y1<<16)-a.osp->bg->y);
+   break;
+ }
+ return o;
+ 044c  8b 43 1d                          mov     eax,+1dH[ebx]
+ 044f  c1 e2 10                          shl     edx,10H
+ 0452  8b 58 34                          mov     ebx,+34H[eax]
+ 0455  29 d3                             sub     ebx,edx
+ 0457  89 da                             mov     edx,ebx
+ 0459  e8 00 00 00 00                    call    int near object::hitground( int )
+ 045e  8b 44 24 10                       mov     eax,+10H[esp]
+ 0462  83 c4 14                          add     esp,00000014H
+ 0465  5d                                pop     ebp
+ 0466  5f                                pop     edi
+ 0467  5e                                pop     esi
+ 0468  59                                pop     ecx
+ 0469  5b                                pop     ebx
+ 046a  c3                                ret     
+ 046b  83 ff 01          L31             cmp     edi,00000001H
+ 046e  0f 84 34 ff ff ff                 je      L27
+
+}
+
+
+
+ 0474  8b 44 24 10       L32             mov     eax,+10H[esp]
+ 0478  83 c4 14                          add     esp,00000014H
+ 047b  5d                                pop     ebp
+ 047c  5f                                pop     edi
+ 047d  5e                                pop     esi
+ 047e  59                                pop     ecx
+ 047f  5b                                pop     ebx
+ 0480  c3                                ret     
+ 0481  8d 40 00                          lea     eax,+0H[eax]
+
+int attack_intersection(region &a,region &b)
+{
+ //see if valid attack...
+ 0484                    int near attack_intersection( region near &, region near & ):
+ 0484  53                                push    ebx
+ 0485  51                                push    ecx
+ 0486  56                                push    esi
+ 0487  57                                push    edi
+ 0488  55                                push    ebp
+ 0489  83 ec 18                          sub     esp,00000018H
+ 048c  89 c6                             mov     esi,eax
+ 048e  89 d3                             mov     ebx,edx
+
+ if (!(a.e->getflags()&b.e->getflags())) return 0;
+
+ 0490  8b 40 21                          mov     eax,+21H[eax]
+ 0493  8a 40 0e                          mov     al,+0eH[eax]
+ 0496  8b 52 21                          mov     edx,+21H[edx]
+ 0499  25 ff 00 00 00                    and     eax,000000ffH
+ 049e  8a 52 0e                          mov     dl,+0eH[edx]
+ 04a1  81 e2 ff 00 00 00                 and     edx,000000ffH
+ 04a7  85 d0                             test    eax,edx
+ 04a9  75 07                             jne     L33
+ 04ab  31 c0                             xor     eax,eax
+ 04ad  e9 f3 00 00 00                    jmp     L44
+
+ if (a.o==b.o) return 0; //same object can't hit itself
+
+ //get rect of intersection
+ lrect r;
+ 04b2  8b 46 1d          L33             mov     eax,+1dH[esi]
+ 04b5  8b 53 1d                          mov     edx,+1dH[ebx]
+ 04b8  39 d0                             cmp     eax,edx
+ 04ba  75 0b                             jne     L34
+ 04bc  31 d0                             xor     eax,edx
+ 04be  83 c4 18                          add     esp,00000018H
+ 04c1  5d                                pop     ebp
+ 04c2  5f                                pop     edi
+ 04c3  5e                                pop     esi
+ 04c4  59                                pop     ecx
+ 04c5  5b                                pop     ebx
+ 04c6  c3                                ret     
+
+ getintersectionrect(a.r,b.r,r);
+
+ //get center point of intersection
+ lpoint p;
+ 04c7  8d 7e 25          L34             lea     edi,+25H[esi]
+ 04ca  8d 53 25                          lea     edx,+25H[ebx]
+ 04cd  89 f8                             mov     eax,edi
+ 04cf  8b 2f                             mov     ebp,[edi]
+ 04d1  89 d1                             mov     ecx,edx
+ 04d3  3b 2a                             cmp     ebp,[edx]
+ 04d5  7d 04                             jge     L35
+ 04d7  8b 12                             mov     edx,[edx]
+ 04d9  eb 02                             jmp     L36
+ 04db  89 ea             L35             mov     edx,ebp
+ 04dd  89 14 24          L36             mov     [esp],edx
+ 04e0  8b 51 08                          mov     edx,+8H[ecx]
+ 04e3  8b 78 08                          mov     edi,+8H[eax]
+ 04e6  39 fa                             cmp     edx,edi
+ 04e8  7c 02                             jl      L37
+ 04ea  89 fa                             mov     edx,edi
+ 04ec  89 54 24 08       L37             mov     +8H[esp],edx
+ 04f0  8b 50 04                          mov     edx,+4H[eax]
+ 04f3  8b 69 04                          mov     ebp,+4H[ecx]
+ 04f6  39 ea                             cmp     edx,ebp
+ 04f8  7d 02                             jge     L38
+ 04fa  89 ea                             mov     edx,ebp
+ 04fc  89 54 24 04       L38             mov     +4H[esp],edx
+ 0500  8b 51 0c                          mov     edx,+0cH[ecx]
+ 0503  8b 78 0c                          mov     edi,+0cH[eax]
+ 0506  39 fa                             cmp     edx,edi
+ 0508  7d 04                             jge     L39
+ 050a  89 d1                             mov     ecx,edx
+ 050c  eb 02                             jmp     L40
+ 050e  89 f9             L39             mov     ecx,edi
+
+ getcenter(r,p);
+
+ //---------------------
+ //doeffects
+// msg.printf(2,"attack");
+ //what they do to each other
+ 0510  8b 14 24          L40             mov     edx,[esp]
+ 0513  8b 6c 24 08                       mov     ebp,+8H[esp]
+ 0517  01 ea                             add     edx,ebp
+ 0519  89 d0                             mov     eax,edx
+ 051b  c1 fa 1f                          sar     edx,1fH
+ 051e  2b c2                             sub     eax,edx
+ 0520  d1 f8                             sar     eax,1
+ 0522  8b 54 24 04                       mov     edx,+4H[esp]
+ 0526  01 ca                             add     edx,ecx
+ 0528  89 44 24 10                       mov     +10H[esp],eax
+ 052c  89 d0                             mov     eax,edx
+ 052e  c1 fa 1f                          sar     edx,1fH
+ 0531  2b c2                             sub     eax,edx
+ 0533  d1 f8                             sar     eax,1
+ 0535  89 4c 24 0c                       mov     +0cH[esp],ecx
+ 0539  89 44 24 14                       mov     +14H[esp],eax
+
+ e_region *ae=a.e,*be=b.e; //store regions
+ object *ao=a.o,*bo=b.o;
+
+ 053d  8b 7e 21                          mov     edi,+21H[esi]
+ 0540  8b 6b 21                          mov     ebp,+21H[ebx]
+ 0543  8b 4b 1d                          mov     ecx,+1dH[ebx]
+
+ if (ae->getflags()&R_FORCEFACE)
+  {
+ 0546  8a 47 0e                          mov     al,+0eH[edi]
+ 0549  8b 76 1d                          mov     esi,+1dH[esi]
+ 054c  a8 08                             test    al,08H
+ 054e  74 14                             je      L42
+
+   if (bo->x>ao->x) bo->d=1; else bo->d=0;
+ 0550  8b 41 30                          mov     eax,+30H[ecx]
+ 0553  3b 46 30                          cmp     eax,+30H[esi]
+ 0556  7e 06                             jle     L41
+ 0558  c6 41 40 01                       mov     byte ptr +40H[ecx],01H
+ 055c  eb 0e                             jmp     L43
+ 055e  c6 41 40 00       L41             mov     byte ptr +40H[ecx],00H
+ 0562  eb 08                             jmp     L43
+
+  } else bo->d=ao->d^1; //flip victim
+
+ 0564  8a 46 40          L42             mov     al,+40H[esi]
+ 0567  34 01                             xor     al,01H
+ 0569  88 41 40                          mov     +40H[ecx],al
+
+ ae->hitremotetrigger(bo,&p); //attacker's remote (loseenergy)
+ 056c  8d 5c 24 10       L43             lea     ebx,+10H[esp]
+ 0570  89 ca                             mov     edx,ecx
+ 0572  89 f8                             mov     eax,edi
+ 0574  e8 00 00 00 00                    call    void near e_region::hitremotetrigger( object near *, lpoint near * )
+
+ be->hitremotetrigger(ao,&p); //victim's remote
+
+ 0579  8d 5c 24 10                       lea     ebx,+10H[esp]
+ 057d  89 f2                             mov     edx,esi
+ 057f  89 e8                             mov     eax,ebp
+ 0581  e8 00 00 00 00                    call    void near e_region::hitremotetrigger( object near *, lpoint near * )
+
+ be->hitlocaltrigger(bo,&p); //victim's local (onenergy)
+ 0586  8d 5c 24 10                       lea     ebx,+10H[esp]
+ 058a  89 ca                             mov     edx,ecx
+ 058c  89 e8                             mov     eax,ebp
+ 058e  e8 00 00 00 00                    call    void near e_region::hitlocaltrigger( object near *, lpoint near * )
+
+ ae->hitlocaltrigger(ao,&p); //attacker's local (suicide)
+
+ 0593  8d 5c 24 10                       lea     ebx,+10H[esp]
+ 0597  89 f2                             mov     edx,esi
+ 0599  89 f8                             mov     eax,edi
+ 059b  e8 00 00 00 00                    call    void near e_region::hitlocaltrigger( object near *, lpoint near * )
+
+ return 1;
+ 05a0  b8 01 00 00 00                    mov     eax,00000001H
+
+}
+
+
+
+
+
+
+
+ 05a5  83 c4 18          L44             add     esp,00000018H
+ 05a8  5d                                pop     ebp
+ 05a9  5f                                pop     edi
+ 05aa  5e                                pop     esi
+ 05ab  59                                pop     ecx
+ 05ac  5b                                pop     ebx
+ 05ad  c3                                ret     
+ 05ae  8b c0                             mov     eax,eax
+
+void region::checkimperm()
+{
+ 05b0                    void near region::checkimperm():
+ 05b0  53                                push    ebx
+ 05b1  51                                push    ecx
+ 05b2  52                                push    edx
+ 05b3  56                                push    esi
+ 05b4  57                                push    edi
+ 05b5  55                                push    ebp
+ 05b6  89 c6                             mov     esi,eax
+
+ if (platform) // && (platform->updatedo->updated&7))
+  {
+ 05b8  8b 50 0c                          mov     edx,+0cH[eax]
+ 05bb  85 d2                             test    edx,edx
+ 05bd  74 4e                             je      L45
+
+   o->moveabs((platform->o->x-px),(platform->o->y-py),0);
+ 05bf  8b 5a 1d                          mov     ebx,+1dH[edx]
+ 05c2  8b 48 14                          mov     ecx,+14H[eax]
+ 05c5  8b 7e 10                          mov     edi,+10H[esi]
+ 05c8  8b 53 34                          mov     edx,+34H[ebx]
+ 05cb  8b 43 30                          mov     eax,+30H[ebx]
+ 05ce  29 ca                             sub     edx,ecx
+ 05d0  29 f8                             sub     eax,edi
+ 05d2  89 d3                             mov     ebx,edx
+ 05d4  8b 7e 1d                          mov     edi,+1dH[esi]
+ 05d7  31 c9                             xor     ecx,ecx
+ 05d9  89 c2                             mov     edx,eax
+ 05db  89 f8                             mov     eax,edi
+ 05dd  e8 00 00 00 00                    call    void near object::moveabs( int, int, int )
+
+   px=platform->o->x;
+ 05e2  8b 46 0c                          mov     eax,+0cH[esi]
+ 05e5  8b 40 1d                          mov     eax,+1dH[eax]
+ 05e8  8b 40 30                          mov     eax,+30H[eax]
+ 05eb  89 46 10                          mov     +10H[esi],eax
+
+   py=platform->o->y;
+      
+ 05ee  8b 46 0c                          mov     eax,+0cH[esi]
+ 05f1  8b 40 1d                          mov     eax,+1dH[eax]
+ 05f4  8b 40 34                          mov     eax,+34H[eax]
+ 05f7  89 46 14                          mov     +14H[esi],eax
+
+   if (o->updated&7) getabsregion();
+  }
+
+ 05fa  8b 46 1d                          mov     eax,+1dH[esi]
+ 05fd  8a 40 41                          mov     al,+41H[eax]
+ 0600  24 1f                             and     al,1fH
+ 0602  a8 07                             test    al,07H
+ 0604  74 07                             je      L45
+ 0606  89 f0                             mov     eax,esi
+ 0608  e8 00 00 00 00                    call    void near region::getabsregion()
+
+ if (!updated) return; //region hasn't moved
+
+ blah++;
+ 060d  80 7e 18 00       L45             cmp     byte ptr +18H[esi],00H
+ 0611  0f 84 8d 00 00 00                 je      L54
+
+ 0617  8b 46 1d                          mov     eax,+1dH[esi]
+ 061a  c6 40 44 00                       mov     byte ptr +44H[eax],00H
+
+ o->intersect=0;
+ 061e  8b 2d 00 00 00 00                 mov     ebp,int near blah
+
+ for (region *t=osp->rlist[R_IMPERM]; t; t=t->next)
+ 0624  8b 5e 19                          mov     ebx,+19H[esi]
+ 0627  45                                inc     ebp
+ 0628  8b 5b 61                          mov     ebx,+61H[ebx]
+ 062b  89 2d 00 00 00 00                 mov     int near blah,ebp
+ 0631  85 db                             test    ebx,ebx
+ 0633  75 02                             jne     L46
+ 0635  eb 4b                             jmp     L52
+ 0637  8d 4e 25          L46             lea     ecx,+25H[esi]
+
+   if (t!=this && intersect(r,t->r))
+ 063a  39 f3             L47             cmp     ebx,esi
+ 063c  74 3d                             je      L51
+ 063e  8d 43 25                          lea     eax,+25H[ebx]
+ 0641  8b 51 08                          mov     edx,+8H[ecx]
+ 0644  3b 10                             cmp     edx,[eax]
+ 0646  7c 17                             jl      L48
+ 0648  8b 39                             mov     edi,[ecx]
+ 064a  3b 78 08                          cmp     edi,+8H[eax]
+ 064d  7f 10                             jg      L48
+ 064f  8b 78 04                          mov     edi,+4H[eax]
+ 0652  3b 79 0c                          cmp     edi,+0cH[ecx]
+ 0655  7f 08                             jg      L48
+ 0657  8b 79 04                          mov     edi,+4H[ecx]
+ 065a  3b 78 0c                          cmp     edi,+0cH[eax]
+ 065d  7e 04                             jle     L49
+ 065f  31 c0             L48             xor     eax,eax
+ 0661  eb 05                             jmp     L50
+ 0663  b8 01 00 00 00    L49             mov     eax,00000001H
+ 0668  85 c0             L50             test    eax,eax
+ 066a  74 0f                             je      L51
+ 066c  89 da                             mov     edx,ebx
+ 066e  89 f0                             mov     eax,esi
+
+      o->intersect|=imperm_intersection(*this,*t);  //intersection occurred
+
+ 0670  8b 7e 1d                          mov     edi,+1dH[esi]
+ 0673  e8 00 00 00 00                    call    int near imperm_intersection( region near &, region near & )
+ 0678  08 47 44                          or      +44H[edi],al
+ 067b  8b 5b 04          L51             mov     ebx,+4H[ebx]
+ 067e  85 db                             test    ebx,ebx
+ 0680  75 b8                             jne     L47
+
+ if (platform && !(o->intersect&R_ABOVE)) //not above anything
+ 0682  83 7e 0c 00       L52             cmp     dword ptr +0cH[esi],00000000H
+ 0686  74 18                             je      L53
+ 0688  8b 46 1d                          mov     eax,+1dH[esi]
+ 068b  f6 40 44 04                       test    byte ptr +44H[eax],04H
+ 068f  75 0f                             jne     L53
+
+          clearplatform();    //no platform
+ 0691  8a 76 18                          mov     dh,+18H[esi]
+ 0694  c7 46 0c 00 00 00 
+       00                                mov     dword ptr +0cH[esi],00000000H
+ 069b  fe c6                             inc     dh
+ 069d  88 76 18                          mov     +18H[esi],dh
+
+ updated=0;
+ 06a0  c6 46 18 00       L53             mov     byte ptr +18H[esi],00H
+
+}
+
+
+ 06a4  5d                L54             pop     ebp
+ 06a5  5f                                pop     edi
+ 06a6  5e                                pop     esi
+ 06a7  5a                                pop     edx
+ 06a8  59                                pop     ecx
+ 06a9  5b                                pop     ebx
+ 06aa  c3                                ret     
+ 06ab  90                                nop     
+
+void region::checkattack()
+{
+ 06ac                    void near region::checkattack():
+ 06ac  53                                push    ebx
+ 06ad  51                                push    ecx
+ 06ae  52                                push    edx
+ 06af  56                                push    esi
+ 06b0  57                                push    edi
+ 06b1  55                                push    ebp
+ 06b2  89 c1                             mov     ecx,eax
+
+ if (!updated) return; //region hasn't moved
+
+ region *tnext;
+ 06b4  80 78 18 00                       cmp     byte ptr +18H[eax],00H
+ 06b8  0f 84 5b 00 00 00                 je      L62
+
+ for (region *t=osp->rlist[R_VULN]; t; t=tnext)
+  {
+ 06be  8b 51 19                          mov     edx,+19H[ecx]
+ 06c1  8b 52 65                          mov     edx,+65H[edx]
+ 06c4  85 d2                             test    edx,edx
+ 06c6  75 0a                             jne     L56
+ 06c8  eb 4b                             jmp     L61
+ 06ca  89 f2             L55             mov     edx,esi
+ 06cc  85 f6                             test    esi,esi
+ 06ce  75 05                             jne     L57
+ 06d0  eb 43                             jmp     L61
+ 06d2  8d 59 25          L56             lea     ebx,+25H[ecx]
+
+   tnext=t->next;
+ 06d5  8b 72 04          L57             mov     esi,+4H[edx]
+
+   if (t!=this && intersect(r,t->r))
+ 06d8  39 ca                             cmp     edx,ecx
+ 06da  74 ee                             je      L55
+ 06dc  8d 42 25                          lea     eax,+25H[edx]
+ 06df  8b 6b 08                          mov     ebp,+8H[ebx]
+ 06e2  3b 28                             cmp     ebp,[eax]
+ 06e4  7c 17                             jl      L58
+ 06e6  8b 3b                             mov     edi,[ebx]
+ 06e8  3b 78 08                          cmp     edi,+8H[eax]
+ 06eb  7f 10                             jg      L58
+ 06ed  8b 78 04                          mov     edi,+4H[eax]
+ 06f0  3b 7b 0c                          cmp     edi,+0cH[ebx]
+ 06f3  7f 08                             jg      L58
+ 06f5  8b 7b 04                          mov     edi,+4H[ebx]
+ 06f8  3b 78 0c                          cmp     edi,+0cH[eax]
+ 06fb  7e 04                             jle     L59
+ 06fd  31 c0             L58             xor     eax,eax
+ 06ff  eb 05                             jmp     L60
+ 0701  b8 01 00 00 00    L59             mov     eax,00000001H
+ 0706  85 c0             L60             test    eax,eax
+ 0708  74 c0                             je      L55
+
+      if (attack_intersection(*this,*t)) break;  //intersection occurred
+  }
+ 070a  89 c8                             mov     eax,ecx
+ 070c  e8 00 00 00 00                    call    int near attack_intersection( region near &, region near & )
+ 0711  85 c0                             test    eax,eax
+ 0713  74 b5                             je      L55
+
+ updated=0;
+ 0715  c6 41 18 00       L61             mov     byte ptr +18H[ecx],00H
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 0719  5d                L62             pop     ebp
+ 071a  5f                                pop     edi
+ 071b  5e                                pop     esi
+ 071c  5a                                pop     edx
+ 071d  59                                pop     ecx
+ 071e  5b                                pop     ebx
+ 071f  c3                                ret     
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: _DATA  DWORD USE32  00000003 bytes  
+ 0000                          char near rcolor[] LABEL BYTE
+ 0000  02 91 04                                - ...
+
+No disassembly errors
+
+------------------------------------------------------------

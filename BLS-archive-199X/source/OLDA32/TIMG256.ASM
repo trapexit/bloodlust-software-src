@@ -1,0 +1,1188 @@
+                .386
+                .MODEL  flat
+                LOCALS
+
+                .DATA
+
+FONTPTR         dd ?
+YLINE           dd ?
+COUNT dw ?
+
+GMODE  dw 0   ;not in graphics mode at start
+
+;  EXTRN _SEGVIDEO:WORD
+
+                .CODE
+                PUBLIC  _PutImageFlip256,_PutImageFlipClip256
+                PUBLIC  _DrawImage,_PutStatusBar,_ColorMapImage
+                PUBLIC  _MemoryCopy,_LoadPalette,_WaitVSync
+                PUBLIC  _PutImageD2,_Solid,_PutImageSolid
+                PUBLIC  _Mode256,_ModeText
+                PUBLIC _DrawBar
+
+_Mode256 PROC NEAR
+  cmp GMODE,1 ;;already in gfix mode
+  je @@DONE
+  mov ax,13h
+  int 10h
+  mov GMODE,1
+@@DONE:  
+  ret
+_Mode256 ENDP
+
+_ModeText PROC NEAR
+  cmp GMODE,0  ;;already in text mode
+  je @@DONE
+  mov ax,3h
+  int 10h
+  mov GMODE,0
+@@DONE:  
+  ret
+_ModeText ENDP
+
+_MemoryCopy     PROC NEAR
+                ARG @@DEST:DWORD,@@SRC:DWORD,@@CNT:DWORD
+
+                push    ebp
+                mov     ebp,esp
+
+                push    esi
+                push    edi
+
+                mov     esi,@@SRC
+                mov     edi,@@DEST
+                mov     ecx,@@CNT
+                cld
+
+                shr     ecx,1
+                jnc     @@NOEXTRA1
+                movsb
+@@NOEXTRA1:     shr     ecx,1
+                jnc     @@NOEXTRA2
+                movsw
+@@NOEXTRA2:     rep     movsd
+
+                pop     edi
+                pop     esi
+                pop     ebp
+                ret
+_MemoryCopy     ENDP
+
+
+
+
+
+
+
+
+
+
+
+;*********************************************************
+;       Purpose:
+;               Puts an image on the screen in mode 13h.
+;       Call:
+;               esi=Address of image
+;               edi=Destination Address
+;               bx=LSW
+;               dl=XYb orient
+;       Returns:
+;               None
+;       Destroyed:
+;               ax,bx,cx,dx,si,di
+;*********************************************************
+
+
+_PutImageFlip256        PROC NEAR
+        ARG @@SRC:DWORD,@@DEST:DWORD,@@LSW:DWORD,@@O:DWORD
+          ;ret
+                push    ebp
+                mov     ebp,esp
+                push    ebx
+                push    esi
+                push    edi
+
+                xor     eax,eax
+
+                mov     esi,@@SRC
+                mov     edi,@@DEST
+
+                inc     esi
+                lodsw
+                mov     ecx,eax         ;Copy X,Y
+                inc     esi
+
+;               mov [@@O],0
+                test    [@@O], 1b          ;Test Y Orientation
+                jz      @@TYO
+                xor     eax,eax
+                mov     ah,ch
+                ;dec    ah
+                movzx   edx,ah
+                shl     edx,6
+                add     eax,edx
+
+                add   edi,eax           ;Move dest down ylines
+                neg     [@@LSW]                         ;flip direction
+@@TYO:
+                movzx   eax,ch
+                add     esi,eax
+                add     esi,eax
+;               movzx esi,word ptr [esi]
+;               add     esi,@@SRC
+
+                test    [@@O],10b       ;Test X orientation
+                jz      BMON
+                jmp     BMONFLIPX
+
+_PutImageFlip256        ENDP
+
+;****************************************************************
+;********************** BMask ON *******************************
+;****************************************************************
+
+BMON            PROC             NEAR
+        ARG @@SRC:DWORD,@@DEST:DWORD,@@LSW:DWORD,@@O:DWORD
+
+                mov     edx,ecx         ;Y,X
+
+                movzx   ecx,cl
+                mov     ebx,ecx
+                sub     @@LSW,ecx               ; DISKIP - X
+                xor     eax,eax
+
+
+@@VLOOP:
+                xor eax,eax
+                lodsb
+                test    al,80h
+                jnz     @@TCOLOR
+
+
+                ;Data run
+@@DCOLOR:
+                sub     ebx,eax         ;decrement x counter
+                mov     ecx,eax
+                shr     ecx,1
+                jnc     @@NOEXTRA1
+                movsb
+@@NOEXTRA1:     shr     ecx,1
+                jnc     @@NOEXTRA2
+                movsw
+@@NOEXTRA2:     rep     movsd
+
+                and     ebx,ebx
+                jg     @@VLOOP
+                jmp     @@DONELINE
+
+                ;Transparent Run
+@@TCOLOR:
+                and     al,7Fh          ;mask off upper bits
+                add     edi,eax
+                sub     ebx,eax
+                jg      @@VLOOP
+
+@@DONELINE:
+                movzx   ebx,dl
+                add     edi,@@LSW
+                dec     dh
+                jnz     @@VLOOP
+
+                pop     edi
+                pop     esi
+                pop     ebx
+                pop     ebp
+                ret
+BMON            ENDP
+
+
+;****************************************************************
+;********************** BMask ON *******************************
+;****************************************************************
+
+BMONFLIPX       PROC          NEAR
+        ARG @@SRC:DWORD,@@DEST:DWORD,@@LSW:DWORD,@@O:DWORD
+
+                movzx   ebx,cl          ;X
+                mov     edx,ecx         ;X => dl HVALUE  V
+
+                add     edi,ebx         ;;Go to right of scan line
+                xor     eax,eax
+
+
+@@VLOOP:        push    edi
+                        push ebx
+
+@@HLOOP: xor eax,eax
+        lodsb
+                test    al,80h
+                jnz     @@TCOLOR
+
+
+                ;Data run
+@@DCOLOR:
+                sub     ebx,eax         ;decrement x counter
+                mov     ecx,eax
+
+
+                jecxz @@NOLEFT
+                shr     ecx,1
+                jnc     @@NOEXTRA
+                dec     edi
+                movsb
+                dec     edi
+@@NOEXTRA:
+
+                jecxz   @@NOLEFT
+                dec     edi
+                dec     edi
+
+@@COPY:         lodsw
+                xchg    al,ah
+                stosw
+                sub     edi,4
+                loop    @@COPY
+                inc     edi
+                inc     edi
+@@NOLEFT:
+
+                and     ebx,ebx
+                jg     @@HLOOP
+                jmp     @@DONELINE
+
+                ;Transparent Run
+@@TCOLOR:       and     al,7Fh          ;mask off upper bits
+                sub     edi,eax
+                sub     ebx,eax
+                jg      @@HLOOP
+
+@@DONELINE:
+                pop     ebx
+                pop     edi
+                add     edi,@@LSW
+
+                dec     dh
+                jnz     @@VLOOP
+                pop     edi
+                pop     esi
+                pop     ebx
+                pop     ebp
+                ret
+BMONFLIPX       ENDP
+
+
+_PutImageFlipClip256 PROC   NEAR
+        ARG @@SRC:DWORD,@@DEST:DWORD,@@LSW:DWORD,@@XSTART:DWORD,@@YSTART:DWORD,@@XTOTAL:DWORD,@@YTOTAL:DWORD,@@O:DWORD
+                push    ebp
+                mov     ebp,esp
+                push    esi
+                push    edi
+
+                mov     esi,@@SRC
+                mov   edi,@@DEST
+
+                inc     esi
+                lodsw
+                movzx   ecx,ax          ;Copy X,Y
+                inc     esi
+
+
+
+                mov     bx,cx           ;Y,X
+                xor     ch,ch
+                xor     eax,eax
+
+                test    @@O, 1b          ;Test Y Orientation
+                jz      @@TYO
+                ;redo YST and YT stuff
+                mov   al,bh          ;ax=ylength
+                sub     eax,@@YTOTAL ;YST=y-yt-yst
+                sub     eax,@@YSTART
+                mov     @@YSTART,eax
+
+                push  edx
+                ;mov     ax,@@YTOTAL          ;ax=ylength
+                ;mul     @@LSW
+                xor     eax,eax
+                mov     ah,byte ptr @@YTOTAL
+                dec ah
+                movzx   edx,ah
+                shl     edx,6
+                add     eax,edx
+                pop     edx
+
+                add   edi,eax           ;Move dest down ylines
+                neg     @@LSW
+@@TYO:
+
+                mov     eax,@@YSTART   ;;Point to address of first line
+                shl     eax,1
+                add     eax,esi
+                mov     [YLINE],eax
+
+
+                test    @@O, 10b          ;Test X Orientation
+                jz      @@TXO
+                ;redo XST and XT stuff
+                mov     eax,ecx          ;ax=xlength
+                sub     eax,@@XTOTAL
+                sub     eax,@@XSTART
+                mov     @@XSTART,eax
+
+                add     edi,@@XTOTAL            ;;Go to right of scan line
+@@TXO:
+
+
+
+                test    @@O,10b         ;Test X orientation
+                jnz     @@FLIP
+                call    BMCLIP
+                jmp     @@DONE
+
+@@FLIP:         call    BMCLIPFLIP
+
+
+@@DONE:
+                 pop    edi
+                pop     esi
+                pop     ebp
+                ret
+_PutImageFlipClip256 ENDP
+
+
+
+BMCLIP          PROC       NEAR
+        ARG @@SRC:DWORD,@@DEST:DWORD,@@LSW:DWORD,@@XSTART:DWORD,@@YSTART:DWORD,@@XTOTAL:DWORD,@@YTOTAL:DWORD,@@O:DWORD
+                mov     edx,[@@XSTART]
+                mov     ebx,[@@XTOTAL]
+                
+               ;sub  @@YTOTAL,10
+               ; jle  @@DONE       
+
+                xor     eax,eax
+                xor     ecx,ecx
+
+
+@@VLOOP:
+                push    ebx
+                push    edx
+                push    edi
+
+                mov     esi,[YLINE]
+                movzx   esi,word ptr [esi]
+                add     esi,@@SRC
+                inc     [YLINE]
+                inc     [YLINE]
+
+                ;skip past xstart
+                and     edx,edx
+                jle     @@PHASE2
+
+
+@@PHASE1:
+                xor     eax,eax
+                lodsb
+                test    al,80h
+                jnz     @@TCOLOR1
+@@DCOLOR1:      add     esi,eax
+                sub     edx,eax
+                jg      @@PHASE1
+                jz      @@PHASE2
+                mov     eax,edx
+                neg     eax
+                sub     esi,eax
+                jmp     @@DCOLOR2
+@@TCOLOR1:      and     ax,7Fh
+                sub     edx,eax
+                jg      @@PHASE1
+                jz      @@PHASE2
+                mov     eax,edx
+                neg     eax
+                jmp     @@TCOLOR2
+
+
+                ;------------------------------------
+@@PHASE2:
+                xor eax,eax
+                        lodsb
+                test    al,80h
+                jnz     @@TCOLOR2
+
+@@DCOLOR2:      sub     ebx,eax
+                jge     @@NORIGHTCLIP
+                add     eax,ebx
+@@NORIGHTCLIP:
+                mov     ecx,eax
+                shr     ecx,1
+                jnc     @@NOEXTRA1
+                movsb
+@@NOEXTRA1:     shr     ecx,1
+                jnc     @@NOEXTRA2
+                movsw
+@@NOEXTRA2:     rep     movsd
+
+                and     ebx,ebx
+                jg      @@PHASE2
+                jmp     @@DONELINE
+
+@@TCOLOR2:      and     ax,7fh
+                add     edi,eax
+                sub     ebx,eax
+                jg      @@PHASE2
+
+@@DONELINE:
+
+                pop     edi
+                add     edi,@@LSW
+
+                pop     edx
+                pop     ebx
+
+                dec     [@@YTOTAL]      ;Decrease Y total
+                jnz     @@VLOOP         ;
+
+
+@@DONE:         ret
+BMCLIP          ENDP
+
+
+
+
+
+
+
+BMCLIPFLIP              PROC     NEAR
+        ARG @@SRC:DWORD,@@DEST:DWORD,@@LSW:DWORD,@@XSTART:DWORD,@@YSTART:DWORD,@@XTOTAL:DWORD,@@YTOTAL:DWORD,@@O:DWORD
+
+
+                mov     edx,[@@XSTART]
+                mov     ebx,[@@XTOTAL]
+                xor     eax,eax
+                xor     ecx,ecx
+;               add     di,bx   ;;Go to right of scan line
+
+
+@@VLOOP:
+                push    ebx
+                push    edx
+                push    edi
+
+                mov     esi,[YLINE]
+                movzx   esi,word ptr [esi]
+                add     esi,@@SRC
+                inc     [YLINE]
+                inc     [YLINE]
+
+                ;skip past xstart
+                and     edx,edx
+                jle     @@PHASE2
+
+@@PHASE1:
+                xor eax,eax
+                lodsb
+                test    al,80h
+                jnz     @@TCOLOR1
+@@DCOLOR1:      add     esi,eax
+                sub     edx,eax
+                jg      @@PHASE1
+                jz      @@PHASE2
+                mov     eax,edx
+                neg     eax
+                sub     esi,eax
+                jmp     @@DCOLOR2
+@@TCOLOR1:      and     ax,7Fh
+                sub     edx,eax
+                jg      @@PHASE1
+                jz      @@PHASE2
+                mov     eax,edx
+                neg     eax
+                jmp     @@TCOLOR2
+
+
+                ;------------------------------------
+@@PHASE2:
+  xor eax,eax
+        lodsb
+                test    al,80h
+                jnz     @@TCOLOR2
+
+@@DCOLOR2:      sub     ebx,eax
+                jge     @@NORIGHTCLIP
+                add     eax,ebx
+@@NORIGHTCLIP:
+
+                mov     ecx,eax
+                shr     ecx,1
+                jnc     @@NOEXTRA
+                dec     edi
+                movsb
+                dec     edi
+@@NOEXTRA:
+                jecxz   @@NOLEFT
+                dec     edi
+                dec     edi
+
+@@COPY:         lodsw
+                xchg    al,ah
+                stosw
+                sub     edi,4
+                loop    @@COPY
+
+                inc     edi
+                inc     edi
+@@NOLEFT:
+                ;xor    eax,eax
+
+                and     ebx,ebx
+                jg         @@PHASE2
+                jmp     @@DONELINE
+
+
+@@TCOLOR2:      and     eax,7fh
+                sub     edi,eax
+                sub     ebx,eax
+                jg      @@PHASE2
+
+
+
+@@DONELINE:     pop     edi
+                add     edi,@@LSW
+
+                pop     edx
+                pop     ebx
+
+                dec     [@@YTOTAL]      ;Decrease Y total
+                jg      @@VLOOP         ;
+
+
+@@DONE:         ret
+BMCLIPFLIP      ENDP
+
+
+
+;void DrawImage(char far *src,char far *dest,int x,int y,int o);
+_DrawImage PROC     NEAR
+        ARG     @@SRC:DWORD,@@DEST:DWORD,@@X:DWORD,@@Y:DWORD,@@O:DWORD
+;       ret
+        push    ebp
+        mov     ebp,esp
+        push ebx
+        push    esi
+        push  edi
+
+
+        mov     esi,[@@SRC]
+        mov     edi,[@@DEST]
+        and     esi,esi
+        jz      @@DONE
+        
+;        test    @@O,10b ;X-flipped
+;        jz   @@NOXFLIP
+;        movzx eax,BYTE PTR [esi+1]
+;        sub @@X,eax
+;@@NOXFLIP:        
+
+        xor     ebx,ebx ;Clip flag
+        xor     ecx,ecx ;cl=XST  ch=XLEN
+        mov     ch,[esi+1]
+        xor     edx,edx   ;dl=YST  dh=YLEN
+        mov     dh,[esi+2]
+
+        cmp     [@@X],0
+        jge     @@NOXL
+        inc     bl
+        sub     cl,[byte ptr @@X]  ;xst=0-x
+
+        movzx   eax,ch
+        add     eax,[@@X]           ;xt =xst+xl
+        jle     @@DONE
+
+        mov     [@@X],0
+        mov     ch,al
+@@NOXL:
+
+        cmp     [@@Y],0
+        jge     @@NOYL
+        inc     bl
+        sub     dl,[byte ptr @@Y]  ;yst=0-y
+
+        movzx   eax,dh
+        add     eax,[@@Y]           ;yt =yst+xl
+        jle     @@DONE
+
+        mov     [@@Y],0
+        mov     dh,al
+@@NOYL:
+
+        movzx   eax,ch
+        add     eax,@@X
+        cmp     eax,320
+        jle     @@NOXR
+        inc     bl
+
+        mov     eax,320
+        sub     eax,[@@X]
+        mov     ch,al
+
+        cmp     [@@X],320
+        jge     @@DONE
+@@NOXR:
+
+        movzx   eax,dh
+        add     eax,@@Y
+        cmp     eax,200
+        jle     @@NOYR
+        inc     bl
+
+        mov     eax,200
+        sub     eax, [@@Y]
+        mov     dh,al
+
+        cmp     [@@Y],200
+        jge     @@DONE
+@@NOYR:
+
+        push    edx
+        mov     eax,@@Y
+        mov     edx,eax
+        shl     eax,8
+        shl     edx,6
+        add     eax,edx
+        add     eax,@@X
+        add     edi,eax
+        pop     edx
+
+
+        and     bl,bl
+        jnz     @@CLIP
+        push    @@O
+        push    320
+        push    edi
+        push    esi
+        call    _PutImageFlip256
+        add     esp,4*4
+        jmp     @@DONE
+
+@@CLIP:
+
+        xor     eax,eax
+
+        push    @@O
+        mov     al,dh
+        push    eax
+        mov     al,ch
+        push    eax
+        mov     al,dl
+        push    eax
+        mov     al,cl
+        push    eax
+        push    320
+        push    edi
+        push    esi
+        call    _PutImageFlipClip256
+        add     esp,8*4
+
+@@DONE:
+
+;       mov     ax,0A000h
+;       mov     es,ax
+;       mov     di,64000-320+4
+;       mov     byte ptr [es:di],0
+
+        pop     edi
+        pop     esi
+        pop     ebx
+        pop     ebp
+        ret
+_DrawImage ENDP
+
+
+
+_PutStatusBar PROC  NEAR
+        ARG @@SRC:DWORD,@@DEST:DWORD
+
+                push ebp
+                mov     ebp,esp
+                push    esi
+                push    edi
+
+                mov     esi,@@SRC
+                mov     edi,@@DEST
+
+                add     esi,15
+                add     edi,15
+
+                mov     edx,9+2
+
+
+@@YLOOP:        mov     ecx,132/4
+                rep     movsd
+
+                add     esi,26
+                add     edi,26
+
+                mov   ecx,132/4
+                rep     movsd
+
+                add     esi,30
+                add     edi,30
+
+                dec     edx
+                jnz     @@YLOOP
+
+                pop     edi
+                pop     esi
+                pop     ebp
+                ret
+
+_PutStatusBar   ENDP
+
+
+_ColorMapImage  PROC   NEAR
+        ARG     @@IMG:DWORD,@@MAP:DWORD
+
+                push    ebp
+                mov     ebp,esp
+
+                push ebx
+                push    esi
+                push    edi
+
+                mov     esi,@@IMG
+                mov     edi,@@MAP
+
+                inc esi
+                lodsw
+                mov     dx,ax  ;dl-x  dh-y
+                inc esi
+
+                xor     eax,eax
+                mov   al,dh
+                add     esi,eax
+                add     esi,eax
+
+
+                xor     ecx,ecx
+                xor     ebx,ebx
+
+                mov     ah,dl
+
+@@VLOOP:        lodsb
+                test    al,80h
+                jnz     @@TCOLOR
+
+
+                ;Data run
+@@DCOLOR:       sub     ah,al           ;decrement x counter
+                movzx   cx,al
+
+
+;               add     si,cx
+
+@@CLOOP:        mov     bl,[esi]
+                mov     al,[edi+ebx]
+                mov     [esi],al
+                inc     esi
+                loop    @@CLOOP
+
+
+@@DONELOOP:     and     ah,ah
+                jnz     @@VLOOP
+                jmp     @@DONELINE
+
+                ;Transparent Run
+@@TCOLOR:       and     al,7fh
+                sub     ah,al
+                jnz     @@VLOOP
+
+@@DONELINE:     mov     ah,dl
+                dec     dh
+                jnz     @@VLOOP
+
+                pop     edi
+                pop     esi
+                pop     ebx
+                pop     ebp
+                ret
+_ColorMapImage  ENDP
+
+
+_LoadPalette    PROC    NEAR
+                ARG     @@P:DWORD,@@FIRST:DWORD,@@CNT:DWORD
+
+                push    ebp
+                mov     ebp,esp
+                push    esi
+                mov     esi,@@P
+
+                mov     eax,@@FIRST
+                add esi,eax
+                add esi,eax
+                add esi,eax
+
+                mov     dx,3C8h
+                out     dx,al   ;Set first
+
+                cld
+                inc     dx
+
+
+                mov     ecx,@@CNT
+                shl     ecx,1
+                add     ecx,@@CNT
+
+                rep     outsb
+
+;@@LOOP1:       lodsb
+;               out     dx,al
+;               lodsb
+;               out     dx,al
+;               lodsb
+;               out     dx,al
+;               loop    @@LOOP1
+
+
+
+                pop     esi
+                pop     ebp
+                ret
+_LoadPalette    ENDP
+
+
+
+_WaitVSync      PROC       NEAR
+
+                mov     dx,3dah
+@@WaitVSync:    in      al,dx
+                test    al,8
+                jz      @@WaitVSync
+                ret
+
+_WaitVSync      ENDP
+
+
+
+
+
+
+
+
+;*********************************************************
+;       Purpose:
+;               Puts an image on the screen in mode 13h.
+;       Call:
+;               ds:si=Address of image
+;               es:di=Destination Address
+;               bx=LSW
+;       Returns:
+;               None
+;       Destroyed:
+;               ax,bx,cx,dx,si,di
+;*********************************************************
+
+
+_PutImageD2     PROC      NEAR
+                 ARG    @@SRC:DWORD,@@DEST:DWORD,@@LSW:DWORD,@@FACTOR:DWORD
+                push    ebp
+                mov     ebp,esp
+                push ebx
+                push    esi
+                push    edi
+
+                xor eax,eax
+
+                mov     esi,@@SRC
+                mov     edi,@@DEST
+
+                inc     esi
+                lodsw
+                mov     ecx,eax         ;Copy X,Y
+                inc     esi
+
+
+                xor     eax,eax
+                xor     edx,edx
+
+                mov     ah,ch
+                div     word ptr @@FACTOR      ;get length
+                movzx   bx,ch
+                sub     bx,ax
+                mov     ax,bx      ;get ylen-length
+                shr     ax,1
+                mul     @@LSW
+                add     edi,eax        ;adjust y
+
+
+
+                mov     [YLINE],esi
+;               shr     ch,1           ;Halve y dimension
+
+
+                mov     bl,cl           ;X
+                mov     bh,cl           ;X
+
+                movzx   edx,ch          ;y
+                shl     edx,1
+                add     edx,esi         ;find last yline
+
+
+                xor     eax,eax
+                xor     ecx,ecx
+
+                mov     [COUNT],ax
+
+
+@@VLOOP:
+                mov     esi,[YLINE]
+                movzx   esi,word ptr [esi]
+                add     esi,@@SRC
+
+                mov     ax,[COUNT]
+                add     ax,word ptr [@@FACTOR]
+                mov     [byte ptr COUNT],al
+                movzx   eax,ah
+                shl     eax,1
+                add     [YLINE],eax
+
+                push    edi
+
+@@CMPLOOP:      lodsb
+                test    al,80h
+                jnz     @@TCOLOR
+
+
+                ;Data run
+@@DCOLOR:       sub     bl,al           ;decrement x counter
+                mov     cl,al
+
+                rep movsb
+;               shr     cl,1
+;               jnc     @@COPY
+;;              inc     si
+;               jcxz    @@DONECOPY
+;@@COPY:         movsb
+;               inc     si
+;               loop    @@COPY
+;@@DONECOPY:
+
+
+                and     bl,bl
+                jg      @@CMPLOOP
+                jmp     @@DONELINE
+
+                ;Transparent Run
+@@TCOLOR:       and     ax,7Fh          ;mask off upper bits
+                add     edi,eax
+
+                sub     bl,al
+                jg      @@CMPLOOP
+
+
+
+@@DONELINE:     mov     bl,bh
+
+                pop     edi
+                add     edi,@@LSW
+
+
+                cmp     [YLINE],edx
+                jl      @@VLOOP
+
+                pop     edi
+                pop     esi
+                pop     ebx
+                pop     ebp
+                ret
+_PutImageD2     ENDP
+
+
+_Solid          PROC    NEAR
+        ARG @@DEST:DWORD,@@L:DWORD,@@C:DWORD
+
+
+                push    ebp
+                mov     ebp,esp
+                push    edi
+
+                mov   edi,@@DEST
+                mov     ecx,@@L
+                mov     eax,@@C
+
+                shr     cx,2
+
+                rep     stosd
+
+                pop     edi
+                pop     ebp
+                ret
+_Solid          ENDP
+
+
+
+
+;*********************************************************
+;       Purpose:
+;               Puts an image on the screen in mode 13h.
+;       Call:
+;               ds:si=Address of image
+;               es:di=Destination Address
+;               bx=LSW
+;               dl=XYb orient
+;       Returns:
+;               None
+;       Destroyed:
+;               ax,bx,cx,dx,si,di
+;*********************************************************
+
+
+_PutImageSolid  PROC   NEAR
+                 ARG    @@SRC:DWORD,@@DEST:DWORD,@@LSW:DWORD,@@COLOR:DWORD
+                push    ebp
+                mov     ebp,esp
+
+                push    ebx
+                push    esi
+                push    edi
+
+                mov     esi,@@SRC
+                mov     edi,@@DEST
+
+
+                inc esi
+                lodsw
+                xor ecx,ecx
+                mov     cx,ax           ;Copy X,Y
+                inc esi
+
+                xor eax,eax
+                mov     al,ch
+                add     esi,eax
+                add     esi,eax
+
+
+                mov     bx,cx           ;Y,X
+                mov     dl,cl           ;X => dl HVALUE
+                xor     ch,ch
+                sub     @@LSW,ecx               ; DISKIP - X
+
+
+@@VLOOP:        lodsb
+                test    al,80h
+                jnz     @@TCOLOR
+
+
+                ;Data run
+@@DCOLOR:       sub     bl,al           ;decrement x counter
+                xor     ah,ah
+                add     esi,eax
+
+                mov     cl,al
+                mov     eax,@@COLOR
+
+                shr     cl,1
+                jnc     @@NOEXTRA1
+                stosb
+@@NOEXTRA1:     shr     cl,1
+                jnc     @@NOEXTRA2
+                stosw
+@@NOEXTRA2:     rep     stosd
+
+                and     bl,bl
+                jnz     @@VLOOP
+                jmp     @@DONELINE
+
+                ;Transparent Run
+@@TCOLOR:       and     eax,7Fh         ;mask off upper bits
+                add     edi,eax
+                sub     bl,al
+                jnz     @@VLOOP
+
+@@DONELINE:     mov     bl,dl
+                add     edi,@@LSW
+                dec     bh
+                jnz     @@VLOOP
+
+                pop     edi
+                pop     esi
+                pop     ebx
+                pop     ebp
+                ret
+_PutImageSolid  ENDP
+
+
+_DrawBar PROC near
+ ARG @@B:DWORD,@@COLOR:DWORD,@@X:DWORD,@@Y:DWORD,@@XW:DWORD,@@YW:DWORD
+
+          push ebp
+          mov ebp,esp
+          push edi
+
+          cmp [@@X],320
+          jge @@DONE
+          cmp [@@Y],200
+          jge @@DONE
+
+          mov eax,@@X
+          add eax,@@XW
+          cmp eax,320
+          jl @@NOXO
+          mov eax,320
+          sub eax,@@X
+          mov @@XW,eax
+@@NOXO:
+
+          mov eax,@@Y
+          add eax,@@YW
+          cmp eax,200
+          jl @@NOYO
+          mov eax,200
+          sub eax,@@Y
+          mov @@YW,eax
+@@NOYO:
+
+                cmp @@X,0
+                jge  @@NOXU
+                mov eax,@@X
+                add [@@XW],eax
+                mov @@X,0
+@@NOXU:
+
+                cmp @@Y,0
+                jge  @@NOYU
+                mov eax,@@Y
+                add [@@YW],eax
+                mov @@Y,0
+@@NOYU:
+
+          cmp [@@XW],0
+          jle @@DONE
+          cmp [@@YW],0
+          jle @@DONE
+
+          imul eax,@@Y,320
+          add eax,@@X
+          mov edi,@@B
+          add edi,eax
+          mov eax,@@COLOR
+
+        cld
+@@YLOOP:
+        mov ecx, @@XW
+        rep stosb
+        add edi,320
+        sub edi,@@XW
+
+        dec @@YW
+        jg @@YLOOP
+
+@@DONE:
+        pop edi
+        pop ebp
+        ret
+
+_DrawBar ENDP
+
+
+
+
+                END

@@ -1,0 +1,33 @@
+!define BLANK ""
+c:\source\test\cdasm.obj : c:\source\test\cdasm.asm .AUTODEPEND
+ @c:
+ cd c:\source\test
+ *wasm cdasm.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\source\test\doserr.obj : c:\source\test\doserr.asm .AUTODEPEND
+ @c:
+ cd c:\source\test
+ *wasm doserr.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\source\test\cdrom.obj : c:\source\test\cdrom.cpp .AUTODEPEND
+ @c:
+ cd c:\source\test
+ *wpp386 cdrom.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\source\test\install.obj : c:\source\test\install.cpp .AUTODEPEND
+ @c:
+ cd c:\source\test
+ *wpp386 install.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\source\test\install.exe : c:\source\test\cdasm.obj c:\source\test\doserr.&
+obj c:\source\test\cdrom.obj c:\source\test\install.obj .AUTODEPEND
+ @c:
+ cd c:\source\test
+ @%write install.lk1 NAME install
+ @%append install.lk1 FIL cdasm.obj,doserr.obj,cdrom.obj,install.obj
+ @%append install.lk1 
+ *wlink SYS dos4g op m op maxe=25 op q op symf @install.lk1
+ copy c:\test\install.exe c:\
+ 
+ 
+

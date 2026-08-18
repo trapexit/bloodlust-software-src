@@ -1,0 +1,265 @@
+#include <stdio.h>
+#include <winsock.h>
+#include <wsipx.h>
+
+#include "socket.h"
+
+extern HWND hwnd;
+
+int totalsent=0,totalrecv=0;
+
+//*********************************
+//*********************************
+//**      NETADDRESS FUNCTIONS   **
+//*********************************
+//*********************************
+
+PORT NETADDR::getport()
+{
+ if (sa_family==AF_INET) return  ntohs(((sockaddr_in *)this)->sin_port);
+ if (sa_family==AF_IPX) return  ntohs(((sockaddr_ipx *)this)->sa_socket);
+ return 0;
+}
+
+void NETADDR::setport(PORT p)
+{
+ p=htons(p);
+ if (sa_family==AF_INET) ((sockaddr_in *)this)->sin_port=p;
+ if (sa_family==AF_IPX)  ((sockaddr_ipx *)this)->sa_socket=p;
+}
+
+void NETADDR::setip(IPADDR i)
+{
+ if (sa_family==AF_INET) ((sockaddr_in *)this)->sin_addr.s_addr=i;
+}
+
+
+
+void NETADDR::setbroadcast(PORT p)
+{
+ setport(p);
+
+ if (sa_family==AF_INET) ((sockaddr_in *)this)->sin_addr.s_addr=INADDR_BROADCAST;
+ if (sa_family==AF_IPX)
+  {
+   for (int i=0; i<4; i++) ((sockaddr_ipx *)this)->sa_netnum[i]=0xFF;
+   for (i=0; i<6; i++) ((sockaddr_ipx *)this)->sa_nodenum[i]=0xFF;
+  }
+}
+
+void NETADDR::setaddrany(PORT p)
+{
+ setport(p);
+
+ if (sa_family==AF_INET) ((sockaddr_in *)this)->sin_addr.s_addr=INADDR_ANY;
+ if (sa_family==AF_IPX)
+  {
+   for (int i=0; i<4; i++) ((sockaddr_ipx *)this)->sa_netnum[i]=0x0;
+   for (i=0; i<6; i++) ((sockaddr_ipx *)this)->sa_nodenum[i]=0x0;
+  }
+}
+
+
+
+char *NETADDR::getstr()
+{
+ static char s[32];
+
+ if (sa_family==AF_INET)
+  {
+   sprintf(s,"%s:%d",inet_ntoa(((sockaddr_in *)this)->sin_addr),getport());
+  } else
+
+ if (sa_family==AF_IPX)
+  {
+   char *n=(char *)&(((sockaddr_ipx *)this)->sa_nodenum);
+
+   sprintf(s,"%02X%02X%02X%02X%02X%02X:%d",n[0],n[1],n[2],n[3],n[4],n[5],getport());
+  } else strcpy(s,"Invalid address");
+
+ return s;
+}
+
+char *getafstr(int af)
+{
+ if (af==AF_INET) return "TCP/IP";
+ if (af==AF_IPX) return "IPX";
+ return "";
+}
+
+int operator ==(NETADDR &a,NETADDR &b)
+{
+ if (a.getaf()!=b.getaf()) return 0; //different address families
+
+ if (a.getaf()==AF_INET) //internet
+  {
+   sockaddr_in *x=(sockaddr_in *)&a,*y=(sockaddr_in *)&b;
+   if (x->sin_addr.s_addr!=y->sin_addr.s_addr) return 0;
+ //  if (x->sin_port!=y->sin_port) return 0;
+   return 1;
+  }
+
+ if (a.getaf()==AF_IPX) //ipx
+  {
+   if (memcmp(&a,&b,12)) return 0;
+   return 1;
+  }
+
+ return 0;
+}
+
+
+//*********************************
+//*********************************
+//**    BASIC SOCKET FUNCTIONS   **
+//*********************************
+//*********************************
+
+//create a Socket and bind
+Socket::Socket(int taf,int tprotocol)
+{
+ af=taf; protocol=tprotocol;
+ sent=recvd=0;
+ s=INVALID_SOCKET;
+ if (af==AF_INET) s=socket(PF_INET,protocol,0);
+ if (af==AF_IPX)
+   {
+    if (protocol==SOCK_STREAM) s=socket(PF_IPX,SOCK_STREAM,NSPROTO_SPX);
+    if (protocol==SOCK_DGRAM) s=socket(PF_IPX,SOCK_DGRAM,NSPROTO_IPX);
+   }
+ if (s==INVALID_SOCKET)  return;
+
+ int sopt=TRUE;
+ setsockopt(s,SOL_SOCKET,SO_REUSEADDR,(char *)&sopt,sizeof(sopt));
+ if (af==AF_IPX && protocol==SOCK_DGRAM)
+  setsockopt(s,SOL_SOCKET,SO_BROADCAST,(char *)&sopt,sizeof(sopt));
+}
+
+int Socket::error()
+{
+ if (!this || s==INVALID_SOCKET) return 1;
+ return 0;
+}
+
+
+Socket::~Socket()
+{
+ if (!error()) closesocket(s);
+}
+
+//set up async
+int Socket::async(UINT msg,int flags)
+{
+ //set up async stuff
+ return WSAAsyncSelect(s,hwnd,msg,flags);
+}
+
+int Socket::bind(NETADDR *n)
+{
+ return ::bind(s, n, sizeof (sockaddr));
+}
+
+int Socket::listen(PORT p)
+{
+ NETADDR n(af);
+ n.setaddrany(p);
+ if (bind(&n)) return -1;
+
+ //begin listening if stream
+ if (protocol==SOCK_STREAM) return ::listen(s,1);
+ return 0;
+}
+
+//accept a connection, returns socket of the resulting connection
+tcpsocket *Socket::accept()
+{
+ NETADDR n(af);
+ int namelen=sizeof(sockaddr);
+
+ SOCKET t=::accept(s,&n,&namelen);
+ if (t==INVALID_SOCKET) return 0;
+ return (tcpsocket *)new Socket(af,t);
+}
+
+int Socket::connect(NETADDR *n)
+{
+  //connect
+ return ::connect(s, n, sizeof (sockaddr));
+}
+
+
+int Socket::send(void *b,int n)
+{
+ int i=::send(s,(char *)b,n,0);
+ if (i==SOCKET_ERROR) return 0;
+ sent+=i;
+ totalsent+=i;
+ return i;
+}
+int Socket::recv(void *b,int n)
+{
+ int i=::recv(s,(char *)b,n,0);
+ if (i==SOCKET_ERROR) return 0;
+ recvd+=i;
+ totalrecv+=i;
+ return i;
+}
+
+int Socket::sendto(NETADDR *d,void *b,int n)
+{
+ int i=::sendto(s,(char *)b,n,0,d,sizeof(NETADDR));
+ if (i==SOCKET_ERROR) return 0;
+ sent+=i;
+ totalsent+=i;
+ return i;
+}
+
+int Socket::recvfrom(NETADDR *d,void *b,int n)
+{
+ int fromlen;
+ int i=::recvfrom(s,(char *)b,n,0,d,&fromlen);
+ if (i==SOCKET_ERROR) return 0;
+ recvd+=i;
+ totalrecv+=i;
+ return i;
+}
+
+
+
+
+PORT Socket::getlocalport()
+{
+ return  getlocaladdr()->getport();
+}
+
+PORT Socket::getremoteport()
+{
+ return  getremoteaddr()->getport();
+}
+
+
+NETADDR *Socket::getremoteaddr()
+{
+ static NETADDR n(af);
+ int namelen=sizeof(NETADDR);
+ getpeername(s,&n,&namelen);
+ return &n;
+}
+
+NETADDR *Socket::getlocaladdr()
+{
+ static NETADDR n(af);
+ int namelen=sizeof(NETADDR);
+ getsockname(s,&n,&namelen);
+ return &n;
+}
+
+
+
+
+
+
+
+
+
+

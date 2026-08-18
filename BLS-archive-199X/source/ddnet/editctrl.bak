@@ -1,0 +1,18 @@
+class editcontrol
+{
+ public:
+ char prefix[32]; //prefix for getting input
+ char s[256]; //input string
+ int slen; //length of input
+
+ editcontrol(char *pre);
+ void draw(int x,int y,int fontnum); //draw for getting input
+ void backspace();
+ void addchar(char c);
+ int processkey(char kbscan); //process scancode
+
+ virtual int isvalidkey(char key);
+ virtual void enter() {};  //input completed
+ virtual void cancel() {}; //input canceled
+};
+

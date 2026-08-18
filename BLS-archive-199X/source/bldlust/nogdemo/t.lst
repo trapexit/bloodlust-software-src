@@ -1,0 +1,774 @@
+
+Module: C:\NOG\tgraph.cpp
+Group: 'DGROUP' CONST,CONST2,_DATA,_BSS
+
+Segment: _TEXT  PARA USE32  0000059c bytes  
+ 0000                    int unsigned near CompressImage256( char near *, char near * ):
+ 0000  53                                push    ebx
+ 0001  51                                push    ecx
+ 0002  56                                push    esi
+ 0003  57                                push    edi
+ 0004  55                                push    ebp
+ 0005  89 e5                             mov     ebp,esp
+ 0007  81 ec 34 00 00 00                 sub     esp,00000034H
+ 000d  89 45 f8                          mov     -8H[ebp],eax
+ 0010  89 55 fc                          mov     -4H[ebp],edx
+ 0013  31 c0                             xor     eax,eax
+ 0015  8b 55 f8                          mov     edx,-8H[ebp]
+ 0018  8a 42 01                          mov     al,+1H[edx]
+ 001b  89 45 d0                          mov     -30H[ebp],eax
+ 001e  31 c0                             xor     eax,eax
+ 0020  8b 55 f8                          mov     edx,-8H[ebp]
+ 0023  8a 42 02                          mov     al,+2H[edx]
+ 0026  89 45 d4                          mov     -2cH[ebp],eax
+ 0029  8b 45 f8                          mov     eax,-8H[ebp]
+ 002c  8a 40 03                          mov     al,+3H[eax]
+ 002f  88 45 f4                          mov     -0cH[ebp],al
+ 0032  c7 45 e4 00 00 00 
+       00                                mov     dword ptr -1cH[ebp],00000000H
+ 0039  c7 45 e8 00 00 00 
+       00                                mov     dword ptr -18H[ebp],00000000H
+ 0040  eb 0c                             jmp     L2
+ 0042  8b 45 e4          L1              mov     eax,-1cH[ebp]
+ 0045  ff 45 e4                          inc     dword ptr -1cH[ebp]
+ 0048  8b 45 e8                          mov     eax,-18H[ebp]
+ 004b  ff 45 e8                          inc     dword ptr -18H[ebp]
+ 004e  83 7d e4 04       L2              cmp     dword ptr -1cH[ebp],00000004H
+ 0052  73 12                             jae     L3
+ 0054  8b 45 f8                          mov     eax,-8H[ebp]
+ 0057  03 45 e4                          add     eax,-1cH[ebp]
+ 005a  8b 55 fc                          mov     edx,-4H[ebp]
+ 005d  03 55 e8                          add     edx,-18H[ebp]
+ 0060  8a 00                             mov     al,[eax]
+ 0062  88 02                             mov     [edx],al
+ 0064  eb dc                             jmp     L1
+ 0066  8b 45 fc          L3              mov     eax,-4H[ebp]
+ 0069  03 45 e8                          add     eax,-18H[ebp]
+ 006c  89 45 f0                          mov     -10H[ebp],eax
+ 006f  8b 45 d4                          mov     eax,-2cH[ebp]
+ 0072  01 c0                             add     eax,eax
+ 0074  01 45 e4                          add     -1cH[ebp],eax
+ 0077  8b 45 d4                          mov     eax,-2cH[ebp]
+ 007a  01 c0                             add     eax,eax
+ 007c  01 45 e8                          add     -18H[ebp],eax
+ 007f  c7 45 e0 00 00 00 
+       00                                mov     dword ptr -20H[ebp],00000000H
+ 0086  eb 06                             jmp     L5
+ 0088  8b 45 e0          L4              mov     eax,-20H[ebp]
+ 008b  ff 45 e0                          inc     dword ptr -20H[ebp]
+ 008e  8b 45 e0          L5              mov     eax,-20H[ebp]
+ 0091  3b 45 d4                          cmp     eax,-2cH[ebp]
+ 0094  0f 83 fb 00 00 00                 jae     L22
+ 009a  8b 45 e8                          mov     eax,-18H[ebp]
+ 009d  8b 55 f0                          mov     edx,-10H[ebp]
+ 00a0  66 89 02                          mov     [edx],ax
+ 00a3  8b 45 f0                          mov     eax,-10H[ebp]
+ 00a6  83 45 f0 02                       add     dword ptr -10H[ebp],00000002H
+ 00aa  8b 45 d0                          mov     eax,-30H[ebp]
+ 00ad  89 45 d8                          mov     -28H[ebp],eax
+ 00b0  83 7d d8 7f       L6              cmp     dword ptr -28H[ebp],0000007fH
+ 00b4  73 08                             jae     L7
+ 00b6  8b 45 d8                          mov     eax,-28H[ebp]
+ 00b9  89 45 dc                          mov     -24H[ebp],eax
+ 00bc  eb 07                             jmp     L8
+ 00be  c7 45 dc 7f 00 00 
+       00                L7              mov     dword ptr -24H[ebp],0000007fH
+ 00c5  8b 45 dc          L8              mov     eax,-24H[ebp]
+ 00c8  29 45 d8                          sub     -28H[ebp],eax
+ 00cb  8b 45 f8          L9              mov     eax,-8H[ebp]
+ 00ce  03 45 e4                          add     eax,-1cH[ebp]
+ 00d1  8a 00                             mov     al,[eax]
+ 00d3  3a 45 f4                          cmp     al,-0cH[ebp]
+ 00d6  75 4b                             jne     L15
+ 00d8  c7 45 ec 00 00 00 
+       00                                mov     dword ptr -14H[ebp],00000000H
+ 00df  eb 12                             jmp     L11
+ 00e1  8b 45 e4          L10             mov     eax,-1cH[ebp]
+ 00e4  ff 45 e4                          inc     dword ptr -1cH[ebp]
+ 00e7  8b 45 ec                          mov     eax,-14H[ebp]
+ 00ea  ff 45 ec                          inc     dword ptr -14H[ebp]
+ 00ed  8b 45 dc                          mov     eax,-24H[ebp]
+ 00f0  ff 4d dc                          dec     dword ptr -24H[ebp]
+ 00f3  8b 45 f8          L11             mov     eax,-8H[ebp]
+ 00f6  03 45 e4                          add     eax,-1cH[ebp]
+ 00f9  8a 00                             mov     al,[eax]
+ 00fb  3a 45 f4                          cmp     al,-0cH[ebp]
+ 00fe  75 06                             jne     L12
+ 0100  83 7d dc 00                       cmp     dword ptr -24H[ebp],00000000H
+ 0104  77 02                             ja      L13
+ 0106  eb 02             L12             jmp     L14
+ 0108  eb d7             L13             jmp     L10
+ 010a  81 4d ec 80 00 00 
+       00                L14             or      dword ptr -14H[ebp],00000080H
+ 0111  8b 45 e8                          mov     eax,-18H[ebp]
+ 0114  ff 45 e8                          inc     dword ptr -18H[ebp]
+ 0117  8b 55 fc                          mov     edx,-4H[ebp]
+ 011a  01 c2                             add     edx,eax
+ 011c  8a 45 ec                          mov     al,-14H[ebp]
+ 011f  88 02                             mov     [edx],al
+ 0121  eb 59                             jmp     L21
+ 0123  c7 45 ec 01 00 00 
+       00                L15             mov     dword ptr -14H[ebp],00000001H
+ 012a  eb 0c                             jmp     L17
+ 012c  8b 45 dc          L16             mov     eax,-24H[ebp]
+ 012f  ff 4d dc                          dec     dword ptr -24H[ebp]
+ 0132  8b 45 ec                          mov     eax,-14H[ebp]
+ 0135  ff 45 ec                          inc     dword ptr -14H[ebp]
+ 0138  8b 45 f8          L17             mov     eax,-8H[ebp]
+ 013b  03 45 e4                          add     eax,-1cH[ebp]
+ 013e  8a 00                             mov     al,[eax]
+ 0140  3a 45 f4                          cmp     al,-0cH[ebp]
+ 0143  74 06                             je      L18
+ 0145  83 7d dc 00                       cmp     dword ptr -24H[ebp],00000000H
+ 0149  77 02                             ja      L19
+ 014b  eb 1c             L18             jmp     L20
+ 014d  8b 45 e4          L19             mov     eax,-1cH[ebp]
+ 0150  ff 45 e4                          inc     dword ptr -1cH[ebp]
+ 0153  8b 55 f8                          mov     edx,-8H[ebp]
+ 0156  01 c2                             add     edx,eax
+ 0158  8b 45 e8                          mov     eax,-18H[ebp]
+ 015b  03 45 ec                          add     eax,-14H[ebp]
+ 015e  8b 5d fc                          mov     ebx,-4H[ebp]
+ 0161  01 c3                             add     ebx,eax
+ 0163  8a 02                             mov     al,[edx]
+ 0165  88 03                             mov     [ebx],al
+ 0167  eb c3                             jmp     L16
+ 0169  8a 45 ec          L20             mov     al,-14H[ebp]
+ 016c  fe c8                             dec     al
+ 016e  8b 55 fc                          mov     edx,-4H[ebp]
+ 0171  03 55 e8                          add     edx,-18H[ebp]
+ 0174  88 02                             mov     [edx],al
+ 0176  8b 45 ec                          mov     eax,-14H[ebp]
+ 0179  01 45 e8                          add     -18H[ebp],eax
+ 017c  83 7d dc 00       L21             cmp     dword ptr -24H[ebp],00000000H
+ 0180  0f 85 45 ff ff ff                 jne     L9
+ 0186  83 7d d8 00                       cmp     dword ptr -28H[ebp],00000000H
+ 018a  0f 87 20 ff ff ff                 ja      L6
+ 0190  e9 f3 fe ff ff                    jmp     L4
+ 0195  8b 45 e8          L22             mov     eax,-18H[ebp]
+ 0198  40                                inc     eax
+ 0199  89 45 cc                          mov     -34H[ebp],eax
+ 019c  8b 45 cc                          mov     eax,-34H[ebp]
+ 019f  89 ec                             mov     esp,ebp
+ 01a1  5d                                pop     ebp
+ 01a2  5f                                pop     edi
+ 01a3  5e                                pop     esi
+ 01a4  59                                pop     ecx
+ 01a5  5b                                pop     ebx
+ 01a6  c3                                ret     
+ 01a7  90                                nop     
+ 01a8                    int near DrawString( char near *, char near *, char unsigned near *, int ):
+ 01a8  56                                push    esi
+ 01a9  57                                push    edi
+ 01aa  55                                push    ebp
+ 01ab  89 e5                             mov     ebp,esp
+ 01ad  81 ec 1c 00 00 00                 sub     esp,0000001cH
+ 01b3  89 45 f0                          mov     -10H[ebp],eax
+ 01b6  89 55 f4                          mov     -0cH[ebp],edx
+ 01b9  89 5d f8                          mov     -8H[ebp],ebx
+ 01bc  89 4d fc                          mov     -4H[ebp],ecx
+ 01bf  8b 45 f4                          mov     eax,-0cH[ebp]
+ 01c2  89 45 ec                          mov     -14H[ebp],eax
+ 01c5  c7 45 e8 00 00 00 
+       00                                mov     dword ptr -18H[ebp],00000000H
+ 01cc  eb 06                             jmp     L24
+ 01ce  8b 45 e8          L23             mov     eax,-18H[ebp]
+ 01d1  ff 45 e8                          inc     dword ptr -18H[ebp]
+ 01d4  8b 45 f8          L24             mov     eax,-8H[ebp]
+ 01d7  03 45 e8                          add     eax,-18H[ebp]
+ 01da  80 38 00                          cmp     byte ptr [eax],00H
+ 01dd  74 2a                             je      L25
+ 01df  8b 4d fc                          mov     ecx,-4H[ebp]
+ 01e2  8b 45 f8                          mov     eax,-8H[ebp]
+ 01e5  03 45 e8                          add     eax,-18H[ebp]
+ 01e8  8a 00                             mov     al,[eax]
+ 01ea  25 ff 00 00 00                    and     eax,000000ffH
+ 01ef  e8 00 00 00 00                    call    toupper_
+ 01f4  31 db                             xor     ebx,ebx
+ 01f6  88 c3                             mov     bl,al
+ 01f8  8b 55 ec                          mov     edx,-14H[ebp]
+ 01fb  8b 45 f0                          mov     eax,-10H[ebp]
+ 01fe  e8 00 00 00 00                    call    int near DrawLetter( char near *, char near *, char unsigned, int )
+ 0203  48                                dec     eax
+ 0204  01 45 ec                          add     -14H[ebp],eax
+ 0207  eb c5                             jmp     L23
+ 0209  8b 45 ec          L25             mov     eax,-14H[ebp]
+ 020c  2b 45 f4                          sub     eax,-0cH[ebp]
+ 020f  89 45 e4                          mov     -1cH[ebp],eax
+ 0212  8b 45 e4                          mov     eax,-1cH[ebp]
+ 0215  89 ec                             mov     esp,ebp
+ 0217  5d                                pop     ebp
+ 0218  5f                                pop     edi
+ 0219  5e                                pop     esi
+ 021a  c3                                ret     
+ 021b  90                                nop     
+ 021c                    int near DrawStringSP( char near *, char near *, char unsigned near *, int ):
+ 021c  56                                push    esi
+ 021d  57                                push    edi
+ 021e  55                                push    ebp
+ 021f  89 e5                             mov     ebp,esp
+ 0221  81 ec 1c 00 00 00                 sub     esp,0000001cH
+ 0227  89 45 f0                          mov     -10H[ebp],eax
+ 022a  89 55 f4                          mov     -0cH[ebp],edx
+ 022d  89 5d f8                          mov     -8H[ebp],ebx
+ 0230  89 4d fc                          mov     -4H[ebp],ecx
+ 0233  8b 45 f4                          mov     eax,-0cH[ebp]
+ 0236  89 45 ec                          mov     -14H[ebp],eax
+ 0239  c7 45 e8 00 00 00 
+       00                                mov     dword ptr -18H[ebp],00000000H
+ 0240  eb 06                             jmp     L27
+ 0242  8b 45 e8          L26             mov     eax,-18H[ebp]
+ 0245  ff 45 e8                          inc     dword ptr -18H[ebp]
+ 0248  8b 45 f8          L27             mov     eax,-8H[ebp]
+ 024b  03 45 e8                          add     eax,-18H[ebp]
+ 024e  80 38 00                          cmp     byte ptr [eax],00H
+ 0251  74 21                             je      L28
+ 0253  8b 4d fc                          mov     ecx,-4H[ebp]
+ 0256  8b 5d f8                          mov     ebx,-8H[ebp]
+ 0259  03 5d e8                          add     ebx,-18H[ebp]
+ 025c  8a 1b                             mov     bl,[ebx]
+ 025e  81 e3 ff 00 00 00                 and     ebx,000000ffH
+ 0264  8b 55 ec                          mov     edx,-14H[ebp]
+ 0267  8b 45 f0                          mov     eax,-10H[ebp]
+ 026a  e8 00 00 00 00                    call    int near DrawLetter( char near *, char near *, char unsigned, int )
+ 026f  01 45 ec                          add     -14H[ebp],eax
+ 0272  eb ce                             jmp     L26
+ 0274  8b 45 ec          L28             mov     eax,-14H[ebp]
+ 0277  2b 45 f4                          sub     eax,-0cH[ebp]
+ 027a  89 45 e4                          mov     -1cH[ebp],eax
+ 027d  8b 45 e4                          mov     eax,-1cH[ebp]
+ 0280  89 ec                             mov     esp,ebp
+ 0282  5d                                pop     ebp
+ 0283  5f                                pop     edi
+ 0284  5e                                pop     esi
+ 0285  c3                                ret     
+ 0286  8b c0                             mov     eax,eax
+ 0288                    int near DrawLetter( char near *, char near *, char unsigned, int ):
+ 0288  56                                push    esi
+ 0289  57                                push    edi
+ 028a  55                                push    ebp
+ 028b  89 e5                             mov     ebp,esp
+ 028d  81 ec 18 00 00 00                 sub     esp,00000018H
+ 0293  89 45 f0                          mov     -10H[ebp],eax
+ 0296  89 55 f4                          mov     -0cH[ebp],edx
+ 0299  88 5d fc                          mov     -4H[ebp],bl
+ 029c  89 4d f8                          mov     -8H[ebp],ecx
+ 029f  31 c0                             xor     eax,eax
+ 02a1  8a 45 fc                          mov     al,-4H[ebp]
+ 02a4  01 c0                             add     eax,eax
+ 02a6  8b 55 f0                          mov     edx,-10H[ebp]
+ 02a9  01 c2                             add     edx,eax
+ 02ab  31 c0                             xor     eax,eax
+ 02ad  66 8b 02                          mov     ax,[edx]
+ 02b0  89 45 ec                          mov     -14H[ebp],eax
+ 02b3  83 7d ec 00                       cmp     dword ptr -14H[ebp],00000000H
+ 02b7  74 29                             je      L29
+ 02b9  6a 00                             push    00000000H
+ 02bb  8b 45 f8                          mov     eax,-8H[ebp]
+ 02be  50                                push    eax
+ 02bf  8b 45 f4                          mov     eax,-0cH[ebp]
+ 02c2  50                                push    eax
+ 02c3  8b 45 f0                          mov     eax,-10H[ebp]
+ 02c6  03 45 ec                          add     eax,-14H[ebp]
+ 02c9  50                                push    eax
+ 02ca  e8 00 00 00 00                    call    _PutImageFlip256
+ 02cf  83 c4 10                          add     esp,00000010H
+ 02d2  8b 55 f0                          mov     edx,-10H[ebp]
+ 02d5  03 55 ec                          add     edx,-14H[ebp]
+ 02d8  31 c0                             xor     eax,eax
+ 02da  8a 42 01                          mov     al,+1H[edx]
+ 02dd  89 45 e8                          mov     -18H[ebp],eax
+ 02e0  eb 07                             jmp     L30
+ 02e2  c7 45 e8 06 00 00 
+       00                L29             mov     dword ptr -18H[ebp],00000006H
+ 02e9  8b 45 e8          L30             mov     eax,-18H[ebp]
+ 02ec  89 ec                             mov     esp,ebp
+ 02ee  5d                                pop     ebp
+ 02ef  5f                                pop     edi
+ 02f0  5e                                pop     esi
+ 02f1  c3                                ret     
+ 02f2  8b c0                             mov     eax,eax
+ 02f4                    int near GetStringWidth( char near *, char unsigned near * ):
+ 02f4  53                                push    ebx
+ 02f5  51                                push    ecx
+ 02f6  56                                push    esi
+ 02f7  57                                push    edi
+ 02f8  55                                push    ebp
+ 02f9  89 e5                             mov     ebp,esp
+ 02fb  81 ec 18 00 00 00                 sub     esp,00000018H
+ 0301  89 45 f8                          mov     -8H[ebp],eax
+ 0304  89 55 fc                          mov     -4H[ebp],edx
+ 0307  c7 45 f0 00 00 00 
+       00                                mov     dword ptr -10H[ebp],00000000H
+ 030e  8b 45 f0                          mov     eax,-10H[ebp]
+ 0311  89 45 ec                          mov     -14H[ebp],eax
+ 0314  eb 06                             jmp     L32
+ 0316  8b 45 ec          L31             mov     eax,-14H[ebp]
+ 0319  ff 45 ec                          inc     dword ptr -14H[ebp]
+ 031c  8b 45 fc          L32             mov     eax,-4H[ebp]
+ 031f  03 45 ec                          add     eax,-14H[ebp]
+ 0322  80 38 00                          cmp     byte ptr [eax],00H
+ 0325  74 3c                             je      L35
+ 0327  8b 45 fc                          mov     eax,-4H[ebp]
+ 032a  03 45 ec                          add     eax,-14H[ebp]
+ 032d  8a 00                             mov     al,[eax]
+ 032f  25 ff 00 00 00                    and     eax,000000ffH
+ 0334  01 c0                             add     eax,eax
+ 0336  8b 55 f8                          mov     edx,-8H[ebp]
+ 0339  01 c2                             add     edx,eax
+ 033b  31 c0                             xor     eax,eax
+ 033d  66 8b 02                          mov     ax,[edx]
+ 0340  89 45 f4                          mov     -0cH[ebp],eax
+ 0343  83 7d f4 00                       cmp     dword ptr -0cH[ebp],00000000H
+ 0347  74 14                             je      L33
+ 0349  8b 45 f8                          mov     eax,-8H[ebp]
+ 034c  03 45 f4                          add     eax,-0cH[ebp]
+ 034f  8a 40 01                          mov     al,+1H[eax]
+ 0352  25 ff 00 00 00                    and     eax,000000ffH
+ 0357  48                                dec     eax
+ 0358  01 45 f0                          add     -10H[ebp],eax
+ 035b  eb 04                             jmp     L34
+ 035d  83 45 f0 06       L33             add     dword ptr -10H[ebp],00000006H
+ 0361  eb b3             L34             jmp     L31
+ 0363  8b 45 f0          L35             mov     eax,-10H[ebp]
+ 0366  89 45 e8                          mov     -18H[ebp],eax
+ 0369  8b 45 e8                          mov     eax,-18H[ebp]
+ 036c  89 ec                             mov     esp,ebp
+ 036e  5d                                pop     ebp
+ 036f  5f                                pop     edi
+ 0370  5e                                pop     esi
+ 0371  59                                pop     ecx
+ 0372  5b                                pop     ebx
+ 0373  c3                                ret     
+ 0374                    int near GetStringWidthSP( char near *, char unsigned near * ):
+ 0374  53                                push    ebx
+ 0375  51                                push    ecx
+ 0376  56                                push    esi
+ 0377  57                                push    edi
+ 0378  55                                push    ebp
+ 0379  89 e5                             mov     ebp,esp
+ 037b  81 ec 18 00 00 00                 sub     esp,00000018H
+ 0381  89 45 f8                          mov     -8H[ebp],eax
+ 0384  89 55 fc                          mov     -4H[ebp],edx
+ 0387  c7 45 f0 00 00 00 
+       00                                mov     dword ptr -10H[ebp],00000000H
+ 038e  8b 45 f0                          mov     eax,-10H[ebp]
+ 0391  89 45 ec                          mov     -14H[ebp],eax
+ 0394  eb 06                             jmp     L37
+ 0396  8b 45 ec          L36             mov     eax,-14H[ebp]
+ 0399  ff 45 ec                          inc     dword ptr -14H[ebp]
+ 039c  8b 45 fc          L37             mov     eax,-4H[ebp]
+ 039f  03 45 ec                          add     eax,-14H[ebp]
+ 03a2  80 38 00                          cmp     byte ptr [eax],00H
+ 03a5  74 3b                             je      L40
+ 03a7  8b 45 fc                          mov     eax,-4H[ebp]
+ 03aa  03 45 ec                          add     eax,-14H[ebp]
+ 03ad  8a 00                             mov     al,[eax]
+ 03af  25 ff 00 00 00                    and     eax,000000ffH
+ 03b4  01 c0                             add     eax,eax
+ 03b6  8b 55 f8                          mov     edx,-8H[ebp]
+ 03b9  01 c2                             add     edx,eax
+ 03bb  31 c0                             xor     eax,eax
+ 03bd  66 8b 02                          mov     ax,[edx]
+ 03c0  89 45 f4                          mov     -0cH[ebp],eax
+ 03c3  83 7d f4 00                       cmp     dword ptr -0cH[ebp],00000000H
+ 03c7  74 13                             je      L38
+ 03c9  8b 45 f8                          mov     eax,-8H[ebp]
+ 03cc  03 45 f4                          add     eax,-0cH[ebp]
+ 03cf  8a 40 01                          mov     al,+1H[eax]
+ 03d2  25 ff 00 00 00                    and     eax,000000ffH
+ 03d7  01 45 f0                          add     -10H[ebp],eax
+ 03da  eb 04                             jmp     L39
+ 03dc  83 45 f0 06       L38             add     dword ptr -10H[ebp],00000006H
+ 03e0  eb b4             L39             jmp     L36
+ 03e2  8b 45 f0          L40             mov     eax,-10H[ebp]
+ 03e5  89 45 e8                          mov     -18H[ebp],eax
+ 03e8  8b 45 e8                          mov     eax,-18H[ebp]
+ 03eb  89 ec                             mov     esp,ebp
+ 03ed  5d                                pop     ebp
+ 03ee  5f                                pop     edi
+ 03ef  5e                                pop     esi
+ 03f0  59                                pop     ecx
+ 03f1  5b                                pop     ebx
+ 03f2  c3                                ret     
+ 03f3  90                                nop     
+ 03f4                    int near GetLetterWidth( char near *, char unsigned ):
+ 03f4  53                                push    ebx
+ 03f5  51                                push    ecx
+ 03f6  56                                push    esi
+ 03f7  57                                push    edi
+ 03f8  55                                push    ebp
+ 03f9  89 e5                             mov     ebp,esp
+ 03fb  81 ec 14 00 00 00                 sub     esp,00000014H
+ 0401  89 45 f8                          mov     -8H[ebp],eax
+ 0404  88 55 fc                          mov     -4H[ebp],dl
+ 0407  31 c0                             xor     eax,eax
+ 0409  8a 45 fc                          mov     al,-4H[ebp]
+ 040c  01 c0                             add     eax,eax
+ 040e  8b 55 f8                          mov     edx,-8H[ebp]
+ 0411  01 c2                             add     edx,eax
+ 0413  31 c0                             xor     eax,eax
+ 0415  66 8b 02                          mov     ax,[edx]
+ 0418  89 45 f4                          mov     -0cH[ebp],eax
+ 041b  83 7d f4 00                       cmp     dword ptr -0cH[ebp],00000000H
+ 041f  74 10                             je      L41
+ 0421  8b 55 f8                          mov     edx,-8H[ebp]
+ 0424  03 55 f4                          add     edx,-0cH[ebp]
+ 0427  31 c0                             xor     eax,eax
+ 0429  8a 42 01                          mov     al,+1H[edx]
+ 042c  89 45 f0                          mov     -10H[ebp],eax
+ 042f  eb 07                             jmp     L42
+ 0431  c7 45 f0 06 00 00 
+       00                L41             mov     dword ptr -10H[ebp],00000006H
+ 0438  8b 45 f0          L42             mov     eax,-10H[ebp]
+ 043b  89 45 ec                          mov     -14H[ebp],eax
+ 043e  8b 45 ec                          mov     eax,-14H[ebp]
+ 0441  89 ec                             mov     esp,ebp
+ 0443  5d                                pop     ebp
+ 0444  5f                                pop     edi
+ 0445  5e                                pop     esi
+ 0446  59                                pop     ecx
+ 0447  5b                                pop     ebx
+ 0448  c3                                ret     
+ 0449  8d 40 00                          lea     eax,+0H[eax]
+ 044c                    int near CreateFontImage256( char near *, char near * near *, char unsigned near * ):
+ 044c  51                                push    ecx
+ 044d  56                                push    esi
+ 044e  57                                push    edi
+ 044f  55                                push    ebp
+ 0450  89 e5                             mov     ebp,esp
+ 0452  81 ec 30 00 00 00                 sub     esp,00000030H
+ 0458  89 45 f4                          mov     -0cH[ebp],eax
+ 045b  89 55 f8                          mov     -8H[ebp],edx
+ 045e  89 5d fc                          mov     -4H[ebp],ebx
+ 0461  c7 45 d8 00 00 00 
+       00                                mov     dword ptr -28H[ebp],00000000H
+ 0468  c7 45 d4 00 00 00 
+       00                                mov     dword ptr -2cH[ebp],00000000H
+ 046f  8b 45 d4                          mov     eax,-2cH[ebp]
+ 0472  89 45 e0                          mov     -20H[ebp],eax
+ 0475  eb 06                             jmp     L44
+ 0477  8b 45 e0          L43             mov     eax,-20H[ebp]
+ 047a  ff 45 e0                          inc     dword ptr -20H[ebp]
+ 047d  8b 45 fc          L44             mov     eax,-4H[ebp]
+ 0480  03 45 e0                          add     eax,-20H[ebp]
+ 0483  80 38 00                          cmp     byte ptr [eax],00H
+ 0486  74 57                             je      L48
+ 0488  8b 45 fc                          mov     eax,-4H[ebp]
+ 048b  03 45 e0                          add     eax,-20H[ebp]
+ 048e  8a 00                             mov     al,[eax]
+ 0490  25 ff 00 00 00                    and     eax,000000ffH
+ 0495  01 c0                             add     eax,eax
+ 0497  03 45 f4                          add     eax,-0cH[ebp]
+ 049a  0f bf 00                          movsx   eax,word ptr [eax]
+ 049d  89 45 e8                          mov     -18H[ebp],eax
+ 04a0  83 7d e8 00                       cmp     dword ptr -18H[ebp],00000000H
+ 04a4  74 2f                             je      L46
+ 04a6  8b 45 f4                          mov     eax,-0cH[ebp]
+ 04a9  03 45 e8                          add     eax,-18H[ebp]
+ 04ac  8a 40 01                          mov     al,+1H[eax]
+ 04af  25 ff 00 00 00                    and     eax,000000ffH
+ 04b4  01 45 d4                          add     -2cH[ebp],eax
+ 04b7  8b 55 f4                          mov     edx,-0cH[ebp]
+ 04ba  03 55 e8                          add     edx,-18H[ebp]
+ 04bd  31 c0                             xor     eax,eax
+ 04bf  8a 42 02                          mov     al,+2H[edx]
+ 04c2  89 45 e4                          mov     -1cH[ebp],eax
+ 04c5  8b 45 e4                          mov     eax,-1cH[ebp]
+ 04c8  3b 45 d8                          cmp     eax,-28H[ebp]
+ 04cb  7e 06                             jle     L45
+ 04cd  8b 45 e4                          mov     eax,-1cH[ebp]
+ 04d0  89 45 d8                          mov     -28H[ebp],eax
+ 04d3  eb 04             L45             jmp     L47
+ 04d5  83 45 d4 06       L46             add     dword ptr -2cH[ebp],00000006H
+ 04d9  83 45 d4 ff       L47             add     dword ptr -2cH[ebp],0ffffffffH
+ 04dd  eb 98                             jmp     L43
+ 04df  ff 45 d4          L48             inc     dword ptr -2cH[ebp]
+ 04e2  ff 45 d8                          inc     dword ptr -28H[ebp]
+ 04e5  8b 45 d4                          mov     eax,-2cH[ebp]
+ 04e8  0f af 45 d8                       imul    eax,-28H[ebp]
+ 04ec  8b 55 d8                          mov     edx,-28H[ebp]
+ 04ef  01 d2                             add     edx,edx
+ 04f1  83 c0 0c                          add     eax,0000000cH
+ 04f4  01 d0                             add     eax,edx
+ 04f6  83 c0 32                          add     eax,00000032H
+ 04f9  89 45 dc                          mov     -24H[ebp],eax
+ 04fc  8b 45 dc                          mov     eax,-24H[ebp]
+ 04ff  e8 00 00 00 00                    call    malloc_
+ 0504  89 45 ec                          mov     -14H[ebp],eax
+ 0507  8b 45 dc                          mov     eax,-24H[ebp]
+ 050a  e8 00 00 00 00                    call    malloc_
+ 050f  89 45 f0                          mov     -10H[ebp],eax
+ 0512  c7 45 e0 00 00 00 
+       00                                mov     dword ptr -20H[ebp],00000000H
+ 0519  eb 06                             jmp     L50
+ 051b  8b 45 e0          L49             mov     eax,-20H[ebp]
+ 051e  ff 45 e0                          inc     dword ptr -20H[ebp]
+ 0521  8b 45 e0          L50             mov     eax,-20H[ebp]
+ 0524  3b 45 dc                          cmp     eax,-24H[ebp]
+ 0527  7d 0b                             jge     L51
+ 0529  8b 45 f0                          mov     eax,-10H[ebp]
+ 052c  03 45 e0                          add     eax,-20H[ebp]
+ 052f  c6 00 ff                          mov     byte ptr [eax],0ffH
+ 0532  eb e7                             jmp     L49
+ 0534  8b 45 f0          L51             mov     eax,-10H[ebp]
+ 0537  c6 00 10                          mov     byte ptr [eax],10H
+ 053a  8a 45 d4                          mov     al,-2cH[ebp]
+ 053d  8b 55 f0                          mov     edx,-10H[ebp]
+ 0540  88 42 01                          mov     +1H[edx],al
+ 0543  8a 45 d8                          mov     al,-28H[ebp]
+ 0546  8b 55 f0                          mov     edx,-10H[ebp]
+ 0549  88 42 02                          mov     +2H[edx],al
+ 054c  8b 45 f0                          mov     eax,-10H[ebp]
+ 054f  c6 40 03 ff                       mov     byte ptr +3H[eax],0ffH
+ 0553  8b 4d d4                          mov     ecx,-2cH[ebp]
+ 0556  8b 5d fc                          mov     ebx,-4H[ebp]
+ 0559  8b 55 d8                          mov     edx,-28H[ebp]
+ 055c  01 d2                             add     edx,edx
+ 055e  8b 45 f0                          mov     eax,-10H[ebp]
+ 0561  83 c0 04                          add     eax,00000004H
+ 0564  01 c2                             add     edx,eax
+ 0566  8b 45 f4                          mov     eax,-0cH[ebp]
+ 0569  e8 00 00 00 00                    call    int near DrawString( char near *, char near *, char unsigned near *, int )
+ 056e  8b 55 ec                          mov     edx,-14H[ebp]
+ 0571  8b 45 f0                          mov     eax,-10H[ebp]
+ 0574  e8 00 00 00 00                    call    int unsigned near CompressImage256( char near *, char near * )
+ 0579  89 45 dc                          mov     -24H[ebp],eax
+ 057c  8b 45 f0                          mov     eax,-10H[ebp]
+ 057f  e8 00 00 00 00                    call    free_
+ 0584  8b 45 ec                          mov     eax,-14H[ebp]
+ 0587  8b 55 f8                          mov     edx,-8H[ebp]
+ 058a  89 02                             mov     [edx],eax
+ 058c  8b 45 dc                          mov     eax,-24H[ebp]
+ 058f  89 45 d0                          mov     -30H[ebp],eax
+ 0592  8b 45 d0                          mov     eax,-30H[ebp]
+ 0595  89 ec                             mov     esp,ebp
+ 0597  5d                                pop     ebp
+ 0598  5f                                pop     edi
+ 0599  5e                                pop     esi
+ 059a  59                                pop     ecx
+ 059b  c3                                ret     
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: $$SYMBOLS  BYTE USE16  000003cc bytes  
+ 0000  08 32                                   - .2
+ 0002  00 00 00 00 00 00                       DP      int unsigned near CompressImage256( char near *, char near * )
+ 0008  0c 23 d8 00 00 00 49 00                 - .#....I.
+ 0010  00 00 14 00 0c 23 d8 00                 - .....#..
+ 0018  00 00 49 00 00 00 38 00                 - ..I...8.
+ 0020  0c 23 23 01 00 00 59 00                 - .##...Y.
+ 0028  00 00 2c 00 0c 23 23 01                 - ..,..##.
+ 0030  00 00 59 00 00 00 38 00                 - ..Y...8.
+ 0038  0c 23 cb 00 00 00 b1 00                 - .#......
+ 0040  00 00 44 00 0c 23 b0 00                 - ..D..#..
+ 0048  00 00 d6 00 00 00 50 00                 - ......P.
+ 0050  0c 23 9a 00 00 00 f6 00                 - .#......
+ 0058  00 00 5c 00 0c 23 9a 00                 - ..\..#..
+ 0060  00 00 f6 00 00 00 68 00                 - ......h.
+ 0068  2a 24 00 00 00 00 a7 01                 - *$......
+ 0070  00 00 00 00 0d 08 14 00                 - ........
+ 0078  00 00 36 30 1c 02 30 1c                 - ..60..0.
+ 0080  30 1f 43 6f 6d 70 72 65                 - 0.Compre
+ 0088  73 73 49 6d 61 67 65 32                 - ssImage2
+ 0090  35 36 08 11 10 f8 20 73                 - 56.... s
+ 0098  72 63 09 11 10 fc 20 64                 - rc.... d
+ 00a0  65 73 74 09 11 10 d0 0d                 - est.....
+ 00a8  78 6c 65 6e 09 11 10 d4                 - xlen....
+ 00b0  0d 79 6c 65 6e 07 11 10                 - .ylen...
+ 00b8  d8 0d 78 74 06 11 10 dc                 - ..xt....
+ 00c0  0d 78 06 11 10 e0 0d 79                 - .x.....y
+ 00c8  06 11 10 e4 0d 61 06 11                 - .....a..
+ 00d0  10 e8 0d 62 06 11 10 ec                 - ...b....
+ 00d8  0d 69 0b 11 10 f4 06 74                 - .i.....t
+ 00e0  63 6f 6c 6f 72 0a 11 10                 - color...
+ 00e8  f0 37 79 6c 69 73 74 28                 - .7ylist(
+ 00f0  24 a8 01 00 00 73 00 00                 - $....s..
+ 00f8  00 00 00 0b 06 0c 00 00                 - ........
+ 0100  00 38 30 1c 04 30 1c 30                 - .80..0.0
+ 0108  1f 30 1d 30 1e 44 72 61                 - .0.0.Dra
+ 0110  77 53 74 72 69 6e 67 09                 - wString.
+ 0118  11 10 f0 20 66 6f 6e 74                 - ... font
+ 0120  09 11 10 f4 20 64 65 73                 - .... des
+ 0128  74 06 11 10 f8 1d 73 08                 - t.....s.
+ 0130  11 10 fc 0c 4c 53 57 06                 - ....LSW.
+ 0138  11 10 e8 0c 69 07 11 10                 - ....i...
+ 0140  ec 20 64 32 2a 24 1c 02                 - . d2*$..
+ 0148  00 00 6a 00 00 00 00 00                 - ..j.....
+ 0150  0b 06 0c 00 00 00 38 30                 - ......80
+ 0158  1c 04 30 1c 30 1f 30 1d                 - ..0.0.0.
+ 0160  30 1e 44 72 61 77 53 74                 - 0.DrawSt
+ 0168  72 69 6e 67 53 50 09 11                 - ringSP..
+ 0170  10 f0 20 66 6f 6e 74 09                 - .. font.
+ 0178  11 10 f4 20 64 65 73 74                 - ... dest
+ 0180  06 11 10 f8 1d 73 08 11                 - .....s..
+ 0188  10 fc 0c 4c 53 57 06 11                 - ...LSW..
+ 0190  10 e8 0c 69 07 11 10 ec                 - ...i....
+ 0198  20 64 32 28 24 88 02 00                 -  d2($...
+ 01a0  00 6a 00 00 00 00 00 0b                 - .j......
+ 01a8  06 0c 00 00 00 39 30 1c                 - .....90.
+ 01b0  04 30 1c 30 1f 30 1d 30                 - .0.0.0.0
+ 01b8  1e 44 72 61 77 4c 65 74                 - .DrawLet
+ 01c0  74 65 72 09 11 10 f0 20                 - ter.... 
+ 01c8  66 6f 6e 74 09 11 10 f4                 - font....
+ 01d0  20 64 65 73 74 06 11 10                 -  dest...
+ 01d8  fc 08 63 08 11 10 f8 0c                 - ..c.....
+ 01e0  4c 53 57 0a 11 10 ec 0d                 - LSW.....
+ 01e8  69 6e 64 65 78 0c 23 27                 - index.#'
+ 01f0  03 00 00 3a 00 00 00 f9                 - ...:....
+ 01f8  01 0c 23 27 03 00 00 3a                 - ..#'...:
+ 0200  00 00 00 05 02 28 24 f4                 - .....($.
+ 0208  02 00 00 80 00 00 00 00                 - ........
+ 0210  00 0d 08 14 00 00 00 3a                 - .......:
+ 0218  30 1c 02 30 1c 30 1f 47                 - 0..0.0.G
+ 0220  65 74 53 74 72 69 6e 67                 - etString
+ 0228  57 69 64 74 68 09 11 10                 - Width...
+ 0230  f8 20 66 6f 6e 74 06 11                 - . font..
+ 0238  10 fc 1d 73 06 11 10 ec                 - ...s....
+ 0240  0c 69 0a 11 10 f0 0c 77                 - .i.....w
+ 0248  69 64 74 68 0a 11 10 f4                 - idth....
+ 0250  0c 69 6e 64 65 78 0c 23                 - .index.#
+ 0258  a7 03 00 00 39 00 00 00                 - ....9...
+ 0260  62 02 0c 23 a7 03 00 00                 - b..#....
+ 0268  39 00 00 00 6e 02 2a 24                 - 9...n.*$
+ 0270  74 03 00 00 7f 00 00 00                 - t.......
+ 0278  00 00 0d 08 14 00 00 00                 - ........
+ 0280  3a 30 1c 02 30 1c 30 1f                 - :0..0.0.
+ 0288  47 65 74 53 74 72 69 6e                 - GetStrin
+ 0290  67 57 69 64 74 68 53 50                 - gWidthSP
+ 0298  09 11 10 f8 20 66 6f 6e                 - .... fon
+ 02a0  74 06 11 10 fc 1d 73 06                 - t.....s.
+ 02a8  11 10 ec 0c 69 0a 11 10                 - ....i...
+ 02b0  f0 0c 77 69 64 74 68 0a                 - ..width.
+ 02b8  11 10 f4 0c 69 6e 64 65                 - ....inde
+ 02c0  78 28 24 f4 03 00 00 55                 - x($....U
+ 02c8  00 00 00 00 00 0d 08 14                 - ........
+ 02d0  00 00 00 3b 30 1c 02 30                 - ...;0..0
+ 02d8  1c 30 1f 47 65 74 4c 65                 - .0.GetLe
+ 02e0  74 74 65 72 57 69 64 74                 - tterWidt
+ 02e8  68 09 11 10 f8 20 66 6f                 - h.... fo
+ 02f0  6e 74 06 11 10 fc 08 73                 - nt.....s
+ 02f8  0a 11 10 f0 0c 77 69 64                 - .....wid
+ 0300  74 68 0a 11 10 f4 0c 69                 - th.....i
+ 0308  6e 64 65 78 0c 23 a6 04                 - ndex.#..
+ 0310  00 00 2d 00 00 00 18 03                 - ..-.....
+ 0318  0c 23 a6 04 00 00 2d 00                 - .#....-.
+ 0320  00 00 24 03 0c 23 88 04                 - ..$..#..
+ 0328  00 00 55 00 00 00 30 03                 - ..U...0.
+ 0330  0c 23 88 04 00 00 55 00                 - .#....U.
+ 0338  00 00 3c 03 2e 24 4c 04                 - ..<..$L.
+ 0340  00 00 50 01 00 00 00 00                 - ..P.....
+ 0348  0c 07 10 00 00 00 3d 30                 - ......=0
+ 0350  1c 03 30 1c 30 1f 30 1d                 - ..0.0.0.
+ 0358  43 72 65 61 74 65 46 6f                 - CreateFo
+ 0360  6e 74 49 6d 61 67 65 32                 - ntImage2
+ 0368  35 36 09 11 10 f4 20 66                 - 56.... f
+ 0370  6f 6e 74 08 11 10 f8 3c                 - ont....<
+ 0378  69 6d 67 06 11 10 fc 1d                 - img.....
+ 0380  73 0a 11 10 d4 0c 77 69                 - s.....wi
+ 0388  64 74 68 0b 11 10 d8 0c                 - dth.....
+ 0390  68 65 69 67 68 74 0e 11                 - height..
+ 0398  10 dc 0c 69 6d 61 67 65                 - ...image
+ 03a0  73 69 7a 65 06 11 10 e0                 - size....
+ 03a8  0c 69 06 11 10 e4 0c 6a                 - .i.....j
+ 03b0  0a 11 10 e8 0c 69 6e 64                 - .....ind
+ 03b8  65 78 09 11 10 ec 20 69                 - ex.... i
+ 03c0  70 74 72 09 11 10 f0 20                 - ptr.... 
+ 03c8  74 70 74 72                             - tptr
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: $$TYPES  BYTE USE16  0000025d bytes  
+ 0000  06 13 5d 02 00 00 06 11                 - ..].....
+ 0008  65 6e 75 6d 07 11 75 6e                 - enum..un
+ 0010  69 6f 6e 08 11 73 74 72                 - ion..str
+ 0018  75 63 74 07 11 63 6c 61                 - uct..cla
+ 0020  73 73 0c 10 11 5f 5f 73                 - ss...__s
+ 0028  65 67 6d 65 6e 74 07 10                 - egment..
+ 0030  10 63 68 61 72 03 10 00                 - .char...
+ 0038  03 10 10 03 10 11 03 10                 - ........
+ 0040  01 03 10 11 06 10 03 69                 - .......i
+ 0048  6e 74 0f 10 13 75 6e 73                 - nt...uns
+ 0050  69 67 6e 65 64 20 69 6e                 - igned in
+ 0058  74 03 10 03 03 10 13 03                 - t.......
+ 0060  10 23 03 10 27 03 10 30                 - .#..'..0
+ 0068  03 46 12 04 72 13 00 03                 - .F..r...
+ 0070  46 14 08 60 03 00 0c 00                 - F..`....
+ 0078  00 00 0f 67 01 84 22 08                 - ...g..".
+ 0080  69 0d 5f 5f 69 6e 64 65                 - i.__inde
+ 0088  78 0f 67 01 84 22 04 69                 - x.g..".i
+ 0090  0d 5f 5f 64 65 6c 74 61                 - .__delta
+ 0098  09 67 01 6b 15 5f 5f 66                 - .g.k.__f
+ 00a0  6e 04 20 0d 08 0e 12 00                 - n. .....
+ 00a8  17 47 52 49 50 5f 54 48                 - .GRIP_TH
+ 00b0  55 4e 4b 03 46 0f 0e 12                 - UNK.F...
+ 00b8  00 19 47 52 49 50 5f 42                 - ..GRIP_B
+ 00c0  55 46 5f 4c 03 46 0b 0e                 - UF_L.F..
+ 00c8  12 00 1b 47 52 49 50 5f                 - ...GRIP_
+ 00d0  42 55 46 5f 53 03 46 08                 - BUF_S.F.
+ 00d8  0e 12 00 1d 47 52 49 50                 - ....GRIP
+ 00e0  5f 42 55 46 5f 43 0c 12                 - _BUF_C..
+ 00e8  00 13 47 52 49 50 5f 42                 - ..GRIP_B
+ 00f0  55 46 03 46 06 0f 12 00                 - UF.F....
+ 00f8  20 47 52 49 50 5f 53 54                 -  GRIP_ST
+ 0100  52 49 4e 47 0d 12 00 0b                 - RING....
+ 0108  47 52 49 50 5f 42 4f 4f                 - GRIP_BOO
+ 0110  4c 11 12 00 0f 47 52 49                 - L....GRI
+ 0118  50 5f 42 49 54 46 49 45                 - P_BITFIE
+ 0120  4c 44 0e 12 00 0b 47 52                 - LD....GR
+ 0128  49 50 5f 56 41 4c 55 45                 - IP_VALUE
+ 0130  0e 12 00 08 47 52 49 50                 - ....GRIP
+ 0138  5f 49 4e 44 45 58 0e 12                 - _INDEX..
+ 0140  00 08 47 52 49 50 5f 43                 - ..GRIP_C
+ 0148  4c 41 53 53 0d 12 00 08                 - LASS....
+ 0150  47 52 49 50 5f 53 4c 4f                 - GRIP_SLO
+ 0158  54 05 50 09 00 01 0b 52                 - T.P....R
+ 0160  00 08 49 4e 54 52 5f 4f                 - ..INTR_O
+ 0168  46 0b 52 00 04 49 4e 54                 - F.R..INT
+ 0170  52 5f 44 46 0b 52 00 02                 - R_DF.R..
+ 0178  49 4e 54 52 5f 49 46 0b                 - INTR_IF.
+ 0180  52 00 01 49 4e 54 52 5f                 - R..INTR_
+ 0188  54 46 0b 52 80 00 49 4e                 - TF.R..IN
+ 0190  54 52 5f 53 46 0a 51 40                 - TR_SF.Q@
+ 0198  49 4e 54 52 5f 5a 46 0a                 - INTR_ZF.
+ 01a0  51 10 49 4e 54 52 5f 41                 - Q.INTR_A
+ 01a8  46 0a 51 04 49 4e 54 52                 - F.Q.INTR
+ 01b0  5f 50 46 0a 51 01 49 4e                 - _PF.Q.IN
+ 01b8  54 52 5f 43 46 07 12 00                 - TR_CF...
+ 01c0  28 2e 23 30 0a 12 00 0e                 - (.#0....
+ 01c8  66 70 6f 73 5f 74 04 72                 - fpos_t.r
+ 01d0  12 00 03 46 2b 0c 12 00                 - ...F+...
+ 01d8  2c 6f 6e 65 78 69 74 5f                 - ,onexit_
+ 01e0  74 04 20 00 20 0d 12 00                 - t. . ...
+ 01e8  2e 5f 5f 76 61 5f 6c 69                 - .__va_li
+ 01f0  73 74 09 12 00 0e 6f 66                 - st....of
+ 01f8  66 5f 74 09 12 00 0c 64                 - f_t....d
+ 0200  65 76 5f 74 09 12 00 0d                 - ev_t....
+ 0208  69 6e 6f 5f 74 0a 12 00                 - ino_t...
+ 0210  0d 73 69 7a 65 5f 74 0a                 - .size_t.
+ 0218  12 00 0f 74 69 6d 65 5f                 - ...time_
+ 0220  74 0b 12 00 09 77 63 68                 - t....wch
+ 0228  61 72 5f 74 06 72 0d 02                 - ar_t.r..
+ 0230  20 20 03 46 0a 08 72 0c                 -   .F..r.
+ 0238  04 20 20 1d 0c 08 72 0c                 - .  ...r.
+ 0240  04 20 20 08 0c 06 72 0c                 - .  ...r.
+ 0248  02 20 1d 06 72 0c 02 20                 - . ..r.. 
+ 0250  08 03 46 20 07 72 0c 03                 - ..F .r..
+ 0258  20 3c 1d 02 14                          -  <...
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: $$TYPES  BYTE USE16  00000018 bytes  
+ 0000  00 00 01 00 00 00 43 3a                 - ......C:
+ 0008  5c 4e 4f 47 5c 74 67 72                 - \NOG\tgr
+ 0010  61 70 68 2e 63 70 70 00                 - aph.cpp.
+
+No disassembly errors
+
+------------------------------------------------------------

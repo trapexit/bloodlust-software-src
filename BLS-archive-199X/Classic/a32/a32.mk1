@@ -1,0 +1,87 @@
+!define BLANK ""
+c:\source\a32\r2imgasm.obj : c:\source\a32\r2imgasm.asm .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wasm r2imgasm.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\source\a32\a32.obj : c:\source\a32\a32.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 a32.cpp -i=C:\WATCOM\h -w2 -e25 -dDOS -zq -otexan -d2 -5r -bt=dos -&
+mf
+
+c:\source\a32\config.obj : c:\source\a32\config.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 config.cpp -i=C:\WATCOM\h -w2 -e25 -dDOS -zq -otexan -d2 -5r -bt=do&
+s -mf
+
+c:\source\a32\dos.obj : c:\source\a32\dos\dos.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 dos\dos.cpp -i=C:\WATCOM\h -w2 -e25 -dDOS -zq -otexan -d2 -5r -bt=d&
+os -mf
+
+c:\source\a32\keyb.obj : c:\source\a32\dos\keyb.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 dos\keyb.cpp -i=C:\WATCOM\h -w2 -e25 -dDOS -zq -otexan -d2 -5r -bt=&
+dos -mf
+
+c:\source\a32\ttimer.obj : c:\source\a32\dos\ttimer.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 dos\ttimer.cpp -i=C:\WATCOM\h -w2 -e25 -dDOS -zq -otexan -d2 -5r -b&
+t=dos -mf
+
+c:\source\a32\file.obj : c:\source\a32\file.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 file.cpp -i=C:\WATCOM\h -w2 -e25 -dDOS -zq -otexan -d2 -5r -bt=dos &
+-mf
+
+c:\source\a32\font.obj : c:\source\a32\font.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 font.cpp -i=C:\WATCOM\h -w2 -e25 -dDOS -zq -otexan -d2 -5r -bt=dos &
+-mf
+
+c:\source\a32\input.obj : c:\source\a32\input.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 input.cpp -i=C:\WATCOM\h -w2 -e25 -dDOS -zq -otexan -d2 -5r -bt=dos&
+ -mf
+
+c:\source\a32\mouse.obj : c:\source\a32\mouse.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 mouse.cpp -i=C:\WATCOM\h -w2 -e25 -dDOS -zq -otexan -d2 -5r -bt=dos&
+ -mf
+
+c:\source\a32\r2img.obj : c:\source\a32\r2img.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 r2img.cpp -i=C:\WATCOM\h -w2 -e25 -dDOS -zq -otexan -d2 -5r -bt=dos&
+ -mf
+
+c:\source\a32\vol.obj : c:\source\a32\vol.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 vol.cpp -i=C:\WATCOM\h -w2 -e25 -dDOS -zq -otexan -d2 -5r -bt=dos -&
+mf
+
+c:\source\a32\a32.exe : c:\source\a32\r2imgasm.obj c:\source\a32\a32.obj c:\&
+source\a32\config.obj c:\source\a32\dos.obj c:\source\a32\keyb.obj c:\source&
+\a32\ttimer.obj c:\source\a32\file.obj c:\source\a32\font.obj c:\source\a32\&
+input.obj c:\source\a32\mouse.obj c:\source\a32\r2img.obj c:\source\a32\vol.&
+obj c:\source\a32\dos\joy.obj c:\source\a32\dos\mouseasm.obj c:\source\a32\d&
+os\stack.obj .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ @%write a32.lk1 NAME a32
+ @%append a32.lk1 FIL r2imgasm.obj,a32.obj,config.obj,dos.obj,keyb.obj,ttime&
+r.obj,file.obj,font.obj,input.obj,mouse.obj,r2img.obj,vol.obj,dos\joy.obj,do&
+s\mouseasm.obj,dos\stack.obj
+ @%append a32.lk1 
+ *wlink d all SYS dos4g op m op maxe=25 op q op symf @a32.lk1
+

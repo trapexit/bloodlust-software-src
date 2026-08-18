@@ -1,0 +1,11 @@
+1 Disgruntled ..\main.sdf   dis1   dis1.vol   
+2 effect      ..\effect.sdf effect effects.vol 
+3 Gun         ..\gun.sdf    disgun gun.vol    
+4 Pig         ..\pig.sdf    pig    pig.vol    
+5 Crate       ..\crate.sdf  crate  crate.vol    
+6 Sniper      ..\sniper.sdf sniper sniper.vol    
+7 Boomer      ..\boomer.sdf boomer boomer.vol    
+8 Jet         ..\jet.sdf    jet    jet.vol    
+9 Tawch       ..\tawch.sdf  tawch  tawch.vol    
+10 Shitman    ..\shitman.sdf  shitman shitman.vol    
+

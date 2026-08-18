@@ -1,0 +1,76 @@
+
+typedef struct
+{
+    unsigned char netadd[4];
+    unsigned char nodeadd[6];
+    unsigned short socket;
+} IPXADDRESS;
+
+typedef struct
+{
+    unsigned short checksum;
+    unsigned short length;
+    unsigned char tc;
+    unsigned char type;
+    IPXADDRESS dest;
+    IPXADDRESS source;
+} IPXHEADER;
+
+typedef struct
+{
+    void *linkaddress;
+    void (*esraddress)();
+    unsigned char inuse;
+    unsigned char cc;
+    unsigned short socket;
+    unsigned char workspace[16];
+    unsigned char immedaddr[6];
+    unsigned short fragcount;
+    unsigned short fragoff1;
+    unsigned short fragseg1;
+    unsigned short fragsize1;
+    unsigned short fragoff2;
+    unsigned short fragseg2;
+    unsigned short fragsize2;
+} IPXECB;
+
+
+typedef struct
+{
+ IPXECB    ecb; //event control block for this packet
+ IPXHEADER ipx; //header for the packet
+ unsigned  time;
+ char      data[128]; //data for the packet
+} ipxpacket;
+
+
+
+int  InitIPX();
+void TerminateIPX();
+void  RelinquishIPX();
+void ResetIPX();
+void CreateIPXRecvECB(int i,unsigned short socket);
+void CreateIPXSendECB(int i,unsigned short socket,char *dest);
+int  BroadcastIPXPacket(char *d, int size);
+int  SendIPXPacket(char *d,int size);
+int  RecvIPXPacket();
+void PrintAddress (IPXADDRESS *adr, char *str);
+int  CompareIPXAddr(IPXADDRESS *a, IPXADDRESS *b);
+int  SendIPXPacketDest(char *d,int size,char *dest);
+void WaitIPXPacket();
+
+extern int ipxinstalled;
+extern char *ipxmem;
+extern unsigned short int ipxchatsocket;
+extern unsigned short int ipxgamesocket;
+extern ipxpacket *ip; //pointer to first packet
+extern IPXADDRESS *myaddress;
+
+void IPXChatMode(int offset);
+void IPXGameMode(char *dest,int offset);
+
+extern char ipxbuffer[256];
+extern int ipxsize;
+
+
+

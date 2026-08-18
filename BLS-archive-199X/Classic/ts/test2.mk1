@@ -1,0 +1,92 @@
+!define BLANK ""
+c:\test\i32t.obj : c:\test\i32t.asm .AUTODEPEND
+ @c:
+ cd c:\test
+ *tasm i32t.asm /ml /m9
+
+c:\test\joy.obj : c:\test\joy.asm .AUTODEPEND
+ @c:
+ cd c:\test
+ *tasm joy.asm /ml /m9
+
+c:\test\tdpmi.obj : c:\test\tdpmi.asm .AUTODEPEND
+ @c:
+ cd c:\test
+ *tasm tdpmi.asm /ml /m9
+
+c:\test\timeback.obj : c:\test\timeback.asm .AUTODEPEND
+ @c:
+ cd c:\test
+ *tasm timeback.asm /ml /m9
+
+c:\test\timg256.obj : c:\test\timg256.asm .AUTODEPEND
+ @c:
+ cd c:\test
+ *tasm timg256.asm /ml /m9
+
+c:\test\tsimg256.obj : c:\test\tsimg256.asm .AUTODEPEND
+ @c:
+ cd c:\test
+ *tasm tsimg256.asm /ml /m9
+
+c:\test\tcin.obj : c:\test\tcin.cpp .AUTODEPEND
+ @c:
+ cd c:\test
+ *wpp386 tcin.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\test32.obj : c:\test\test32.cpp .AUTODEPEND
+ @c:
+ cd c:\test
+ *wpp386 test32.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\tfunc.obj : c:\test\tfunc.cpp .AUTODEPEND
+ @c:
+ cd c:\test
+ *wpp386 tfunc.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\tgraph.obj : c:\test\tgraph.cpp .AUTODEPEND
+ @c:
+ cd c:\test
+ *wpp386 tgraph.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\tinput.obj : c:\test\tinput.cpp .AUTODEPEND
+ @c:
+ cd c:\test
+ *wpp386 tinput.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\tint.obj : c:\test\tint.cpp .AUTODEPEND
+ @c:
+ cd c:\test
+ *wpp386 tint.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\tkeyb.obj : c:\test\tkeyb.cpp .AUTODEPEND
+ @c:
+ cd c:\test
+ *wpp386 tkeyb.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -zu -5r -bt=dos -&
+mf
+
+c:\test\tselect.obj : c:\test\tselect.cpp .AUTODEPEND
+ @c:
+ cd c:\test
+ *wpp386 tselect.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\ttimer.obj : c:\test\ttimer.cpp .AUTODEPEND
+ @c:
+ cd c:\test
+ *wpp386 ttimer.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -zu -5r -bt=dos &
+-mf
+
+c:\test\test.exe : c:\test\i32t.obj c:\test\joy.obj c:\test\tdpmi.obj c:\tes&
+t\timeback.obj c:\test\timg256.obj c:\test\tsimg256.obj c:\test\tcin.obj c:\&
+test\test32.obj c:\test\tfunc.obj c:\test\tgraph.obj c:\test\tinput.obj c:\t&
+est\tint.obj c:\test\tkeyb.obj c:\test\tselect.obj c:\test\ttimer.obj .AUTOD&
+EPEND
+ @c:
+ cd c:\test
+ @%write test.lk1 NAME test
+ @%append test.lk1 FIL i32t.obj,joy.obj,tdpmi.obj,timeback.obj,timg256.obj,t&
+simg256.obj,tcin.obj,test32.obj,tfunc.obj,tgraph.obj,tinput.obj,tint.obj,tke&
+yb.obj,tselect.obj,ttimer.obj
+ @%append test.lk1 
+ *wlink d all SYS dos4g op m op maxe=25 op q op symf @test.lk1
+

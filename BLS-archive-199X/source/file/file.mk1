@@ -1,0 +1,25 @@
+!define BLANK ""
+c:\source\file\file.obj : c:\source\file\file.cpp .AUTODEPEND
+ @c:
+ cd c:\source\file
+ *wpp386 file.cpp -i=C:\WATCOM\h -w1 -e25 -zq -otexan -d1 -5r -bt=dos -mf
+
+c:\source\file\ftest.obj : c:\source\file\ftest.cpp .AUTODEPEND
+ @c:
+ cd c:\source\file
+ *wpp386 ftest.cpp -i=C:\WATCOM\h -w1 -e25 -zq -otexan -d1 -5r -bt=dos -mf
+
+c:\source\file\lzw.obj : c:\source\file\lzw.cpp .AUTODEPEND
+ @c:
+ cd c:\source\file
+ *wpp386 lzw.cpp -i=C:\WATCOM\h -w1 -e25 -zq -otexan -d1 -5r -bt=dos -mf
+
+c:\source\file\file.exe : c:\source\file\file.obj c:\source\file\ftest.obj c&
+:\source\file\lzw.obj .AUTODEPEND
+ @c:
+ cd c:\source\file
+ @%write file.lk1 NAME file
+ @%append file.lk1 FIL file.obj,ftest.obj,lzw.obj
+ @%append file.lk1 
+ *wlink d all SYS dos4g op m op maxe=25 op q op symf @file.lk1
+

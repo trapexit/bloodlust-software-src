@@ -1,0 +1,11 @@
+;turn error checking on
+error on
+
+;a32 volume file
+volfile a32-2
+ pal bg
+ img cursor
+ rawdata font.fnt
+ img g_x
+
+endfile

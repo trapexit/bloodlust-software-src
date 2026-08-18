@@ -1,0 +1,84 @@
+
+struct ori:insttype
+{
+ ori():insttype("0000_0000zz_aaaaaa","ori",(Dn|iAn|iAni|idAn|d16An|d8AnR|addr16|addr32) )
+  {immtype=IMM_DSIZE;}
+ void gencore(int t,iparm &ip)
+ {
+  genread(t,ip.dsize);
+
+  skipf();
+  printf("\tor %s,%s ;modify\n",areg[ip.dsize],immreg[ip.dsize]);
+  pushf();
+
+  genwrite(t,ip.dsize);
+ }
+} ORI;
+
+//----------------------------
+
+struct oribccr:insttype
+{
+ oribccr():insttype("0000_000000_111100","oribccr",0) {immtype=IMM_BYTE;}
+ void gencore(int t,iparm &ip)
+ {
+  OUT("popmflags");
+  printf("\tor %s,%s ;modify\n",ccrreg,immreg[0]);
+  OUT("pushmflags");
+ }
+} ORIBCCR;
+
+
+struct oriwsr:insttype
+{
+ oriwsr():insttype("0000_000001_111100","oriwsr",0) {immtype=IMM_WORD;}
+ void gencore(int t,iparm &ip)
+ {
+  OUT("popmflags");
+  printf("\tor %s,%s ;modify\n",srreg,immreg[1]);
+  OUT("pushmflags");
+ }
+} ORIWSR;
+
+
+
+
+//---------------------
+
+
+//source is effective address
+struct or:insttype
+{
+ or():insttype("1000_nnn0zz_aaaaaa","or",(Dn|iAn|iAni|idAn|d16An|d8AnR|addr16|addr32|d16PC|d8PCR|aimm) )
+  {}
+ void gencore(int t,iparm &ip)
+ {
+  genread(t,ip.dsize);
+
+  skipf();
+  printf("\tor %s ptr [edi.D0+%d*4],%s ;modify\n",isize[ip.dsize],ip.n,areg[ip.dsize]);
+  pushf();
+ }
+} OR;
+
+//source is register
+struct or2:insttype
+{
+ or2():insttype("1000_nnn1zz_aaaaaa","or2",(iAn|iAni|idAn|d16An|d8AnR|addr16|addr32) )
+  {}
+ void gencore(int t,iparm &ip)
+ {
+  genread(t,ip.dsize);
+
+  skipf();
+  printf("\tor %s,%s ptr [edi.D0+%d*4] ;modify\n",areg[ip.dsize],isize[ip.dsize],ip.n);
+  pushf();
+  genwrite(t,ip.dsize);
+ }
+} OR2;
+
+
+
+
+
+

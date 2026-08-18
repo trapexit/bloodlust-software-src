@@ -1,0 +1,1130 @@
+//Copyright(c) 1996 Bloodlust Software All rights reserved
+//animator 32-bit
+#include <stdio.h>
+#include <stdlib.h>
+#include <malloc.h>
+#include <dos.h>
+#include <fcntl.h>
+#include <io.h>
+#include <string.h>
+#include <conio.h>
+#include <ctype.h>
+#include <direct.h>
+
+#include "ttimer.h"
+#include "mouse.h"
+#include "glib.h"
+#include "smix.h"
+#include "vol.h"
+#include "a32.h"
+
+
+char errstr[80];
+void cleanexit(int x)
+{
+TerminateTimers();    
+ModeText();    
+if (x<0) printf("ERROR: %s\n",errstr);
+exit(x);
+}
+
+
+volumefile v;
+
+//standard stuff
+int i,j,k;
+color *pal;
+char *screen,*bg;
+img *cursor,*shadow;
+FONT *font[6];
+int mx,my,mb; //mouse x,y,buttons
+int basex=160,basey=160;
+
+char msg[80];
+int msgdur=0;
+
+//object definitions
+int numodf=0;
+objectdef *odf;
+
+//object that is being edited
+objectdef *o=0; //not editing one yet
+object    p;    //instance of object being edited
+object    pshadow; //shadow of p
+
+int emode=0;
+int playing=0; //if we are playing it
+int playrepeat=0;
+
+image *dragimg=0;
+lpoint dragrel;
+
+char clipboard[100];
+int clipsize=0;
+
+//menu stuff
+int menustat=0;
+char *menustr[]=
+ {
+  "ObjectList", //0
+  "SeriesList", //1
+  "Insert", //2
+  "NewImage", //3
+  "", //4
+  "Save", //5
+  "Quit",       //6
+  0
+ };
+#define M_OBJECTLIST 0
+#define M_SERIESLIST 1
+#define M_INSERTFRAME 2
+#define M_NEWIMAGE   3
+#define M_SAVE 5
+#define M_QUIT 6
+ 
+
+
+int random(int x)
+{
+ return((x*rand())/32768);
+}
+
+//reads object names from the object definition file
+void ReadObjectNames(char *onf);
+
+//requests the user to select an object from a objectdeflist
+objectdef *RequestObject();
+int RequestSeries();
+int RequestImage();
+int DoMenu();
+
+#define BW 16
+int DrawButton(int x,int y,int num, int c,int c2,int highlight)
+{
+char s[10];    
+DrawBar(screen,c,x,y,BW,12);
+if (highlight)
+{ DrawBar(screen,c2,x+1,y+1,BW-2,12-2);
+
+sprintf(s,"%02d",num);
+DrawCenteredString(font[highlight],screen,s,x+BW/2,y+2);}
+return((mb&1) && mx>x && mx<x+BW && my>y && my<y+12);
+}
+
+image *object::CheckImageBound()
+{
+image *found=0;
+    
+register image *i=fptr->getimgptr();    
+for (j=fptr->numimages; j>0; j--) //
+ {
+  img *a=o->id[i->index].ptr; //get pointer to this image
+  if (mx>x+i->dispx && my>y+i->dispy && mx<x+i->dispx+a->xw && my<y+i->dispy+a->yw)
+   found=i; //we found an image baby
+  i++;
+ }
+i--;
+if (found) //hey, we found one
+ {
+  image timg=*found;
+  memmove(found,found+1, ((char *)i)-((char *)found) );
+  *i=timg;  //move selected image to the LAST image
+  found=i;
+
+  dragrel.x=p.x+((int)found->dispx)-mx;
+  dragrel.y=p.y+((int)found->dispy)-my;
+  
+ }
+
+return(found);     
+}    
+
+
+volatile unsigned uu=0;
+volatile unsigned su=1;
+
+void timer()
+{
+ uu++;
+ if (msgdur>0) msgdur--;
+ 
+ if (playing)
+ {
+  p.tick(); //tick the object
+
+  if (!playing && playrepeat)
+    {
+     p.cf=0;
+     p.resetfptr();
+     playing=1;
+    }
+
+  if (p.x<-20) p.x=320;
+  if (p.x>340) p.x=-20;
+ } 
+  
+
+}    
+
+
+void main()
+{
+InitializeTimers();
+   
+//vdiagnose=1;    
+v.open("a32.vol");
+pal=(color *)v.read();
+bg=v.read();
+cursor=(img *)v.read();
+font[0]=(FONT *)v.read();
+FunkyFont(font[0],0xca,0xc6);
+FunkyFont(font[0],0xdb,0xd8);
+font[1]=(FONT *)v.read();
+FunkyFont(font[1],0xca,0xff);
+FunkyFont(font[1],0xdb,0x0);
+shadow=(img *)v.read();
+v.close();
+screen=(char *)malloc(70000)+2000;
+
+for (i=0; i<256; i++) //do shadow map
+ {
+  unsigned char tr,tg,tb;
+  tr=((unsigned)pal[i].r)*7/8;  tg=((unsigned)pal[i].g)*7/8;  tb=((unsigned)pal[i].b)*7/8;   
+
+  unsigned int closeness=9999,closecolor=0,k;
+  for (int j=0; j<256; j++)
+    {
+      k=abs(tr-pal[j].r)+abs(tg-pal[j].g)+abs(tb-pal[j].b);
+      if (k<closeness) {closeness=k; closecolor=j;}
+    }
+  SHADOWMAP[i]=closecolor;
+ }
+
+
+//read object list
+ReadObjectNames("object.lst");
+printf("%d Objects Defined\n",numodf);
+
+initmouse();
+    
+Mode256();
+LoadPalette(pal,0,256);
+memcpy((char *)0xA0000,screen,64000);
+
+SetTimerSpeed(100);
+SetTimerFunc(timer);
+
+int done=0;
+
+do
+{
+
+mb=readmouse(&mx,&my);
+
+
+//if (playing)
+// { if (pshadow.cf!=p.cf) pshadow=p;}
+
+int choice=-1;
+if (!dragimg) choice=DoMenu();
+//check keys
+if (kbhit())
+ {
+   if (playing)
+    {
+      p.cf=o->sd[p.cs].cf;
+      playing=0; p.resetfptr();
+    }
+    
+   char key=(char)getch();
+   if (!key)
+    {
+     key=(char)getch();
+     if (o)
+     {
+      if (key==72 && p.cs>0) {pshadow=p; p.startseries(p.cs-1);}
+      if (key==80 && p.cs<o->nums-1) {pshadow=p; p.startseries(p.cs+1); }
+      if (key==0x4b && p.cf>0)
+          {pshadow=p; o->sd[p.cs].cf--; p.cf--; p.resetfptr();}
+      if (key==0x4d && p.cf<o->sd[p.cs].nf-1)
+          {pshadow=p; o->sd[p.cs].cf++; p.cf++; p.resetfptr();}
+      if (key==83 && dragimg) //delete key, 83
+          {
+           pshadow=p;
+           o->sd[p.cs].deletebytes((char *)dragimg,sizeof(image)); //free memory for image
+           p.fptr->numimages--;          //decrease image counter
+           dragimg=0;
+           p.fptr->size-=sizeof(image);
+          }
+
+     } 
+    } else
+   if (dragimg)  //do dragging key
+    {
+      if (key=='b')
+      if (dragimg>p.fptr->getimgptr())
+      {
+       image t=*dragimg;
+       memmove(dragimg,dragimg-1,sizeof(image) );
+       dragimg--; *dragimg=t;
+      }
+      if (key=='x') dragimg->orient^=2;
+      if (key=='y') dragimg->orient^=1;
+      
+    } else
+    {
+     if (o && key=='I' && o->sd[p.cs].nf>0)
+       {o->sd[p.cs].cf++; p.cf++; p.resetfptr();}
+     if (key=='p') playrepeat=0;
+     if (key=='P') playrepeat=1;
+     key=(char)toupper(key);
+     if (key=='O') choice=M_OBJECTLIST;
+     if (key=='M') choice=M_SERIESLIST;
+     if (key==27) choice=M_QUIT;
+     if (key=='S') choice=M_SAVE;
+     
+     if (o)  //if object being edited
+     {
+      if (key=='P' && p.nf) //playing
+       if (!playing)
+        {
+//         p.x=basex; p.y=basey;   
+         //p.startseries(p.cs);    //start up animation
+         p.cf=0;
+         p.resetfptr();         
+         playing=1;              //play it
+        } else playing=0;
+        
+      if (key=='I') //insert frame
+       choice=M_INSERTFRAME;
+     
+
+      if (key=='D' && p.nf>0) //delete frame
+      {
+        o->sd[p.cs].deletebytes((char *)p.fptr,p.fptr->size);
+        o->sd[p.cs].nf--; p.nf--; p.resetfptr();
+      }
+
+      if (key=='B') //set base
+         {basex=p.x=mx; basey=p.y=my;}
+       
+      if (p.nf)
+       {
+        if (key=='[')
+         { clipsize=p.fptr->size; memcpy(clipboard,(char *)p.fptr,clipsize); }
+        if (key==']' && clipsize)
+         {
+          o->sd[p.cs].deletebytes((char *)p.fptr,p.fptr->size);
+          o->sd[p.cs].insertbytes((char *)p.fptr,clipsize);
+          memcpy((char *)p.fptr,clipboard,clipsize);
+         } 
+        
+        if (mx>210 && mx<280)
+         {
+          if (key=='>') p.fptr->dur+=1; if (key=='.') p.fptr->dur+=10;
+          if (key=='<') p.fptr->dur-=1; if (key==',') p.fptr->dur-=10;
+          if (key=='?') p.fptr->dur=1;
+          if (p.fptr->dur>65000 || p.fptr->dur<1) p.fptr->dur=1;
+         } else
+          //delta x,y           
+         {
+          int delta=0;
+          if (key=='>') delta=1;  if (key=='.') delta=8;
+          if (key=='<') delta=-1; if (key==',') delta=-8;
+          if (delta || key=='?')
+           {
+            if (mx>90 && mx<140) {p.fptr->dx+=delta*32; if (key=='?') p.fptr->dx=0;}
+            if (mx>145 && mx<205) {p.fptr->dy+=delta*32; if (key=='?') p.fptr->dy=0;}
+           }   
+         }
+       } 
+     }
+     
+    } 
+ }  
+
+//clear screen
+memcpy(screen,bg,64000);
+
+//IF OBJECT BEING EDITED
+if (o)
+{
+if (p.nf) //IF THERE ARE FRAMES IN THIS SERIES
+{
+       //IF WE ARE EDITING IMAGES
+ if (emode==0) //image editing mode
+  {
+   if (!dragimg) //NOTHING being dragged
+    {if (mb&1) dragimg=p.CheckImageBound();}
+      else //we are dragging
+      if (mb&1)
+      {
+       dragimg->dispx=( short)(dragrel.x+mx-p.x); //move image
+       dragimg->dispy=(short)(dragrel.y+my-p.y);
+       char s[50];      //show info
+       sprintf(s,"%s dx%d dy%d",o->id[dragimg->index].name,dragimg->dispx,dragimg->dispy);
+       DrawString(font[1],screen,s,2,160);
+      } else dragimg=0;
+      
+   if (mb&2) //new image!
+     choice=M_NEWIMAGE; 
+  } 
+
+DrawImage(shadow,screen,p.x-shadow->xw/2,basey-shadow->yw/2,0);
+
+if (!playing)
+{
+  pshadow.x=p.x;
+  pshadow.y=p.y;
+  pshadow.drawmap();
+}    
+p.draw();
+
+if (DrawButton(255,188,p.fptr->numimages,6*16+15,6*16+6,emode==0)) emode=0;
+if (DrawButton(255+BW,188,p.fptr->numvuln,8*16+15,8*16+6,emode==1)) emode=1;
+if (DrawButton(255+BW*2,188,p.fptr->numattack,2*16+15,2*16+6,emode==2)) emode=2;
+if (DrawButton(255+BW*3,188,p.fptr->numextra,1*16+15,1*16+6,emode==3)) emode=3;
+
+} else if (mb&2) choice=M_SERIESLIST;
+
+}  else if (mb&2) choice=M_OBJECTLIST;  
+
+
+objectdef *tempo;
+//do menu choice
+if (choice!=-1)
+switch(choice)
+{
+case M_OBJECTLIST:
+    tempo=RequestObject();
+    if (!tempo) break;
+
+    if (o) o->Kill(); //free memory
+    o=tempo;
+    o->Read(); //create new character from sdf for now
+    
+    p.MakeInstance(o,basex,basey,0); //create an instance of the object for display purposes
+    pshadow=p;
+   break;
+   
+case M_SERIESLIST:
+   if (!o) break;
+   pshadow=p;
+   i=RequestSeries();
+   if (i!=-1) p.startseries(i);
+  break;
+case M_NEWIMAGE:
+      p.resetfptr();
+      i=RequestImage();
+      if (i!=-1)
+        {
+         image *im=p.fptr->getimgptr(); //get pointer to image locations
+         
+         o->sd[p.cs].insertbytes((char *)im,sizeof(image)); //get memory for new image
+         p.fptr->numimages++;          //increase image counter
+         im->index=(unsigned char)i;  //store image index
+         im->orient=0; im->dispx=(short)-p.x; im->dispy=(short)-p.y;
+         p.fptr->size+=sizeof(image);
+        }
+break;  
+
+case M_INSERTFRAME:
+        o->sd[p.cs].insertbytes((char *)p.fptr,sizeof(frame));
+        o->sd[p.cs].nf++; p.nf++; p.resetfptr();
+        p.fptr->size=sizeof(frame); //reset frame
+        p.fptr->dur=10;
+   break;
+case M_SAVE:
+  if (!o) break;
+  o->SaveSeriesList();
+ break;   
+case M_QUIT:
+   done=1;
+  break; 
+}
+
+
+if (!dragimg)
+DrawImage(cursor,screen,mx,my,0);  //draw mouse
+
+
+//if we are editing 
+if (o)
+{
+  
+ char s[80];
+ //draw object name
+ DrawString(font[0],screen,o->name,2,170);
+ //draw series name
+ DrawString(font[1],screen,o->sd[p.cs].name,2,180);
+      
+ //draw frame
+ if (!p.nf)  DrawString(font[0],screen,"No frames",2,190);   
+  else
+   {
+memset(screen+189*320+10,0,p.nf);
+screen[189*320+10+p.cf]=4;
+       
+    DrawString(font[0],screen,"frame:",2,190);
+    sprintf(s,"%2d/%2d",p.cf+1,p.nf);
+    DrawString(font[1],screen,s,42,190);
+
+    sprintf(s,"dX:%3.02f",((float)p.fptr->dx)/256);//p.fptr->dx/256,(p.fptr->dx&0xFF)*100/256);
+    DrawString(font[0],screen,s,90,190);
+    sprintf(s,"dY:%3.02f",((float)p.fptr->dy)/256); //p.fptr->dy/256,(p.fptr->dy&0xFF))*100/256);
+    DrawString(font[0],screen,s,145,190);
+    sprintf(s,"dur: %2d",p.fptr->dur);
+    DrawString(font[0],screen,s,210,190);
+    sprintf(s,"bytes: %d",p.fptr->size);
+    DrawString(font[0],screen,s,255,180);
+
+//    sprintf(s,"fptr%d",((char *)p.fptr)-((char *)o->sd[p.cs].first));
+//    DrawString(font[0],screen,s,160,180);
+   } 
+ 
+} else  DrawString(font[0],screen,"No objects loaded",2,190);
+
+if (msgdur)
+ DrawCenteredString(font[1],screen,msg,160,0);
+
+
+
+//send to video
+memcpy((char *)0xA0000,screen,64000);
+
+
+} while (!done);    
+
+SetTimerFunc(0);
+
+TerminateTimers();
+
+ModeText();
+
+}
+
+
+
+
+int DoMenu()
+{
+if (!menustat) //if no menu shown yet
+ if (mx==0 && my<170) //left of screen
+ {
+   menustat=1;
+ } else return(-1);
+
+//draw menu
+char *bg=(char *)malloc(64000);
+int done=0,choice=-1;
+memcpy(bg,screen,64000);
+
+DrawBar(bg,0, 0,0,60, 170);
+DrawBar(bg,8*16+7, 0,0,59, 169);
+do
+{
+mb=readmouse(&mx,&my);
+memcpy(screen,bg,64000);
+
+
+choice=-1;;
+for (int i=0,y=0; menustr[i]; i++,y+=10)
+ {
+  if (my>y && my<y+10)
+   {
+    DrawString(font[1],screen,menustr[i],0,y); choice=i;
+   } else   DrawString(font[0],screen,menustr[i],0,y);
+ }   
+
+
+//send to video
+DrawImage(cursor,screen,mx,my,0);  //draw mouse
+memcpy((char *)0xA0000,screen,64000);
+
+if (mb&1 && choice!=-1)  done=1;
+if ((mb&2) || mx>60 || my>170) {choice=-1; done=1;} //just quit
+}while (!done);
+while (readmouse(&mx,&my));
+
+menustat=0;
+free(bg);
+return(choice);
+}    
+
+objectdef *RequestObject()
+{
+while (readmouse(&mx,&my));
+while (kbhit()) getch();
+    
+char *bg=(char *)malloc(64000);
+int done=0;
+memcpy(bg,screen,64000);
+
+static int basey=0,maxy;
+objectdef *o=0;
+
+do
+{
+mb=readmouse(&mx,&my);
+    
+memcpy(screen,bg,64000);
+
+
+int y=basey;
+o=0;
+for (int i=0; i<numodf; i++,y+=10)
+ if (y>-10 && y<210)
+ {
+  char s[80];
+  sprintf(s,"%03d:%s",odf[i].otype,odf[i].name);
+  if (my>y && my<y+10)
+   {
+    DrawString(font[1],screen,s,5,y);
+    o=&odf[i];
+   } else   DrawString(font[0],screen,s,5,y);
+ }   
+maxy=y;
+
+if (my<50) if (basey<0) basey+=1;
+if (my>150) if (maxy>180) basey-=1;
+if (my<20) if (basey<0) basey+=3;
+if (my>180) if (maxy>180) basey-=3;
+
+//send to video
+DrawImage(cursor,screen,mx,my,0);  //draw mouse
+memcpy((char *)0xA0000,screen,64000);
+
+if (mb&1)  done=1;
+if (mb&2) {o=0; done=1;} //just quit
+}while (!done);
+
+while (readmouse(&mx,&my));
+while (kbhit()) getch();
+free(bg);
+return(o);
+}
+
+
+int RequestSeries()
+{
+while (readmouse(&mx,&my));
+while (kbhit()) getch();
+
+char *bg=(char *)malloc(64000);
+int done=0;
+memcpy(bg,screen,64000);
+
+static int basey=0,maxy;
+int ser=-1;
+
+do
+{
+mb=readmouse(&mx,&my);
+memcpy(screen,bg,64000);
+
+int y=basey;
+ser=-1;
+for (int i=0; i<o->nums; i++,y+=10)
+ if (y>-10 && y<210)
+ {
+  char s[80];
+  sprintf(s,"%03d:%s",o->sd[i].nf,o->sd[i].name);
+  if (my>y && my<y+10)
+   {
+    DrawString(font[1],screen,s,5,y);
+    ser=i;
+   } else   DrawString(font[0],screen,s,5,y);
+ }   
+maxy=y;
+
+if (my<50) if (basey<0) basey+=1;
+if (my>150) if (maxy>180) basey-=1;
+if (my<20) if (basey<0) basey+=3;
+if (my>180) if (maxy>180) basey-=3;
+
+//send to video
+DrawImage(cursor,screen,mx,my,0);  //draw mouse
+memcpy((char *)0xA0000,screen,64000);
+
+if (mb&1)  done=1;
+if (mb&2) {ser=-1; done=1;} //just quit
+}while (!done);
+
+while (readmouse(&mx,&my));
+free(bg);
+return(ser);
+}
+
+//request an image
+int RequestImage()
+{
+while (readmouse(&mx,&my));
+while (kbhit()) getch();
+
+int done=0;
+
+static int basex=0,maxx=320;
+int imgnum=-1;
+
+do
+{
+mb=readmouse(&mx,&my);
+memcpy(screen,bg,64000);
+
+int x=basex;
+imgnum=-1;
+for (int i=0; i<o->numi; i++)
+ {
+  int imgwidth=GetStringWidth(font[0],o->id[i].name);
+  int imgheight=0;
+
+  if (o->id[i].ptr)
+  {
+   if (imgwidth<o->id[i].ptr->xw) imgwidth=o->id[i].ptr->xw;
+   imgwidth+=2;
+   imgheight=o->id[i].ptr->yw;
+  } 
+
+  if (x>-100 && x<321)
+ { 
+  if (mx>x && mx<x+imgwidth)
+   {
+    char s[30];
+    DrawCenteredString(font[1],screen,o->id[i].name,x+imgwidth/2,145);
+    DrawBar(screen,14,x,145-imgheight,imgwidth,imgheight);
+    imgnum=i;
+    sprintf(s,"i%d xw%d yw%d",i,o->id[i].ptr->xw,o->id[i].ptr->yw);
+    DrawString(font[1],screen,s,5,170);
+    
+
+   } else DrawCenteredString(font[0],screen,o->id[i].name,x+imgwidth/2,145);
+
+  if (o->id[i].ptr)
+   DrawImage(o->id[i].ptr,screen,x,145-imgheight,0);
+ }
+  x+=imgwidth;
+ }   
+maxx=x;
+
+
+
+if (mx<110) if (basex<0) basex+=1;
+if (mx>210) if (maxx>300) basex-=1;
+if (mx<80) if (basex<0) basex+=4;
+if (mx>240) if (maxx>300) basex-=4;
+if (mx<20) if (basex<0) basex+=15;
+if (mx>300) if (maxx>300) basex-=15;
+
+//send to video
+DrawImage(cursor,screen,mx,my,0);  //draw mouse
+memcpy((char *)0xA0000,screen,64000);
+
+if (mb&1)  done=1;
+if (mb&2) {imgnum=-1; done=1;} //just quit
+}while (!done);
+
+while (readmouse(&mx,&my));
+while (kbhit()) getch();
+return(imgnum);
+}
+
+
+void ReadObjectNames(char *onf)
+{
+FILE *f;
+f=fopen(onf,"rt");
+if (!f) {printf("cannot open object definition file %s\n",onf); exit(1);}
+
+char line[50];
+fgets(line,50,f); //get num objects
+sscanf(line,"%d",&numodf);
+odf=(objectdef *)malloc(numodf*sizeof(objectdef));  //allocate memory for all odf
+
+for (int i=0; i<numodf; i++)
+{
+ odf[i].loaded=0;
+ if (fgets(line,50,f)) //read line into memory
+ {
+  if (sscanf(line,"%d %s %s %s",&odf[i].otype,odf[i].name,odf[i].sdf,odf[i].dir)<4)
+   {printf("error in object list\n"); exit(1);}
+ } else numodf=i;
+}
+
+fclose(f);
+}
+
+
+
+
+
+int ReadRawFile(char **m,int h)
+{
+unsigned bytes;    
+char header[4];
+_dos_read(h,header,4,&bytes);
+int x=(int)header[1];
+int y=(int)header[2];
+
+int size=y*2+filelength(h);
+
+char *t=(char *)malloc(size);
+if (!t)  exit(1);
+
+for (int i=0;i<4;i++) t[i]=header[i];
+short *ylist=(short *) (t+4);
+char *img=t+4+ y*2;
+
+_dos_read(h,img,size-y*2-4,&bytes);
+for (i=0; i<y; i++)
+{
+ylist[i]=(short )(img-t);
+
+int xl=x;
+while (xl>0)
+ {
+  if ( (*img)&0x80) {xl-=(*img)&0x7f; img++;}
+         else            {xl-=*img; img+=*img; img++; }
+ }
+}
+*m=t;
+return(size);
+}
+
+
+//read list of files
+int ReadImageList(char *dir,char *list,imagedef **imagedefs)
+{
+ //Go to that directory   
+ char oldpath[30];
+ getcwd(oldpath,30);
+ if (chdir(dir)) {sprintf(errstr,"%s dir does not exist",dir); cleanexit(-1);}
+
+ //allocate memory for all of idf
+ int numidf=0;
+ imagedef *idf=(imagedef *)malloc(256*sizeof(imagedef));
+ if (!idf) exit(1);
+ memset(idf,0,256*sizeof(imagedef));
+
+ //open image definition file
+ FILE *f;
+ f=0; //fopen(list,"rt");
+ 
+ if (f)  //read the idf file (if it exists)
+ {
+  char line[50];
+  fgets(line,50,f); //get maximum number of images
+  sscanf(line,"%d",&numidf);
+
+  for (int i=0; i<numidf; i++) //read all images
+   if (fgets(line,50,f)) //read line into memory
+   {
+    int num; char name[12];
+    if (sscanf(line,"%d %s",&num,name)==2)
+     {
+      strcpy(idf[num].name,name); //copy name
+      if (num>numidf) numidf=num;
+     } 
+    } else {numidf=i; break;}
+   fclose(f); 
+  }
+
+
+ //get lots of imagedefs
+ int h;
+ find_t   ft;
+ int done=_dos_findfirst("*.raw",0,&ft);
+ while (!done)
+ {
+  //get name of file without extension
+  char fname[20]; 
+  for (int j=0; ft.name[j] && ft.name[j]!='.' && j<8; j++) fname[j]=ft.name[j];
+  fname[j]=0; 
+
+  for (j=0; j<numidf; j++) //search list
+   if (!stricmp(idf[j].name,fname)) break; //see if we can find it...
+
+  if (j==numidf) //was not found in list
+    {
+     strcpy(idf[j].name,fname); //make new id
+     numidf++;  //added new file
+     if (numidf==255) {sprintf(errstr,"too many images\n"); cleanexit(-1);}
+    } 
+     
+  //Read file
+  _dos_open(ft.name,O_BINARY | O_RDONLY,&h);
+  ReadRawFile((char **)&idf[j].ptr,h);   //read image file
+  _dos_close(h);
+
+  //draw it
+  DrawImage(idf[j].ptr,(char *)0xA0000,0,0,0);
+
+  done=_dos_findnext(&ft);
+ }
+
+ //write files to list
+ f=fopen(list,"wt");
+ fprintf(f,"%d\n",numidf); //number
+ for (int i=0; i<numidf; i++)
+  if (idf[i].name[0]) fprintf(f,"%d %s\n",i,idf[i].name);
+ fclose(f);
+
+ //return
+// idf=(imagedef *)realloc((char *)idf,numidf*sizeof(imagedef));
+ *imagedefs=idf;   //store pointer to image defs
+ chdir(oldpath);   //return to orginal directory
+ return(numidf);  //return idf
+}    
+
+
+//save series list to file
+void objectdef::SaveSeriesList()
+{
+ //Go to that directory   
+ char oldpath[30];
+ getcwd(oldpath,30);
+ if (chdir(dir)) {sprintf(errstr,"%s dir does not exist",dir); cleanexit(-1);}
+
+ unsigned bytes;
+ int h;
+ _dos_creat("series.lst",0,&h);
+ 
+ _dos_write(h,&nums,4,&bytes); //number of series
+ _dos_write(h,sd,nums*sizeof(series),&bytes); //write all serieses
+
+ for (int i=0; i<nums; i++)
+  _dos_write(h,sd[i].first,sd[i].size,&bytes);
+
+ sprintf(msg,"object saved: %d series  %d bytes",nums,filelength(h));
+ msgdur=400;
+ _dos_close(h);
+
+ chdir(oldpath);
+}    
+
+void objectdef::LoadSeriesList()
+{
+ unsigned bytes;
+ int h;
+
+ //Go to that directory   
+ char oldpath[30];
+ getcwd(oldpath,30);
+ if (chdir(dir)) {sprintf(errstr,"%s dir does not exist",dir); cleanexit(-1);}
+
+ if (!_dos_open("series.lst",O_BINARY | O_RDONLY,&h))
+  {  //read existing list
+//   ModeText();
+   _dos_read(h,&nums,4,&bytes);
+//   printf("nums%d\n",nums);
+   sd=(series *)malloc(nums*sizeof(series));
+   _dos_read(h,sd,nums*sizeof(series),&bytes);
+   for (int i=0; i<nums; i++)
+   {
+//    printf(sd[i].name);
+    if (sd[i].size) //we gotta load it
+     {
+//      printf("reading %d:%d...\n",i,sd[i].size);
+      sd[i].first=(frame *)malloc(sd[i].size); //get memory
+      _dos_read(h,sd[i].first,sd[i].size,&bytes);
+//      printf("done.");
+     }
+   } 
+   _dos_close(h);
+//   exit(1);
+//   Mode256();
+   chdir(oldpath);
+  } else 
+  { //read series def
+   chdir(oldpath);
+     
+   FILE *f=fopen(sdf,"rt");
+   if (!f) {sprintf(errstr,"cannot open series definition file %s\n",sdf); cleanexit(-1);}
+      
+   char line[50];
+   fgets(line,50,f); //get num series
+   sscanf(line,"%d",&nums);
+
+   sd=(series *)malloc(nums*sizeof(series));  //allocate memory for all seriess
+   memset(sd,0,nums*sizeof(series));
+   //clear serieses
+   for (int i=0; i<nums; i++)
+   {
+    sd[i].first=0; sd[i].nf=0;  sd[i].cf=0; //no frames
+    sd[i].parm=0;   sd[i].size=0;
+    if (fgets(line,50,f)) //read line into memory
+    {
+     memcpy(sd[i].name,line,15); sd[i].name[15]=0;
+    } else sprintf(sd[i].name,"<%d>",i);
+   }
+   fclose(f);
+  }
+  
+}    
+
+
+//free memory used by object def
+void objectdef::Kill()
+{
+if (!loaded) return;
+for (int j=0; j<nums; j++)
+ if (sd[j].first) free(sd[j].first);
+if (sd) free(sd); //free series definitions
+for (j=0; j<numi; j++)
+ if (id[j].ptr) free(id[j].ptr);
+if (id) free(id); //free image definitions
+
+sd=0; id=0; f=0;
+nums=numi=0;
+loaded=0;  //not loaded anymore!
+}
+    
+void objectdef::Read()
+{
+if (loaded) return;    
+sd=0; nums=0; //no series
+id=0; numi=0; //no images
+
+numi=ReadImageList(dir,"image.lst",&id); //read all images
+LoadSeriesList();
+
+loaded=1;
+}    
+
+void object::startseries(int seriesnum)
+{
+cs=seriesnum;
+//cf=0;                 //current frame=0
+cf=o->sd[cs].cf;  //use stored current frame for now
+nf=o->sd[cs].nf;       //store number of frames
+resetfptr();     
+}
+
+
+void object::resetfptr()
+{
+fptr=o->sd[cs].first;
+if (!fptr) {dur=0; return;}
+//char s[50];
+//sprintf(s,"cf%d first%X",cf,fptr);
+//DrawString(font[0],(char *)(0xA0000+150*320),s,0,0);
+//getch();
+
+for (int i=0; i<cf; i++)  //skip ahead to frameptr
+  fptr=(frame *) (((char *)fptr)+fptr->size);
+dur=fptr->dur;  
+}    
+
+void object::MakeInstance(objectdef *odef,int tx,int ty,int td)
+{
+otype=odef->otype; //store ordinal type
+o=odef;          //pointer to object type
+
+//initialize position
+x=tx; y=ty; d=td;
+tcx=tcy=0;
+
+startseries(0); //go to first move
+}    
+
+//inserts num bytes at p
+void series::insertbytes(char *p,int num)
+{
+if (!first) //if no memory has been allocated
+{
+ first=(frame *)malloc(num); ///allocate memory
+ memset(first,0,num); //clear memory
+ size=num;
+ return;
+} 
+
+char *f=(char *)first;  //keep as char *
+int pos=p-f;             //find relative position within series list (int)
+if (pos<0 || pos>size+1)
+   {sprintf(errstr,"invalid insertion %d %d",size,pos); cleanexit(-1);}
+
+
+//get more memory
+f=(char *)realloc(f,size+num);
+memmove(f+pos+num,f+pos,size-pos);
+
+first=(frame *)f;
+size+=num;
+memset(p,0,num); //clear memory
+}
+
+
+//delete num bytes at p
+void series::deletebytes(char *p,int num)
+{
+
+char *f=(char *)first;  //keep as char *
+int pos=p-f;             //find relative position within series list (int)
+if (!first || num>size || pos<0 || pos>=size)
+   {sprintf(errstr,"invalid deletion %d %d",size,pos); cleanexit(-1);}
+
+//get more memory
+memmove(f+pos,f+pos+num,size-pos-num);
+
+size-=num;
+if (size>0)
+ {
+  first=(frame *)realloc(f,size+num);
+ } else {first=0; free(f); size=0;}
+}
+
+
+
+
+
+image *frame::getimgptr()
+{
+ return (image *) (((char *)this)+numextra*sizeof(short)+(numvuln+numattack)*sizeof(rect)+sizeof(frame));
+//return(image *) (((char *)this)+sizeof(frame));
+}
+
+void object::tick()
+{
+ //move object
+ tcx+=fptr->dx; x+=tcx>>8; tcx&=0xFF;
+ tcy+=fptr->dy; y+=tcy>>8; tcy&=0xFF;
+
+ //dur
+ if (dur) dur--;
+   else
+    {
+     cf++;
+     if (cf>=nf) //gone through all frames
+        {playing=0; cf=0; startseries(cs);}
+      else 
+        {
+         fptr=(frame *) (((char *)fptr)+fptr->size);
+         dur=fptr->dur;
+        } 
+
+    }
+
+}
+
+void object::draw()
+{
+if (!nf) return;
+register image *i=fptr->getimgptr();
+
+ for (int j=fptr->numimages; j>0; j--)
+ { 
+  DrawImage(o->id[i->index].ptr,screen,x+i->dispx,y+i->dispy,i->orient);
+  i++;
+ }
+}
+
+void object::drawmap()
+{
+if (!nf) return;
+register image *i=fptr->getimgptr();
+
+ for (int j=fptr->numimages; j>0; j--)
+ { 
+  DrawImageMap(o->id[i->index].ptr,screen,x+i->dispx,y+i->dispy,i->orient);
+  i++;
+ }
+}

@@ -1,0 +1,4 @@
+void InitKeyboard(void (*kfunc)(void));
+void TerminateKeyboard();
+
+

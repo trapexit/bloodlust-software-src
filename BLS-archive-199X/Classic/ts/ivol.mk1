@@ -1,0 +1,14 @@
+!define BLANK ""
+c:\source\test\ivol.obj : c:\source\test\ivol.cpp .AUTODEPEND
+ @c:
+ cd c:\source\test
+ *wpp386 ivol.cpp -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\source\test\ivol.exe : c:\source\test\ivol.obj .AUTODEPEND
+ @c:
+ cd c:\source\test
+ @%write ivol.lk1 NAME ivol
+ @%append ivol.lk1 FIL ivol.obj
+ @%append ivol.lk1 
+ *wlink d all SYS dos4g op m op maxe=25 op q op symf @ivol.lk1
+

@@ -1,0 +1,3 @@
+NAME setup
+FIL cdasm.obj,doserr.obj,joy.obj,detect.obj,grip.obj,cdrom.obj,setup.obj,tinput.obj
+

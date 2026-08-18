@@ -1,0 +1,20 @@
+!define BLANK ""
+c:\source\test\timg256.obj : c:\source\test\timg256.asm .AUTODEPEND
+ @c:
+ cd c:\source\test
+ *wasm timg256.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\source\test\viewraw.obj : c:\source\test\viewraw.cpp .AUTODEPEND
+ @c:
+ cd c:\source\test
+ *wpp386 viewraw.cpp -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\source\test\viewraw.exe : c:\source\test\timg256.obj c:\source\test\viewr&
+aw.obj .AUTODEPEND
+ @c:
+ cd c:\source\test
+ @%write viewraw.lk1 NAME viewraw
+ @%append viewraw.lk1 FIL timg256.obj,viewraw.obj
+ @%append viewraw.lk1 
+ *wlink d all SYS pmodew op m op maxe=25 op q op symf @viewraw.lk1
+

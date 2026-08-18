@@ -1,0 +1,45 @@
+!define BLANK ""
+c:\source\a32\joy.obj : c:\source\a32\joy.asm .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wasm joy.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\source\a32\detect.obj : c:\source\a32\detect.c .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wcc386 detect.c -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\source\a32\grip.obj : c:\source\a32\grip.c .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wcc386 grip.c -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\source\a32\config.obj : c:\source\a32\config.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 config.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -hw -en -5r -bt=&
+dos -mf
+
+c:\source\a32\input.obj : c:\source\a32\input.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 input.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -hw -en -5r -bt=d&
+os -mf
+
+c:\source\a32\setup.obj : c:\source\a32\setup.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 setup.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -hw -en -5r -bt=d&
+os -mf
+
+c:\source\a32\a32setup.exe : c:\source\a32\joy.obj c:\source\a32\detect.obj &
+c:\source\a32\grip.obj c:\source\a32\config.obj c:\source\a32\input.obj c:\s&
+ource\a32\setup.obj .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ @%write a32setup.lk1 NAME a32setup
+ @%append a32setup.lk1 FIL joy.obj,detect.obj,grip.obj,config.obj,input.obj,&
+setup.obj
+ @%append a32setup.lk1 
+ *wlink d all SYS dos4g op m op maxe=25 op q op symf @a32setup.lk1
+

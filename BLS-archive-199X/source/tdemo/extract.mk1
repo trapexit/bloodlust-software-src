@@ -1,0 +1,14 @@
+!define BLANK ""
+c:\source\test\extract.obj : c:\source\test\extract.cpp .AUTODEPEND
+ @c:
+ cd c:\source\test
+ *wpp386 extract.cpp -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\source\test\extract.exe : c:\source\test\extract.obj .AUTODEPEND
+ @c:
+ cd c:\source\test
+ @%write extract.lk1 NAME extract
+ @%append extract.lk1 FIL extract.obj
+ @%append extract.lk1 
+ *wlink d all SYS dos4g op m op maxe=25 op q op symf @extract.lk1
+

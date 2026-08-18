@@ -1,0 +1,12 @@
+d c:\source\a32\a32.dbr
+f c:\source\a32\vol.mbr
+f c:\source\a32\a32.mbr
+f c:\source\a32\aread.mbr
+f c:\source\a32\areq.mbr
+f c:\source\a32\cfmain.mbr
+f c:\source\a32\config.mbr
+f c:\source\a32\glib.mbr
+f c:\source\a32\input.mbr
+f c:\source\a32\keyb.mbr
+f c:\source\a32\object.mbr
+f c:\source\a32\ttimer.mbr

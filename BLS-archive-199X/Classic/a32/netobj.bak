@@ -1,0 +1,186 @@
+//winsock network layer functions
+#include <stdio.h>
+#include <stdlib.h>
+
+#define NETWORK
+
+#include "net.h"
+#include "netp.h"
+#include "object.h"
+#include "netobj.h"
+
+#include "message.h"
+
+
+netobject::netobject(objectdef *objdef,int s,int tx,int ty,int tz,int td,netnode *tnode)
+ :object(objdef,s,tx,ty,tz,td,0),n(tnode)
+{
+ net=1;
+ netupdated=1;
+
+ nprev=0; nnext=n->o;
+ if (nnext) nnext->nprev=this;
+ n->o=this;
+ n->numobj++;
+}
+
+netobject::~netobject()
+{
+ if (nprev) nprev->nnext=nnext;
+ if (nnext) nnext->nprev=nprev;
+ if (this==n->o) n->o=nnext;
+ n->numobj--;
+}
+
+void netobject::sendobjpos(objpos *op)
+{
+ op->objid=objid;;
+ op->x=x>>16; op->y=y>>16; op->z=z>>16; op->d=d;
+ op->cf=cf; op->csnum=csnum;
+
+ netupdated=0;
+}
+
+void netobject::recvobjpos(objpos *op)
+{
+   //set our shit
+ x=op->x<<16; y=op->y<<16; z=op->z<<16; d=op->d;
+ if (csnum!=op->csnum) //they changed series on us
+  {
+   csnum=op->csnum;
+   cs=&od->sd[csnum];
+   cf=op->cf; nf=cs->nf;
+   resetfptr();
+  } else
+ if (cf!=op->cf) //they changed frames on us, same series though
+  {
+   if (cf>op->cf) //backwards for some strange reason
+   {
+    cf=op->cf;
+    resetfptr();
+   } else  while (cf<op->cf) advanceframe();
+  }
+}
+
+
+
+//-------------------
+//remote object
+
+remoteobject::remoteobject(netnode *tnode,p_newobject *p):
+ netobject(objspace->odf[p->onum],-1,p->x,p->y,p->z,p->d,tnode)
+ {
+  objid=p->objid;
+  startseries(p->series);
+  msg.printf(6,"%s: new remoteobject %s",n->getname(),od->name);
+ }
+
+
+int remoteobject::advanceframe()
+{  //advance to next frame (no effects or anything)
+ cf++;
+ fptr=(frame *) (((char *)fptr)+fptr->size);
+ return 0; //just next frame
+};
+
+
+//--------------------
+//local object
+
+localobject::localobject(objectdef *objdef,int s,int tx,int ty,int tz,int td):
+  netobject(objdef,s,tx,ty,tz,td,nc->local)
+{
+ objid=n->objidcount++; //get next object number
+
+ p_newobject p(this,n->getnum(),REMOTEOBJECT);
+ nc->sendtoallsecure(&p,sizeof(p));
+
+ msg.printf(6,"new localobject %s",od->name);
+}
+
+localobject::~localobject()
+{
+ p_killobject p(n->getnum(),objid);
+ nc->sendtoallsecure(&p,sizeof(p));
+}
+
+
+object *localobject::spawn(int objnum,int series,int tx,int ty,int tz, int td)
+{
+ object *t=new object(osp->odf[objnum],series,tx,ty,tz,td,this);
+
+  //let all nodes know about this creation
+ p_newobject p(t,n->getnum(),NOTNETOBJECT);
+ nc->sendtoallsecure(&p,sizeof(p));
+
+  //create normal object
+ return t;
+};
+
+
+
+//-----------------------------
+//net object packets
+
+netobject *netnode::findobject(ushort objid)
+{
+ for (netobject *t=o; t; t=t->nnext)
+  if (t->objid==objid)  return t;
+ return 0; //not found
+}
+
+p_newobject::p_newobject(object *o,uchar _node,uchar _type)
+ :packet(P_NEWOBJECT),node(_node),type(_type)
+{
+ //get object id
+ objid=(type==REMOTEOBJECT) ? (((netobject *)o)->objid)  : 0;
+
+ //get object shit
+ onum=o->onum;
+ series=o->csnum;
+ x=o->x>>16; y=o->y>>16; z=o->z>>16;
+ d=o->d;
+}
+
+//we received a new object packet
+void p_newobject::process(class netconnect *c,NETADDR &a,class netnode *n)
+{
+ n=c->findnode(node);
+ if (!n) return; //needs a node
+ switch (type)
+ {
+  case NOTNETOBJECT: new object(objspace->odf[onum],series,x,y,z,d,0); return;
+  case REMOTEOBJECT:
+    if (n->findobject(objid)) return; //duplicate
+    new remoteobject(n,this);
+    return;
+  case LOCALOBJECT: new localobject(objspace->odf[onum],series,x,y,z,d); return;
+ }
+}
+
+
+void p_killobject::process(class netconnect *c,NETADDR &a,class netnode *n)
+{
+ n=c->findnode(node);
+ if (!n) return; //needs a node
+ netobject *o=n->findobject(objid);
+ if (o) o->kill();
+}
+
+
+//we received object pos
+void p_objpos::process(class netconnect *c,NETADDR &a,class netnode *n)
+{
+ n=c->findnode(node);
+ if (!n) return; //needs a node
+
+// msg.printf(6,"%d",num);
+ objpos *p=getop();
+ for (int i=0; i<num; i++,p++) //go through all objpos's
+  {
+   netobject *ro=n->findobject(p->objid);
+   if (ro) ro->recvobjpos(p); //update object
+  }
+}
+
+

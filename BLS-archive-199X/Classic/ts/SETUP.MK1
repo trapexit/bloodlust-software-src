@@ -1,0 +1,57 @@
+!define BLANK ""
+c:\source\test\cdasm.obj : c:\source\test\cdasm.asm .AUTODEPEND
+ @c:
+ cd c:\source\test
+ *wasm cdasm.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\source\test\doserr.obj : c:\source\test\doserr.asm .AUTODEPEND
+ @c:
+ cd c:\source\test
+ *wasm doserr.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\source\test\joy.obj : c:\source\test\joy.asm .AUTODEPEND
+ @c:
+ cd c:\source\test
+ *wasm joy.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\source\test\detect.obj : c:\source\test\detect.c .AUTODEPEND
+ @c:
+ cd c:\source\test
+ *wcc386 detect.c -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\source\test\grip.obj : c:\source\test\grip.c .AUTODEPEND
+ @c:
+ cd c:\source\test
+ *wcc386 grip.c -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\source\test\cdrom.obj : c:\source\test\cdrom.cpp .AUTODEPEND
+ @c:
+ cd c:\source\test
+ *wpp386 cdrom.cpp -i=C:\WATCOM\h -w2 -e25 -zq -od -d2 -5r -bt=dos -mf
+
+c:\source\test\setup.obj : c:\source\test\setup.cpp .AUTODEPEND
+ @c:
+ cd c:\source\test
+ *wpp386 setup.cpp -i=C:\WATCOM\h -w2 -e25 -zq -od -d2 -5r -bt=dos -mf
+
+c:\source\test\tinput.obj : c:\source\test\tinput.cpp .AUTODEPEND
+ @c:
+ cd c:\source\test
+ *wpp386 tinput.cpp -i=C:\WATCOM\h -w2 -e25 -zq -od -d2 -5r -bt=dos -mf
+
+c:\source\test\setup.exe : c:\source\test\cdasm.obj c:\source\test\doserr.ob&
+j c:\source\test\joy.obj c:\source\test\detect.obj c:\source\test\grip.obj c&
+:\source\test\cdrom.obj c:\source\test\setup.obj c:\source\test\tinput.obj .&
+AUTODEPEND
+ @c:
+ cd c:\source\test
+ @%write setup.lk1 NAME setup
+ @%append setup.lk1 FIL cdasm.obj,doserr.obj,joy.obj,detect.obj,grip.obj,cdr&
+om.obj,setup.obj,tinput.obj
+ @%append setup.lk1 
+ *wlink SYS dos4g op m op maxe=25 op q op symf @setup.lk1
+ 
+ 
+ 
+ 
+

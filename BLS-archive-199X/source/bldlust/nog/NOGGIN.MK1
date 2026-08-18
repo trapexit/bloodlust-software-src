@@ -1,0 +1,150 @@
+!define BLANK ""
+c:\nog\joy.obj : c:\nog\joy.asm .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wasm joy.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\nog\smixasm.obj : c:\nog\smixasm.asm .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wasm smixasm.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\nog\tdpmi.obj : c:\nog\tdpmi.asm .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wasm tdpmi.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\nog\timeback.obj : c:\nog\timeback.asm .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wasm timeback.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\nog\timg256.obj : c:\nog\timg256.asm .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wasm timg256.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\nog\tipxasm.obj : c:\nog\tipxasm.asm .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wasm tipxasm.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\nog\tsimg256.obj : c:\nog\tsimg256.asm .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wasm tsimg256.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\nog\detect.obj : c:\nog\detect.c .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wcc386 detect.c -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\nog\grip.obj : c:\nog\grip.c .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wcc386 grip.c -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\nog\lowmem.obj : c:\nog\lowmem.c .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wcc386 lowmem.c -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\nog\opl2fm.obj : c:\nog\opl2fm.c .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wcc386 opl2fm.c -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\nog\smix.obj : c:\nog\smix.c .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wcc386 smix.c -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -zu -5r -bt=dos -mf
+
+c:\nog\midilib.obj : c:\nog\midilib.cpp .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wpp386 midilib.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -ol -om -oc -or -d2&
+ -5r -bt=dos -mf
+
+c:\nog\noggin.obj : c:\nog\noggin.cpp .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wpp386 noggin.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -ol -om -oc -or -d2 &
+-5r -bt=dos -mf
+
+c:\nog\tchat.obj : c:\nog\tchat.cpp .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wpp386 tchat.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -ol -om -oc -or -d2 -&
+5r -bt=dos -mf
+
+c:\nog\tcin.obj : c:\nog\tcin.cpp .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wpp386 tcin.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -ol -om -oc -or -d2 -5&
+r -bt=dos -mf
+
+c:\nog\tfunc.obj : c:\nog\tfunc.cpp .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wpp386 tfunc.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -ol -om -oc -or -d2 -&
+5r -bt=dos -mf
+
+c:\nog\tgraph.obj : c:\nog\tgraph.cpp .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wpp386 tgraph.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -ol -om -oc -or -d2 &
+-5r -bt=dos -mf
+
+c:\nog\tinput.obj : c:\nog\tinput.cpp .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wpp386 tinput.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -ol -om -oc -or -d2 &
+-5r -bt=dos -mf
+
+c:\nog\tipx.obj : c:\nog\tipx.cpp .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wpp386 tipx.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -ol -om -oc -or -d2 -5&
+r -bt=dos -mf
+
+c:\nog\title.obj : c:\nog\title.cpp .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wpp386 title.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -ol -om -oc -or -d2 -&
+5r -bt=dos -mf
+
+c:\nog\tkeyb.obj : c:\nog\tkeyb.cpp .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wpp386 tkeyb.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -ol -om -oc -or -d2 -&
+5r -bt=dos -mf
+
+c:\nog\tpacket.obj : c:\nog\tpacket.cpp .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wpp386 tpacket.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -ol -om -oc -or -d2&
+ -5r -bt=dos -mf
+
+c:\nog\ttimer.obj : c:\nog\ttimer.cpp .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wpp386 ttimer.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -ol -om -oc -or -d2 &
+-5r -bt=dos -mf
+
+c:\nog\noggin.exe : c:\nog\joy.obj c:\nog\smixasm.obj c:\nog\tdpmi.obj c:\no&
+g\timeback.obj c:\nog\timg256.obj c:\nog\tipxasm.obj c:\nog\tsimg256.obj c:\&
+nog\detect.obj c:\nog\grip.obj c:\nog\lowmem.obj c:\nog\opl2fm.obj c:\nog\sm&
+ix.obj c:\nog\midilib.obj c:\nog\noggin.obj c:\nog\tchat.obj c:\nog\tcin.obj&
+ c:\nog\tfunc.obj c:\nog\tgraph.obj c:\nog\tinput.obj c:\nog\tipx.obj c:\nog&
+\title.obj c:\nog\tkeyb.obj c:\nog\tpacket.obj c:\nog\ttimer.obj c:\nog\pawe&
+32.lib .AUTODEPEND
+ @c:
+ cd c:\nog
+ @%write noggin.lk1 NAME noggin
+ @%append noggin.lk1 FIL joy.obj,smixasm.obj,tdpmi.obj,timeback.obj,timg256.&
+obj,tipxasm.obj,tsimg256.obj,detect.obj,grip.obj,lowmem.obj,opl2fm.obj,smix.&
+obj,midilib.obj,noggin.obj,tchat.obj,tcin.obj,tfunc.obj,tgraph.obj,tinput.ob&
+j,tipx.obj,title.obj,tkeyb.obj,tpacket.obj,ttimer.obj
+ @%append noggin.lk1 LIBR pawe32.lib
+ *wlink d all SYS dos4g op m op st=16384 op maxe=25 op q op symf @noggin.lk1
+

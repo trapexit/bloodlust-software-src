@@ -1,0 +1,2 @@
+tinput.cpp(304): Warning! W014: (col 1) no reference to symbol 'd' 
+tinput.cpp(304): Note! N392: (col 1) 'int d' in 'void input::ReadPosition( int )' defined in: tinput.cpp(233) (col 30) 

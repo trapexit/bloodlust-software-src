@@ -1,0 +1,9 @@
+cd c:\test
+wmake -f c:\test\test.mk -h -e c:\test\test.exe
+wlink SYS dos4g op m op st=16384 op maxe=25 op q op symf @test.lk1
+copy c:\test\test.exe f:\time\ts.exe
+Path not found - f:\time\ts.exe                  
+        0 file(s) copied
+copy c:\test\test.exe c:\ts\ts.exe
+        1 file(s) copied
+Execution complete

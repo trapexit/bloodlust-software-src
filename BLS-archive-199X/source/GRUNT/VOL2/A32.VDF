@@ -1,0 +1,25 @@
+;turn error checking on
+error on
+
+;a32 volume file
+volfile a95
+ pal bg
+ img cursor
+ rawdata font.fnt
+ img check
+ img umark
+ img dmark
+ img lmark
+ img rmark
+ img buddy
+
+ img shadow
+
+ img play
+ img stop
+ img playl
+ img active
+
+ img x
+
+endfile

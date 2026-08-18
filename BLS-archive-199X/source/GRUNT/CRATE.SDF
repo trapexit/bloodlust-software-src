@@ -1,0 +1,15 @@
+#define stance       0
+#define falldown     1
+#define painhigh     2
+#define painlow      3
+#define painback     4
+#define die          5
+#define dieexplode   6
+#define cratepiece1  7
+#define cratepiece2  8
+#define cratepiece3  9
+
+
+
+
+

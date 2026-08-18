@@ -1,0 +1,2 @@
+tchat.cpp(1001): Warning! W014: (col 1) no reference to symbol 'size' 
+tchat.cpp(1001): Note! N392: (col 1) 'unsigned int size' in 'netplayer * ChatScreen( void )' defined in: tchat.cpp(522) (col 24) 

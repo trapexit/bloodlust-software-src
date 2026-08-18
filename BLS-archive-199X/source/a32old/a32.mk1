@@ -1,0 +1,200 @@
+!define BLANK ""
+c:\source\a32\joy.obj : c:\source\a32\joy.asm .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wasm joy.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\source\a32\mouse.obj : c:\source\a32\mouse.asm .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wasm mouse.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\source\a32\r2imgasm.obj : c:\source\a32\r2imgasm.asm .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wasm r2imgasm.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\source\a32\smixasm.obj : c:\source\a32\smixasm.asm .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wasm smixasm.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\source\a32\stack.obj : c:\source\a32\stack.asm .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wasm stack.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\source\a32\detect.obj : c:\source\a32\detect.c .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wcc386 detect.c -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\source\a32\grip.obj : c:\source\a32\grip.c .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wcc386 grip.c -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\source\a32\lowmem.obj : c:\source\a32\lowmem.c .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wcc386 lowmem.c -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\source\a32\smix.obj : c:\source\a32\smix.c .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wcc386 smix.c -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\source\a32\a32.obj : c:\source\a32\a32.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 a32.cpp -i=C:\WATCOM\h -fh -w1 -e25 -zq -otexan -ol -ol+ -om -oc -o&
+i -oa -or -oe20 -d2 -hw -en -5r -bt=dos -mf
+
+c:\source\a32\adialog.obj : c:\source\a32\adialog.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 adialog.cpp -i=C:\WATCOM\h -fh -w1 -e25 -zq -otexan -ol -ol+ -om -o&
+c -oi -oa -or -oe20 -d2 -hw -en -5r -bt=dos -mf
+
+c:\source\a32\amenu.obj : c:\source\a32\amenu.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 amenu.cpp -i=C:\WATCOM\h -fh -w1 -e25 -zq -otexan -ol -ol+ -om -oc &
+-oi -oa -or -oe20 -d2 -hw -en -5r -bt=dos -mf
+
+c:\source\a32\aread.obj : c:\source\a32\aread.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 aread.cpp -i=C:\WATCOM\h -fh -w1 -e25 -zq -otexan -ol -ol+ -om -oc &
+-oi -oa -or -oe20 -d2 -hw -en -5r -bt=dos -mf
+
+c:\source\a32\areq.obj : c:\source\a32\areq.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 areq.cpp -i=C:\WATCOM\h -fh -w1 -e25 -zq -otexan -ol -ol+ -om -oc -&
+oi -oa -or -oe20 -d2 -hw -en -5r -bt=dos -mf
+
+c:\source\a32\bg.obj : c:\source\a32\bg.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 bg.cpp -i=C:\WATCOM\h -fh -w1 -e25 -zq -otexan -ol -ol+ -om -oc -oi&
+ -oa -or -oe20 -d2 -hw -en -5r -bt=dos -mf
+
+c:\source\a32\cfboomer.obj : c:\source\a32\cfboomer.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 cfboomer.cpp -i=C:\WATCOM\h -fh -w1 -e25 -zq -otexan -ol -ol+ -om -&
+oc -oi -oa -or -oe20 -d2 -hw -en -5r -bt=dos -mf
+
+c:\source\a32\cfjet.obj : c:\source\a32\cfjet.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 cfjet.cpp -i=C:\WATCOM\h -fh -w1 -e25 -zq -otexan -ol -ol+ -om -oc &
+-oi -oa -or -oe20 -d2 -hw -en -5r -bt=dos -mf
+
+c:\source\a32\cfmain.obj : c:\source\a32\cfmain.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 cfmain.cpp -i=C:\WATCOM\h -fh -w1 -e25 -zq -otexan -ol -ol+ -om -oc&
+ -oi -oa -or -oe20 -d2 -hw -en -5r -bt=dos -mf
+
+c:\source\a32\cfpig.obj : c:\source\a32\cfpig.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 cfpig.cpp -i=C:\WATCOM\h -fh -w1 -e25 -zq -otexan -ol -ol+ -om -oc &
+-oi -oa -or -oe20 -d2 -hw -en -5r -bt=dos -mf
+
+c:\source\a32\cfsniper.obj : c:\source\a32\cfsniper.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 cfsniper.cpp -i=C:\WATCOM\h -fh -w1 -e25 -zq -otexan -ol -ol+ -om -&
+oc -oi -oa -or -oe20 -d2 -hw -en -5r -bt=dos -mf
+
+c:\source\a32\config.obj : c:\source\a32\config.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 config.cpp -i=C:\WATCOM\h -fh -w1 -e25 -zq -otexan -ol -ol+ -om -oc&
+ -oi -oa -or -oe20 -d2 -hw -en -5r -bt=dos -mf
+
+c:\source\a32\file.obj : c:\source\a32\file.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 file.cpp -i=C:\WATCOM\h -fh -w1 -e25 -zq -otexan -ol -ol+ -om -oc -&
+oi -oa -or -oe20 -d2 -hw -en -5r -bt=dos -mf
+
+c:\source\a32\font.obj : c:\source\a32\font.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 font.cpp -i=C:\WATCOM\h -fh -w1 -e25 -zq -otexan -ol -ol+ -om -oc -&
+oi -oa -or -oe20 -d2 -hw -en -5r -bt=dos -mf
+
+c:\source\a32\input.obj : c:\source\a32\input.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 input.cpp -i=C:\WATCOM\h -fh -w1 -e25 -zq -otexan -ol -ol+ -om -oc &
+-oi -oa -or -oe20 -d2 -hw -en -5r -bt=dos -mf
+
+c:\source\a32\keyb.obj : c:\source\a32\keyb.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 keyb.cpp -i=C:\WATCOM\h -fh -w1 -e25 -zq -otexan -ol -ol+ -om -oc -&
+oi -oa -or -oe20 -d2 -hw -en -5r -bt=dos -mf
+
+c:\source\a32\line.obj : c:\source\a32\line.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 line.cpp -i=C:\WATCOM\h -fh -w1 -e25 -zq -otexan -ol -ol+ -om -oc -&
+oi -oa -or -oe20 -d2 -hw -en -5r -bt=dos -mf
+
+c:\source\a32\object.obj : c:\source\a32\object.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 object.cpp -i=C:\WATCOM\h -fh -w1 -e25 -zq -otexan -ol -ol+ -om -oc&
+ -oi -oa -or -oe20 -d2 -hw -en -5r -bt=dos -mf
+
+c:\source\a32\r2img.obj : c:\source\a32\r2img.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 r2img.cpp -i=C:\WATCOM\h -fh -w1 -e25 -zq -otexan -ol -ol+ -om -oc &
+-oi -oa -or -oe20 -d2 -hw -en -5r -bt=dos -mf
+
+c:\source\a32\rfmain.obj : c:\source\a32\rfmain.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 rfmain.cpp -i=C:\WATCOM\h -fh -w1 -e25 -zq -otexan -ol -ol+ -om -oc&
+ -oi -oa -or -oe20 -d2 -hw -en -5r -bt=dos -mf
+
+c:\source\a32\ttimer.obj : c:\source\a32\ttimer.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 ttimer.cpp -i=C:\WATCOM\h -fh -w1 -e25 -zq -otexan -ol -ol+ -om -oc&
+ -oi -oa -or -oe20 -d2 -hw -en -5r -bt=dos -mf
+
+c:\source\a32\vol.obj : c:\source\a32\vol.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ *wpp386 vol.cpp -i=C:\WATCOM\h -fh -w1 -e25 -zq -otexan -ol -ol+ -om -oc -o&
+i -oa -or -oe20 -d2 -hw -en -5r -bt=dos -mf
+
+c:\source\a32\a32.exe : c:\source\a32\joy.obj c:\source\a32\mouse.obj c:\sou&
+rce\a32\r2imgasm.obj c:\source\a32\smixasm.obj c:\source\a32\stack.obj c:\so&
+urce\a32\detect.obj c:\source\a32\grip.obj c:\source\a32\lowmem.obj c:\sourc&
+e\a32\smix.obj c:\source\a32\a32.obj c:\source\a32\adialog.obj c:\source\a32&
+\amenu.obj c:\source\a32\aread.obj c:\source\a32\areq.obj c:\source\a32\bg.o&
+bj c:\source\a32\cfboomer.obj c:\source\a32\cfjet.obj c:\source\a32\cfmain.o&
+bj c:\source\a32\cfpig.obj c:\source\a32\cfsniper.obj c:\source\a32\config.o&
+bj c:\source\a32\file.obj c:\source\a32\font.obj c:\source\a32\input.obj c:\&
+source\a32\keyb.obj c:\source\a32\line.obj c:\source\a32\object.obj c:\sourc&
+e\a32\r2img.obj c:\source\a32\rfmain.obj c:\source\a32\ttimer.obj c:\source\&
+a32\vol.obj .AUTODEPEND
+ @c:
+ cd c:\source\a32
+ @%write a32.lk1 NAME a32
+ @%append a32.lk1 FIL joy.obj,mouse.obj,r2imgasm.obj,smixasm.obj,stack.obj,d&
+etect.obj,grip.obj,lowmem.obj,smix.obj,a32.obj,adialog.obj,amenu.obj,aread.o&
+bj,areq.obj,bg.obj,cfboomer.obj,cfjet.obj,cfmain.obj,cfpig.obj,cfsniper.obj,&
+config.obj,file.obj,font.obj,input.obj,keyb.obj,line.obj,object.obj,r2img.ob&
+j,rfmain.obj,ttimer.obj,vol.obj
+ @%append a32.lk1 
+ *wlink SYS dos4g op m op maxe=25 op q op symf @a32.lk1
+

@@ -1,0 +1,40 @@
+!define BLANK ""
+c:\source\profr2\r2imgasm.obj : c:\source\profr2\r2imgasm.asm .AUTODEPEND
+ @c:
+ cd c:\source\profr2
+ *wasm r2imgasm.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\source\profr2\file.obj : c:\source\profr2\file.cpp .AUTODEPEND
+ @c:
+ cd c:\source\profr2
+ *wpp386 file.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -ol -ol+ -om -oc -oi -&
+oa -or -oe20 -5r -bt=dos -mf
+
+c:\source\profr2\prof.obj : c:\source\profr2\prof.cpp .AUTODEPEND
+ @c:
+ cd c:\source\profr2
+ *wpp386 prof.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -ol -ol+ -om -oc -oi -&
+oa -or -oe20 -5r -bt=dos -mf
+
+c:\source\profr2\r2img.obj : c:\source\profr2\r2img.cpp .AUTODEPEND
+ @c:
+ cd c:\source\profr2
+ *wpp386 r2img.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -ol -ol+ -om -oc -oi &
+-oa -or -oe20 -5r -bt=dos -mf
+
+c:\source\profr2\vol.obj : c:\source\profr2\vol.cpp .AUTODEPEND
+ @c:
+ cd c:\source\profr2
+ *wpp386 vol.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -ol -ol+ -om -oc -oi -o&
+a -or -oe20 -5r -bt=dos -mf
+
+c:\source\profr2\prof.exe : c:\source\profr2\r2imgasm.obj c:\source\profr2\f&
+ile.obj c:\source\profr2\prof.obj c:\source\profr2\r2img.obj c:\source\profr&
+2\vol.obj .AUTODEPEND
+ @c:
+ cd c:\source\profr2
+ @%write prof.lk1 NAME prof
+ @%append prof.lk1 FIL r2imgasm.obj,file.obj,prof.obj,r2img.obj,vol.obj
+ @%append prof.lk1 
+ *wlink d all SYS dos4g op m op maxe=25 op q op symf @prof.lk1
+

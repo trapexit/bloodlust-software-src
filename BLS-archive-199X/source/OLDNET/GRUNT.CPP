@@ -1,0 +1,286 @@
+//disgruntled
+//main platform independant
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <mem.h>
+#include <malloc.h>
+#include <direct.h>
+
+#include "config.h"
+
+#include "keyb.h"
+
+#include "types.h"
+#include "r2img.h"
+#include "font.h"
+
+#include "file.h"
+#include "vol.h"
+#include "mouse.h"
+#include "message.h"
+
+#include "dd.h"
+
+#include "guirect.h"
+#include "guiroot.h"
+#include "guicolor.h"
+
+#include "uutimer.h"
+
+#include "object.h"
+#include "objspace.h"
+#include "bg.h"
+
+#include "a32.h"
+
+#include "net.h"
+
+char appname[]="Disgruntled";
+char configfile[]="grunt.cfg";
+
+float version=0.1;
+
+int SCREENX=640;
+int SCREENY=480;
+
+//config info
+config *cfg;
+
+//input devices
+input *inputdevice[2];
+inputdevicesettings *ids;
+
+
+A95VOL a95vol;
+int A95VOL::size() {return sizeof(A95VOL);}
+
+FONT *font[10]; //fonts
+COLORMAP *shadowmap; //shaded colormapping
+IMG *shadow; //generic shadow
+
+
+volatile unsigned uu=1,su=1;
+
+//buffer for messages
+msgbuffer msg;
+
+//root of a32
+class ROOT *root=0;
+
+//main root of gui tree
+GUIroot *guiroot=0;
+
+//root of objects
+objectspace *objspace=0;
+
+
+extern int guienabled;
+void enablegui();
+void disablegui();
+void togglegui();
+
+
+int keyboard();
+void initdefaultgui();
+
+
+ //create all the fonts and colors
+void createfonts()
+{
+ for (int i=0; i<7; i++) font[i]=a95vol.font->duplicate();
+  //peach
+ font[0]->convertcolor((char)0xca,(char)0xc6); font[0]->convertcolor((char)0xdb,(char)0xd8);
+   //white
+ font[1]->convertcolor((char)0xca,(char)0xff); font[1]->convertcolor((char)0xdb,(char)0x0);
+  //green
+ font[2]->convertcolor((char)0xca,(char)6*16); font[2]->convertcolor((char)0xdb,(char)0x0);
+   //grey something
+ font[3]->convertcolor((char)0xca,(char)19);   font[3]->convertcolor((char)0xdb,(char)0x0);
+   //black
+ font[4]->convertcolor((char)0xca,(char)0x0);  font[4]->convertcolor((char)0xdb,(char)15);
+  //red
+ font[5]->convertcolor((char)0xca,(char)2*16+1);   font[5]->convertcolor((char)0xdb,(char)2*16+14);
+   // ???
+ font[6]->convertcolor((char)0xca,(char)10*16+3);   font[5]->convertcolor((char)0xdb,(char)0);
+ }
+
+//initialize
+int initgame()
+{
+// chdir("c:\\grunt");
+
+ //set up keyboard handler
+ set_keyboard_func(keyboard);
+
+ #ifdef NETWORK
+ initwinsock();
+ #endif
+
+  //get configuration
+ cfg=new config();
+ cfg->load(configfile);
+
+ //initialize input devices
+ ids=&cfg->ids; //copy over input settings
+ inputdevice[0]=newinputdevice(cfg->pinput[0]);
+ inputdevice[1]=newinputdevice(cfg->pinput[1]);
+
+
+ //load up graphics and shit
+ if (!a95vol.read("a95.vol")) return -1;
+// a95vol.print();
+ setpalette(a95vol.pal);
+
+
+ shadowmap=new COLORMAP;
+ shadowmap->createshademap(*a95vol.pal,20,20,20);
+
+ shadow=(a95vol.shadowsel)->duplicate();
+ shadow->convertcolor(16+13,9*16+10);
+
+ //create fonts
+ createfonts();
+
+ //create root
+ root=new ROOT;
+
+ //create root of all GUI
+ new GUIroot(root);
+
+
+ initdefaultgui();
+
+
+ //create objectspace
+ objectspace::open("object.bin","bg.bin",320,200);
+
+ //create bg
+ objspace->newbgobject(1);
+
+ //create background objects
+ if (objspace->bg)
+   objspace->bg->bd->instantiateobjposlist();
+
+ //create main dude
+// objspace->setp(objspace->newobject("Disgruntled",80,0,0,0));
+
+ return 0;
+}
+
+void terminategame()
+{
+ #ifdef NETWORK
+ terminatewinsock();
+ #endif
+ delete root;
+ a95vol.free();
+ delete cfg;
+}
+
+void gametimer()
+{
+ uu++;
+ input::refreshtimer();
+ inputdevice[0]->read();
+
+ //tick objectspace
+ if (objspace) objspace->tick();
+
+ inputdevice[0]->reset();
+
+ //tick network connection
+ if (nc) nc->tick();
+}
+
+
+int keyboard()
+{
+// if (kbscan==KB_ESC) {quitgame(); return 1;}
+ if (kbscan==KB_ESC) {togglegui(); return 1;}
+
+ if (input::refreshkeyboard(kbscan)) return 1; //dont add key to queue
+
+ if (kbscan&0x80) return 1; //release
+
+ char key=scan2ascii(kbscan);
+ if (root && root->keyhit(kbscan,key)) enablegui();
+ return 1;
+}
+
+
+
+extern int timeperframe;
+uutimer fpstimer(200);
+int fps=0,spf=0;
+int calcfps()
+{
+ //calculate fps
+ if (fpstimer.check())
+   {
+    fps=su*100/fpstimer.dur;
+    spf=timeperframe*10/su;
+    fpstimer.reset();
+    timeperframe=0;
+    su=0;
+   }
+ return fps;
+}
+
+
+
+
+int blah=0;
+
+void updatescreen()
+{
+ //draw message buffer
+ input::refreshmain();
+
+ if (guienabled)
+ {
+ //draw everything
+ root->draw(screen);
+ m.draw(screen); //draw cursor
+ } else objspace->draw(screen);
+
+ su++;
+ if (cfg->get(CFG_SHOWFPS))
+  {
+   font[0]->printf(SCREENX-70,50,"fps=%d",calcfps());
+   font[0]->printf(SCREENX-70,60,"spf=.%04d",spf);
+  }
+
+//  font[0]->printf(SCREENX-150,80,"%d",blah);
+// font[0]->printf(SCREENX-150,80,"objspace:%p",objspace);
+
+}
+
+
+
+//------------------------------
+//       ROOT node
+//------------------------------
+
+ROOT::ROOT():GUIrect(0,0,0,SCREENX,SCREENY){}
+ROOT::~ROOT() {}
+
+void ROOT::resize(int xw,int yw)
+{
+ if (guiroot) guiroot->resize(xw,yw);
+// if (objspace) objspace->resize(xw,yw);
+ if (objspace) objspace->resize(xw,yw);
+ GUIrect::resize(xw,yw);
+}
+
+void ROOT::refresh(int r,void *c)
+  {
+  // msg.printf(2,"refresh %d",r);
+   for (GUIrect *g=child; g; g=g->next)  g->refresh(r,c);
+  };
+
+
+
+
+
+

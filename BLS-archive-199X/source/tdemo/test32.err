@@ -1,0 +1,2 @@
+test32.cpp(938): Warning! W014: (col 1) no reference to symbol 'bgname' 
+test32.cpp(938): Note! N392: (col 1) 'char bgname[15]' in 'void main( int, char * * )' defined in: test32.cpp(791) (col 6) 

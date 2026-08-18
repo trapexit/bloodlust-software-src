@@ -1,0 +1,753 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
+#include <conio.h>
+
+
+typedef unsigned char byte;
+typedef unsigned short word;
+typedef unsigned dword;
+
+#define OUT(x) printf("\t" x "\n");
+
+//addressing modes
+#define Dn   1
+#define An   2
+#define iAn  4
+#define iAni 8
+#define idAn 16
+#define d16An  32
+#define d8AnR 64
+#define addr16 128
+#define addr32 256
+#define d16PC  512
+#define d8PCR 1024
+
+#define aimm 2048
+
+//#define ADDRALL (Dn|An|iAn|iAni|idAn|d16An|d8AnR|addr16|addr32)
+
+
+int addrbits[]={0x00,0x08,0x10,0x18,0x20,0x28,0x30,0x38,0x39,0x3A,0x3B,0x3C};
+
+char *addrname[]=
+{
+ "Dn","An","(An)","(An)+","-(An)",
+ "d16(An)","d8AnR","addr16","addr32",
+ "d16(PC)","d8PCR","imm",""
+};
+
+//access types
+#define DIRECTI   0
+#define DIRECTM   1
+#define TRAP      2
+#define IMMEDIATE 3
+
+//immediate data types
+#define IMM_NONE  0
+#define IMM_BYTE  1
+#define IMM_WORD  2
+#define IMM_LONG  3
+#define IMM_DSIZE 4
+
+char *immname[]={"","immb","immw","immd","imm"};
+
+//CONDITIONS
+#define C_T 0x0
+#define C_F 0x1
+#define C_HI 0x2
+#define C_LS 0x3
+#define C_CC 0x4
+#define C_CS 0x5
+#define C_NE 0x6
+#define C_EQ 0x7
+#define C_VC 0x8
+#define C_VS 0x9
+#define C_PL 0xA
+#define C_MI 0xB
+#define C_GE 0xC
+#define C_LT 0xD
+#define C_GT 0xE
+#define C_LE 0xF
+
+
+
+char  zchar[]={'b','w','d',0};
+
+char *isize[]={"byte","word","dword",0};
+
+//registers for holding data from addressing mode
+char *areg[]={"al","ax","eax",0};
+char *dreg[]={"dl","dx","edx",0};
+
+//registers for holding immediate data
+char *immreg[]={"bl","bx","ebx",0};
+
+char *srreg="[edi.FLAGS]";
+char *ccrreg="[edi.CCR]";
+
+char *executenext="executeloop";
+
+//gets register as defined in EAX
+void getreg(char *r)
+{printf("\tmov %s,[edi.D0+eax*4]\n",r);}
+void setreg(char *r)
+{printf("\tmov [edi.D0+eax*4],%s\n",r);}
+
+void getareg(char *r)
+{printf("\tmov %s,[edi.A0+eax*4]\n",r);}
+void setareg(char *r)
+{printf("\tmov [edi.A0+eax*4],%s\n",r);}
+
+
+/*
+void setx()
+{
+ OUT("rcl ch,1");
+}*/
+
+void getxflag()
+{
+ OUT("rcr ch,1");
+}
+
+void bswap(char reg,int z)
+{
+ if (z==1) printf("\tror %cx,8\n",reg);
+ if (z==2) printf("\tbswap e%cx\n",reg);
+}
+
+void popf()  {printf("\tpopfd\n");}
+void skipf() {printf("\tadd esp,4\n");}
+void pushf() {printf("\tpushfd\n");}
+
+void pushfx()
+{
+ OUT("pushfd");
+ OUT("rcl ch,1");
+}
+
+
+//instruction parameters
+struct iparm
+{
+ word op;
+ int dsize; //data size (0=b 1=w 2=l 3=???)
+
+ int amode; //addr (lower 6-bit, bottom 3 usually variable)
+ int dmode; //destination addr (fixed)
+
+ int n; //register num (variable)
+ int m; //register num (fixed)
+
+ int c; //condition 4-bit fixed
+
+ //sets parameters based on opcode and insttype
+ void set(word opcode,struct insttype *it);
+
+ int validate(word opcode,word mask)
+ {
+  if ((op&mask)!=opcode) return 0;
+  if (dsize>2) return 0;
+  if (amode>0x3B) return 0;
+  if (dmode>0x3B) return 0;
+  return 1;
+ }
+
+ void print()
+ {
+  printf("%s am=%d dm=%d\n",dsize!=-1 ? isize[dsize] : "",amode,dmode);
+ }
+};
+
+
+void genread(int t,int dsize)
+{
+ switch (t)
+ {
+  case DIRECTI: printf("\tmov %s,[edx] ;read\n",areg[dsize]); return;
+  case DIRECTM:
+   printf("\tmov %s,[edx] ;read\n",areg[dsize]);
+   bswap('a',dsize);
+   return;
+  case TRAP: printf("\tcall g68read%c ;read\n",zchar[dsize]); return;
+  case IMMEDIATE: return;
+ }
+}
+
+void genwrite(int t,int dsize)
+{
+ switch (t)
+ {
+  case DIRECTI: printf("\tmov [edx],%s ;write\n",areg[dsize]);  break;
+  case DIRECTM:
+   bswap('a',dsize);
+   printf("\tmov [edx],%s ;write\n",areg[dsize]);
+   break;
+  case TRAP: printf("\tcall g68write%c ;write\n",zchar[dsize]); break;
+  case IMMEDIATE: return;
+ }
+}
+
+
+//pushes reg (overwrites edx)
+void pushd(char *reg)
+{
+ OUT("sub [edi.A7],4 ; dec stackptr");
+ OUT("getstackptr edx");
+ printf("\tbswap %s\n",reg);
+ printf("\tmov [edx],%s\n",reg);
+}
+
+//pops reg (overwrites edx)
+void popd(char *reg)
+{
+ OUT("getstackptr edx");
+ OUT("add [edi.A7],4 ; add stackptr");
+ printf("\tmov %s,[edx]\n",reg);
+ printf("\tbswap %s\n",reg);
+}
+
+
+/*
+char *binary(word x)
+{
+ static char s[32];
+ static char t[32];
+ memset(t,'0',32);
+ strcpy(t+16-strlen(itoa((int)x,s,2)),s);
+ return t;
+} */
+
+
+//fetches immediate data
+int genfetchimm(int immtype,int dsize)
+{
+ int immsize=0;
+ switch (immtype)
+ {
+  case IMM_NONE: return 0;
+  case IMM_BYTE: dsize=0; break;
+  case IMM_WORD: dsize=1; break;
+  case IMM_LONG: dsize=2; break;
+ };
+
+// printf(";%d\n",dsize);
+ switch(dsize)
+ {
+  case 0:
+   printf("\tmov bl,[esi+1]\n");  immsize=2;
+   printf("\tadd esi,%d\n",immsize);
+   break;
+  case 1:
+   printf("\tmov bx,[esi]\n"); immsize=2;
+   printf("\tadd esi,%d\n",immsize);
+   bswap('b',dsize);
+   break;
+  case 2:
+   printf("\tmov ebx,[esi]\n"); immsize=4;
+   printf("\tadd esi,%d\n",immsize);
+   bswap('b',dsize);
+   break;
+   }
+ return immsize;
+}
+
+
+
+void genlea(int amode,int dsize)
+{
+ switch (amode)
+  {
+   case 0x00: printf("\tlea000\n"); break;
+   case 0x08: printf("\tlea001\n"); break;
+
+   case 0x10: printf("\tlea010\n"); break;
+   case 0x18: printf("\tlea011%c\n",zchar[dsize]); break;
+   case 0x20: printf("\tlea100%c\n",zchar[dsize]); break;
+
+   case 0x1F: //(A7)+
+    if (dsize==0) printf("\tlea011111b\n");
+         else     printf("\tlea011%c\n",zchar[dsize]);
+     break;
+
+   case 0x27: //(A7)-
+    if (dsize==0) printf("\tlea100111b\n");
+         else     printf("\tlea100%c\n",zchar[dsize]);
+     break;
+
+
+   case 0x28: printf("\tlea101\n"); break;
+   case 0x30: printf("\tlea110\n"); break;
+   case 0x38: printf("\tlea111000\n"); break;
+   case 0x39: printf("\tlea111001\n"); break;
+   case 0x3A: printf("\tlea111010\n"); break;
+   case 0x3B: printf("\tlea111011\n"); break;
+   case 0x3C: printf("\tlea111100%c\n",zchar[dsize]); break;
+  };
+}
+
+
+void registerproc(char *name,word opcode,int var);
+
+//instruction type
+struct insttype
+{
+ char *format;    //binary format
+ char *name;      //name of instruction
+ int addrmode;    //address modes
+ int immtype;
+ int naturalize; //naturalize address before core ?
+
+ //gets the mask from the format (1 for every constant digit)
+ word getmask();
+ //get opcode from the format ?'s=000's
+ word getopcode();
+ //gets ??? from format
+ int getx(word opcode,char x);
+ //does x exist in format?
+ int isx(char x) {return strchr(format,x) ? 1 : 0;}
+ //finds the last field
+ int getlastx(char &c);
+
+ //constructor
+ insttype(char *f,char *n,int am):
+  format(f),name(n),addrmode(am),immtype(0),naturalize(1) {}
+
+ void printinfo()
+ {
+  printf("%10s %s\n",name,format);
+  if (!addrmode) return;
+  printf("     ");
+  for (int i=0; i<16; i++)
+   if (addrmode&(1<<i)) //does addr mode exists?
+     {printf(addrname[i]); printf(" ");}
+  printf("\n");
+ }
+
+ //core header
+ void gencorehdr(int t,iparm &ip)
+ {
+  static char *ft[4]={"_di","_dm","_trap",""};
+  printf(";%s xxxx\n",name);
+  printf("core%04X%s%s proc\n",ip.op,immname[immtype],ft[t]);
+ }
+ //core footer
+ void gencoreftr(int t,iparm &ip)
+ {
+  printf("\texecutenext\n");
+  printf("      endp\n\n");
+ }
+
+ //generate core of instruction
+ virtual void gencore(int t,iparm &ip) {}
+
+ virtual void gencoreproc(int t,iparm &ip)
+ {
+  if (ip.dsize==-1) ip.dsize=2;
+  gencorehdr(t,ip);
+  gencore(t,ip);
+  gencoreftr(t,ip);
+ };
+
+ void genstubproc(iparm &ip)
+ {
+  char stubname[32];
+  sprintf(stubname,"i%04X%s",ip.op,immname[immtype]);
+
+  if (ip.amode==-1)
+  {
+   char c;
+   registerproc(stubname,ip.op,1<<getlastx(c));
+   printf("%s proc\n",stubname);
+   genfetchimm(immtype,ip.dsize);
+   printf("      endp\n\n");
+   return;
+  }
+  if (ip.amode>0x3C) return;
+
+  if (ip.amode>=0x38 || (ip.amode&7)) registerproc(stubname,ip.op,1);
+               else   registerproc(stubname,ip.op,8);
+
+  printf("%s proc\n",stubname);
+  genfetchimm(immtype,ip.dsize);
+
+  genlea(ip.amode,ip.dsize);
+
+  char corename[32];
+  sprintf(corename,"core%04X%s",ip.op&(~0x3F),immname[immtype]);
+
+  if (ip.amode==0x3C) printf("\tjmp %s_dm\n",corename);
+   else
+  if (ip.amode<=0x08 || !naturalize) printf("\tjmp %s_di\n",corename);
+   else printf("\tnaturalize %s,%s_dm,%s_trap\n","edx",corename,corename);
+  printf("      endp\n\n");
+
+  //byte and a+/- addr mode?
+  if (ip.dsize==0 && (ip.amode==0x18 || ip.amode==0x20))
+   {
+    ip.amode|=7;
+    ip.op|=7;
+    genstubproc(ip);
+   }
+ }
+
+ void generate()
+ {
+  iparm ip;
+  word minopcode=getopcode();
+  word mask=getmask();
+  word maxopcode=minopcode|(~mask);
+
+  char lastc;
+  word opcodestep=getlastx(lastc);
+  opcodestep=1<<opcodestep;
+//  printf(";%X %X %X %c\n",minopcode,maxopcode,opcodestep, lastc);
+
+  word opcode=minopcode;
+
+  do
+  {
+  ip.set(opcode,this);
+  if (ip.validate(minopcode,mask))
+  {
+   printf(";----------------------------\n");
+   printf(";    %s ",name); ip.print();
+   printf(";----------------------------\n\n");
+
+   if (!addrmode)
+   {
+    genstubproc(ip);
+    gencoreproc(IMMEDIATE,ip);
+   }
+    else
+   {
+    //generate cores
+    if (addrmode&(Dn|An) || !naturalize) gencoreproc(DIRECTI,ip);
+    if ((addrmode&(iAn|iAni|idAn|d16An|d8AnR|addr16|addr32|d16PC|d8PCR))
+      && naturalize)
+     {
+      gencoreproc(DIRECTM,ip);
+      gencoreproc(TRAP,ip);
+     }
+
+    //generate addressing modes
+    for (int i=0; i<16; i++)
+     if (addrmode&(1<<i)) //does addr mode exists?
+      {
+       ip.op=opcode|addrbits[i];
+       ip.amode=addrbits[i];
+       genstubproc(ip);
+      }
+   }
+  }
+  opcode+=opcodestep;
+  } while (opcode<=maxopcode);
+
+ };
+
+};
+
+
+//---------------------------------
+//bit/format manipulation
+
+word insttype::getmask()
+{
+ word m=0,bit=0x8000;
+ for (char *s=format; *s; s++)
+ {
+  if (isdigit(*s)) m|=bit;
+  if (isalnum(*s)) bit>>=1;
+ }
+ return m;
+}
+
+word insttype::getopcode()
+{
+ word m=0,bit=0x8000;
+ for (char *s=format; *s; s++)
+ {
+  if (isdigit(*s) && *s=='1') m|=bit;
+  if (isalnum(*s)) bit>>=1;
+ }
+ return m;
+}
+
+int insttype::getx(word op,char x)
+{
+ word m=0,bit=0x8000;
+ char *s=format;
+ for (; *s && *s!=x; s++) if (isalnum(*s)) bit>>=1;
+ if (!*s) return -1; //'x' does not exist
+ for (; *s && *s==x; s++)
+ {
+  m<<=1;
+  if (op&bit) m|=1;
+  bit>>=1;
+ }
+ return m;
+}
+
+int insttype::getlastx(char &c)
+ {
+  for (int i=0; format[i]; i++);
+
+  c=format[--i];
+  if (!isalpha(c)) return 0;
+
+  int len=0;
+  while (i>0 && !isdigit(format[i]) )
+    if (format[i--]==c) len++;
+  return len;
+ }
+
+
+//sets parameters based on opcode and insttype
+void iparm::set(word opcode,struct insttype *it)
+ {
+  op=opcode;
+  amode=it->getx(opcode,'a');
+  dmode=it->getx(opcode,'d');
+  if (dmode!=-1)
+    dmode=((dmode&7)<<3) | ((dmode>>3)&7); //reverse
+
+  n=it->getx(opcode,'n');
+  m=it->getx(opcode,'m');
+
+  c=it->getx(opcode,'c');
+
+  if (it->isx('z')) dsize=it->getx(opcode,'z'); else
+  if (it->isx('y')) dsize=it->getx(opcode,'y')+1; else
+  if (it->isx('v'))
+   {
+    int l=it->getx(opcode,'v');
+    dsize=3;
+    if (l==1) dsize=0;
+    if (l==2) dsize=2;
+    if (l==3) dsize=1;
+   } else dsize=-1;
+ }
+
+
+
+//-----------------------------
+//instruction types
+
+
+//-------------------------
+
+
+#include "g68\ori.h"
+#include "g68\andi.h"
+#include "g68\eori.h"
+#include "g68\subi.h"
+#include "g68\addi.h"
+#include "g68\bmanip.h"
+#include "g68\log.h"
+#include "g68\control.h"
+#include "g68\move.h"
+#include "g68\shift.h"
+#include "g68\mul.h"
+
+#define NOOP
+
+insttype *it[]=
+{
+#ifndef NOOP
+
+ &MOVEM,&MOVEM2,
+ &MOVEMPD,&MOVEM2PI,
+
+ &MOVE,
+ &MOVEBCCR,
+ &MOVEWSR, &MOVEWSR2,
+ &MOVEIMM,
+ &MOVEQ,
+ &MOVEUSP,
+ //&MOVEUSP2,
+
+ &OR,
+ &OR2,
+ &ORI,
+ &ORIBCCR,
+ &ORIWSR,
+
+ &AND,
+ &AND2,
+ &ANDI,
+ &ANDIBCCR,
+ &ANDIWSR,
+
+ &SUB,
+ &SUB2,
+ &SUBI,
+ &SUBX,
+ &SUBQ,
+ &SUBA,
+
+ &ADD,
+ &ADD2,
+ &ADDI,
+ &ADDX,
+ &ADDQ,
+ &ADDA,
+
+ &EOR,
+ &EORI,
+ &EORIBCCR,
+ &EORIWSR,
+
+ &CMP,
+ &CMPI,
+ &CMPA,
+
+ &EXG,
+ &EXG2,
+ &EXG3,
+
+ &BTSTI,&BCLRI,&BSETI,&BCHGI,
+ &BTST,&BCLR,&BSET,&BCHG,
+
+ &NEG,
+ &NEGX,
+
+ &CLR,
+ &NOT,
+ &SWAP,
+ &EXT,
+
+ &PEA,
+ &LEA,
+
+ &TST,
+ &TAS,
+// &ILLEGAL,
+// &TRAPF,
+ &NOP,
+// &STOP,
+// &TRAPV,
+ &RESET,
+
+ &LINK,&UNLINK,
+ &JMP,&JSR,
+ &BCC,&BCC16,&SCC,&DBCC,
+ &RTS,&RTR,&RTE,
+
+ &MUL,&DIV,
+
+ &ASRDA,&ASLDA,&LSRDA,&LSLDA,&RORDA,&ROLDA,&ROXRDA,&ROXLDA,
+
+ &ASRD,&ASLD,&LSRD,&LSLD,&RORD,&ROLD,&ROXRD,&ROXLD,
+ &ASRDI,&ASLDI,&LSRDI,&LSLDI,&RORDI,&ROLDI,&ROXRDI,&ROXLDI,
+
+#endif
+//&BCC,
+&BCC16,
+ 0
+};
+
+//-----------
+
+FILE *pf;
+
+int instreg=0;
+int diag=0;
+
+void createflagtables();
+
+int main(int argc,char *arg[])
+{
+ if (argc>=2 && !stricmp(arg[1],"diag")) diag=1;
+ int i;
+
+ createflagtables();
+
+ if (diag)
+ {
+  for (i=0; it[i]; i++) it[i]->printinfo();
+  return 0;
+ }
+
+ pf=fopen("g68pjt.inc","wt");
+
+ //generate all instruction types
+ for (i=0; it[i]; i++) it[i]->generate();
+
+ fclose(pf);
+}
+
+void registerproc(char *name,word op,int var)
+{
+ if (!var) return;
+ fprintf(pf,"dd offset %s\n",name);
+ fprintf(pf,"dw 0%04Xh\n",op);
+ fprintf(pf,"db %d\n",var-1);
+// for (int i=0; i<var; i++) jtable[op+i]=op;
+ instreg++;
+};
+
+
+
+//-----------------------------
+
+
+#define G68FLAG_C 1
+#define G68FLAG_V 2
+#define G68FLAG_Z 4
+#define G68FLAG_N 8
+#define G68FLAG_X 16
+
+#define IFLAG_C 0x0001
+#define IFLAG_Z 0x0040
+#define IFLAG_N 0x0080
+#define IFLAG_V 0x0800
+
+
+void createflagtables()
+{
+ int i;
+ FILE *f;
+
+ f=fopen("g68fi2m.inc","wt");
+ //create intel->motorola
+ for (i=0; i<256; i++)
+ {
+  byte x=0;
+  if (i&IFLAG_C) x|=G68FLAG_C;
+  if (i&IFLAG_Z) x|=G68FLAG_Z;
+  if (i&IFLAG_N) x|=G68FLAG_N;
+  fprintf(f,"db %03Xh\n",x);
+ }
+ fclose(f);
+
+ f=fopen("g68fm2i.inc","wt");
+ //create motorola->intel
+ for (i=0; i<256; i++)
+ {
+  byte x=0;
+  if (i&G68FLAG_C) x|=IFLAG_C;
+  if (i&G68FLAG_Z) x|=IFLAG_Z;
+  if (i&G68FLAG_N) x|=IFLAG_N;
+  fprintf(f,"db %03Xh\n",x);
+ }
+ fclose(f);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

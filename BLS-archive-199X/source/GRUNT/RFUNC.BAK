@@ -1,0 +1,16 @@
+
+//list of all region functions, in order
+static int (intersection::* intersection::rfunclist[])()= {
+  &intersection::r_none, 
+  &intersection::r_push, 
+  &intersection::r_solid, 
+  &intersection::r_fixed, 
+  &intersection::r_mainattack, 
+  &intersection::r_mainvuln, 
+  &intersection::r_enemyattack, 
+  &intersection::r_enemyvuln, 
+  &intersection::r_allattack, 
+  &intersection::r_allvuln, 
+  &intersection::r_bounce, 
+ };
+

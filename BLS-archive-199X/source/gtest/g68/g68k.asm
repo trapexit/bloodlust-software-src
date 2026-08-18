@@ -1,0 +1,1001 @@
+;g68k cpu core
+      .486
+		.model flat,c
+      locals
+
+directw = 1 ;enable direct writes
+
+; 68k flags
+ F_CARRY=  1h
+ F_OVER=   2h
+ F_ZERO=   4h
+ F_NEG=    8h
+ F_EXTEND= 10h
+
+ F_IMASK0= 1h
+ F_IMASK1= 2h
+ F_IMASK2= 4h
+ F_SUPER= 20h
+ F_TRACE= 80h
+
+
+; intel flags
+
+ IF_CARRY= 1h
+ IF_ZERO=  40h
+ IF_NEG=   80h
+ IF_OVER= 800h
+
+; vector addresses
+ V_RESETSP=     0h
+ V_RESETPC=     4h
+ V_BUSERROR=    8h
+ V_ADDRESSERR= 0Ch
+ V_ILLEGALINST=10h
+ V_ZERODIV=    14h
+ V_CHK=        18h
+ V_TRAPV=      1Ch
+ V_PRIVILEDGE= 20h
+ V_TRACE=      24h
+ V_LINE1010=   28h
+ V_LINE1111=   2Ch
+ V_UNINITVECT= 3Ch
+ V_SPURIUS=    60h
+ V_LEVEL=      64h
+ V_TRAP=       80h
+
+;-------------------------------
+; processor state
+
+g68state STRUC
+ D0    dd  ?  ;data registers
+ D1    dd  ?
+ D2    dd  ?
+ D3    dd  ?
+ D4    dd  ?
+ D5    dd  ?
+ D6    dd  ?
+ D7    dd  ?
+
+ A0    dd  ?  ;address registers
+ A1    dd  ?
+ A2    dd  ?
+ A3    dd  ?
+ A4    dd  ?
+ A5    dd  ?
+ A6    dd  ?
+ A7    dd  ?
+
+ ROMBASE  dd  ?  ;base of ROM $000000-$3FFFFF
+ RAMBASE  dd  ?  ;base of RAM $FF0000-$FFFFFF
+ PC     dd  ?  ;PC
+ PCBASE dd  ?  ;PCBASE
+
+ FLAGS LABEL WORD
+ CCR   db  ?  ;flags register
+ SR    db  ?
+g68state ENDS
+
+
+;---------------------------
+; flag conversion
+
+
+;eax/ch -> [edi.CCR]
+popmflags macro
+ local J1,J2,J3
+;check over flag
+   pop  eax
+   test eax,IF_OVER
+   jz J1
+   and eax,0FFh
+   mov al,[g68fi2m+eax]
+   or  al,F_OVER
+   jmp J2
+J1: and eax,0FFh
+   mov al,[g68fi2m+eax]
+J2:
+
+;check x flag
+   rcr ch,1
+   jnc J3
+   or al,F_EXTEND
+J3:
+
+;write flags
+   mov [edi.CCR],al
+	endm
+
+
+;[edi.CCR] -> eax/ch
+pushmflags macro
+ local J1,J2
+	xor ch,ch
+   pushf        ;overflow clear
+   mov al,[edi.CCR]
+   test al,F_EXTEND
+   jz J1
+   inc ch   ;set X flag
+J1:
+   test al,F_OVER
+   jz J2
+   or dword ptr [esp],IF_OVER
+J2:
+	and eax,0FFh
+   mov al,[g68fm2i+eax]
+   mov byte ptr [esp],al
+	endm
+
+
+;---------------------------
+
+;resolves PC
+naturalizeESI macro
+    local NOTRAM,DONE
+
+     push eax
+     mov eax,[edi.ROMBASE]
+     cmp esi,400000h
+     jl  NOTRAM
+     and esi,  0FFFFh
+     mov eax,[edi.RAMBASE]
+     sub esi,0FF0000h
+     add eax,0FF0000h
+NOTRAM:
+     add esi,eax
+     mov [edi.PCBASE],eax
+     pop eax
+
+     endm
+
+denaturalizeESI macro
+     sub esi,[edi.PCBASE]
+     endm
+
+naturalize macro reg,directproc,trapproc
+    local NOTRAM,DONE
+ifdef directw     ;check bounds
+     cmp reg,0E00000h
+     jb  NOTRAM
+     and reg,0FFFFh
+     add reg,[edi.RAMBASE]
+     jmp directproc
+NOTRAM:
+     cmp reg,400000h
+     jae trapproc
+     add reg,[edi.ROMBASE]
+DONE:jmp directproc
+ else  ;just trap
+  jmp trapproc
+ endif
+     endm
+
+;gets the stack pointer in reg
+getstackptr macro reg
+     mov reg,[edi.A7]
+     and reg,0FFFFh
+     add reg,[edi.RAMBASE]
+ 	 endm
+
+;gets vector to eax (intel)
+getvector macro
+      add eax,[edi.ROMBASE]
+      mov eax,[eax]
+      bswap eax
+      endm
+
+;generate interrupt (destroys eax,edx)
+g68int macro intnum
+		popmflags
+
+		push intnum
+		denaturalizeESI ;esi=PC
+		getstackptr edx ;edx=stackptr
+      sub [edi.A7],6
+
+      bswap esi
+      mov [edx-4],esi ;push PC
+      mov al,[edi.SR]
+      mov [edx-6],al  ;push flags
+      mov al,[edi.CCR]
+      mov [edx-5],al  ;push flags
+
+      pop eax ;get interrupt vector
+	   getvector
+      mov esi,eax ;jump there
+      naturalizeESI
+
+      pushmflags
+     endm
+
+     .data
+
+ PUBLIC g68stateptr,g68disasmsize
+
+ ;bittable
+; g68bittable label dword
+; bit=1
+; REPT 32
+; dd bit
+; bit=bit SHL 1
+; ENDM
+
+
+g68disasmsize dd ?
+
+;current state pointer
+g68stateptr dd 0
+
+;trap functions
+g68_readbtrap dd ?
+g68_readwtrap dd ?
+g68_readdtrap dd ?
+
+g68_writebtrap dd ?
+g68_writewtrap dd ?
+g68_writedtrap dd ?
+
+;flag conversion
+g68fi2m label byte
+  include g68fi2m.inc
+g68fm2i label byte
+  include g68fm2i.inc
+
+;list of all instructions
+g68instlist label
+  include g68pjt.inc
+  dd 0
+
+ PUBLIC g68_readbtrap,g68_readwtrap,g68_readdtrap
+ PUBLIC g68_writebtrap,g68_writewtrap,g68_writedtrap
+
+
+     UDATASEG
+;jump table
+g68jmptable dd 10000h DUP (?)
+
+     .code
+
+
+ PUBLIC g68_reset,g68_execute,g68_init
+ PUBLIC g68_disasm
+ PUBLIC g68_inttrigger
+
+
+
+g68_inttrigger proc vector
+	push edi
+   mov edi,g68stateptr
+
+	getstackptr edx ;edx=stackptr
+   sub [edi.A7],6
+
+	mov eax,[edi.PC]
+   bswap eax
+   mov [edx-4],eax ;push PC
+   mov al,[edi.SR]
+   mov [edx-6],al  ;push flags
+   mov al,[edi.CCR]
+   mov [edx-5],al  ;push flags
+
+   mov eax,vector ;get interrupt vector
+   getvector
+   mov [edi.PC],eax;jump there
+   pop edi
+   ret
+   endp
+
+;;----------------------------------------
+;; read/write trap wrapper functions
+;; called with edx=addr, eax,ax,al=data in swapped format
+
+g68readb proc
+ ifndef directw
+     cmp edx,0E00000h
+     jb  @@NOTRAM
+     push edx
+     and edx,0FFFFh
+     add edx,[edi.RAMBASE]
+     mov al,[edx]
+     pop edx
+     ret
+@@NOTRAM:
+     cmp edx,400000h
+     jae @@TRAP
+     push edx
+     add edx,[edi.ROMBASE]
+     mov al,[edx]
+     pop edx
+     ret
+@@TRAP:
+ endif
+   ;trap read
+     pushad
+     mov eax,edx
+     call [g68_readbtrap]
+     mov [esp+7*4],eax
+     popad
+     ret
+    endp
+
+
+g68writeb proc
+ ifndef directw
+     cmp edx,0E00000h
+     jb  @@NOTRAM
+     push edx
+     and edx,0FFFFh
+     add edx,[edi.RAMBASE]
+     mov [edx],al
+     pop edx
+     ret
+@@NOTRAM:
+     cmp edx,400000h
+     jb  @@DONE
+ endif
+     pushad
+     call [g68_writebtrap]
+     popad
+@@DONE:
+     ret
+    endp
+
+;-----------------------------------
+
+g68readw proc
+ ifndef directw
+     cmp edx,0E00000h
+     jb  @@NOTRAM
+     push edx
+     and edx,0FFFFh
+     add edx,[edi.RAMBASE]
+     mov ah,[edx]
+     mov al,[edx+1]
+     pop edx
+     ret
+@@NOTRAM:
+     cmp edx,400000h
+     jae @@TRAP
+     push edx
+     add edx,[edi.ROMBASE]
+     mov ah,[edx]
+     mov al,[edx+1]
+     pop edx
+     ret
+@@TRAP:
+ endif
+   ;trap read
+     pushad
+     mov eax,edx
+     call [g68_readwtrap]
+     mov [esp+7*4],eax
+     popad
+     ret
+    endp
+
+
+g68writew proc
+ ifndef directw
+     cmp edx,0E00000h
+     jb  @@NOTRAM
+     push edx
+     and edx,0FFFFh
+     add edx,[edi.RAMBASE]
+     mov [edx],ah
+     mov [edx+1],al
+     pop edx
+     ret
+@@NOTRAM:
+     cmp edx,400000h
+     jb  @@DONE
+ endif
+     pushad
+     call [g68_writewtrap]
+     popad
+@@DONE:
+     ret
+    endp
+
+
+;--------------------
+
+
+g68readd proc
+ ifndef directw
+     cmp edx,0E00000h
+     jb  @@NOTRAM
+     push edx
+     and edx,0FFFFh
+     add edx,[edi.RAMBASE]
+     mov eax,[edx]
+     bswap eax
+     pop edx
+     ret
+@@NOTRAM:
+     cmp edx,400000h
+     jae @@TRAP
+     push edx
+     add edx,[edi.ROMBASE]
+     mov eax,[edx]
+     bswap eax
+     pop edx
+     ret
+@@TRAP:
+ endif
+   ;trap read
+     pushad
+     mov eax,edx
+     call [g68_readdtrap]
+     mov [esp+7*4],eax
+     popad
+     ret
+    endp
+
+
+g68writed proc
+ ifndef directw
+     cmp edx,0E00000h
+     jb  @@NOTRAM
+     push edx
+     and edx,0FFFFh
+     add edx,[edi.RAMBASE]
+     bswap eax
+     mov [edx],eax
+     pop edx
+     ret
+@@NOTRAM:
+     cmp edx,400000h
+     jb  @@DONE
+ endif
+     pushad
+     call [g68_writedtrap]
+     popad
+@@DONE:
+     ret
+    endp
+
+
+
+
+
+;;----------------------------------------------
+;;----------------------------------------------
+
+
+;builds jump table
+g68_init proc
+	pusha
+   ;force bad opcodes
+   mov edi,offset g68jmptable
+   mov eax,offset badopcode
+   mov edx,eax
+   mov ecx,10000h
+   rep stosd
+
+   mov esi,offset g68instlist
+@@LP:
+	mov eax,[esi]  ;get func
+   test eax,eax
+   jz  @@DONE
+
+   xor ebx,ebx
+   mov bx,[esi+4] ;get opcode
+   ror bx,8       ;swap byte order
+
+   movzx edx,byte ptr [esi+6] ;get variations
+
+@@LP2:
+   mov [g68jmptable+ebx*4],eax ;store address
+   inc bh
+   dec edx
+   jge  @@LP2
+
+   add esi,7
+   jmp @@LP
+
+@@DONE:
+   popa
+   xor eax,eax
+   ret
+  endp
+
+
+;-----------------------
+;emulation proceeds with the following reg values
+;
+; eax=(data)
+; edx=(effective address)
+; edi=state pointer
+; esi=ROMBASE+PC
+; ebp=inst count
+; ebx=immediate data/opcode
+
+
+;---------------------
+;resets CPU
+g68_reset proc
+		pusha
+      mov	edi,g68stateptr ;get state
+
+      ;clear regs
+      push  edi
+      xor   eax,eax
+      lea	edi,[edi.D0]
+      mov	ecx,16
+      rep	stosd
+      pop   edi
+
+      ;set initial stack
+      mov eax,V_RESETSP
+      getvector
+      mov  [edi.A7],eax
+
+      ;set PC
+      mov eax,V_RESETPC
+      getvector
+      mov  [edi.PC],eax
+
+      ;set flags
+      mov  [edi.CCR],0
+      mov  [edi.SR],F_SUPER
+
+      popa
+      ret
+g68_reset endp
+
+
+
+executeinst macro
+		xor ebx,ebx
+		dec ebp        ;dec instruction count
+
+		mov bx,[esi]
+	   jl doneexecution
+
+      mov al,bh
+      add esi,2
+
+      and eax,111b ;bottom 3 bits of addr mode
+	   jmp [g68jmptable+ebx*4]
+     endm
+
+executenext macro
+     jmp executeloop
+    endm
+
+
+;---------------------
+;executes 68000 CPU
+
+g68_execute proc instcount:DWORD
+		pusha
+		mov   ebp,instcount
+      mov	edi,g68stateptr ;get state
+      mov	esi,[edi.PC]  ;get PC
+      naturalizeESI
+
+      pushmflags
+
+executeloop:
+      executeinst
+
+
+badopcode:
+		mov  ebx,-1
+		sub  esi,2
+      jmp  leave
+
+doneexecution:
+		xor  ebx,ebx
+
+leave:
+      popmflags
+		denaturalizeESI   ;store pc
+      mov  [edi.PC],esi
+      mov  [esp+7*4],ebx
+      popa
+      ret
+g68_execute endp
+
+
+;----------------------------------------------------
+; load effective address macros
+; edi=g68 state
+; eax=lower 3 bits of addr mode
+; reg=effective address
+
+;Dn
+lea000 macro
+	lea edx,[edi.D0+eax*4] ;&Dn
+   endm ;edx->intel
+
+;An
+lea001 macro
+	lea edx,[edi.A0+eax*4] ;&An
+   endm ;edx->intel
+
+;(An)
+lea010 macro
+	mov edx,[edi.A0+eax*4] ;An
+   endm
+
+;(An)+
+lea011b macro
+   mov edx,[edi.A0+eax*4] ;An
+   inc edx
+   mov [edi.A0+eax*4],edx
+   dec edx
+@@DONE:
+   endm
+
+;-(An)
+lea100b macro
+   mov edx,[edi.A0+eax*4] ;An
+   dec edx
+   mov [edi.A0+eax*4],edx
+   endm
+
+;-(A7) byte
+lea011111b macro
+   lea011w
+   endm
+
+;(A7)+ byte
+lea100111b macro
+   lea100w
+   endm
+
+;(An)+ word
+lea011w macro
+   mov edx,[edi.A0+eax*4] ;An
+   add edx,2
+   mov [edi.A0+eax*4],edx
+   sub edx,2
+   endm
+
+;-(An) word
+lea100w macro
+   mov edx,[edi.A0+eax*4] ;An
+   sub edx,2
+   mov [edi.A0+eax*4],edx
+   endm
+
+
+;(An)+ dword
+lea011d macro
+   mov edx,[edi.A0+eax*4] ;An
+   add edx,4
+   mov [edi.A0+eax*4],edx
+   sub edx,4
+   endm
+
+;-(An) dword
+lea100d macro
+   mov edx,[edi.A0+eax*4] ;An
+   sub edx,4
+   mov [edi.A0+eax*4],edx
+   endm
+
+;(d16,An)
+lea101 macro
+   mov   edx,[edi.A0+eax*4]   ;An
+	mov   ah,[esi] ;d16
+	mov   al,[esi+1] ;d16
+   add   esi,2
+   cwde
+   add   edx,eax
+   endm
+
+;(d8,An,Ri.z)
+lea110P proc
+	movsx edx,byte ptr [esi+1] ;d8
+   add   edx,[edi.A0+eax*4]   ;+An
+   mov   al,byte ptr [esi] ;Ri.z
+   shr   eax,4
+   mov   eax,[edi.D0+eax*4]
+   jc		@@RILONG
+   cwde
+@@RILONG:
+	add	edx,eax  ;d8+An+Ri.z
+   add   esi,2
+   ret
+  endp
+lea110 macro
+   call lea110P
+  endm
+
+;(addr16)
+lea111000 macro
+	mov   ah,[esi] ;d16
+	mov   al,[esi+1] ;d16
+   cwde
+   add   esi,2
+   mov   edx,eax
+   endm
+
+;(addr32)
+lea111001 macro
+	mov   edx,[esi] ;addr32
+   add   esi,4
+   bswap edx
+   endm
+
+;(d16,PC)
+lea111010 macro
+	mov   ah,[esi] ;d16
+	mov   al,[esi+1] ;d16
+   cwde
+   lea   edx,[esi+eax]
+   add   esi,2
+   sub   edx,[edi.ROMBASE]
+  endm
+
+;(d8,PC,ri.z)
+lea111011P proc
+	movsx edx,byte ptr [esi+1] ;d8
+   mov   al,byte ptr [esi] ;Ri.z
+   shr   al,4
+   mov   eax,[edi.D0+eax*4]
+   jc		@@RILONG
+   cwde
+@@RILONG:
+   add   edx,esi   ;PC
+   sub   edx,[edi.ROMBASE]
+   add   esi,2
+	add	edx,eax  ;d8+PC+Ri.z
+   ret
+  endp
+lea111011 macro
+   call lea111011P
+  endm
+
+
+;immediate
+lea111100b macro
+  lea edx,[esi+1]
+  add esi,2
+  endm
+lea111100w macro
+  mov edx,esi
+  add esi,2
+  endm
+lea111100d macro
+  mov edx,esi
+  add esi,4
+  endm
+
+;-------------
+; MOVEM macro
+;edx=dest
+; bx=reg map
+
+MOVEM_WRITE_MACRO macro dsize,trap
+  local LP,NOCOPY
+   push eax
+   push ecx
+   push esi
+   lea esi,[edi.D0]
+   mov ecx,16 ; 16 regs
+
+LP:
+   shr ebx,1
+   jnc NOCOPY
+;-------------- dword
+  if dsize
+   mov eax,[esi] ;get register
+   add ch,4 ;1 register written
+  if trap
+   call g68writed
+  else
+   bswap eax
+   mov [edx],eax ;write
+  endif
+   add edx,4
+;------------ word
+  else
+   mov eax,[esi] ;get register
+   add ch,2 ;1 register written
+  if trap
+   call g68writew
+  else
+   ror ax,8
+   mov [edx],ax ;write
+  endif
+   add edx,2
+  endif
+NOCOPY:
+	add esi,4
+   dec cl
+   jg  LP
+
+   movzx ebx,ch ;get number bytes written
+
+   pop esi
+   pop ecx
+   pop eax
+  endm
+
+;------------------------------------------
+
+MOVEM_READ_MACRO macro dsize,trap
+  local LP,NOCOPY
+   push eax
+   push ecx
+   push esi
+   lea esi,[edi.D0]
+   mov ecx,16 ; 16 regs
+
+LP:
+   shr ebx,1
+   jnc NOCOPY
+;-------------- dword
+ if dsize
+  if trap
+   call g68readd ;read dword
+  else
+   mov eax,[edx] ;read dword
+   bswap eax
+  endif
+   mov [esi],eax ;store register
+   add ch,4 ;1 register written
+   add edx,4
+;------------ word
+ else
+  if trap
+   call g68readw ;read word
+  else
+   mov ah,[edx] ;read word
+   mov al,[edx+1]
+  endif
+   cwde
+   mov [esi],eax ;store register
+   add ch,2 ;1 register written
+   add edx,2
+ endif
+NOCOPY:
+	add esi,4
+   dec cl
+   jg  LP
+
+   movzx ebx,ch ;get number bytes written
+
+   pop esi
+   pop ecx
+   pop eax
+  endm
+
+
+;-----------
+;pre decriment
+
+MOVEM_WRITEREVERSE_MACRO macro dsize,trap
+  local LP,NOCOPY
+
+   push eax
+   push ecx
+   push esi
+   lea esi,[edi.D0+16*4]
+   mov ecx,16 ; 16 regs
+
+LP:
+	sub esi,4
+
+   shr ebx,1
+   jnc NOCOPY
+;-------------- dword
+ if dsize
+   sub edx,4
+   mov eax,[esi] ;get register
+   add ch,4 ;1 register written
+  if trap
+   call g68writed
+  else
+   bswap eax
+   mov [edx],eax ;write
+  endif
+;------------ word
+ else
+   sub edx,2
+   mov eax,[esi] ;get register
+   add ch,2 ;1 register written
+  if trap
+   call g68writew
+  else
+   mov [edx],ah ;write
+   mov [edx+1],al ;write
+  endif
+ endif
+NOCOPY:
+   dec cl
+   jg  LP
+
+   movzx ebx,ch ;get number bytes written
+
+   pop esi
+   pop ecx
+   pop eax
+  endm
+
+
+
+
+;-----------
+;cheap disassembly
+
+
+  EXTERN MC68K_DISASM_INSTR:NEAR
+  PUBLIC MC68K_FETCH_READ_DW,MC68K_FETCH_READ_W
+
+MC68K_FETCH_READ_DW proc
+	xor eax,eax
+   cmp esi,400000h
+   jg @@DONE
+   push edi
+   mov edi,[g68stateptr]
+   mov edi,[edi.ROMBASE]
+
+   mov eax,[esi+edi]
+   bswap eax
+   pop edi
+@@DONE:ret
+   endp
+
+MC68K_FETCH_READ_W proc
+	xor eax,eax
+   cmp esi,400000h
+   jg @@DONE
+   push edi
+   mov edi,[g68stateptr]
+   mov edi,[edi.ROMBASE]
+
+   mov ax,[esi+edi]
+   ror ax,8
+   pop edi
+@@DONE:   ret
+   endp
+
+
+g68_disasm proc
+    push esi
+    push edi
+    push ebx
+    push ebp
+
+    mov edi,[g68stateptr]
+    mov esi,[edi.PC] ;get PC
+
+    call MC68K_DISASM_INSTR
+    mov eax,ebx ;get string
+
+    mov edi,[g68stateptr]
+    sub esi,[edi.PC]
+    mov [g68disasmsize],esi
+
+    pop ebp
+    pop ebx
+    pop edi
+    pop esi
+    ret
+    endp
+
+
+
+;-----------
+
+  include g68inst.inc
+
+
+      END
+
+
+
+
+
+
+
+
+
+
+
+
+

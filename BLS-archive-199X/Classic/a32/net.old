@@ -1,0 +1,186 @@
+//winsock network layer functions
+#include <stdio.h>
+
+#include "net.h"
+#include "message.h"
+
+#define IPPORT    6789
+#define IPXPORT 0x6789
+
+
+#define DEL(x) if (x) {delete x; x=0;}
+
+extern int blah;
+
+int winsockinstalled=0;
+int maxudpsize;
+
+netserver *server; //server (if listening)
+netclient *client; //client (if connecting)
+
+//netnode *netnodes=0; //list of network nodes
+
+
+
+//--------------------------------------------
+//Winsock init/terminate
+
+void netdisconnect()
+{
+ DEL(client);
+ DEL(server);
+}
+
+
+void initwinsock()
+{
+ if (winsockinstalled) return;
+
+ //initialize winsock
+ WSADATA wsadata;
+ if (WSAStartup( 0x101,&wsadata))
+   {msg.printf(2,"Unable to initialize winsock."); return;}
+ msg.printf(2,"%s",wsadata.szDescription);
+
+ maxudpsize=wsadata.iMaxUdpDg;
+ winsockinstalled=1;
+}
+
+void terminatewinsock()
+{
+ if (!winsockinstalled) return;
+ netdisconnect();
+ WSACleanup(); //cleanup winsock
+ winsockinstalled=0;
+}
+
+
+//------------------------------------------------
+// socket receive
+
+//functions for receiving udp socket dgrams
+void wm_udpsocket(SOCKET t,int flags)
+{
+ if (flags==FD_READ)
+  {
+   msg.printf(1,"read data");
+   return;
+  }
+}
+//function for error
+void wm_socketerror(SOCKET t,int flags,int error)
+{
+ msg.error("Socket error");
+}
+
+
+
+
+
+//--------------------------------------------------
+//server functions
+
+
+netserver::netserver(int af,PORT port)
+ :localaddr(af),s(af),active(0)
+{
+ if (s.error()) {msg.error("Unable to create socket"); return;}
+ s.async(WM_UDPSOCKET,FD_READ);
+ if (s.listen(port)) {msg.error("Unable to listen on port %d",port); return;}
+ active=1;
+}
+
+netserver::~netserver() {};
+
+//------
+inetserver::inetserver(PORT port)
+ :netserver(AF_INET,port)
+{
+ if (!active) return;
+ //local machine info
+ char           localname[50]; //local name of this machine
+ hostent       *localhost; //local host description
+
+ //get local machine address info
+ if (gethostname(localname,50)) return;     //get name of local host
+ localhost=gethostbyname(localname);
+ if (!localhost) {msg.error("Could not get local internet host information."); return;}
+
+   //get local ip address
+ localaddr.setip(*((IPADDR *)localhost->h_addr_list[0]));
+ localaddr.setport(port);
+
+ msg.printf(2,"TCP/IP: Listening on %s",localaddr.getstr());
+}
+
+inetserver::~inetserver()
+{
+ if (!active) return;
+ msg.printf(2,"TCP/IP server shutdown.");
+}
+
+//--------
+ipxserver::ipxserver(PORT port)
+ :netserver(AF_IPX,port)
+{
+ if (!active) return;
+ //get local ethernet(ipx) address
+ localaddr=*s.getlocaladdr();
+ localaddr.setport(port);
+
+ msg.printf(2,"IPX: Listening on %s",localaddr.getstr());
+}
+
+ipxserver::~ipxserver()
+{
+ msg.printf(2,"IPX server shutdown.");
+}
+
+
+//--------------------------------------------------
+//client functions
+
+
+netclient::netclient(NETADDR *n)
+ :serveraddr(*n),s(n->getaf()),active(0),connected(0)
+{
+ if (s.error()) {msg.error("Unable to create socket"); return;}
+ s.async(WM_UDPSOCKET,FD_READ);
+ if (s.listen(n->getport())) {msg.error("Unable to listen on port %d",n->getport()); return;}
+ msg.printf(2,"Connecting to %s...",n->getstr());
+ active=1;
+
+ tryconnect();
+}
+netclient::~netclient()
+{
+ if (!connected)  {msg.printf(2,"Aborting connection attempt"); return;}
+ msg.printf(2,"Closing connection.");
+};
+
+void netclient::tryconnect()
+{
+ if (!active) return;
+// static char t[]="FUCK";
+// s.sendto(&serveraddr,t,4);
+ p_connect p;
+ s.sendto(&serveraddr,&p,sizeof(p));
+}
+
+
+//---------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

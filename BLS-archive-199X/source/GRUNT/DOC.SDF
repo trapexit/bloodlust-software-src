@@ -1,0 +1,11 @@
+#define sstance       0
+#define sstance_FR    1
+#define sstance_FU    2
+#define sstance_FUR   3
+#define swalk_R     4
+#define sturn_around   5
+#define stalk          6
+#define spainhigh      7
+#define sspecial       8  
+#define strans         9
+

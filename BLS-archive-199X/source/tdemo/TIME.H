@@ -1,0 +1,469 @@
+#define SHAKE 15
+
+#define basey 180
+
+#define SLMAX 64
+#define SCRTHRESH 70
+
+extern "C" {
+#include "smix.h"
+}
+
+
+#include "midilib.h"
+
+
+extern int musicstat;
+
+typedef unsigned char byte;
+
+typedef class series
+{
+public:
+short int firstframe;
+unsigned char numframes;
+
+unsigned char parm;
+
+unsigned char *frameptr;
+unsigned char currframe;
+unsigned char dur;
+
+void DrawBGFrame();
+void Tick();
+} series;
+
+typedef struct bgframe
+{
+short int       size;
+short int   dur;
+unsigned char index;
+short int       x,y;
+} bgframe;
+
+/*typedef struct keymap {
+
+char ul,u, ur;
+char l,r;
+char dl,d,dr;
+
+char punch[3]; //punch and kick keys
+char kick[3];
+
+} keymap;*/
+
+typedef struct cfg
+{
+
+ point jmin[2];
+
+ int color[2];
+ int pnum[2];
+ int pinput[2];
+
+ int sbon;
+ int sbport;
+ point jmax[2];
+ point jcenter[2];
+
+ int cinword; //words in cinematic
+
+ GRIP_SLOT gripslot[2];
+ int musicsource;
+
+ int soundvolume;
+ int musicvolume;
+ int difficulty;
+
+ int sbirq;
+ int sbdma;
+ int sbdma16;
+
+
+ keymap k[2];
+
+
+ int bloodlevel;
+ int gamespeed;
+
+ 
+} cfg;
+
+void exitprog(int x, char * msg);
+
+typedef struct rect
+{
+signed short int x1,y1,x2,y2;
+} rect;
+
+
+typedef struct image
+{
+unsigned char index;    //Index into image pointer array
+unsigned char orient;   //Orientation yx
+signed char   dispx[2]; //Relative x location for image
+signed char   dispy;    //Relative y location
+} image;
+
+
+typedef struct frametype   //Primary part of frame structure
+{
+short int   size;         //size of this frame
+unsigned char shadow; //Index for shadow
+unsigned char dur;    //duration in 1/100 of seconds
+char se;              //Sound effect to play
+short int  parm;            //Parameters for current attack/vuln
+unsigned char  energy;      //Energy taken off by attack
+char dx,dy;       //Movement x,y
+char tx,ty;       //Time per movement x,y
+//     image img[];      //list of images in frame
+//     rect  [];   vulnerable regions
+//     rect  [];   attack regions
+
+} frametype;
+
+//unsigned char frame[4096];       //Frame array
+// Frames are stored in the following manner:
+//     int   dur;  duration in 1/100 of seconds
+//     char attacktype;
+//     int  energy;      Energy taken off by attack
+//     int  dx,dy;       Movement x,y
+//
+//     image [];   list of images in frame
+//     rect  [];   vulnerable regions
+//     rect  [];   attack regions
+//int    framesize;
+
+
+typedef struct move
+{
+unsigned short int   firstframe;       //Index into frame array to first frame
+unsigned char  numframes;        //Number of frames in move
+} move;
+
+
+//ASSEMBLY FUNCTIONS-------------------------------------
+
+
+
+
+//timeback.asm
+extern "C"
+{
+void __cdecl CopyBackground(char *,char *,int,int);
+void __cdecl PutBackground(char *,char *,int,int,int,int,short int *);
+void __cdecl PutBackgroundOverlap(char *,char *,char *,int,int,int,int,int,int,short int *);
+void __cdecl PutBackgroundTriOverlap(char *,char *,char *, char *,int,int, int,int, int,int, int,int,short  int *, short int *);
+void __cdecl DrawBar(char *b, int color, int x,int y,int xw,int yw);
+
+}
+
+void CreateBackground();
+
+void DrawBackground(int);
+void InitStatusBar();
+int UpdateStatusBar();
+void UpdatePalette();
+
+#include "ttimer.h"
+
+void TickUpdate();
+
+
+//tkeyb.asm
+void InitKeyboard(void (*kfunc)());
+void TerminateKeyboard();
+
+void Keyboard();
+
+
+
+
+
+//int  ReadRawFile(char **m,int h);
+
+void ClearScreen(char c);
+void DrawFixedString(char *s,char *dest);
+
+
+void AttackCheck();
+
+//void DrawImage(char far *src,char far *dest,int x, int y,int o);
+void ReadImageFiles(char * *imagelist, char *map,int *);
+void ReadBackground(char *dir);
+
+void DrawWinMark();
+
+char *ReadFile(char *name);
+//VOC  *ReadVocFile(char *name);
+
+
+int CompressBackground(unsigned char *src,unsigned char *dest,int xl,int yl,short int *ylist,int lsw);
+void GetBackgroundDimensions(unsigned char  *src,int *xtotal,int *ytotal);
+
+void ReadSoundFiles(SOUND *s);
+
+
+typedef struct joypos
+{
+ unsigned char pos;
+ short int min;
+ short int max;
+} joypos;
+
+typedef class specialmove
+{
+public:
+joypos  jp[10];        //List of positions for joystick
+
+joypos  *jpp;          //Current location within special movement
+unsigned char curstat; //Current joy stick status
+int     jpmin;         //Time that joy must remain in this position
+int     jpmax;         //Time for joy to get to next pos
+
+unsigned char bhold;   //Button hold for premature button pushing
+
+int Check(unsigned char s);
+int checkpos(int a,int b,int);
+} specialmove;
+
+
+typedef class effect
+{
+ public:
+unsigned char *e; //Frame of effect on screen NULL-none
+int en;            //effect type
+int x,y,d;          //Coordinates of effect
+int dur;             //Duration
+int currframe,numframes;      //Current number of frame on screen
+int tcx,tcy;       //Fractional move counters
+
+int maxy;
+ void Draw();
+ void Tick();
+} effect;
+
+typedef class bground
+{
+public:
+//BGSTUFF
+char *bgimages;
+short *ylist1a,*ylist1b,*ylist2;
+char *bg1a,*bg1b;
+char *bg2;
+char *bg3;
+unsigned short bg2y;
+int scrblack;
+char *bgimagelist[80];
+series bgs[40];
+series bgfs[10];
+unsigned char *bgframes;
+unsigned short  bgframesize;
+short nums,numfs;
+MUSIC *music;
+int scrx,scry;
+
+//floor stuff
+char *bgfloor,*bgfloorsave; //raw floor
+int floorheight;            //height of floor
+int floory;                 //position where floor starts
+unsigned int bgfloorsize;    //size of floor in bytes
+
+void ReadBackground(char *filename,int floory);
+void DrawBGImages(char *dest);
+void DrawFGImages(char *dest);
+void DrawBackground(char *dest);
+void KillBackground();
+void CreateFloorBG(char *b,int bgy,int bgynum,unsigned short int *ylist);
+void DrawFloorBG(char *d,int bx);
+}   bground;
+
+#define PMAX 5
+
+typedef class projectilestat
+{
+public:
+unsigned char *pframeptr; //Frame of projectile on screen NULL-none
+byte pstat;         //1-flying through air   2-smacking other guy
+byte ptype;        //0-Attacking 1-not
+int px,py,pd;        //Coordinates of projectile
+int pdur;            //Duration
+int pcurrframe,pnumframes;      //Current number of frame on screen
+int ptcx,ptcy;       //Fractional move counters
+rect *parectptr; //Pointer to attack rectangle of projectile
+
+void  AdvanceProjectile();
+void DrawProjectile();
+void DrawProjectileShadow();
+
+} projectilestat;
+
+typedef struct painimage
+{
+image pi[10]; //10 pain images
+} painimage;
+
+
+typedef class playerstat
+{
+public:
+byte type;
+byte color;
+byte ctype; //1-joy/keyb 2-computer 3-modem
+
+char charname[15];
+
+playerstat *po; //pointer to other character
+
+int  x,y,d;          //Current location
+
+unsigned char *frameptr;  //Frame pointer to current frame on screen
+unsigned char *vrectptr;  //Pointer to current series of v rects
+unsigned char *arectptr;  //Pointer to current series of a rects
+int  cm;             //Current move
+int  dur;            //Current duration
+int  currframe,numframes; //Frame vars for current frame
+int tcountx;         //Horiz/Vert fractional move counter
+int tcounty;
+
+unsigned char *jumpptr;  //Frame of jump that is being referenced to
+int            jumpdur;  //Dur of curr jump frame
+
+int energy;
+int maxenergy;
+
+int dizzy;
+int dizzydur;        //Time character should stay in dizzy
+
+input in;            //Input structure
+byte   kbmove;        //0-none 1-weak 2-med 3-fierce
+byte   newmove;      //If new move occured
+int   stat;          //Current status
+
+int ca,cai;
+
+int blockholddelay;  //Time to hold block for successive attacks
+byte shakedur;
+int shake;
+
+unsigned long int lastdusttime;
+byte hhmeter;
+byte inactivitycnt;
+byte wallsound;
+byte lrflipflop;
+byte lrbutmax;
+
+int pain;            //Current level of pain
+int paindur;         //Time between pain drippings
+
+int painexist;
+painimage *pl;
+char *painimages;
+char *painimagelist[256];
+
+
+effect eattach;
+
+//Projectile stuff
+byte    pexist;    //Does a projectile exist?
+projectilestat ps[PMAX];
+
+unsigned char *frame;        //Array of frames
+move moves[130];             //Array of moves
+
+char hitcnt[130];
+
+char *images;
+char  *imagelist[256];
+
+SOUND namevoc;
+SOUND se[2][7];  //Specific voc effects
+
+specialmove sm[10];
+byte         numjoymoves;
+
+byte         numjm;  //Number of special moves
+byte         numfm;  //Number of special moves w/fatality
+
+//Throw stuff
+char *tframe;
+unsigned short int throwptr[4][32];
+byte throwgrab; //0-not grabbed yet 1-grabbed
+byte throwstat; //0-not 1-throwing 2-let go of him 3-being thrown
+int throwvuln; //Time that you are invincible to throws
+byte fatality;
+char *holdframeptr;    //Last frame to go back to hold
+byte holdframe;       //Number of last frame
+int holddur;      //Length hold should be on
+int  holdshakemeter;
+
+char  *name;
+int  namex;
+
+
+//computer intelligence stuff
+int strategy; //current player strategy
+int sdur;
+int destx,desty;  //destination position
+
+int jumpwidth,jumpheight; //size of jump forward/backward;
+
+unsigned char *comboptr;
+int combonum,combohit;
+
+
+///combo meter
+int combometer; //number of successive hits counted
+int oldcombometer;
+
+
+int combostat;  //0-none 1-prescroll 2-scrolling 3-showing....150 reset
+int combox;      //x-coordinate of combo
+//int combonumhits;   //number of hits!
+//int combowidth1,combowidth2;
+//char comboline1[20];
+//char comboline2[30]; //funny stuff to say
+char *comboline1,*comboline2;
+
+
+void ResetCombo();
+void SetCombo();
+
+void Initialize(int type, int color);
+void Kill();
+void Revolumize();
+void  Reset();
+void DrawFrame();
+void DrawFrameFunky(int r);
+
+void DrawShadow();
+void PEffect(int type, int ex, int ey);
+
+void DrawAttachEffect();
+void TickAttachEffect();
+
+void GetRect();
+
+int NeedBlock();
+
+void  Update();
+void Move();
+
+void ControlMove();
+void ModemMove();
+void ModemPos();
+void ResetDifficulty();
+
+void ComputerMove();
+
+void DrawPain(int i,int x,int y,int o);
+int  ShakeOff();
+
+} playerstat;
+
+void PlayMixedSoundEffect(SOUND *se,int priority);
+void PlayModalSoundEffect(SOUND *se);
+void StopVoice();
+void ReadVolSound(int h,SOUND *s);
+
+int random(int);

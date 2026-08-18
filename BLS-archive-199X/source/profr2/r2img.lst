@@ -1,0 +1,788 @@
+
+Module: c:\source\r2\r2img.cpp
+Group: 'DGROUP' CONST,CONST2,_DATA,_BSS
+
+Segment: _TEXT  PARA USE32  000006ee bytes  
+ 0000                    void near SCR::draw( char near *, int, int ):
+ 0000  56                                push    esi
+ 0001  57                                push    edi
+ 0002  55                                push    ebp
+ 0003  83 ec 04                          sub     esp,00000004H
+ 0006  89 04 24                          mov     [esp],eax
+ 0009  89 dd                             mov     ebp,ebx
+ 000b  0f af 0d 00 00 00 
+       00                                imul    ecx,_PITCH
+ 0012  8d 58 10                          lea     ebx,+10H[eax]
+ 0015  01 e9                             add     ecx,ebp
+ 0017  8b 68 0c                          mov     ebp,+0cH[eax]
+ 001a  01 ca                             add     edx,ecx
+ 001c  85 ed                             test    ebp,ebp
+ 001e  7e 2f                             jle     L2
+ 0020  8b 0c 24          L1              mov     ecx,[esp]
+ 0023  89 de                             mov     esi,ebx
+ 0025  89 d7                             mov     edi,edx
+ 0027  8b 49 08                          mov     ecx,+8H[ecx]
+ 002a  57                                push    edi
+ 002b  89 c8                             mov     eax,ecx
+ 002d  c1 e9 02                          shr     ecx,02H
+ 0030  f2 a5                             repne   movsd    
+ 0032  8a c8                             mov     cl,al
+ 0034  80 e1 03                          and     cl,03H
+ 0037  f2 a4                             repne   movsb    
+ 0039  5f                                pop     edi
+ 003a  8b 0c 24                          mov     ecx,[esp]
+ 003d  4d                                dec     ebp
+ 003e  8b 3d 00 00 00 00                 mov     edi,_PITCH
+ 0044  8b 41 08                          mov     eax,+8H[ecx]
+ 0047  01 fa                             add     edx,edi
+ 0049  01 c3                             add     ebx,eax
+ 004b  85 ed                             test    ebp,ebp
+ 004d  7f d1                             jg      L1
+ 004f  83 c4 04          L2              add     esp,00000004H
+ 0052  5d                                pop     ebp
+ 0053  5f                                pop     edi
+ 0054  5e                                pop     esi
+ 0055  c3                                ret     
+ 0056  8b c0                             mov     eax,eax
+ 0058                    void near BITMAP::draw( char near *, int, int ):
+ 0058  56                                push    esi
+ 0059  57                                push    edi
+ 005a  55                                push    ebp
+ 005b  89 c6                             mov     esi,eax
+ 005d  89 d5                             mov     ebp,edx
+ 005f  89 cf                             mov     edi,ecx
+ 0061  83 38 01                          cmp     dword ptr [eax],00000001H
+ 0064  75 0e                             jne     L3
+ 0066  6a 00                             push    00000000H
+ 0068  51                                push    ecx
+ 0069  53                                push    ebx
+ 006a  55                                push    ebp
+ 006b  50                                push    eax
+ 006c  e8 00 00 00 00                    call    _drawimager2
+ 0071  83 c4 14                          add     esp,00000014H
+ 0074  83 3e 02          L3              cmp     dword ptr [esi],00000002H
+ 0077  75 0b                             jne     L4
+ 0079  89 f9                             mov     ecx,edi
+ 007b  89 ea                             mov     edx,ebp
+ 007d  89 f0                             mov     eax,esi
+ 007f  e8 00 00 00 00                    call    void near SCR::draw( char near *, int, int )
+ 0084  5d                L4              pop     ebp
+ 0085  5f                                pop     edi
+ 0086  5e                                pop     esi
+ 0087  c3                                ret     
+ 0088                    void near BITMAP::write( char near * ):
+ 0088  53                                push    ebx
+ 0089  51                                push    ecx
+ 008a  56                                push    esi
+ 008b  57                                push    edi
+ 008c  55                                push    ebp
+ 008d  83 ec 10                          sub     esp,00000010H
+ 0090  89 c5                             mov     ebp,eax
+ 0092  89 d3                             mov     ebx,edx
+ 0094  b2 2e                             mov     dl,2eH
+ 0096  89 de                             mov     esi,ebx
+ 0098  8a 06             L5              mov     al,[esi]
+ 009a  3a c2                             cmp     al,dl
+ 009c  74 12                             je      L7
+ 009e  3c 00                             cmp     al,00H
+ 00a0  74 0c                             je      L6
+ 00a2  46                                inc     esi
+ 00a3  8a 06                             mov     al,[esi]
+ 00a5  3a c2                             cmp     al,dl
+ 00a7  74 07                             je      L7
+ 00a9  46                                inc     esi
+ 00aa  3c 00                             cmp     al,00H
+ 00ac  75 ea                             jne     L5
+ 00ae  2b f6             L6              sub     esi,esi
+ 00b0  85 f6             L7              test    esi,esi
+ 00b2  75 5e                             jne     L13
+ 00b4  83 7d 00 01                       cmp     dword ptr +0H[ebp],00000001H
+ 00b8  75 29                             jne     L10
+ 00ba  be 00 00 00 00                    mov     esi,offset L60
+ 00bf  89 df                             mov     edi,ebx
+ 00c1  57                                push    edi
+ 00c2  2b c9                             sub     ecx,ecx
+ 00c4  49                                dec     ecx
+ 00c5  b0 00                             mov     al,00H
+ 00c7  f2 ae                             repne   scasb    
+ 00c9  4f                                dec     edi
+ 00ca  8a 06             L8              mov     al,[esi]
+ 00cc  88 07                             mov     [edi],al
+ 00ce  3c 00                             cmp     al,00H
+ 00d0  74 10                             je      L9
+ 00d2  8a 46 01                          mov     al,+1H[esi]
+ 00d5  83 c6 02                          add     esi,00000002H
+ 00d8  88 47 01                          mov     +1H[edi],al
+ 00db  83 c7 02                          add     edi,00000002H
+ 00de  3c 00                             cmp     al,00H
+ 00e0  75 e8                             jne     L8
+ 00e2  5f                L9              pop     edi
+ 00e3  83 7d 00 02       L10             cmp     dword ptr +0H[ebp],00000002H
+ 00e7  75 29                             jne     L13
+ 00e9  be 04 00 00 00                    mov     esi,offset L61
+ 00ee  89 df                             mov     edi,ebx
+ 00f0  57                                push    edi
+ 00f1  2b c9                             sub     ecx,ecx
+ 00f3  49                                dec     ecx
+ 00f4  b0 00                             mov     al,00H
+ 00f6  f2 ae                             repne   scasb    
+ 00f8  4f                                dec     edi
+ 00f9  8a 06             L11             mov     al,[esi]
+ 00fb  88 07                             mov     [edi],al
+ 00fd  3c 00                             cmp     al,00H
+ 00ff  74 10                             je      L12
+ 0101  8a 46 01                          mov     al,+1H[esi]
+ 0104  83 c6 02                          add     esi,00000002H
+ 0107  88 47 01                          mov     +1H[edi],al
+ 010a  83 c7 02                          add     edi,00000002H
+ 010d  3c 00                             cmp     al,00H
+ 010f  75 e8                             jne     L11
+ 0111  5f                L12             pop     edi
+ 0112  89 da             L13             mov     edx,ebx
+ 0114  30 e4                             xor     ah,ah
+ 0116  31 f6                             xor     esi,esi
+ 0118  88 64 24 08                       mov     +8H[esp],ah
+ 011c  89 e0                             mov     eax,esp
+ 011e  89 74 24 09                       mov     +9H[esp],esi
+ 0122  e8 00 00 00 00                    call    int near FILEIO::create( char near * )
+ 0127  89 e0                             mov     eax,esp
+ 0129  89 ea                             mov     edx,ebp
+ 012b  8b 5d 04                          mov     ebx,+4H[ebp]
+ 012e  e8 00 00 00 00                    call    int near FILEIO::write( void near *, int unsigned )
+ 0133  89 e0                             mov     eax,esp
+ 0135  e8 00 00 00 00                    call    void near FILEIO::close()
+ 013a  83 c4 10                          add     esp,00000010H
+ 013d  5d                                pop     ebp
+ 013e  5f                                pop     edi
+ 013f  5e                                pop     esi
+ 0140  59                                pop     ecx
+ 0141  5b                                pop     ebx
+ 0142  c3                                ret     
+ 0143  90                                nop     
+ 0144                    IMG near * near SCR::compress( char ):
+ 0144  53                                push    ebx
+ 0145  51                                push    ecx
+ 0146  56                                push    esi
+ 0147  57                                push    edi
+ 0148  55                                push    ebp
+ 0149  83 ec 0c                          sub     esp,0000000cH
+ 014c  89 44 24 04                       mov     +4H[esp],eax
+ 0150  88 d1                             mov     cl,dl
+ 0152  8b 54 24 04                       mov     edx,+4H[esp]
+ 0156  8b 40 08                          mov     eax,+8H[eax]
+ 0159  0f af 42 0c                       imul    eax,+0cH[edx]
+ 015d  8d 14 45 00 00 00 
+       00                                lea     edx,+0H[eax*2]
+ 0164  8b 44 24 04                       mov     eax,+4H[esp]
+ 0168  8b 40 0c                          mov     eax,+0cH[eax]
+ 016b  c1 e0 02                          shl     eax,02H
+ 016e  83 c0 10                          add     eax,00000010H
+ 0171  01 d0                             add     eax,edx
+ 0173  e8 00 00 00 00                    call    malloc_
+ 0178  89 c2                             mov     edx,eax
+ 017a  89 04 24                          mov     [esp],eax
+ 017d  c7 00 01 00 00 00                 mov     dword ptr [eax],00000001H
+ 0183  8b 44 24 04                       mov     eax,+4H[esp]
+ 0187  8b 40 08                          mov     eax,+8H[eax]
+ 018a  89 42 08                          mov     +8H[edx],eax
+ 018d  8b 44 24 04                       mov     eax,+4H[esp]
+ 0191  8b 40 0c                          mov     eax,+0cH[eax]
+ 0194  89 42 0c                          mov     +0cH[edx],eax
+ 0197  31 ed                             xor     ebp,ebp
+ 0199  8b 5a 0c                          mov     ebx,+0cH[edx]
+ 019c  83 c2 10                          add     edx,00000010H
+ 019f  c1 e3 02                          shl     ebx,02H
+ 01a2  8b 44 24 04                       mov     eax,+4H[esp]
+ 01a6  8d 34 1a                          lea     esi,[edx+ebx]
+ 01a9  83 c0 10                          add     eax,00000010H
+ 01ac  eb 56                             jmp     L21
+ 01ae  4b                L14             dec     ebx
+ 01af  42                                inc     edx
+ 01b0  8a 68 01                          mov     ch,+1H[eax]
+ 01b3  40                                inc     eax
+ 01b4  38 e9                             cmp     cl,ch
+ 01b6  75 0c                             jne     L16
+ 01b8  85 db             L15             test    ebx,ebx
+ 01ba  7e 08                             jle     L16
+ 01bc  81 fa ff 00 00 00                 cmp     edx,000000ffH
+ 01c2  72 ea                             jb      L14
+ 01c4  46                L16             inc     esi
+ 01c5  88 56 ff                          mov     -1H[esi],dl
+ 01c8  85 db                             test    ebx,ebx
+ 01ca  7e 30                             jle     L20
+ 01cc  46                                inc     esi
+ 01cd  8a 28                             mov     ch,[eax]
+ 01cf  31 d2                             xor     edx,edx
+ 01d1  38 e9                             cmp     cl,ch
+ 01d3  75 10                             jne     L18
+ 01d5  eb 1a                             jmp     L19
+ 01d7  4b                L17             dec     ebx
+ 01d8  8a 28                             mov     ch,[eax]
+ 01da  40                                inc     eax
+ 01db  88 2e                             mov     [esi],ch
+ 01dd  42                                inc     edx
+ 01de  8a 28                             mov     ch,[eax]
+ 01e0  46                                inc     esi
+ 01e1  38 e9                             cmp     cl,ch
+ 01e3  74 0c                             je      L19
+ 01e5  85 db             L18             test    ebx,ebx
+ 01e7  7e 08                             jle     L19
+ 01e9  81 fa ff 00 00 00                 cmp     edx,000000ffH
+ 01ef  72 e6                             jb      L17
+ 01f1  89 f7             L19             mov     edi,esi
+ 01f3  29 d7                             sub     edi,edx
+ 01f5  88 57 ff                          mov     -1H[edi],dl
+ 01f8  85 db                             test    ebx,ebx
+ 01fa  7f 2d                             jg      L22
+ 01fc  8b 54 24 08       L20             mov     edx,+8H[esp]
+ 0200  83 c2 04                          add     edx,00000004H
+ 0203  45                                inc     ebp
+ 0204  89 54 24 08       L21             mov     +8H[esp],edx
+ 0208  8b 3c 24                          mov     edi,[esp]
+ 020b  89 f3                             mov     ebx,esi
+ 020d  8b 54 24 04                       mov     edx,+4H[esp]
+ 0211  29 fb                             sub     ebx,edi
+ 0213  3b 6a 0c                          cmp     ebp,+0cH[edx]
+ 0216  7d 1b                             jge     L23
+ 0218  8b 54 24 08                       mov     edx,+8H[esp]
+ 021c  89 1a                             mov     [edx],ebx
+ 021e  8b 5c 24 04                       mov     ebx,+4H[esp]
+ 0222  8b 5b 08                          mov     ebx,+8H[ebx]
+ 0225  85 db                             test    ebx,ebx
+ 0227  7e d3                             jle     L20
+ 0229  8a 28             L22             mov     ch,[eax]
+ 022b  31 d2                             xor     edx,edx
+ 022d  38 e9                             cmp     cl,ch
+ 022f  74 87                             je      L15
+ 0231  eb 91                             jmp     L16
+ 0233  89 d0             L23             mov     eax,edx
+ 0235  e8 00 00 00 00                    call    free_
+ 023a  8b 04 24                          mov     eax,[esp]
+ 023d  89 da                             mov     edx,ebx
+ 023f  89 58 04                          mov     +4H[eax],ebx
+ 0242  e8 00 00 00 00                    call    realloc_
+ 0247  83 c4 0c                          add     esp,0000000cH
+ 024a  5d                                pop     ebp
+ 024b  5f                                pop     edi
+ 024c  5e                                pop     esi
+ 024d  59                                pop     ecx
+ 024e  5b                                pop     ebx
+ 024f  c3                                ret     
+ 0250                    void near IMG::convertcolor( char, char ):
+ 0250  51                                push    ecx
+ 0251  56                                push    esi
+ 0252  83 ec 08                          sub     esp,00000008H
+ 0255  89 c1                             mov     ecx,eax
+ 0257  88 14 24                          mov     [esp],dl
+ 025a  88 5c 24 04                       mov     +4H[esp],bl
+ 025e  8b 40 0c                          mov     eax,+0cH[eax]
+ 0261  8d 51 10                          lea     edx,+10H[ecx]
+ 0264  c1 e0 02                          shl     eax,02H
+ 0267  8b 71 08                          mov     esi,+8H[ecx]
+ 026a  01 d0                             add     eax,edx
+ 026c  0f af 71 0c                       imul    esi,+0cH[ecx]
+ 0270  85 f6                             test    esi,esi
+ 0272  7e 39                             jle     L28
+ 0274  31 d2             L24             xor     edx,edx
+ 0276  8a 10                             mov     dl,[eax]
+ 0278  29 d6                             sub     esi,edx
+ 027a  40                                inc     eax
+ 027b  85 f6                             test    esi,esi
+ 027d  7e 2e                             jle     L28
+ 027f  31 d2                             xor     edx,edx
+ 0281  8a 10                             mov     dl,[eax]
+ 0283  40                                inc     eax
+ 0284  29 d6                             sub     esi,edx
+ 0286  85 d2                             test    edx,edx
+ 0288  76 08                             jbe     L26
+ 028a  eb 0c                             jmp     L27
+ 028c  4a                L25             dec     edx
+ 028d  40                                inc     eax
+ 028e  85 d2                             test    edx,edx
+ 0290  77 06                             ja      L27
+ 0292  85 f6             L26             test    esi,esi
+ 0294  7f de                             jg      L24
+ 0296  eb 15                             jmp     L28
+ 0298  31 db             L27             xor     ebx,ebx
+ 029a  31 c9                             xor     ecx,ecx
+ 029c  8a 1c 24                          mov     bl,[esp]
+ 029f  8a 08                             mov     cl,[eax]
+ 02a1  39 d9                             cmp     ecx,ebx
+ 02a3  75 e7                             jne     L25
+ 02a5  8a 5c 24 04                       mov     bl,+4H[esp]
+ 02a9  88 18                             mov     [eax],bl
+ 02ab  eb df                             jmp     L25
+ 02ad  83 c4 08          L28             add     esp,00000008H
+ 02b0  5e                                pop     esi
+ 02b1  59                                pop     ecx
+ 02b2  c3                                ret     
+ 02b3  90                                nop     
+ 02b4                    void near IMG::colormap( COLORMAP near & ):
+ 02b4  53                                push    ebx
+ 02b5  51                                push    ecx
+ 02b6  56                                push    esi
+ 02b7  89 c3                             mov     ebx,eax
+ 02b9  89 d1                             mov     ecx,edx
+ 02bb  8b 50 0c                          mov     edx,+0cH[eax]
+ 02be  83 c0 10                          add     eax,00000010H
+ 02c1  c1 e2 02                          shl     edx,02H
+ 02c4  8b 73 08                          mov     esi,+8H[ebx]
+ 02c7  01 d0                             add     eax,edx
+ 02c9  0f af 73 0c                       imul    esi,+0cH[ebx]
+ 02cd  85 f6                             test    esi,esi
+ 02cf  7e 2a                             jle     L32
+ 02d1  31 d2             L29             xor     edx,edx
+ 02d3  8a 10                             mov     dl,[eax]
+ 02d5  29 d6                             sub     esi,edx
+ 02d7  40                                inc     eax
+ 02d8  85 f6                             test    esi,esi
+ 02da  7e 1f                             jle     L32
+ 02dc  31 d2                             xor     edx,edx
+ 02de  8a 10                             mov     dl,[eax]
+ 02e0  40                                inc     eax
+ 02e1  29 d6                             sub     esi,edx
+ 02e3  85 d2                             test    edx,edx
+ 02e5  76 10                             jbe     L31
+ 02e7  31 db             L30             xor     ebx,ebx
+ 02e9  8a 18                             mov     bl,[eax]
+ 02eb  40                                inc     eax
+ 02ec  8a 1c 19                          mov     bl,[ecx+ebx]
+ 02ef  4a                                dec     edx
+ 02f0  88 58 ff                          mov     -1H[eax],bl
+ 02f3  85 d2                             test    edx,edx
+ 02f5  77 f0                             ja      L30
+ 02f7  85 f6             L31             test    esi,esi
+ 02f9  7f d6                             jg      L29
+ 02fb  5e                L32             pop     esi
+ 02fc  59                                pop     ecx
+ 02fd  5b                                pop     ebx
+ 02fe  c3                                ret     
+ 02ff  90                                nop     
+ 0300                    void near expandword( short unsigned, char near *, int ):
+ 0300  51                                push    ecx
+ 0301  56                                push    esi
+ 0302  57                                push    edi
+ 0303  83 ec 04                          sub     esp,00000004H
+ 0306  89 c7                             mov     edi,eax
+ 0308  b8 0f 00 00 00                    mov     eax,0000000fH
+ 030d  31 f6             L33             xor     esi,esi
+ 030f  88 c1                             mov     cl,al
+ 0311  66 89 fe                          mov     si,di
+ 0314  d3 fe                             sar     esi,cl
+ 0316  83 e6 01                          and     esi,00000001H
+ 0319  88 d9                             mov     cl,bl
+ 031b  d3 e6                             shl     esi,cl
+ 031d  89 34 24                          mov     [esp],esi
+ 0320  8a 0c 24                          mov     cl,[esp]
+ 0323  8a 2a                             mov     ch,[edx]
+ 0325  42                                inc     edx
+ 0326  08 cd                             or      ch,cl
+ 0328  48                                dec     eax
+ 0329  88 6a ff                          mov     -1H[edx],ch
+ 032c  85 c0                             test    eax,eax
+ 032e  7d dd                             jge     L33
+ 0330  83 c4 04                          add     esp,00000004H
+ 0333  5f                                pop     edi
+ 0334  5e                                pop     esi
+ 0335  59                                pop     ecx
+ 0336  c3                                ret     
+ 0337  90                                nop     
+ 0338                    void near expandbyte( char unsigned, char near *, int ):
+ 0338  51                                push    ecx
+ 0339  56                                push    esi
+ 033a  83 ec 08                          sub     esp,00000008H
+ 033d  88 44 24 04                       mov     +4H[esp],al
+ 0341  b8 07 00 00 00                    mov     eax,00000007H
+ 0346  0f b6 74 24 04    L34             movzx   esi,byte ptr +4H[esp]
+ 034b  88 c1                             mov     cl,al
+ 034d  d3 fe                             sar     esi,cl
+ 034f  83 e6 01                          and     esi,00000001H
+ 0352  88 d9                             mov     cl,bl
+ 0354  d3 e6                             shl     esi,cl
+ 0356  89 34 24                          mov     [esp],esi
+ 0359  8a 0c 24                          mov     cl,[esp]
+ 035c  8a 2a                             mov     ch,[edx]
+ 035e  42                                inc     edx
+ 035f  08 cd                             or      ch,cl
+ 0361  48                                dec     eax
+ 0362  88 6a ff                          mov     -1H[edx],ch
+ 0365  85 c0                             test    eax,eax
+ 0367  7d dd                             jge     L34
+ 0369  83 c4 08                          add     esp,00000008H
+ 036c  5e                                pop     esi
+ 036d  59                                pop     ecx
+ 036e  c3                                ret     
+ 036f  90                                nop     
+ 0370                    short unsigned near reverseword( short unsigned ):
+ 0370  52                                push    edx
+ 0371  25 ff ff 00 00                    and     eax,0000ffffH
+ 0376  89 c2                             mov     edx,eax
+ 0378  c1 fa 08                          sar     edx,08H
+ 037b  c1 e0 08                          shl     eax,08H
+ 037e  09 d0                             or      eax,edx
+ 0380  5a                                pop     edx
+ 0381  c3                                ret     
+ 0382  8b c0                             mov     eax,eax
+ 0384                    int unsigned near DecodeIFF( char near *, char near *, int, int, int ):
+ 0384  56                                push    esi
+ 0385  57                                push    edi
+ 0386  55                                push    ebp
+ 0387  83 ec 20                          sub     esp,00000020H
+ 038a  89 c7                             mov     edi,eax
+ 038c  89 54 24 04                       mov     +4H[esp],edx
+ 0390  89 1c 24                          mov     [esp],ebx
+ 0393  89 4c 24 08                       mov     +8H[esp],ecx
+ 0397  8d 43 0f                          lea     eax,+0fH[ebx]
+ 039a  c1 f8 04                          sar     eax,04H
+ 039d  89 54 24 0c                       mov     +0cH[esp],edx
+ 03a1  89 44 24 14                       mov     +14H[esp],eax
+ 03a5  85 c9                             test    ecx,ecx
+ 03a7  0f 8e 11 01 00 00                 jle     L48
+ 03ad  01 c0                             add     eax,eax
+ 03af  89 44 24 10                       mov     +10H[esp],eax
+ 03b3  8b 04 24          L35             mov     eax,[esp]
+ 03b6  31 ed                             xor     ebp,ebp
+ 03b8  85 c0                             test    eax,eax
+ 03ba  7c 10                             jl      L37
+ 03bc  8b 44 24 0c                       mov     eax,+0cH[esp]
+ 03c0  8b 14 24                          mov     edx,[esp]
+ 03c3  45                L36             inc     ebp
+ 03c4  c6 00 00                          mov     byte ptr [eax],00H
+ 03c7  40                                inc     eax
+ 03c8  39 d5                             cmp     ebp,edx
+ 03ca  7e f7                             jle     L36
+ 03cc  31 ed             L37             xor     ebp,ebp
+ 03ce  eb 26                             jmp     L40
+ 03d0  8b 04 24          L38             mov     eax,[esp]
+ 03d3  8b 5c 24 0c                       mov     ebx,+0cH[esp]
+ 03d7  8b 4c 24 08                       mov     ecx,+8H[esp]
+ 03db  01 c3                             add     ebx,eax
+ 03dd  49                                dec     ecx
+ 03de  89 5c 24 0c                       mov     +0cH[esp],ebx
+ 03e2  89 4c 24 08                       mov     +8H[esp],ecx
+ 03e6  85 c9                             test    ecx,ecx
+ 03e8  0f 8e d0 00 00 00                 jle     L48
+ 03ee  eb c3                             jmp     L35
+ 03f0  45                L39             inc     ebp
+ 03f1  83 fd 08                          cmp     ebp,00000008H
+ 03f4  7d da                             jge     L38
+ 03f6  8b 5c 24 30       L40             mov     ebx,+30H[esp]
+ 03fa  8b 74 24 0c                       mov     esi,+0cH[esp]
+ 03fe  85 db                             test    ebx,ebx
+ 0400  75 3b                             jne     L42
+ 0402  8b 44 24 14                       mov     eax,+14H[esp]
+ 0406  31 c9                             xor     ecx,ecx
+ 0408  85 c0                             test    eax,eax
+ 040a  7e e4                             jle     L39
+ 040c  66 8b 07          L41             mov     ax,[edi]
+ 040f  25 ff ff 00 00                    and     eax,0000ffffH
+ 0414  89 c2                             mov     edx,eax
+ 0416  c1 fa 08                          sar     edx,08H
+ 0419  c1 e0 08                          shl     eax,08H
+ 041c  09 d0                             or      eax,edx
+ 041e  25 ff ff 00 00                    and     eax,0000ffffH
+ 0423  89 eb                             mov     ebx,ebp
+ 0425  89 f2                             mov     edx,esi
+ 0427  e8 00 00 00 00                    call    void near expandword( short unsigned, char near *, int )
+ 042c  41                                inc     ecx
+ 042d  83 c7 02                          add     edi,00000002H
+ 0430  8b 5c 24 14                       mov     ebx,+14H[esp]
+ 0434  83 c6 10                          add     esi,00000010H
+ 0437  39 d9                             cmp     ecx,ebx
+ 0439  7d b5                             jge     L39
+ 043b  eb cf                             jmp     L41
+ 043d  8b 44 24 10       L42             mov     eax,+10H[esp]
+ 0441  89 44 24 18                       mov     +18H[esp],eax
+ 0445  85 c0                             test    eax,eax
+ 0447  7e a7                             jle     L39
+ 0449  0f be 0f          L43             movsx   ecx,byte ptr [edi]
+ 044c  47                                inc     edi
+ 044d  85 c9                             test    ecx,ecx
+ 044f  7c 27                             jl      L45
+ 0451  8b 54 24 18                       mov     edx,+18H[esp]
+ 0455  41                                inc     ecx
+ 0456  29 ca                             sub     edx,ecx
+ 0458  89 54 24 18                       mov     +18H[esp],edx
+ 045c  85 c9                             test    ecx,ecx
+ 045e  7e 52                             jle     L47
+ 0460  89 eb             L44             mov     ebx,ebp
+ 0462  89 f2                             mov     edx,esi
+ 0464  31 c0                             xor     eax,eax
+ 0466  49                                dec     ecx
+ 0467  8a 07                             mov     al,[edi]
+ 0469  47                                inc     edi
+ 046a  e8 00 00 00 00                    call    void near expandbyte( char unsigned, char near *, int )
+ 046f  83 c6 08                          add     esi,00000008H
+ 0472  85 c9                             test    ecx,ecx
+ 0474  7e 3c                             jle     L47
+ 0476  eb e8                             jmp     L44
+ 0478  83 f9 80          L45             cmp     ecx,0ffffff80H
+ 047b  74 35                             je      L47
+ 047d  8a 07                             mov     al,[edi]
+ 047f  88 44 24 1c                       mov     +1cH[esp],al
+ 0483  b8 01 00 00 00                    mov     eax,00000001H
+ 0488  29 c8                             sub     eax,ecx
+ 048a  89 c1                             mov     ecx,eax
+ 048c  8b 44 24 18                       mov     eax,+18H[esp]
+ 0490  29 c8                             sub     eax,ecx
+ 0492  47                                inc     edi
+ 0493  89 44 24 18                       mov     +18H[esp],eax
+ 0497  85 c9                             test    ecx,ecx
+ 0499  7e 17                             jle     L47
+ 049b  89 eb             L46             mov     ebx,ebp
+ 049d  31 c0                             xor     eax,eax
+ 049f  89 f2                             mov     edx,esi
+ 04a1  8a 44 24 1c                       mov     al,+1cH[esp]
+ 04a5  49                                dec     ecx
+ 04a6  e8 00 00 00 00                    call    void near expandbyte( char unsigned, char near *, int )
+ 04ab  83 c6 08                          add     esi,00000008H
+ 04ae  85 c9                             test    ecx,ecx
+ 04b0  7f e9                             jg      L46
+ 04b2  83 7c 24 18 00    L47             cmp     dword ptr +18H[esp],00000000H
+ 04b7  7f 90                             jg      L43
+ 04b9  e9 32 ff ff ff                    jmp     L39
+ 04be  8b 44 24 0c       L48             mov     eax,+0cH[esp]
+ 04c2  2b 44 24 04                       sub     eax,+4H[esp]
+ 04c6  83 c4 20                          add     esp,00000020H
+ 04c9  5d                                pop     ebp
+ 04ca  5f                                pop     edi
+ 04cb  5e                                pop     esi
+ 04cc  c2 04 00                          ret     0004H
+ 04cf  90                                nop     
+ 04d0                    int unsigned near FindChunk( char near *, int unsigned, char, char, char, char ):
+ 04d0  56                                push    esi
+ 04d1  57                                push    edi
+ 04d2  8a 7c 24 0c                       mov     bh,+0cH[esp]
+ 04d6  89 c6                             mov     esi,eax
+ 04d8  89 d7                             mov     edi,edx
+ 04da  31 d2                             xor     edx,edx
+ 04dc  8d 34 38                          lea     esi,[eax+edi]
+ 04df  3a 18             L49             cmp     bl,[eax]
+ 04e1  75 13                             jne     L50
+ 04e3  3a 48 01                          cmp     cl,+1H[eax]
+ 04e6  75 0e                             jne     L50
+ 04e8  3a 78 02                          cmp     bh,+2H[eax]
+ 04eb  75 09                             jne     L50
+ 04ed  8a 68 03                          mov     ch,+3H[eax]
+ 04f0  3a 6c 24 10                       cmp     ch,+10H[esp]
+ 04f4  74 06                             je      L51
+ 04f6  40                L50             inc     eax
+ 04f7  42                                inc     edx
+ 04f8  39 f0                             cmp     eax,esi
+ 04fa  72 e3                             jb      L49
+ 04fc  39 fa             L51             cmp     edx,edi
+ 04fe  75 07                             jne     L52
+ 0500  31 c0                             xor     eax,eax
+ 0502  5f                                pop     edi
+ 0503  5e                                pop     esi
+ 0504  c2 08 00                          ret     0008H
+ 0507  89 d0             L52             mov     eax,edx
+ 0509  5f                                pop     edi
+ 050a  5e                                pop     esi
+ 050b  c2 08 00                          ret     0008H
+ 050e  8b c0                             mov     eax,eax
+ 0510                    SCR near * near ReadLBMFile( char near * ):
+ 0510  53                                push    ebx
+ 0511  51                                push    ecx
+ 0512  52                                push    edx
+ 0513  56                                push    esi
+ 0514  57                                push    edi
+ 0515  55                                push    ebp
+ 0516  89 e5                             mov     ebp,esp
+ 0518  83 ec 1c                          sub     esp,0000001cH
+ 051b  30 d2                             xor     dl,dl
+ 051d  88 55 ec                          mov     -14H[ebp],dl
+ 0520  31 d2                             xor     edx,edx
+ 0522  89 55 ed                          mov     -13H[ebp],edx
+ 0525  89 c2                             mov     edx,eax
+ 0527  8d 45 e4                          lea     eax,-1cH[ebp]
+ 052a  e8 00 00 00 00                    call    int near FILEIO::open( char near * )
+ 052f  85 c0                             test    eax,eax
+ 0531  74 07                             je      L53
+ 0533  31 c0                             xor     eax,eax
+ 0535  e9 ab 01 00 00                    jmp     L59
+ 053a  8d 45 e4          L53             lea     eax,-1cH[ebp]
+ 053d  e8 00 00 00 00                    call    int unsigned near FILEIO::size()
+ 0542  89 c7                             mov     edi,eax
+ 0544  89 c2                             mov     edx,eax
+ 0546  8d 45 e4                          lea     eax,-1cH[ebp]
+ 0549  e8 00 00 00 00                    call    void near * near FILEIO::readalloc( int unsigned )
+ 054e  89 c6                             mov     esi,eax
+ 0550  89 c2                             mov     edx,eax
+ 0552  8d 45 e4                          lea     eax,-1cH[ebp]
+ 0555  e8 00 00 00 00                    call    void near FILEIO::close()
+ 055a  80 3e 46                          cmp     byte ptr [esi],46H
+ 055d  75 12                             jne     L54
+ 055f  80 7e 01 4f                       cmp     byte ptr +1H[esi],4fH
+ 0563  75 0c                             jne     L54
+ 0565  80 7e 02 52                       cmp     byte ptr +2H[esi],52H
+ 0569  75 06                             jne     L54
+ 056b  80 7e 03 4d                       cmp     byte ptr +3H[esi],4dH
+ 056f  74 1f                             je      L55
+ 0571  68 09 00 00 00    L54             push    offset L62
+ 0576  e8 00 00 00 00                    call    printf_
+ 057b  83 c4 04                          add     esp,00000004H
+ 057e  89 d0                             mov     eax,edx
+ 0580  e8 00 00 00 00                    call    free_
+ 0585  31 c0                             xor     eax,eax
+ 0587  89 ec                             mov     esp,ebp
+ 0589  5d                                pop     ebp
+ 058a  5f                                pop     edi
+ 058b  5e                                pop     esi
+ 058c  5a                                pop     edx
+ 058d  59                                pop     ecx
+ 058e  5b                                pop     ebx
+ 058f  c3                                ret     
+ 0590  6a 4d             L55             push    0000004dH
+ 0592  b9 4c 00 00 00                    mov     ecx,0000004cH
+ 0597  bb 49 00 00 00                    mov     ebx,00000049H
+ 059c  6a 42                             push    00000042H
+ 059e  89 fa                             mov     edx,edi
+ 05a0  89 f0                             mov     eax,esi
+ 05a2  e8 00 00 00 00                    call    int unsigned near FindChunk( char near *, int unsigned, char, char, char, char )
+ 05a7  85 c0                             test    eax,eax
+ 05a9  75 1f                             jne     L56
+ 05ab  68 1f 00 00 00                    push    offset L63
+ 05b0  e8 00 00 00 00                    call    printf_
+ 05b5  83 c4 04                          add     esp,00000004H
+ 05b8  89 f0                             mov     eax,esi
+ 05ba  e8 00 00 00 00                    call    free_
+ 05bf  31 c0                             xor     eax,eax
+ 05c1  89 ec                             mov     esp,ebp
+ 05c3  5d                                pop     ebp
+ 05c4  5f                                pop     edi
+ 05c5  5e                                pop     esi
+ 05c6  5a                                pop     edx
+ 05c7  59                                pop     ecx
+ 05c8  5b                                pop     ebx
+ 05c9  c3                                ret     
+ 05ca  6a 44             L56             push    00000044H
+ 05cc  b9 4d 00 00 00                    mov     ecx,0000004dH
+ 05d1  bb 42 00 00 00                    mov     ebx,00000042H
+ 05d6  6a 48                             push    00000048H
+ 05d8  89 fa                             mov     edx,edi
+ 05da  89 f0                             mov     eax,esi
+ 05dc  e8 00 00 00 00                    call    int unsigned near FindChunk( char near *, int unsigned, char, char, char, char )
+ 05e1  85 c0                             test    eax,eax
+ 05e3  75 1f                             jne     L57
+ 05e5  68 3b 00 00 00                    push    offset L64
+ 05ea  e8 00 00 00 00                    call    printf_
+ 05ef  83 c4 04                          add     esp,00000004H
+ 05f2  89 f0                             mov     eax,esi
+ 05f4  e8 00 00 00 00                    call    free_
+ 05f9  31 c0                             xor     eax,eax
+ 05fb  89 ec                             mov     esp,ebp
+ 05fd  5d                                pop     ebp
+ 05fe  5f                                pop     edi
+ 05ff  5e                                pop     esi
+ 0600  5a                                pop     edx
+ 0601  59                                pop     ecx
+ 0602  5b                                pop     ebx
+ 0603  c3                                ret     
+ 0604  66 8b 54 06 08    L57             mov     dx,+8H[esi+eax]
+ 0609  83 c0 08                          add     eax,00000008H
+ 060c  81 e2 ff ff 00 00                 and     edx,0000ffffH
+ 0612  89 d3                             mov     ebx,edx
+ 0614  c1 fb 08                          sar     ebx,08H
+ 0617  c1 e2 08                          shl     edx,08H
+ 061a  09 da                             or      edx,ebx
+ 061c  81 e2 ff ff 00 00                 and     edx,0000ffffH
+ 0622  83 c0 02                          add     eax,00000002H
+ 0625  89 55 f4                          mov     -0cH[ebp],edx
+ 0628  66 8b 14 06                       mov     dx,[esi+eax]
+ 062c  81 e2 ff ff 00 00                 and     edx,0000ffffH
+ 0632  89 d3                             mov     ebx,edx
+ 0634  c1 fb 08                          sar     ebx,08H
+ 0637  c1 e2 08                          shl     edx,08H
+ 063a  09 da                             or      edx,ebx
+ 063c  81 e2 ff ff 00 00                 and     edx,0000ffffH
+ 0642  83 c0 08                          add     eax,00000008H
+ 0645  89 55 fc                          mov     -4H[ebp],edx
+ 0648  8a 04 06                          mov     al,[esi+eax]
+ 064b  6a 59                             push    00000059H
+ 064d  b9 4f 00 00 00                    mov     ecx,0000004fH
+ 0652  bb 42 00 00 00                    mov     ebx,00000042H
+ 0657  25 ff 00 00 00                    and     eax,000000ffH
+ 065c  89 fa                             mov     edx,edi
+ 065e  6a 44                             push    00000044H
+ 0660  89 45 f8                          mov     -8H[ebp],eax
+ 0663  89 f0                             mov     eax,esi
+ 0665  e8 00 00 00 00                    call    int unsigned near FindChunk( char near *, int unsigned, char, char, char, char )
+ 066a  85 c0                             test    eax,eax
+ 066c  75 1f                             jne     L58
+ 066e  68 57 00 00 00                    push    offset L65
+ 0673  e8 00 00 00 00                    call    printf_
+ 0678  83 c4 04                          add     esp,00000004H
+ 067b  89 f0                             mov     eax,esi
+ 067d  e8 00 00 00 00                    call    free_
+ 0682  31 c0                             xor     eax,eax
+ 0684  89 ec                             mov     esp,ebp
+ 0686  5d                                pop     ebp
+ 0687  5f                                pop     edi
+ 0688  5e                                pop     esi
+ 0689  5a                                pop     edx
+ 068a  59                                pop     ecx
+ 068b  5b                                pop     ebx
+ 068c  c3                                ret     
+ 068d  8b 55 f4          L58             mov     edx,-0cH[ebp]
+ 0690  0f af 55 fc                       imul    edx,-4H[ebp]
+ 0694  8d 58 08                          lea     ebx,+8H[eax]
+ 0697  8d 82 f8 03 00 00                 lea     eax,+3f8H[edx]
+ 069d  8b 4d f8                          mov     ecx,-8H[ebp]
+ 06a0  e8 00 00 00 00                    call    malloc_
+ 06a5  89 c7                             mov     edi,eax
+ 06a7  51                                push    ecx
+ 06a8  c7 00 02 00 00 00                 mov     dword ptr [eax],00000002H
+ 06ae  8b 45 f4                          mov     eax,-0cH[ebp]
+ 06b1  8b 4d fc                          mov     ecx,-4H[ebp]
+ 06b4  89 47 08                          mov     +8H[edi],eax
+ 06b7  8b 45 fc                          mov     eax,-4H[ebp]
+ 06ba  8d 57 10                          lea     edx,+10H[edi]
+ 06bd  89 47 0c                          mov     +0cH[edi],eax
+ 06c0  8d 04 1e                          lea     eax,[esi+ebx]
+ 06c3  8b 5d f4                          mov     ebx,-0cH[ebp]
+ 06c6  e8 00 00 00 00                    call    int unsigned near DecodeIFF( char near *, char near *, int, int, int )
+ 06cb  83 c0 10                          add     eax,00000010H
+ 06ce  89 c2                             mov     edx,eax
+ 06d0  89 47 04                          mov     +4H[edi],eax
+ 06d3  89 f8                             mov     eax,edi
+ 06d5  e8 00 00 00 00                    call    realloc_
+ 06da  89 c2                             mov     edx,eax
+ 06dc  89 f0                             mov     eax,esi
+ 06de  e8 00 00 00 00                    call    free_
+ 06e3  89 d0                             mov     eax,edx
+ 06e5  89 ec             L59             mov     esp,ebp
+ 06e7  5d                                pop     ebp
+ 06e8  5f                                pop     edi
+ 06e9  5e                                pop     esi
+ 06ea  5a                                pop     edx
+ 06eb  59                                pop     ecx
+ 06ec  5b                                pop     ebx
+ 06ed  c3                                ret     
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: CONST  DWORD USE32  00000073 bytes  
+ 0000  2e 52 32 00             L60             - .R2.
+ 0004  2e 53 43 52 00          L61             - .SCR.
+ 0009  65 72 72 6f 72 3a 20 6e L62             - error: n
+ 0011  6f 74 20 49 46 46 20 66                 - ot IFF f
+ 0019  69 6c 65 2e 0a 00                       - ile...
+ 001f  65 72 72 6f 72 3a 20 6e L63             - error: n
+ 0027  6f 74 20 6f 6c 64 20 44                 - ot old D
+ 002f  50 32 20 66 6f 72 6d 61                 - P2 forma
+ 0037  74 2e 0a 00                             - t...
+ 003b  65 72 72 6f 72 3a 20 42 L64             - error: B
+ 0043  4d 48 44 20 74 61 67 20                 - MHD tag 
+ 004b  6e 6f 74 20 66 6f 75 6e                 - not foun
+ 0053  64 2e 0a 00                             - d...
+ 0057  65 72 72 6f 72 3a 20 42 L65             - error: B
+ 005f  4f 44 59 20 74 61 67 20                 - ODY tag 
+ 0067  6e 6f 74 20 66 6f 75 6e                 - not foun
+ 006f  64 2e 0a 00                             - d...
+
+No disassembly errors
+
+------------------------------------------------------------

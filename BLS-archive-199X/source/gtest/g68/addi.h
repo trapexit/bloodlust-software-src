@@ -1,0 +1,111 @@
+
+struct addi:insttype
+{
+ addi():insttype("0000_0110zz_aaaaaa","addi",(Dn|iAn|iAni|idAn|d16An|d8AnR|addr16|addr32) )
+  {immtype=IMM_DSIZE;}
+ void gencore(int t,iparm &ip)
+ {
+  genread(t,ip.dsize);
+
+  skipf();
+  printf("\tadd %s,%s \n",areg[ip.dsize],immreg[ip.dsize]);
+  pushfx();
+
+  genwrite(t,ip.dsize);
+ }
+} ADDI;
+
+
+//---------------------------
+
+
+//source is effective address
+struct add:insttype
+{
+ add():insttype("1101_nnn0zz_aaaaaa","add",(Dn|An|iAn|iAni|idAn|d16An|d8AnR|addr16|addr32|d16PC|d8PCR|aimm) )
+  {}
+ void gencore(int t,iparm &ip)
+ {
+  genread(t,ip.dsize);
+
+  skipf();
+  printf("\tadd %s ptr [edi.D0+%d*4],%s \n",isize[ip.dsize],ip.n,areg[ip.dsize]);
+  pushfx();
+ }
+} ADD;
+
+//source is register
+struct add2:insttype
+{
+ add2():insttype("1101_nnn1zz_aaaaaa","add2",(iAn|iAni|idAn|d16An|d8AnR|addr16|addr32) )
+  {}
+ void gencore(int t,iparm &ip)
+ {
+  genread(t,ip.dsize);
+
+  skipf();
+  printf("\tadd %s,%s ptr [edi.D0+%d*4] \n",areg[ip.dsize],isize[ip.dsize],ip.n);
+  pushfx();
+  genwrite(t,ip.dsize);
+ }
+} ADD2;
+
+
+
+//------
+
+
+struct adda:insttype
+{
+ adda():insttype("1101_nnny11_aaaaaa","adda",(Dn|An|iAn|iAni|idAn|d16An|d8AnR|addr16|addr32|d16PC|d8PCR|aimm) )
+  {}
+ void gencore(int t,iparm &ip)
+ {
+  genread(t,ip.dsize);
+  if (ip.dsize==1) OUT("cwde");
+  printf("\tadd [edi.A0+%d*4],eax\n",ip.n);
+ }
+} ADDA;
+
+
+
+
+
+//--------------------------------
+
+struct addq:insttype
+{
+ addq():insttype("0101_ccc0zz_aaaaaa","addq",(Dn|An|iAn|iAni|idAn|d16An|d8AnR|addr16|addr32) )
+  {}
+ void gencore(int t,iparm &ip)
+ {
+  genread(t,ip.dsize);
+  skipf();
+  printf("\tadd %s,%d \n",areg[ip.dsize],ip.c ? ip.c : 8);
+  pushfx();
+  genwrite(t,ip.dsize);
+ }
+} ADDQ;
+
+//-----------------------------------
+
+//Dn<->Dn
+struct addx:insttype
+{
+ addx():insttype("1101_mmm1zz_000nnn","addx",0) {}
+ void gencore(int t,iparm &ip)
+ {
+  getreg("edx");
+  skipf();
+  getxflag();
+  printf("\tadc %s ptr [edi.D0+%d*4],%s\n",isize[ip.dsize],ip.m,dreg[ip.dsize]);
+  pushfx();
+ }
+} ADDX ;
+
+
+
+
+
+
+

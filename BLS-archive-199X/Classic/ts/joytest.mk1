@@ -1,0 +1,14 @@
+!define BLANK ""
+c:\source\test\joytest.obj : c:\source\test\joytest.cpp .AUTODEPEND
+ @c:
+ cd c:\source\test
+ *wpp386 joytest.cpp -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\source\test\joytest.exe : c:\source\test\joytest.obj .AUTODEPEND
+ @c:
+ cd c:\source\test
+ @%write joytest.lk1 NAME joytest
+ @%append joytest.lk1 FIL joytest.obj
+ @%append joytest.lk1 
+ *wlink d all SYS dos4g op m op maxe=25 op q op symf @joytest.lk1
+

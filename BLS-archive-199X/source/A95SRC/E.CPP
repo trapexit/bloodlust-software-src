@@ -1,0 +1,1154 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "types.h"
+
+#include "r2img.h"
+#include "font.h"
+#include "dd.h"
+
+#include "mouse.h"
+#include "message.h"
+#include "gui.h"
+#include "guicolor.h"
+#include "guimenu.h"
+
+#include "effect.h"
+#include "objspace.h"
+#include "object.h"
+#include "objdef.h"
+
+#include "sound.h"
+
+#include "a32.h"
+
+
+
+
+
+effect *neweffect(int type)
+{
+ switch(type)
+ {
+   case E_SOUND: return new e_sound();
+   case E_OBJECTSHAKE: return new e_objectshake();
+   case E_GROUNDSHAKE: return new e_groundshake();
+   case E_GOTOSERIES: return new e_goto();
+   case E_DIR: return new e_dir();
+   case E_NEWOBJECT: return new e_newobject();
+   case E_BLOOD: return new e_blood();
+   case E_GOTOSERIESNAME: return new e_gotoseriesname();
+   case E_REGION: return new e_region();
+ };
+ return 0;
+};
+
+
+
+
+menu *getneweffectmenu()
+{
+ static menu *m=0;
+ if (m) return m;
+
+ //get number of effects
+ for (int i=0; effectnames[i]; i++);
+
+  //create menu
+ m=(menu *)calloc(i+1,sizeof(menuitem));
+
+ for (i=0; effectnames[i]; i++)
+    m->m[i].text=effectnames[i];
+
+ return m;
+}
+
+
+
+
+
+
+/*
+//----------------------
+//   new effect
+//----------------------
+class neweffectdlg:public GUIcontents
+{
+ GUIstringlistbox *list;
+
+ public:
+ neweffectdlg(objectspace *tosp):GUIcontents(120,110)
+ {
+  list=new GUIstringlistbox(this,5,5,width()-10,10,10);
+
+  //fill list box
+  for (int i=0; effectnames[i]; i++);
+
+  ITEMPTR *a=list->resizeitems(i);
+  for (int j=0; j<i; j++)
+    a[j]=(ITEMPTR)effectnames[j];
+ }
+ virtual char *getname() {return "neweffect";}
+
+ int sendmessage(GUIrect *c,int guimsg)
+  {
+   if (guimsg==GUIMSG_OK || guimsg==GUIMSG_LISTBOXDBLCLICKED)
+    {
+     int num=list->getselnum();
+     if (num==-1) return 0;
+     if (!objspace || !objspace->p || !objspace->p->fptr) return 0;
+
+     effect *e=neweffect(list->getselnum());
+     object *p=objspace->p;
+     if (!e) return 0;
+     void *ip=((char *)p->fptr)+p->fptr->size;
+     p->fptr->numextra++;
+     p->fptr->size+=e->size();
+     ip=p->cs->insertbytes(ip,e->size());
+     memcpy(ip,e,e->size());
+     delete e;
+     objspace->resetodf(p->onum);
+     setfocus(this);
+     return 0;
+    }
+   return 1;
+  };
+ virtual void  draw(char *dest)
+ {
+  fill(CLR_BOX);
+  GUIrect::draw(dest);
+ }
+
+
+
+ //open functions
+ static DLGPOS pos; //saved last position of dialog
+ static void open()
+  {
+    pos.open(new GUIonebuttonbox(guiroot,"New effect",new neweffectdlg(objspace),"Add",0,0));
+  };
+ virtual ~neweffectdlg() {pos.close((GUIbox *)parent);}
+};
+DLGPOS neweffectdlg::pos;
+
+*/
+
+
+
+//assumes origin of osp is 0,0
+void e_newobject::draw(char *dest,object *o)
+{
+ //draw x
+ int x=(o->x>>16);
+ int y=(o->y>>16)+pos.y+(o->z>>16)+pos.z;
+ if (!o->d) x+=pos.x; else x-=pos.x;
+ a95vol.xmark->draw(dest,x-a95vol.xmark->xw/2,y-a95vol.xmark->yw/2);
+
+  //draw first frame
+ objectdef *od=onum ? o->osp->odf[onum] : o->od;
+ if (!od || !od->loaded) return;
+ if (!pos.d) od->sd[s].first->draw(dest,x,y,od);
+        else od->sd[s].first->drawflipx(dest,x,y,od);
+}
+
+
+//assumes origin of osp is 0,0
+void e_blood::draw(char *dest,object *o)
+{
+ //draw x
+ int x=(o->x>>16);
+ int y=(o->y>>16)+pos.y+(o->z>>16)+pos.z;
+ if (!o->d) x+=pos.x; else x-=pos.x;
+ a95vol.xmark->draw(dest,x-a95vol.xmark->xw/2,y-a95vol.xmark->yw/2);
+}
+
+
+
+
+//assumes origin of osp is 0,0
+extern char *screen;
+void e_region::draw(char *dest,object *o)
+{
+ static char rcolor[3]={2,1,4};
+ int x1,y1,x2,y2;
+ //draw rect
+ x1=x2=o->osp->x1+(o->x>>16);
+ y1=y2=o->osp->y1+(o->y>>16)+(o->z>>16);
+
+
+ if (!o->d) {x1+=r.p1.x; x2+=r.p2.x;}
+       else {x1-=r.p2.x; x2-=r.p1.x;}
+ y1+=r.p1.y; y2+=r.p2.y;
+ drawrect(dest,rcolor[type],x1,y1,x2-x1,y2-y1);
+}
+
+
+
+
+//--------------------------
+class effectlistbox:public GUIlistbox
+{
+ public:
+ virtual void drawitems(char *dest, int x,int y)
+ {
+  for (int j=itemv,i=scroll->getpos(); j>0 && i<numitems; j--,i++,y+=itemheight)
+  {
+   if (sel==i) drawrect(dest,2,x,y,width()-2,itemheight);
+   if (items[i])  font[1]->draw(((effect *)items[i])->getname(),dest,x,y);
+  }
+ }
+
+ effectlistbox(GUIrect *p,int x,int y,int xw,int iy)
+  :GUIlistbox(p,x,y,xw,iy,10) {};
+ effect *getselptr() {return (effect *)GUIlistbox::getselptr();}
+
+ void refresheffects(effect *e,int num)
+  {
+    ITEMPTR *a=resizeitems(num);
+    for (int i=0; i<num; i++,e=e->next()) a[i]=(ITEMPTR)e;
+    if (num) setsel(0);
+  }
+ virtual char *getname() {return "effectlistbox";}
+};
+
+
+
+
+
+//----------------------------------------------------
+
+#define LWIDTH 95
+#define EWIDTH 100
+class editeffects:public GUIcontents
+{
+ friend class effect;
+ friend class e_region_effects;
+ protected:
+ objectspace *osp; //object space being monitored
+ object *o;       //object being monitored
+ objectdefw *odf;
+ series *s;
+ frame *fptr;
+
+ effectlistbox *list;
+ GUIbutton *addeffect,*deleteeffect;
+ effectpane *ep; //effect editor pane
+// GUIcheckbox *onhit;
+
+ GUIpopupmenu *aem; //add effect menu
+
+ public:
+ editeffects(objectspace *tosp):GUIcontents(LWIDTH,120),osp(tosp),ep(0)//,onhit(0)
+ {
+  aem=0;
+  list=new effectlistbox(this,5,5,LWIDTH-10,(height()-15)/10);
+  addeffect=new GUItextbutton(this,"Add",20,height()-13);
+  deleteeffect=new GUItextbutton(this,"Delete",60,height()-13);
+
+  refresh(GUIRFR_OBJSPACE,tosp);
+ }
+ effect *geteffectptr()
+ {
+  if (!fptr) return 0;
+  return list->getselptr();
+ }
+ void inserteffect(int num)
+ {
+  if (!o || !fptr) return;
+  effect *e=neweffect(num);
+  if (!e) return;
+   //insertion point
+  void *ip=((char *)o->fptr)+o->fptr->size;
+  fptr->size+=e->size();
+  fptr->numextra++;
+  ip=s->insertbytes(ip,e->size());
+  memcpy(ip,e,e->size());
+  delete e;
+  osp->resetodf(o->onum);
+  setfocus(this);
+  return;
+ }
+
+
+ void refreshepane()
+ {
+  //delete old effect pane
+  if (ep)
+  {
+   delete ep;
+   resize(width()-EWIDTH,height());
+  }
+  ep=0;
+
+//  if (!osp) return;
+//  if (!o || !fptr) {osp->seteffectpane(0);return;}
+
+  //make new effect pane
+  effect *t=geteffectptr();
+  if (!t) {if (osp) osp->seteffectpane(0); return;}
+
+  ep=t->neweffectpane(EWIDTH,height(),this);
+  if (ep)
+   {
+    ep->reparent(this);
+    ep->moverel(LWIDTH,0);
+    resize(width()+EWIDTH,height());
+    ep->losechildfocus();
+    ep->losefocus();
+   }
+  losefocus();
+  if (osp) osp->seteffectpane(ep);
+ }
+
+ virtual int keyhit(char key,char kbscan)
+  {
+   return ep ? ep->keyhit(key,kbscan) : 0;
+  }
+ int sendmessage(GUIrect *c,int guimsg)
+  {
+   if (c==aem)
+    {
+     inserteffect(guimsg);
+     msg.printf(2,"add effect %s",effectnames[guimsg]);
+     aem=0;
+     return 1;
+    }
+   if (c==list && guimsg==GUIMSG_LISTBOXSELCHANGED) { refreshepane(); }
+   if (c==deleteeffect && guimsg==GUIMSG_PUSHED){if (o) o->deleteeffect(geteffectptr());}
+   if (c==addeffect && guimsg==GUIMSG_PUSHED)
+     {aem=new GUIpopupmenu(this,getneweffectmenu(),m.x,m.y);}
+  return 1;
+  };
+
+ virtual void draw(char *dest)
+  {
+   fill(CLR_BOX);
+//   drawvline(dest,9*16+13,x1+LWIDTH-2,y1+3,y2-3);
+   GUIrect::draw(dest);
+  }
+ virtual void refresh(int r,void *c)
+ {
+  frame *oldfptr=fptr;
+  int oldnum=list->getnumitems();
+  switch(r)
+  {
+   case GUIRFR_OBJSPACE:  osp=(objectspace *)c; if (osp) c=osp->p;
+   case GUIRFR_OBJECT:  o=(object *)c; if (o) c=o->cs;
+   case GUIRFR_SERIES: s=(series *)c; if (o) c=o->fptr;
+   case GUIRFR_FRAME:  fptr=(frame *)c;
+    if (fptr)
+     if (fptr==oldfptr && oldnum==fptr->numextra) return;
+    //fill list box
+    if (fptr) list->refresheffects(fptr->geteffectptr(),fptr->numextra);
+        else list->refresheffects(0,0);
+
+    refreshepane();
+  } //end of switch
+ }
+
+
+ virtual int acceptfocus() {return 1;}
+ virtual char *getname() {return "effectlist";}
+
+  //open functions
+ static DLGPOS pos; //saved last position of dialog
+ static void open()
+  {
+   pos.open(new GUIbox(guiroot,"Effects",new editeffects(objspace),0,0));
+  };
+ virtual ~editeffects()
+   {
+    pos.close((GUIbox *)parent);
+    osp->seteffectpane(0);
+    }
+};
+DLGPOS editeffects::pos;
+
+
+void m_editeffects()
+{
+ editeffects::open();
+}
+
+
+//------------------------------------------------------------------
+
+
+class e_sound_edit:public effectpane
+{
+ friend class e_sound;
+ e_sound *e;
+ objectdefw *od;
+
+ GUIstringlistbox *list;
+ GUIstatictext *output;
+ GUItextbutton *test;
+ public:
+ e_sound_edit(int xw,int yw,e_sound *te,objectdefw *tod):
+   effectpane(xw,yw),e(te),od(tod)
+  {
+   output=new GUIstaticcenteredtext(this,3,0,5,height()-22,width()-10);
+   test=new GUItextbutton(this,"Test",width()/2,height()-13);
+
+   list=new GUIstringlistbox(this,5,5,width()-10,(height()-27)/10,10);
+   ITEMPTR *a=list->resizeitems(od->numsounds);
+   if (od->sndnames)
+    for (int i=0; i<od->numsounds; i++) a[i]=(ITEMPTR)&od->sndnames[i];
+   list->setsel(e->sound);
+  }
+ virtual int sendmessage(GUIrect *c,int guimsg)
+  {
+   if (c==test && guimsg==GUIMSG_PUSHED)
+     {
+      if (objspace && objspace->p)
+         e->trigger(objspace->p);
+     }
+   if (c==list && guimsg==GUIMSG_LISTBOXSELCHANGED)
+      {
+       int snum=list->getselnum(); //selected soundnum
+       if (snum>=0) e->sound=snum;
+       //print info on sound
+       #ifdef DOS
+       if (snum<0 || !od->sounds[snum]) {output->settext(0);return 1;}
+       float sndsize=od->sounds[snum]->soundsize;
+       #endif
+       #ifdef WIN95
+       if (snum<0 || !od->dsounds[snum]) {output->settext(0);return 1;}
+       float sndsize=getsoundsize(od->dsounds[snum]);
+       #endif
+       char s[80];
+       sprintf(s,"%2.1fKB %2.2fsec",sndsize/1024,sndsize/SOUNDFREQ);
+       output->settext(s);
+      }
+   return 1;
+  };
+ virtual int keyhit(char key,char kbscan) {return 0;}
+
+ virtual char *getname() {return "e_sound edit";}
+};
+
+
+class e_shake_edit:public effectpane
+{
+ friend class e_shake;
+ e_shake *e;
+
+ GUIstringlistbox *list;
+ public:
+ e_shake_edit(int xw,int yw,e_shake *te):
+   effectpane(xw,yw),e(te)
+  {
+   new GUIstatictext(this,1,"Intensity:",5,5);
+
+   list=new GUIstringlistbox(this,5,15,width()-10,4,10);
+   ITEMPTR *a=list->resizeitems(4);
+   a[0]="Weak"; a[1]="Violent"; a[2]="Orgasmic"; a[3]="Epileptic";
+   list->setsel(e->intensity);
+  }
+ virtual int sendmessage(GUIrect *c,int guimsg)
+  {
+   if (c==list)
+    {
+     if (guimsg==GUIMSG_LISTBOXSELCHANGED)
+      {
+       int snum=list->getselnum(); //selected soundnum
+       if (snum>=0) e->intensity=snum;
+      }
+    }
+   return 1;
+  };
+
+ virtual int keyhit(char key,char kbscan) {return 0;}
+ virtual char *getname() {return "e_shake edit";}
+};
+
+
+
+class e_goto_edit:public effectpane
+{
+ friend class e_goto;
+ e_goto *e;
+ objectdefw *od;
+
+ GUIstringlistbox *list;
+ public:
+ e_goto_edit(int xw,int yw,e_goto *te,objectdefw *tod):
+   effectpane(xw,yw),e(te),od(tod)
+  {
+   list=new GUIstringlistbox(this,5,5,width()-10,(height()-15)/10,10);
+   ITEMPTR *a=list->resizeitems(od->nums);
+   for (int i=0; i<od->nums; i++) a[i]=(ITEMPTR)&od->sd[i].name;
+   list->setsel(e->s);
+  }
+ virtual int sendmessage(GUIrect *c,int guimsg)
+  {
+   if (c==list)
+    {
+     if (guimsg==GUIMSG_LISTBOXSELCHANGED)
+      {
+       int snum=list->getselnum(); //selected series
+       if (snum>=0) e->s=snum;
+      }
+    }
+   return 1;
+  };
+
+ virtual int keyhit(char key,char kbscan) {return 0;}
+ virtual char *getname() {return "e_goto edit";}
+};
+
+
+class e_gotoseriesname_edit:public effectpane
+{
+ friend class e_gotoseriesname;
+ e_gotoseriesname *e;
+
+ GUItextedit *name;
+ public:
+ e_gotoseriesname_edit(int xw,int yw,e_gotoseriesname *te):
+   effectpane(xw,yw),e(te)
+  {
+   name=new GUItextedit(this,"",e->name,5,5,width()-10,15);
+  }
+ virtual int sendmessage(GUIrect *c,int guimsg)
+  {
+   if (c==name && guimsg==GUIMSG_EDITCHANGED)
+     strcpy(e->name,name->getinput());
+   return 1;
+  };
+
+ virtual char *getname() {return "e_gotoseriesname edit";}
+};
+
+
+
+
+
+class e_dir_edit:public effectpane
+{
+ friend class e_dir;
+ e_dir *e;
+
+ GUIstringlistbox *list;
+ public:
+ e_dir_edit(int xw,int yw,e_dir *te):
+   effectpane(xw,yw),e(te)
+  {
+   list=new GUIstringlistbox(this,5,15,width()-10,4,10);
+   ITEMPTR *a=list->resizeitems(3);
+   a[0]="Right"; a[1]="Left"; a[2]="Flip";
+   list->setsel(e->d);
+  }
+ virtual int sendmessage(GUIrect *c,int guimsg)
+  {
+   if (c==list)
+    {
+     if (guimsg==GUIMSG_LISTBOXSELCHANGED)
+      {
+       int snum=list->getselnum(); //selected soundnum
+       if (snum>=0) e->d=snum;
+      }
+    }
+   return 1;
+  };
+
+ virtual int keyhit(char key,char kbscan) {return 0;}
+ virtual char *getname() {return "e_dir edit";}
+};
+
+
+
+
+class e_newobject_edit:public effectpane
+{
+ e_newobject *e;
+ objectspace *osp;
+ object *o;
+
+ GUIstatictext *output;
+ GUIstringlistbox *olist,*slist;
+ public:
+ void updatepos()
+ {
+  char s[80];
+  sprintf(s,"(%d,%d,%d) %s",e->pos.x,e->pos.y,e->pos.z,e->pos.d ? "flipx" : "");
+  output->settext(s);
+ }
+
+ e_newobject_edit(int xw,int yw,e_newobject *te,object *to):
+   effectpane(xw,yw),e(te),o(to),osp(to->osp)
+  {
+   slist=new GUIstringlistbox(this,5,46,width()-10,4,10);
+   olist=new GUIstringlistbox(this,5,3,width()-10,4,10);
+   ITEMPTR *a=olist->resizeitems(osp->numodf);
+   for (int i=0; i<osp->numodf; i++) a[i]=(ITEMPTR)&osp->odf[i]->name;
+   a[0]="<self>";
+   olist->setsel(e->onum);
+
+   output=new GUIstaticcenteredtext(this,1,0,0,height()-10,width());
+   updatepos();
+  }
+ virtual int sendmessage(GUIrect *c,int guimsg)
+  {
+   if (c==olist && guimsg==GUIMSG_LISTBOXSELCHANGED)
+      {
+       int onum=olist->getselnum(); //selected object
+       if (onum>=0) e->onum=onum;
+
+       objectdef *od=osp->odf[onum ? onum : o->onum];
+       ITEMPTR *a=slist->resizeitems(od->nums);
+       for (int i=0; i<od->nums; i++) a[i]=(ITEMPTR)&od->sd[i].name;
+       slist->setsel(e->s);
+      }
+   if (c==slist && guimsg==GUIMSG_LISTBOXSELCHANGED)
+     {
+      int snum=slist->getselnum(); //selected series
+      if (snum>=0) e->s=snum;
+     }
+   return 1;
+  };
+
+ virtual int keyhit(char key,char kbscan) {return 0;}
+ virtual void draweffect(char *dest)
+  {
+   if (e) e->draw(dest,o);
+  }
+ virtual GUIrect *click(mouse &m)
+  {
+   //get coord of X
+   int x=osp->x1+(o->x>>16);
+   int y=osp->y1+(o->y>>16)+e->pos.y+(o->z>>16)+e->pos.z;
+   if (!o->d) x+=e->pos.x; else x-=e->pos.x;
+   //get dimensions of X
+   int xw=a95vol.xmark->xw;
+   int yw=a95vol.xmark->yw;
+
+   if (m.x>x-xw/2 && m.x<x+xw/2 && m.y>y-yw/2 && m.y<y+yw/2)
+     return this;
+   return 0;
+  }
+ virtual int drag(mouse &m)
+  {
+    e->pos.x+=m.x-m.oldx;
+    e->pos.y+=m.y-m.oldy;
+    updatepos();
+    return 1;
+  };
+ virtual int release(mouse &m) {return 1;}
+
+ virtual char *getname() {return "e_newobject edit";}
+};
+
+
+
+
+class e_blood_edit:public effectpane
+{
+ e_blood *e;
+ objectspace *osp;
+ object *o;
+
+ GUIstatictext *output;
+ GUIstringlistbox *list;
+ public:
+ void updatepos()
+ {
+  char s[80];
+  sprintf(s,"(%d,%d,%d) %s",e->pos.x,e->pos.y,e->pos.z,e->pos.d ? "flipx" : "");
+  output->settext(s);
+ }
+
+ e_blood_edit(int xw,int yw,e_blood *te,object *to):
+   effectpane(xw,yw),e(te),o(to),osp(to->osp)
+  {
+   list=new GUIstringlistbox(this,5,5,width()-10,7,10);
+   ITEMPTR *a=list->resizeitems(4);
+   a[0]="Squirt"; a[1]="Drip"; a[2]="Explosion"; a[3]="Flood";
+   list->setsel(e->bloodtype);
+
+//   new GUIstatictext(this,1,"Relative coords:",5,height()-20);
+   output=new GUIstaticcenteredtext(this,1,0,0,height()-10,width());
+   updatepos();
+  }
+ virtual int keyhit(char key,char kbscan) {return 0;}
+ virtual int sendmessage(GUIrect *c,int guimsg)
+  {
+   if (c==list && guimsg==GUIMSG_LISTBOXSELCHANGED)
+      {
+       int bnum=list->getselnum(); //selected object
+       if (bnum>=0) e->bloodtype=bnum;
+      }
+   return 1;
+  };
+
+ virtual void draweffect(char *dest)
+  {
+   if (e) e->draw(dest,o);
+  }
+ virtual GUIrect *click(mouse &m)
+  {
+   //get coord of X
+   int x=osp->x1+(o->x>>16);
+   int y=osp->y1+(o->y>>16)+e->pos.y+(o->z>>16)+e->pos.z;
+   if (!o->d) x+=e->pos.x; else x-=e->pos.x;
+   //get dimensions of X
+   int xw=a95vol.xmark->xw;
+   int yw=a95vol.xmark->yw;
+
+   if (m.x>x-xw/2 && m.x<x+xw/2 && m.y>y-yw/2 && m.y<y+yw/2)
+     return this;
+   return 0;
+  }
+ virtual int drag(mouse &m)
+  {
+    e->pos.x+=m.x-m.oldx;
+    e->pos.y+=m.y-m.oldy;
+    updatepos();
+    return 1;
+  };
+ virtual int release(mouse &m) {return 1;}
+
+ virtual char *getname() {return "e_blood edit";}
+};
+
+
+
+//--------------------------------------
+//region stuff, woo hoo
+class impermflags:public GUIrect
+{
+ uchar &f;
+
+ GUIcheckbox *b[5];
+
+ public:
+ impermflags(GUIrect *p,int x,int y,uchar *tflags)
+  :GUIrect(p,x,y,x+80,y+50),f(*tflags)
+  {
+   int ty=0;
+   b[0]=new GUIcheckbox(this,"pusher",0,ty,(f&R_PUSH)? 1 : 0); ty+=10;
+   b[1]=new GUIcheckbox(this,"pushable",0,ty,(f&R_PUSHABLE) ? 1 : 0); ty+=10;
+   b[2]=new GUIcheckbox(this,"standontopable",0,ty,(f&R_STANDONTOPABLE) ? 1 : 0); ty+=10;
+   b[3]=new GUIcheckbox(this,"bounce",0,ty,(f&R_BOUNCE) ? 1 : 0); ty+=10;
+   b[4]=new GUIcheckbox(this,"stationary",0,ty,(f&R_STATIONARY) ? 1 : 0); ty+=10;
+  }
+ int sendmessage(GUIrect *c,int guimsg)
+  {
+   if (guimsg==GUIMSG_CHECKED || guimsg==GUIMSG_UNCHECKED)
+    for (int i=0; i<5; i++)
+     if (b[i]==c)
+      {
+       if (guimsg==GUIMSG_CHECKED) {f|=(1<<i); }
+       if (guimsg==GUIMSG_UNCHECKED) {f&=~(1<<i); }
+       return 1;
+      }
+   return 1;
+  }
+ virtual int acceptfocus() {return 1;}
+  
+};
+
+class vulnflags:public GUIrect
+{
+ uchar &f;
+ GUIcheckbox *b[3];
+
+ public:
+ vulnflags(GUIrect *p,int x,int y,uchar *tflags)
+  :GUIrect(p,x,y,x+80,y+50),f(*tflags)
+  {
+   int ty=0;
+   b[0]=new GUIcheckbox(this,"player",0,ty,(f&R_PLAYER)? 1 : 0); ty+=10;
+   b[1]=new GUIcheckbox(this,"enemy",0,ty,(f&R_ENEMY) ? 1 : 0); ty+=10;
+   b[2]=new GUIcheckbox(this,"other",0,ty,(f&R_OTHER) ? 1 : 0); ty+=10;
+  }
+ int sendmessage(GUIrect *c,int guimsg)
+  {
+   if (guimsg==GUIMSG_CHECKED || guimsg==GUIMSG_UNCHECKED)
+    for (int i=0; i<3; i++)
+     if (b[i]==c)
+      {
+       if (guimsg==GUIMSG_CHECKED) f|=(1<<i);
+       if (guimsg==GUIMSG_UNCHECKED) f&=~(1<<i);
+       return 1;
+      }
+   return 1;
+  }
+ virtual int acceptfocus() {return 1;}
+
+};
+
+class attackflags:public GUIrect
+{
+ uchar &f;
+ GUIcheckbox *b[3];
+ public:
+ attackflags(GUIrect *p,int x,int y,uchar *tflags)
+  :GUIrect(p,x,y,x+80,y+50),f(*tflags)
+  {
+   int ty=0;
+   b[0]=new GUIcheckbox(this,"hits player",0,ty,(f&R_PLAYER)? 1 : 0); ty+=10;
+   b[1]=new GUIcheckbox(this,"hits enemy",0,ty,(f&R_ENEMY) ? 1 : 0); ty+=10;
+   b[2]=new GUIcheckbox(this,"hits other",0,ty,(f&R_OTHER) ? 1 : 0); ty+=10;
+  }
+ int sendmessage(GUIrect *c,int msg)
+  {
+   if (msg==GUIMSG_CHECKED || msg==GUIMSG_UNCHECKED)
+    for (int i=0; i<3; i++)
+     if (b[i]==c)
+      {
+       if (msg==GUIMSG_CHECKED) f|=(1<<i);
+       if (msg==GUIMSG_UNCHECKED) f&=~(1<<i);
+       return 1;
+      }
+   return 1;
+  }
+ virtual int acceptfocus() {return 1;}
+
+};
+
+
+
+
+class e_region_effects:public GUIcontents
+{
+ protected:
+
+ editeffects *ee;
+
+ e_region *e;
+ effectlistbox *listl,*listr;
+ GUIbutton *addl,*deletel;
+ GUIbutton *addr,*deleter;
+ effectpane *ep; //effect editor pane
+ GUIpopupmenu *alem,*arem; //add effect menus
+
+ public:
+ void refreshlist();
+ e_region_effects(e_region *te,editeffects *tee):
+   GUIcontents(EWIDTH,120),e(te),ee(tee)
+ {
+  ep=0;
+  alem=arem=0;
+  new GUIstatictext(this,1,"Local:",5,5);
+  listl=new effectlistbox(this,5,15,LWIDTH-10,3);
+  addl=new GUItextbutton(this,"Add",20,48);
+  deletel=new GUItextbutton(this,"Delete",60,48);
+
+  new GUIstatictext(this,1,"Remote:",5,62);
+  listr=new effectlistbox(this,5,72,LWIDTH-10,3);
+  addr=new GUItextbutton(this,"Add",20,105);
+  deleter=new GUItextbutton(this,"Delete",60,105);
+  refreshlist();
+ }
+ virtual  ~e_region_effects()
+  {
+  }
+ effect *geteffectptr()
+ {
+  if (listl->getselptr()) return listl->getselptr();
+  if (listr->getselptr()) return listr->getselptr();
+  return 0;
+ }
+
+ void refreshepane()
+ {
+  if (ep)
+  {
+   delete ep; ep=0;
+   resize(width()-EWIDTH,height());
+  }
+  //make new effect pane
+  effect *t=geteffectptr();
+  if (t)
+   {
+  ep=t->neweffectpane(EWIDTH,height(),ee);
+  if (ep)
+   {
+    ep->reparent(this);
+    ep->moverel(LWIDTH,0);
+    resize(width()+EWIDTH,height());
+    ep->losechildfocus();
+    ep->losefocus();
+   }
+   }
+  if (ee->osp) ee->osp->seteffectpane(ep);
+
+  losechildfocus();
+ }
+
+ void insertleffect(int num)
+ {
+  object *o=ee->o;
+  if (!o) return;
+  frame *fptr=o->fptr;
+  if (!fptr) return;
+  effect *t=neweffect(num);
+  if (!t) return;
+
+   //insertion point
+  void *ip=(char *)e->getleptr();
+  fptr->size+=t->size();
+  e->numle++;
+  ip=ee->s->insertbytes(ip,t->size());
+  memcpy(ip,t,t->size());
+  delete t;
+  ee->osp->resetodf(o->onum);
+  refreshlist();
+ }
+
+ void insertreffect(int num)
+ {
+  object *o=ee->o;
+  if (!o) return;
+  frame *fptr=o->fptr;
+  if (!fptr) return;
+  effect *t=neweffect(num);
+  if (!t) return;
+
+   //insertion point
+  void *ip=(char *)e->getreptr();
+  fptr->size+=t->size();
+  e->numre++;
+  ip=ee->s->insertbytes(ip,t->size());
+  memcpy(ip,t,t->size());
+  delete t;
+  ee->osp->resetodf(o->onum);
+  refreshlist();
+ }
+
+ virtual int keyhit(char key,char kbscan) {return ep ? ep->keyhit(key,kbscan) : 0;}
+ int sendmessage(GUIrect *c,int guimsg)
+  {
+   if (c==alem)
+    {
+     if (guimsg!=E_REGION)
+     insertleffect(guimsg);
+     //msg.printf(2,"add leffect %s",effectnames[guimsg]);
+     alem=0;
+     return 1;
+    }
+   if (c==arem)
+    {
+     if (guimsg!=E_REGION)
+     insertreffect(guimsg);
+     //msg.printf(2,"add reffect %s",effectnames[guimsg]);
+     arem=0;
+     return 1;
+    }
+
+   if (c==listl && guimsg==GUIMSG_LISTBOXSELCHANGED)
+     listr->clearsel();
+   if (c==listr && guimsg==GUIMSG_LISTBOXSELCHANGED)
+     listl->clearsel();
+   if (guimsg==GUIMSG_LISTBOXSELCHANGED)  refreshepane();
+
+//   if (c==deleteeffect && guimsg==GUIMSG_PUSHED){if (o) o->deleteeffect(geteffectptr());}
+   if (c==addl && guimsg==GUIMSG_PUSHED)
+     alem=new GUIpopupmenu(this,getneweffectmenu(),m.x,m.y);
+   if (c==addr && guimsg==GUIMSG_PUSHED)
+     arem=new GUIpopupmenu(this,getneweffectmenu(),m.x,m.y);
+  return 1;
+  };
+
+ virtual void draw(char *dest)
+  {
+   fill(CLR_BOX);
+//   drawvline(dest,9*16+13,x1+LWIDTH-2,y1+3,y2-3);
+   GUIrect::draw(dest);
+  }
+
+ virtual int acceptfocus() {return 1;}
+ virtual char *getname() {return "regioneffectlist";}
+};
+void e_region_effects::refreshlist()
+ {
+  if (!e) return;
+  listl->refresheffects(e->getleptr(),e->numle);
+  listl->clearsel();
+  listr->refresheffects(e->getreptr(),e->numre);
+  listr->clearsel();
+  refreshepane();
+ }
+
+
+
+
+
+
+
+
+
+class e_region_edit:public effectpane
+{
+ e_region *e;
+ objectspace *osp;
+ object *o;
+
+ GUIstringlistbox *list;
+ GUIcheckbox *append;
+ zrect r; //temp rect for draggin
+ GUIrect *flags;
+ GUIbutton *regedit;
+
+ GUIbox *ere;
+ public:
+ void resetetype()
+ {
+  if (flags) {delete flags;} flags=0;
+  switch(e->type)
+  {
+   case R_IMPERM: flags=new impermflags(this,0,52,&e->flags); break;
+   case R_VULN: flags=new vulnflags(this,0,52,&e->flags); break;
+   case R_ATTACK: flags=new attackflags(this,0,52,&e->flags); break;
+  }
+ if (flags) flags->losechildfocus();
+ }
+ e_region_edit(int xw,int yw,e_region *te,object *to):
+   effectpane(xw,yw),e(te),o(to),osp(to->osp)
+  {
+   flags=0;
+   list=new GUIstringlistbox(this,5,5,width()-10,3,10);
+   ITEMPTR *a=list->resizeitems(3);
+   a[0]="Imperm"; a[1]="Vuln"; a[2]="Attack";
+   list->setsel(e->type);
+   append=new GUIcheckbox(this,"append",10,38,e->append);
+   regedit=new GUItextbutton(this,"Edit effects",width()/2,height()-13);
+   ere=0;
+  }
+
+ void showeffects()
+ {
+//  regedit->settext("<< Hide effects");
+  if (ere) return;
+  ere= new GUIbox(guiroot,"Region effects",new e_region_effects(e,(editeffects *)parent),parent->x1+10,parent->y1+10);
+
+/*  ere->moverel(parent->width(),0);
+  ere->reparent(parent);
+  //widen parent
+  ((GUIcontents *)parent)->resize(parent->width()+ere->width(),parent->height());
+  */
+ }
+
+ void hideeffects()
+ {
+//  regedit->settext("Show effects >>");
+  if (!ere) return;
+//  ((GUIcontents *)parent)->resize(parent->width()-ere->width(),parent->height());
+  delete ere;
+  ere=0;
+ }
+
+ virtual ~e_region_edit() { hideeffects(); }
+ virtual void draw(char *dest)
+  {
+   drawhline(dest,0,x1+5,y1+48,x2-5);
+   effectpane::draw(dest);
+  }
+
+ virtual int keyhit(char key,char kbscan) {return 0;}
+ virtual int sendmessage(GUIrect *c,int guimsg)
+  {
+   if (c==list && guimsg==GUIMSG_LISTBOXSELCHANGED)
+     if (list->getselnum()>=0)
+      {
+       if (list->getselnum()!=e->type)  e->settype(list->getselnum());
+       resetetype();
+      }
+   if (c==append)
+    {
+     e->append=guimsg==GUIMSG_CHECKED ? 1 : 0;
+    }
+   if (c==regedit && guimsg==GUIMSG_PUSHED)
+    {
+     if (!ere) showeffects(); else hideeffects();
+     //showeffects();
+    }
+   return 1;
+  };
+ virtual char *getname() {return "e_region edit";}
+
+ virtual void draweffect(char *dest)
+  {
+   if (e) e->draw(dest,o);
+  }
+
+ virtual GUIrect *click(mouse &m)
+  {
+   r.clear();
+   r.p1.x=m.x-osp->x1-(o->x>>16);
+   r.p1.y=m.y-osp->y1-(o->y>>16);
+   r.p1.z=-5;     //set first coord
+   return this;
+  }
+ virtual int drag(mouse &m)
+ {
+  r.p2.x=m.x-osp->x1-(o->x>>16);
+  r.p2.y=m.y-osp->y1-(o->y>>16);
+  r.p2.z= 5;     //set second coord
+  e->r=r; //set region rect
+  e->r.reorient();
+  return 1;
+ }
+ virtual int release(mouse &m) {return 1;}
+};
+
+
+
+
+
+//   output=new GUIstaticcenteredtext(this,1,0,0,height()-10,width());
+//   updatepos();
+/* void updatepos()
+ {
+  char s[80];
+  sprintf(s,"(%d,%d,%d)-(%d,%d,%d)",e->r.p1.x,e->r.p1.y,e->r.p1.z,
+   e->r.p2.x,e->r.p2.y,e->r.p2.z);
+  output->settext(s);
+ }
+  */
+
+
+
+
+
+effectpane *effect::neweffectpane(int xw,int yw,editeffects *edit)
+{
+ if (!this) return 0;
+ switch(type)
+ {
+   case E_SOUND: return new e_sound_edit(xw,yw,(e_sound *)this,(objectdefw *)edit->o->od);
+   case E_OBJECTSHAKE:
+   case E_GROUNDSHAKE: return new e_shake_edit(xw,yw,(e_shake *)this);
+   case E_GOTOSERIES: return new e_goto_edit(xw,yw,(e_goto *)this,(objectdefw *)edit->o->od);
+   case E_DIR: return new e_dir_edit(xw,yw,(e_dir *)this);
+   case E_NEWOBJECT: return new e_newobject_edit(xw,yw,(e_newobject *)this,edit->o);
+   case E_BLOOD: return new e_blood_edit(xw,yw,(e_blood *)this,edit->o);
+   case E_GOTOSERIESNAME: return new e_gotoseriesname_edit(xw,yw,(e_gotoseriesname *)this);
+   case E_REGION: return new e_region_edit(xw,yw,(e_region *)this,edit->o);
+ };
+ return 0;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

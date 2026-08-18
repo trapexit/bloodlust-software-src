@@ -1,0 +1,5 @@
+#define bloodarc       0
+#define blooddrip      1
+#define bloodpuddle    2
+#define bloodsquirt   3
+

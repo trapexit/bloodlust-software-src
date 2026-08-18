@@ -1,0 +1,2 @@
+tchat.cpp(484): Warning! W014: (col 1) no reference to symbol 'n' 
+tchat.cpp(484): Note! N392: (col 1) 'netplayer * n' in 'void Snatch( netplayer * )' defined in: tchat.cpp(457) (col 24) 

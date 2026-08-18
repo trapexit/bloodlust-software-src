@@ -1,0 +1,298 @@
+#ifndef _FILEIO_
+#define _FILEIO_
+
+//abstract class for input/output
+class STREAMIO
+{
+ public:
+  virtual int isopened() {return 0;}
+  virtual ~STREAMIO() {}
+  
+  //main i/o functions (returns bytes read/written)
+  virtual int read(void *t,unsigned num) {return 0;}
+  virtual int write(void *t,unsigned num) {return 0;}
+
+  //position based stuff
+  virtual unsigned getsize() {return 0;}
+  virtual unsigned getpos() {return 0;}
+  virtual void setpos(unsigned int p) {}
+  void reset() {setpos(0);}
+
+  //read/writes to/from another stream
+  virtual int writeto (STREAMIO &out,unsigned num);
+  virtual int readfrom(STREAMIO &in,unsigned num)
+        {return in.writeto(*this,num);}
+
+  virtual int eof() {return getpos()>=getsize();}
+  
+  //---------------------------------
+  //some specific read functions
+  int readint() {int t=0; read(&t,sizeof(int)); return t;}
+  void writeint(int x) {write(&x,sizeof(int));}
+
+  char readchar() {char t=0; read(&t,sizeof(char)); return t;}
+  void writechar(char x) {write(&x,sizeof(char));};
+
+  void *readalloc(unsigned num)
+  {
+   void *t=malloc(num);
+   if (!t) return 0; //malloc failed
+   if (!read(t,num)) {free(t); return 0;} //read failed
+   return t;
+  }
+ void *readall() {return readalloc(getsize());}
+
+ //---------------------
+ //operators
+ int operator <<(STREAMIO &in)
+     {in.reset(); return readfrom(in,in.getsize());}     
+
+ int operator >>(STREAMIO &out)
+     {reset(); return writeto(out,getsize());}
+
+ void operator <<(char &c) {writechar(c);}     
+ void operator >>(char &c) {c=readchar();}     
+
+ void operator <<(int &i) {writeint(i);}     
+ void operator >>(int &i) {i=readint();}     
+
+
+ int operator >>(class MEMORYIO &out);
+ int operator <<(class MEMORYIO &in);
+
+
+// void operator <<(BUFFERIO &in);
+// void operator >>(BUFFERIO &out);
+
+
+
+ //--------------------
+ //debugging info 
+ virtual char *printinfo(char *s);
+ virtual char *getname() {return "STREAMIO";}
+};    
+
+
+
+
+//disk file input/output
+//stream representing a DOS based disk file
+class FILEIO:public STREAMIO
+{
+ int h;           //dos handle of this file
+  
+ public:
+  virtual int isopened() {return h;}
+  virtual int  read(void *t,unsigned size);
+  virtual int  write(void *t,unsigned size);
+
+  virtual unsigned getsize(); 
+  virtual unsigned getpos(); 
+  virtual void setpos(unsigned int p);
+
+  int  open(char *filename);
+  void close();
+  int  create(char *filename);
+
+
+  FILEIO() {h=0;}
+  FILEIO(char *filename) {h=0; open(filename);}
+
+  ~FILEIO() {close();}
+
+  virtual char *getname() {return "FILEIO";}
+};
+
+
+
+
+//memory input/output
+//stream representing data in memory
+class MEMORYIO:public STREAMIO
+{
+ friend class BUFFERIO;
+ friend class BUFFERO;
+ friend class BUFFERI;
+
+ char *b;    //buffer 
+ int size;   //size of stream
+ int p;      //current pos within stream
+
+ int alloc; //did we alloc this ourselves?
+
+  
+ public:
+  virtual int  eof() {return p>=size;}
+  virtual int  isopened() {return b ? 1 : 0;}
+  virtual int  read(void *t,unsigned num);
+  virtual int  write(void *t,unsigned num);
+  virtual int  writeto (STREAMIO &out,unsigned num);
+  virtual int  readfrom(STREAMIO &in,unsigned num);
+
+  virtual unsigned getsize() {return size;}
+  virtual unsigned getpos() {return p;}
+  virtual void setpos(unsigned int newp) {if (newp<=size) p=newp;}
+
+  int  open(void *t,int size);
+  void close();
+  int  create(int size);
+
+  MEMORYIO() {b=0; p=size=0; alloc=0;}
+  ~MEMORYIO() {close();}
+
+  virtual char *getname() {return "MEMORYIO";}
+  virtual char *printinfo(char *s);
+};
+
+
+//buffers another stream through memory
+class BUFFERIO:public STREAMIO
+{
+ protected:
+ MEMORYIO m;
+ STREAMIO *s;
+ int buffersize;
+ 
+ public:
+  virtual int  isopened() {return s->isopened();}
+  virtual int  read(void *t,unsigned num) {return 0;};
+  virtual int write(void *t,unsigned num) {return 0;};
+  virtual unsigned getsize() {return s->getsize();}
+  virtual unsigned getpos() {return s->getpos();}
+  virtual void setpos(unsigned int newp) {s->setpos(newp);}
+
+  BUFFERIO(STREAMIO *t,int tsize):s(t) {m.create(buffersize=tsize); }
+  virtual char *printinfo(char *s);
+};
+
+//create(buffersize=tsize);
+//output buffer
+class BUFFERO:public BUFFERIO
+{
+ public:
+  void flush() //write all data in buffer to output
+  {
+   if (!m.b) return;
+   m.size=s->write(m.b,m.p);   //write all that was in buffer 
+   m.reset();  //reset back to beginning again
+  }
+  virtual int eof() {return s->eof();}
+  virtual void setpos(unsigned int newp) {BUFFERIO::setpos(newp); m.reset();}
+  virtual int write(void *t,unsigned num)
+   {
+  //  printf("buffero write num=%d p=%d size=%d\n",num,m.p,m.size);
+    int tnum=num;
+    do
+    {
+     tnum-=m.write(t,m.p+tnum<m.size ? tnum : m.size-m.p);
+     if (m.eof()) flush(); //flush buffer to outstream
+    } while (tnum>0 && m.size);
+    return num-tnum;
+   };
+
+  virtual int  readfrom(STREAMIO &in,unsigned num)
+  {
+//  printf("buffero readfrom %s num=%d p=%d size=%d\n",in.getname(),num,m.p,m.size);
+   int tnum=num;
+   do
+   {
+    tnum-=m.readfrom(in,m.p+tnum<m.size ? tnum : m.size-m.p);
+    if (m.eof()) flush();
+   } while (tnum>0 && m.size);
+   return num-tnum;
+  };
+
+  BUFFERO(STREAMIO *t,int tsize):BUFFERIO(t,tsize) {m.reset();}
+  ~BUFFERO() {flush(); }
+  virtual char *getname() {return "BUFFERO";}
+};
+
+//create(buffersize=tsize);
+//input buffer
+class BUFFERI:public BUFFERIO
+{
+ public:
+  void refresh() //read data into buffer
+  {
+   if (!m.b) return;
+   m.size=s->read(m.b,buffersize); //read buffersize into buffer
+//   printf("refresh size=%d %d %s\n",size,buffersize,s->getname());
+   m.p=0;                      //position at beginning again
+  }
+  virtual int eof() {return m.eof() && s->eof();}
+  virtual void setpos(unsigned int newp) {BUFFERIO::setpos(newp); m.setpos(m.size);}
+  virtual int read(void *t,unsigned num)
+   {
+//    printf("bufferi read num=%d p=%d size=%d\n",num,m.p,m.size);
+    int tnum=num;
+    do
+    {
+     tnum-=m.read(t,m.p+tnum<m.size ? tnum : m.size-m.p);
+     if (m.eof()) refresh();
+    } while (tnum>0 && m.size);
+    return num-tnum;
+   };
+
+  virtual int  writeto (STREAMIO &out,unsigned num)
+  {
+//    printf("bufferi writeto %s num=%d p=%d size=%d\n",out.getname(),num,m.p,m.size);
+   int tnum=num;
+   do
+   {
+    tnum-=m.writeto(out,m.p+tnum<m.size ? tnum : m.size-m.p);
+    if (m.eof()) refresh();
+   } while (tnum>0 && m.size);
+
+//    printf("bufferi done writeto num=%d p=%d size=%d\n",num,m.p,m.size);
+   return num-tnum;
+  };
+   
+  BUFFERI(STREAMIO *t,int tsize):BUFFERIO(t,tsize)
+    {
+     m.p=m.size;
+//     printf("bufferi create p=%d size=%d\n",m.p,m.size);
+    }
+  virtual char *getname() {return "BUFFERI";}
+};
+
+
+//class for clipping a stream
+//essentially it provides a clipped "view-window" within a
+//larger stream
+class CLIPSTREAM:public STREAMIO
+{
+ STREAMIO *p;  //parent stream
+
+ int start;  //beginning of clipping
+ int end;    //end of clipping
+
+ public:
+  virtual int  isopened() {return p ? p->isopened() : 0;}
+  virtual int  read(void *t,unsigned num);
+  virtual int write(void *t,unsigned num);
+
+  virtual unsigned getsize() {return end-start;}
+  virtual unsigned getpos() {return p ? p->getpos()-start : 0;}
+  virtual void setpos(unsigned int newp)
+    {
+     if (!p) return;
+     newp+=start;
+     if (newp>end) newp=end;
+     p->setpos(newp);
+    }
+
+  void open(STREAMIO *o,int tstart,int tsize);
+  void close() {if (p) p->setpos(end); p=0; start=end=0;}
+
+  CLIPSTREAM(STREAMIO *s,int tstart,int tsize) {open(s,tstart,tsize);}
+  CLIPSTREAM() {p=0; start=end=0;}
+  ~CLIPSTREAM() {close();}
+
+  virtual char *getname() {return "CLIPSTREAM";}
+};    
+
+//function used to enumerate all files in a pathspec
+typedef int (*DIRFUNCPTR)(char *filename,void *context);
+void enumdir(char *path,DIRFUNCPTR func,void *context);
+#endif
+

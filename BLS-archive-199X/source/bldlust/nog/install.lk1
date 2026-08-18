@@ -1,0 +1,3 @@
+NAME install
+FIL cdasm.obj,doserr.obj,cdrom.obj,install.obj
+

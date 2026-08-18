@@ -1,0 +1,174 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <mem.h>
+
+
+#include "glib.h"
+#include "input.h"
+#include "message.h"
+#include "misc.h"
+
+#include "effect.h"
+#include "object.h"
+
+#include <windows.h>
+#include <dsound.h>
+
+#include "vol.h"
+#include "dd.h"
+
+
+volatile int needdelete=0,needload=0;
+
+
+
+//free memory used by object definition
+void objectdef::Kill()
+{
+if (refcount) refcount--; //decrease reference count
+if	(!loaded) return;  //if not loaded anyway, we dont care
+if (refcount) return; //it's still needed
+
+if (timerbusy) return; //can't kill if in timer
+
+return;
+
+//-----------free object def from memory-------------
+
+//free series definitions
+if (sd)
+{
+ if (!readonly)
+  {
+   for (int j=0; j<nums; j++) if (sd[j].first) free(sd[j].first);
+   free(sd);
+  } else free(f);
+
+ sd=0; nums=0; f=0;
+}
+//free sound definitions
+if (sounds)
+{
+   // if (!readonly) //free individual sounds
+   //for (int j=0; j<numsounds; j++) if (sounds[j]) free(sounds[j]);
+
+ //deallocate directsound buffers
+ for (int j=0; j<numsounds; j++) sounds[j]->Release();
+  //free sound * array
+ free(sounds);
+  //free sound names
+ if (sndnames) free(sndnames);
+ sounds=0; sndnames=0; numsounds=0;
+}
+
+//free image definitions
+if (id)
+{
+ if (!readonly) //free individual images
+   for (int j=0; j<numi; j++) if (id[j]) free(id[j]);
+  //free image * array
+ free(id);
+  //free image names
+ if (imgnames) free(imgnames);
+ id=0; numi=0; imgnames=0;
+}
+
+mem=0; dirty=0;
+msg.printf(1,"%s unloaded",name);
+
+readonly=0;
+loaded=0; //clear loaded flag
+}
+
+extern int memused;
+//read object definition from disk
+void objectdef::Read()
+{
+if (!type) return; //hasn't been filled in
+refcount++; //increase reference count
+if (loaded) return; //if already loaded, we dont care
+if (timerbusy) {needload++; return;} //we can't load it if we are in the timer, set flag
+
+ReadVol();
+}
+
+
+void objectdef::ReadVol()
+{
+//read it from volumefile
+mem=0;
+volumefile v;
+//open volfile
+if (v.open(volfile))
+  {
+   msg.printf(1,"cannot open vol for %s",name);//can't find vol file
+   needload++; //make all objects that need this vol die
+   return;
+  }
+
+v.read(name);
+
+//parse series list   f[0]=sig f[1]=nums f[2]=seriessize
+f=(frame *)v.read(); //get series list
+mem+=v.hdr.size;
+int *t=(int *)f;
+nums=t[1];  //number of series
+int ssize=t[2]; //seriessize
+sd=(series *)&t[3]; //actual seriesess
+
+char *frameptr=(char *)&sd[nums]; //get pointer to first frame
+for (int i=0; i<nums; i++)
+   if (sd[i].size)
+    {
+      sd[i].first=(frame *)frameptr; //set framepointer
+      frameptr+=sd[i].size; //advance it
+    //  printf("%d %s %p\n",i,sd[i].name,sd);
+    } else sd[i].first=0; //no first
+
+//read images
+id=(img **)v.readblock(&numi);
+mem+=v.hdr.size;
+imgnames=0;
+
+//read sounds
+SOUND **oldsounds=(SOUND **)v.readblock(&numsounds);
+mem+=v.hdr.size;
+sndnames=0;
+
+//convert sounds to directsounds
+sounds=(LPDIRECTSOUNDBUFFER *)malloc(numsounds*4); //allocate pointer array
+for (i=0; i<numsounds; i++)
+  sounds[i]=createdsoundbuffer(oldsounds[i]);
+free(oldsounds);
+
+
+v.close();
+
+msg.printf(1,"%s loaded from %s %dKB",name,volfile,mem/1024);
+
+loaded=1; //set loaded
+readonly=1;
+return;
+}
+
+
+void object::sound(int n)
+{
+ //msg.printf(2,"playing %d %X",n,od->sounds[n]);
+ LPDIRECTSOUNDBUFFER dsb=od->sounds[n];
+ if (n>=od->numsounds || !dsb) return;
+
+ dsb->SetPan(((x>>16)-(SCREENX/2))*10000/SCREENX);
+
+ DWORD status;
+ dsb->GetStatus(&status);
+ if (status&DSBSTATUS_PLAYING)
+      dsb->SetCurrentPosition(0); //restart if playing already
+ else dsb->Play(0,0,0);
+}
+
+
+
+
+
+

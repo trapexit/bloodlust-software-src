@@ -1,0 +1,19 @@
+!define BLANK ""
+c:\test\ttest.obj : c:\test\ttest.cpp .AUTODEPEND
+ @c:
+ cd c:\test
+ *wpp386 ttest.cpp -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\ttimer.obj : c:\test\ttimer.cpp .AUTODEPEND
+ @c:
+ cd c:\test
+ *wpp386 ttimer.cpp -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\keytest.exe : c:\test\ttest.obj c:\test\ttimer.obj .AUTODEPEND
+ @c:
+ cd c:\test
+ @%write keytest.lk1 NAME keytest
+ @%append keytest.lk1 FIL ttest.obj,ttimer.obj
+ @%append keytest.lk1 
+ *wlink d all SYS dos4g op m op maxe=25 op q op symf @keytest.lk1
+

@@ -1,0 +1,304 @@
+#include <winsock.h>
+#include <stdio.h>
+
+#include "glib.h"
+#include "input.h"
+#include "misc.h"
+#include "effect.h"
+#include "object.h"
+#include "net.h"
+
+#include "netobj.h"
+
+#include "misc.h"
+
+extern objectdef *odf;
+extern int blah;
+void remoteobject::netrecvpos(UDPPACKET *u)
+{
+ pospacket *p=u->find(objid);
+ if (!p) return; //they didn't send our info
+
+   //set our shit
+ x=p->x<<16; y=p->y<<16; z=p->z<<16; d=p->d;
+ if (csnum!=p->csnum) //they changed series on us
+  {
+   csnum=p->csnum; cs=&od->sd[csnum];
+   cf=p->cf; nf=cs->nf;
+   resetfptr();
+  } else
+ if (cf!=p->cf) //they changed frames on us, same series though
+  {
+   if (cf>p->cf) //backwards for some strange reason
+   {
+    cf=p->cf;
+    resetfptr();
+   } else  while (cf<p->cf) advanceframe();
+  }
+}
+
+
+void localobject::netsendpos(UDPPACKET *u)
+{
+ if (!netupdated) return;
+
+ pospacket *p=u->allocate();
+
+ p->objid=objid;;
+ p->x=x>>16; p->y=y>>16; p->z=z>>16; p->d=d;
+ p->cf=cf; p->csnum=csnum;
+
+ netupdated=0;
+}
+
+
+remoteobject::remoteobject(objectdef *objdef,int s,int tx,int ty,int tz,int td, netnode *tnode, unsigned tobjid):
+ object(objdef,-1,tx,ty,tz,td,0),objid(tobjid),n(tnode)
+{
+ net=1;
+
+ activate(s);
+
+  //link to netobject's list
+ rprev=0; rnext=n->ro;
+ if (rnext) rnext->rprev=this;
+ n->ro=this;
+
+}
+
+remoteobject::~remoteobject()
+{
+ //unlink from chain
+ if (rprev) rprev->rnext=rnext;
+ if (rnext) rnext->rprev=rprev;
+ if (this==n->ro) n->ro=rnext;
+}
+
+int remoteobject::advanceframe()
+{
+  //advance to next frame
+ cf++;
+ fptr=(frame *) (((char *)fptr)+fptr->size);
+ return 0; //just next frame
+};
+
+
+//unique obj id creator
+int objidcount=1;
+
+localobject::localobject(objectdef *objdef,int s,int tx,int ty,int tz,int td, object *c):
+  object(objdef,s,tx,ty,tz,td,0)
+{
+ net=1;
+ netupdated=1;
+ objid=objidcount++;
+
+ TCP_newobject tcppacket(this,1); //1-it is a remote/local pair
+ tcppacket.sendtoall();
+
+// msg.printf(2,"new local %d",onum);
+ //link
+ lprev=0; lnext=lo;
+ if (lnext) lnext->lprev=this;
+ lo=this;
+}
+
+localobject::~localobject()
+{
+ TCP_killobject tcppacket(this);
+ tcppacket.sendtoall();
+// msg.printf(2,"kill local %d",onum);
+ //unlink from chain
+ if (lprev) lprev->lnext=lnext;
+ if (lnext) lnext->lprev=lprev;
+ if (this==lo) lo=lnext;
+}
+
+
+object *localobject::spawn(int objnum,int series,int tx,int ty,int tz, int td)
+{
+ object *t=new object(&odf[objnum],series,tx,ty,tz,td,this);
+
+  //let all nodes know about this creation
+ TCP_newobject tcppacket(t,0); //0-it is an autonomous created object
+ tcppacket.sendtoall();
+
+  //create normal object
+ return addobject(t);
+};
+
+
+
+
+//udp packet
+pospacket *UDPPACKET::find(unsigned objid)
+ {
+  for (int i=0; i<num; i++)
+   if (p[i].objid==objid) return &p[i];
+ else blah=p[i].objid;
+
+  return 0;
+ }
+
+void UDPPACKET::send()
+{
+ if (num)
+  {
+   //blah+=size();
+   netnode::sendtoall_udp(this,size());
+  }
+}
+
+
+//tcp packet crap
+#define TCPNULL       0
+#define TCPNODENAME   1
+#define TCPOTHERNODE  2
+#define TCPNEWOBJECT  3
+#define TCPKILLOBJECT 4
+#define TCPCHAT       5
+
+#define NUMTCPTYPES 5
+
+int TCPsizes[]=
+{
+ sizeof(TCPPACKET),
+ sizeof(TCP_nodename),
+ sizeof(TCP_othernode),
+ sizeof(TCP_newobject),
+ sizeof(TCP_killobject),
+ sizeof(TCP_chat),
+};
+
+
+typedef int (TCPPACKET::*TCPfuncptr)(netnode *n);
+
+TCPfuncptr TCPfuncs[]=
+{
+ 0,
+ (TCPfuncptr)&TCP_nodename::process,
+ (TCPfuncptr)&TCP_othernode::process,
+ (TCPfuncptr)&TCP_newobject::process,
+ (TCPfuncptr)&TCP_killobject::process,
+ (TCPfuncptr)&TCP_chat::process,
+};
+
+//basic tcp packet funcs
+int TCPPACKET::size()
+{
+ if (type>NUMTCPTYPES) return 0;
+ return TCPsizes[type];
+};
+
+int TCPPACKET::process(netnode *n)
+{
+ if (!TCPfuncs[type]) return 0;
+ return (this->*TCPfuncs[type])(n);
+}
+
+int TCPPACKET::sendto(netnode *n)
+{
+ n->send_tcp(this,size());
+ return 1;
+}
+
+int TCPPACKET::sendtoall()
+{
+ netnode::sendtoall_tcp(this,size());
+ return 1;
+}
+
+//tcp packet for sending name of node
+TCP_nodename::TCP_nodename(char *s):TCPPACKET(TCPNODENAME)
+{
+ memcpy(name,s,16);
+}
+int TCP_nodename::process(netnode *n)
+{
+ strcpy(n->name,name);
+ return 1;
+}
+
+//tcp packet for notifying of other nodes in game
+TCP_othernode::TCP_othernode(netnode *other):TCPPACKET(TCPOTHERNODE)
+{
+ a=*other->getremoteaddr(); //get node's address
+}
+int TCP_othernode::process(netnode *n)
+{
+ for (netnode *x=netnodes; x; x=x->next)
+     if (*x->getremoteaddr()==a) return 0;
+ return 0;
+}
+
+//tcp packet for creating new remote objects
+extern objectdef *odf;
+TCP_newobject::TCP_newobject(object *o,int r):TCPPACKET(TCPNEWOBJECT)
+{
+ if (!r)
+  {
+   objid=0;
+   remote=0;
+  } else
+  {
+   objid=((localobject *)o)->objid;
+   remote=1;
+  }
+ x=o->x>>16; y=o->y>>16; z=o->z>>16;
+ objtype=o->onum;
+ series=o->csnum;
+ d=o->d;
+}
+int TCP_newobject::process(netnode *n)
+{
+ if (remote)
+   addobject(new remoteobject(&odf[objtype],series,x,y,z,d,n,objid) );
+ else
+   addobject(new object(&odf[objtype],series,x,y,z,d,0) );
+
+//   msg.printf(2,"new remote %d",objid);
+// msg.printf(2,"new remote %d",objtype);
+ return 1;
+}
+
+//tcp packet for killing remote objects
+TCP_killobject::TCP_killobject(localobject *o):TCPPACKET(TCPKILLOBJECT)
+{
+ objid=o->objid;
+}
+int TCP_killobject::process(netnode *n)
+{
+ for (remoteobject *t=n->ro; t; t=t->rnext)
+  if (t->objid==objid) {
+   t->kill(); return 1;}
+ return 0;
+}
+
+extern char localnodename[];
+TCP_chat::TCP_chat(char *str):TCPPACKET(TCPCHAT)
+{
+ strcpy(s,str);
+ msg.printf(1,"%s: %s",localnodename,s);
+}
+
+int TCP_chat::process(netnode *n)
+{
+ msg.printf(1,"%s: %s",n->name,s);
+ return 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,46 @@
+typedef struct
+{
+short int       x,y;
+} point;
+
+typedef struct
+{
+unsigned char   r,g,b;
+} color;
+
+
+//timg256.asm
+extern "C"
+{
+void __cdecl PutImageFlip256(char *,char *,int LSW,int o);
+void __cdecl PutImageFlipClip256(char *, char *,int LSW,int XC,int YC,int XT,int YT,int o);
+
+void __cdecl DrawImage(char *src,char *dest,int x,int y,int o);
+void __cdecl DrawImageShadow(char *src,char *dest,int x,int y,int o,int slant);
+void __cdecl PutImageD2(char *,char *,int,int);
+void __cdecl PutImageSolid(char *,char *,int,long);
+
+void __cdecl ColorMapImage(char *img,unsigned char *map);
+void __cdecl PutStatusBar(char *,char *);
+void __cdecl MemoryCopy(void *,void *,unsigned int);
+//void MemoryCopyToVideo(unsigned,void *,unsigned int);
+
+void __cdecl WaitVSync();
+void __cdecl Solid(char *,int,int);
+void __cdecl LoadPalette(color *, int, int);
+}
+
+int  DrawLetter(char *font,char *dest,unsigned char c,int LSW);
+int  DrawString(char *font,char *dest,unsigned char *s,int LSW);
+//int  CreateFontImage256(char far *font,char far **img,unsigned char *s);
+int CreateFontImage256(char *font,char * *img,unsigned char *s);
+int GetStringWidth(char *font,unsigned char *s);
+int GetStringWidthSP(char *font,unsigned char *s);
+int DrawStringSP(char *font,char *dest,unsigned char *s,int LSW);
+int GetLetterWidth(char *font, unsigned char s);
+
+extern "C"
+{
+void __cdecl Mode256();
+void __cdecl ModeText();
+}

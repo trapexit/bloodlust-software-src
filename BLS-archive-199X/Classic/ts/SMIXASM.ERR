@@ -1,0 +1,7 @@
+smixasm.asm(3): Error! E051: Syntax error
+smixasm.asm(16): Error! E051: Syntax error
+smixasm.asm(47): Error! E051: Syntax error
+smixasm.asm(61): Error! E757: '@@LP' is already defined
+smixasm.asm(77): Error! E051: Syntax error
+smixasm.asm(90): Error! E757: '@@LP' is already defined
+smixasm.asm(111): Error! E051: Syntax error

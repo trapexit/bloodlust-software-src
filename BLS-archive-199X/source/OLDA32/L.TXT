@@ -1,0 +1,1774 @@
+
+Module: c:\source\a32\object.cpp
+Group: 'DGROUP' CONST,CONST2,_DATA,_BSS,XIB,XI,XIE
+
+Segment: _TEXT  PARA USE32  00000a7d bytes  
+ 0000  8d 40 00          L1              lea     eax,+0H[eax]
+ 0003  2e 66 6e 5f                       DB      2eH,66H,6eH,5fH
+ 0007  69 6e 69 74                       DB      69H,6eH,69H,74H
+ 000b  08                                DB      08H
+ 000c                    void near .fn_init():
+ 000c  53                                push    ebx
+ 000d  51                                push    ecx
+ 000e  52                                push    edx
+ 000f  56                                push    esi
+ 0010  57                                push    edi
+ 0011  55                                push    ebp
+ 0012  89 e5                             mov     ebp,esp
+ 0014  81 ec 24 00 00 00                 sub     esp,00000024H
+ 001a  c7 45 e4 00 00 00 
+       00                                mov     dword ptr -1cH[ebp],offset int (near object::* near object::cfunclist[])()
+ 0021  8b 45 e4                          mov     eax,-1cH[ebp]
+ 0024  89 45 e0                          mov     -20H[ebp],eax
+ 0027  8b 45 e0                          mov     eax,-20H[ebp]
+ 002a  89 45 dc                          mov     -24H[ebp],eax
+ 002d  8b 45 e0                          mov     eax,-20H[ebp]
+ 0030  c7 00 00 00 00 00                 mov     dword ptr [eax],offset int (near * near object::__mbrptrthunk())()
+ 0036  8b 45 dc                          mov     eax,-24H[ebp]
+ 0039  c7 40 04 00 00 00 
+       00                                mov     dword ptr +4H[eax],00000000H
+ 0040  8b 45 dc                          mov     eax,-24H[ebp]
+ 0043  c7 40 08 00 00 00 
+       00                                mov     dword ptr +8H[eax],00000000H
+ 004a  c7 45 f0 0c 00 00 
+       00                                mov     dword ptr -10H[ebp],offset int (near object::* near object::cfunclist[])()+0cH
+ 0051  8b 45 f0                          mov     eax,-10H[ebp]
+ 0054  89 45 ec                          mov     -14H[ebp],eax
+ 0057  8b 45 ec                          mov     eax,-14H[ebp]
+ 005a  89 45 e8                          mov     -18H[ebp],eax
+ 005d  8b 45 ec                          mov     eax,-14H[ebp]
+ 0060  c7 00 00 00 00 00                 mov     dword ptr [eax],offset int (near * near object::__mbrptrthunk())()
+ 0066  8b 45 e8                          mov     eax,-18H[ebp]
+ 0069  c7 40 04 00 00 00 
+       00                                mov     dword ptr +4H[eax],00000000H
+ 0070  8b 45 e8                          mov     eax,-18H[ebp]
+ 0073  c7 40 08 00 00 00 
+       00                                mov     dword ptr +8H[eax],00000000H
+ 007a  c7 45 fc 18 00 00 
+       00                                mov     dword ptr -4H[ebp],offset int (near object::* near object::cfunclist[])()+18H
+ 0081  8b 45 fc                          mov     eax,-4H[ebp]
+ 0084  89 45 f8                          mov     -8H[ebp],eax
+ 0087  8b 45 f8                          mov     eax,-8H[ebp]
+ 008a  89 45 f4                          mov     -0cH[ebp],eax
+ 008d  8b 45 f8                          mov     eax,-8H[ebp]
+ 0090  c7 00 00 00 00 00                 mov     dword ptr [eax],offset int (near * near object::__mbrptrthunk())()
+ 0096  8b 45 f4                          mov     eax,-0cH[ebp]
+ 0099  c7 40 04 00 00 00 
+       00                                mov     dword ptr +4H[eax],00000000H
+ 00a0  8b 45 f4                          mov     eax,-0cH[ebp]
+ 00a3  c7 40 08 00 00 00 
+       00                                mov     dword ptr +8H[eax],00000000H
+ 00aa  89 ec                             mov     esp,ebp
+ 00ac  5d                                pop     ebp
+ 00ad  5f                                pop     edi
+ 00ae  5e                                pop     esi
+ 00af  5a                                pop     edx
+ 00b0  59                                pop     ecx
+ 00b1  5b                                pop     ebx
+ 00b2  c3                                ret     
+ 00b3  6e 6f 6e 65       L2              DB      6eH,6fH,6eH,65H
+ 00b7  04                                DB      04H
+ 00b8                    int near object::none():
+ 00b8  53                                push    ebx
+ 00b9  51                                push    ecx
+ 00ba  52                                push    edx
+ 00bb  56                                push    esi
+ 00bc  57                                push    edi
+ 00bd  55                                push    ebp
+ 00be  89 e5                             mov     ebp,esp
+ 00c0  81 ec 08 00 00 00                 sub     esp,00000008H
+ 00c6  89 45 fc                          mov     -4H[ebp],eax
+ 00c9  ba 70 00 00 00                    mov     edx,00000070H
+ 00ce  8b 45 fc                          mov     eax,-4H[ebp]
+ 00d1  e8 00 00 00 00                    call    void near object::move( int )
+ 00d6  c7 45 f8 ff ff ff 
+       ff                                mov     dword ptr -8H[ebp],0ffffffffH
+ 00dd  8b 45 f8                          mov     eax,-8H[ebp]
+ 00e0  89 ec                             mov     esp,ebp
+ 00e2  5d                                pop     ebp
+ 00e3  5f                                pop     edi
+ 00e4  5e                                pop     esi
+ 00e5  5a                                pop     edx
+ 00e6  59                                pop     ecx
+ 00e7  5b                                pop     ebx
+ 00e8  c3                                ret     
+ 00e9  8d 40 00                          lea     eax,+0H[eax]
+ 00ec  73 74 61 72                       DB      73H,74H,61H,72H
+ 00f0  74 73 65 72                       DB      74H,73H,65H,72H
+ 00f4  69 65 73 0b                       DB      69H,65H,73H,0bH
+ 00f8                    int near object::startseries( int ):
+ 00f8  53                                push    ebx
+ 00f9  51                                push    ecx
+ 00fa  56                                push    esi
+ 00fb  57                                push    edi
+ 00fc  55                                push    ebp
+ 00fd  89 e5                             mov     ebp,esp
+ 00ff  81 ec 2c 00 00 00                 sub     esp,0000002cH
+ 0105  89 45 f8                          mov     -8H[ebp],eax
+ 0108  89 55 fc                          mov     -4H[ebp],edx
+ 010b  8b 45 fc                          mov     eax,-4H[ebp]
+ 010e  8b 55 f8                          mov     edx,-8H[ebp]
+ 0111  89 42 28                          mov     +28H[edx],eax
+ 0114  8b 45 f8                          mov     eax,-8H[ebp]
+ 0117  8b 40 0c                          mov     eax,+0cH[eax]
+ 011a  6b 55 fc 2e                       imul    edx,-4H[ebp],2eH
+ 011e  8b 58 21                          mov     ebx,+21H[eax]
+ 0121  8b 45 f8                          mov     eax,-8H[ebp]
+ 0124  01 d3                             add     ebx,edx
+ 0126  89 58 2c                          mov     +2cH[eax],ebx
+ 0129  8b 45 f8                          mov     eax,-8H[ebp]
+ 012c  8b 50 2c                          mov     edx,+2cH[eax]
+ 012f  8a 52 19                          mov     dl,+19H[edx]
+ 0132  8b 45 f8                          mov     eax,-8H[ebp]
+ 0135  88 50 39                          mov     +39H[eax],dl
+ 0138  8b 45 f8                          mov     eax,-8H[ebp]
+ 013b  80 78 39 00                       cmp     byte ptr +39H[eax],00H
+ 013f  75 3e                             jne     L3
+ 0141  8b 45 f8                          mov     eax,-8H[ebp]
+ 0144  83 c0 3e                          add     eax,0000003eH
+ 0147  89 45 dc                          mov     -24H[ebp],eax
+ 014a  8b 45 dc                          mov     eax,-24H[ebp]
+ 014d  89 45 d8                          mov     -28H[ebp],eax
+ 0150  8b 45 d8                          mov     eax,-28H[ebp]
+ 0153  89 45 d4                          mov     -2cH[ebp],eax
+ 0156  8b 45 d8                          mov     eax,-28H[ebp]
+ 0159  c7 00 00 00 00 00                 mov     dword ptr [eax],00000000H
+ 015f  8b 45 d4                          mov     eax,-2cH[ebp]
+ 0162  c7 40 04 00 00 00 
+       00                                mov     dword ptr +4H[eax],00000000H
+ 0169  8b 45 d4                          mov     eax,-2cH[ebp]
+ 016c  c7 40 08 00 00 00 
+       00                                mov     dword ptr +8H[eax],00000000H
+ 0173  c7 45 e0 00 00 00 
+       00                                mov     dword ptr -20H[ebp],00000000H
+ 017a  e9 b2 00 00 00                    jmp     L6
+ 017f  8b 45 f8          L3              mov     eax,-8H[ebp]
+ 0182  83 c0 3e                          add     eax,0000003eH
+ 0185  89 45 f4                          mov     -0cH[ebp],eax
+ 0188  8b 45 f4                          mov     eax,-0cH[ebp]
+ 018b  89 45 f0                          mov     -10H[ebp],eax
+ 018e  8b 45 f8                          mov     eax,-8H[ebp]
+ 0191  8b 40 2c                          mov     eax,+2cH[eax]
+ 0194  6b 40 2a 0c                       imul    eax,+2aH[eax],0cH
+ 0198  ba 00 00 00 00                    mov     edx,offset int (near object::* near object::cfunclist[])()
+ 019d  01 c2                             add     edx,eax
+ 019f  89 55 ec                          mov     -14H[ebp],edx
+ 01a2  8b 45 f0                          mov     eax,-10H[ebp]
+ 01a5  89 45 e8                          mov     -18H[ebp],eax
+ 01a8  8b 45 ec                          mov     eax,-14H[ebp]
+ 01ab  89 45 e4                          mov     -1cH[ebp],eax
+ 01ae  8b 45 ec                          mov     eax,-14H[ebp]
+ 01b1  8b 10                             mov     edx,[eax]
+ 01b3  8b 45 f0                          mov     eax,-10H[ebp]
+ 01b6  89 10                             mov     [eax],edx
+ 01b8  8b 45 e4                          mov     eax,-1cH[ebp]
+ 01bb  8b 50 04                          mov     edx,+4H[eax]
+ 01be  8b 45 e8                          mov     eax,-18H[ebp]
+ 01c1  89 50 04                          mov     +4H[eax],edx
+ 01c4  8b 45 e4                          mov     eax,-1cH[ebp]
+ 01c7  8b 50 08                          mov     edx,+8H[eax]
+ 01ca  8b 45 e8                          mov     eax,-18H[ebp]
+ 01cd  89 50 08                          mov     +8H[eax],edx
+ 01d0  8b 45 f8                          mov     eax,-8H[ebp]
+ 01d3  80 78 4a 00                       cmp     byte ptr +4aH[eax],00H
+ 01d7  75 19                             jne     L4
+ 01d9  8b 45 f8                          mov     eax,-8H[ebp]
+ 01dc  8b 40 2c                          mov     eax,+2cH[eax]
+ 01df  8a 50 18                          mov     dl,+18H[eax]
+ 01e2  8b 45 f8                          mov     eax,-8H[ebp]
+ 01e5  88 50 38                          mov     +38H[eax],dl
+ 01e8  8b 45 f8                          mov     eax,-8H[ebp]
+ 01eb  e8 00 00 00 00                    call    void near object::resetfptr()
+ 01f0  eb 1e                             jmp     L5
+ 01f2  8b 45 f8          L4              mov     eax,-8H[ebp]
+ 01f5  c6 40 38 00                       mov     byte ptr +38H[eax],00H
+ 01f9  8b 45 f8                          mov     eax,-8H[ebp]
+ 01fc  8b 50 2c                          mov     edx,+2cH[eax]
+ 01ff  8b 52 10                          mov     edx,+10H[edx]
+ 0202  8b 45 f8                          mov     eax,-8H[ebp]
+ 0205  89 50 30                          mov     +30H[eax],edx
+ 0208  8b 45 f8                          mov     eax,-8H[ebp]
+ 020b  e8 00 00 00 00                    call    void near object::effect()
+ 0210  8b 45 f8          L5              mov     eax,-8H[ebp]
+ 0213  8b 50 30                          mov     edx,+30H[eax]
+ 0216  66 8b 52 02                       mov     dx,+2H[edx]
+ 021a  81 e2 ff ff 00 00                 and     edx,0000ffffH
+ 0220  8b 45 f8                          mov     eax,-8H[ebp]
+ 0223  89 50 34                          mov     +34H[eax],edx
+ 0226  31 c0                             xor     eax,eax
+ 0228  8b 55 f8                          mov     edx,-8H[ebp]
+ 022b  8a 42 39                          mov     al,+39H[edx]
+ 022e  89 45 e0                          mov     -20H[ebp],eax
+ 0231  8b 45 e0          L6              mov     eax,-20H[ebp]
+ 0234  89 ec                             mov     esp,ebp
+ 0236  5d                                pop     ebp
+ 0237  5f                                pop     edi
+ 0238  5e                                pop     esi
+ 0239  59                                pop     ecx
+ 023a  5b                                pop     ebx
+ 023b  c3                                ret     
+ 023c  90                                nop     
+ 023d  6f 62 6a 65                       DB      6fH,62H,6aH,65H
+ 0241  63 74 06                          DB      63H,74H,06H
+ 0244                    near object::object( objectdef near *, int, int, int, int ):
+ 0244  56                                push    esi
+ 0245  57                                push    edi
+ 0246  55                                push    ebp
+ 0247  89 e5                             mov     ebp,esp
+ 0249  81 ec 14 00 00 00                 sub     esp,00000014H
+ 024f  89 45 f0                          mov     -10H[ebp],eax
+ 0252  89 55 f4                          mov     -0cH[ebp],edx
+ 0255  89 5d f8                          mov     -8H[ebp],ebx
+ 0258  89 4d fc                          mov     -4H[ebp],ecx
+ 025b  bb 4d 00 00 00                    mov     ebx,0000004dH
+ 0260  31 d2                             xor     edx,edx
+ 0262  8b 45 f0                          mov     eax,-10H[ebp]
+ 0265  e8 00 00 00 00                    call    memset_
+ 026a  8b 45 f0                          mov     eax,-10H[ebp]
+ 026d  c7 40 08 ff ff ff 
+       ff                                mov     dword ptr +8H[eax],0ffffffffH
+ 0274  8b 45 f0                          mov     eax,-10H[ebp]
+ 0277  c7 40 0c 00 00 00 
+       00                                mov     dword ptr +0cH[eax],00000000H
+ 027e  83 7d f4 00                       cmp     dword ptr -0cH[ebp],00000000H
+ 0282  0f 84 7f 00 00 00                 je      L7
+ 0288  8b 45 f4                          mov     eax,-0cH[ebp]
+ 028b  e8 00 00 00 00                    call    void near objectdef::Read()
+ 0290  8b 45 f4                          mov     eax,-0cH[ebp]
+ 0293  80 78 14 00                       cmp     byte ptr +14H[eax],00H
+ 0297  74 6e                             je      L7
+ 0299  8b 45 f4                          mov     eax,-0cH[ebp]
+ 029c  8b 10                             mov     edx,[eax]
+ 029e  8b 45 f0                          mov     eax,-10H[ebp]
+ 02a1  89 50 08                          mov     +8H[eax],edx
+ 02a4  8b 45 f4                          mov     eax,-0cH[ebp]
+ 02a7  8b 55 f0                          mov     edx,-10H[ebp]
+ 02aa  89 42 0c                          mov     +0cH[edx],eax
+ 02ad  8b 45 fc                          mov     eax,-4H[ebp]
+ 02b0  8b 55 f0                          mov     edx,-10H[ebp]
+ 02b3  89 42 10                          mov     +10H[edx],eax
+ 02b6  8b 45 10                          mov     eax,+10H[ebp]
+ 02b9  8b 55 f0                          mov     edx,-10H[ebp]
+ 02bc  89 42 14                          mov     +14H[edx],eax
+ 02bf  8b 45 14                          mov     eax,+14H[ebp]
+ 02c2  8b 55 f0                          mov     edx,-10H[ebp]
+ 02c5  89 42 20                          mov     +20H[edx],eax
+ 02c8  8b 45 f0                          mov     eax,-10H[ebp]
+ 02cb  c7 40 1c 00 00 00 
+       00                                mov     dword ptr +1cH[eax],00000000H
+ 02d2  8b 45 f0                          mov     eax,-10H[ebp]
+ 02d5  8b 50 1c                          mov     edx,+1cH[eax]
+ 02d8  8b 45 f0                          mov     eax,-10H[ebp]
+ 02db  89 50 18                          mov     +18H[eax],edx
+ 02de  8b 45 f0                          mov     eax,-10H[ebp]
+ 02e1  c7 00 00 00 00 00                 mov     dword ptr [eax],00000000H
+ 02e7  8b 45 f0                          mov     eax,-10H[ebp]
+ 02ea  8b 10                             mov     edx,[eax]
+ 02ec  8b 45 f0                          mov     eax,-10H[ebp]
+ 02ef  89 50 04                          mov     +4H[eax],edx
+ 02f2  8b 45 f0                          mov     eax,-10H[ebp]
+ 02f5  c7 40 3a 00 00 00 
+       00                                mov     dword ptr +3aH[eax],offset input near inputnone
+ 02fc  8b 55 f8                          mov     edx,-8H[ebp]
+ 02ff  8b 45 f0                          mov     eax,-10H[ebp]
+ 0302  e8 00 00 00 00                    call    int near object::startseries( int )
+ 0307  8b 45 f0          L7              mov     eax,-10H[ebp]
+ 030a  89 45 ec                          mov     -14H[ebp],eax
+ 030d  8b 45 ec                          mov     eax,-14H[ebp]
+ 0310  89 ec                             mov     esp,ebp
+ 0312  5d                                pop     ebp
+ 0313  5f                                pop     edi
+ 0314  5e                                pop     esi
+ 0315  c2 08 00                          ret     0008H
+ 0318  7e 6f 62 6a                       DB      7eH,6fH,62H,6aH
+ 031c  65 63 74 07                       DB      65H,63H,74H,07H
+ 0320                    near object::~object():
+ 0320  53                                push    ebx
+ 0321  51                                push    ecx
+ 0322  56                                push    esi
+ 0323  57                                push    edi
+ 0324  55                                push    ebp
+ 0325  89 e5                             mov     ebp,esp
+ 0327  81 ec 0c 00 00 00                 sub     esp,0000000cH
+ 032d  89 45 f8                          mov     -8H[ebp],eax
+ 0330  89 55 fc                          mov     -4H[ebp],edx
+ 0333  8b 45 f8                          mov     eax,-8H[ebp]
+ 0336  8b 40 0c                          mov     eax,+0cH[eax]
+ 0339  e8 00 00 00 00                    call    void near objectdef::Kill()
+ 033e  8b 45 f8                          mov     eax,-8H[ebp]
+ 0341  83 38 00                          cmp     dword ptr [eax],00000000H
+ 0344  74 0e                             je      L8
+ 0346  8b 45 f8                          mov     eax,-8H[ebp]
+ 0349  8b 10                             mov     edx,[eax]
+ 034b  8b 45 f8                          mov     eax,-8H[ebp]
+ 034e  8b 40 04                          mov     eax,+4H[eax]
+ 0351  89 42 04                          mov     +4H[edx],eax
+ 0354  8b 45 f8          L8              mov     eax,-8H[ebp]
+ 0357  83 78 04 00                       cmp     dword ptr +4H[eax],00000000H
+ 035b  74 0d                             je      L9
+ 035d  8b 45 f8                          mov     eax,-8H[ebp]
+ 0360  8b 50 04                          mov     edx,+4H[eax]
+ 0363  8b 45 f8                          mov     eax,-8H[ebp]
+ 0366  8b 00                             mov     eax,[eax]
+ 0368  89 02                             mov     [edx],eax
+ 036a  8b 45 f8          L9              mov     eax,-8H[ebp]
+ 036d  3b 05 00 00 00 00                 cmp     eax,object near * near o
+ 0373  75 0b                             jne     L10
+ 0375  8b 45 f8                          mov     eax,-8H[ebp]
+ 0378  8b 40 04                          mov     eax,+4H[eax]
+ 037b  a3 00 00 00 00                    mov     object near * near o,eax
+ 0380  8b 45 f8          L10             mov     eax,-8H[ebp]
+ 0383  89 45 f4                          mov     -0cH[ebp],eax
+ 0386  8b 45 f4                          mov     eax,-0cH[ebp]
+ 0389  89 ec                             mov     esp,ebp
+ 038b  5d                                pop     ebp
+ 038c  5f                                pop     edi
+ 038d  5e                                pop     esi
+ 038e  59                                pop     ecx
+ 038f  5b                                pop     ebx
+ 0390  c3                                ret     
+ 0391  90                                nop     
+ 0392  67 65 74 69                       DB      67H,65H,74H,69H
+ 0396  6d 67 70 74                       DB      6dH,67H,70H,74H
+ 039a  72 09                             DB      72H,09H
+ 039c                    image near * near frame::getimgptr():
+ 039c  53                                push    ebx
+ 039d  51                                push    ecx
+ 039e  52                                push    edx
+ 039f  56                                push    esi
+ 03a0  57                                push    edi
+ 03a1  55                                push    ebp
+ 03a2  89 e5                             mov     ebp,esp
+ 03a4  81 ec 08 00 00 00                 sub     esp,00000008H
+ 03aa  89 45 fc                          mov     -4H[ebp],eax
+ 03ad  83 7d fc 00                       cmp     dword ptr -4H[ebp],00000000H
+ 03b1  75 09                             jne     L11
+ 03b3  c7 45 f8 00 00 00 
+       00                                mov     dword ptr -8H[ebp],00000000H
+ 03ba  eb 21                             jmp     L12
+ 03bc  8b 45 fc          L11             mov     eax,-4H[ebp]
+ 03bf  31 d2                             xor     edx,edx
+ 03c1  8a 50 09                          mov     dl,+9H[eax]
+ 03c4  8b 45 fc                          mov     eax,-4H[ebp]
+ 03c7  8a 40 0a                          mov     al,+0aH[eax]
+ 03ca  25 ff 00 00 00                    and     eax,000000ffH
+ 03cf  01 d0                             add     eax,edx
+ 03d1  c1 e0 03                          shl     eax,03H
+ 03d4  03 45 fc                          add     eax,-4H[ebp]
+ 03d7  83 c0 0c                          add     eax,0000000cH
+ 03da  89 45 f8                          mov     -8H[ebp],eax
+ 03dd  8b 45 f8          L12             mov     eax,-8H[ebp]
+ 03e0  89 ec                             mov     esp,ebp
+ 03e2  5d                                pop     ebp
+ 03e3  5f                                pop     edi
+ 03e4  5e                                pop     esi
+ 03e5  5a                                pop     edx
+ 03e6  59                                pop     ecx
+ 03e7  5b                                pop     ebx
+ 03e8  c3                                ret     
+ 03e9  8d 40 00                          lea     eax,+0H[eax]
+ 03ec  67 65 74 65                       DB      67H,65H,74H,65H
+ 03f0  78 74 72 61                       DB      78H,74H,72H,61H
+ 03f4  70 74 72 0b                       DB      70H,74H,72H,0bH
+ 03f8                    char unsigned near * near frame::getextraptr():
+ 03f8  53                                push    ebx
+ 03f9  51                                push    ecx
+ 03fa  52                                push    edx
+ 03fb  56                                push    esi
+ 03fc  57                                push    edi
+ 03fd  55                                push    ebp
+ 03fe  89 e5                             mov     ebp,esp
+ 0400  81 ec 08 00 00 00                 sub     esp,00000008H
+ 0406  89 45 fc                          mov     -4H[ebp],eax
+ 0409  83 7d fc 00                       cmp     dword ptr -4H[ebp],00000000H
+ 040d  75 09                             jne     L13
+ 040f  c7 45 f8 00 00 00 
+       00                                mov     dword ptr -8H[ebp],00000000H
+ 0416  eb 33                             jmp     L14
+ 0418  8b 45 fc          L13             mov     eax,-4H[ebp]
+ 041b  31 d2                             xor     edx,edx
+ 041d  8a 50 09                          mov     dl,+9H[eax]
+ 0420  8b 45 fc                          mov     eax,-4H[ebp]
+ 0423  8a 40 0a                          mov     al,+0aH[eax]
+ 0426  25 ff 00 00 00                    and     eax,000000ffH
+ 042b  01 d0                             add     eax,edx
+ 042d  c1 e0 03                          shl     eax,03H
+ 0430  8b 55 fc                          mov     edx,-4H[ebp]
+ 0433  01 c2                             add     edx,eax
+ 0435  8b 45 fc                          mov     eax,-4H[ebp]
+ 0438  8a 40 0b                          mov     al,+0bH[eax]
+ 043b  25 ff 00 00 00                    and     eax,000000ffH
+ 0440  6b c0 06                          imul    eax,06H
+ 0443  01 d0                             add     eax,edx
+ 0445  83 c0 0c                          add     eax,0000000cH
+ 0448  89 45 f8                          mov     -8H[ebp],eax
+ 044b  8b 45 f8          L14             mov     eax,-8H[ebp]
+ 044e  89 ec                             mov     esp,ebp
+ 0450  5d                                pop     ebp
+ 0451  5f                                pop     edi
+ 0452  5e                                pop     esi
+ 0453  5a                                pop     edx
+ 0454  59                                pop     ecx
+ 0455  5b                                pop     ebx
+ 0456  c3                                ret     
+ 0457  8b c0                             mov     eax,eax
+ 0459  67 65 74 76                       DB      67H,65H,74H,76H
+ 045d  75 6c 6e 70                       DB      75H,6cH,6eH,70H
+ 0461  74 72 0a                          DB      74H,72H,0aH
+ 0464                    rect near * near frame::getvulnptr():
+ 0464  53                                push    ebx
+ 0465  51                                push    ecx
+ 0466  52                                push    edx
+ 0467  56                                push    esi
+ 0468  57                                push    edi
+ 0469  55                                push    ebp
+ 046a  89 e5                             mov     ebp,esp
+ 046c  81 ec 08 00 00 00                 sub     esp,00000008H
+ 0472  89 45 fc                          mov     -4H[ebp],eax
+ 0475  83 7d fc 00                       cmp     dword ptr -4H[ebp],00000000H
+ 0479  75 09                             jne     L15
+ 047b  c7 45 f8 00 00 00 
+       00                                mov     dword ptr -8H[ebp],00000000H
+ 0482  eb 09                             jmp     L16
+ 0484  8b 45 fc          L15             mov     eax,-4H[ebp]
+ 0487  83 c0 0c                          add     eax,0000000cH
+ 048a  89 45 f8                          mov     -8H[ebp],eax
+ 048d  8b 45 f8          L16             mov     eax,-8H[ebp]
+ 0490  89 ec                             mov     esp,ebp
+ 0492  5d                                pop     ebp
+ 0493  5f                                pop     edi
+ 0494  5e                                pop     esi
+ 0495  5a                                pop     edx
+ 0496  59                                pop     ecx
+ 0497  5b                                pop     ebx
+ 0498  c3                                ret     
+ 0499  8b c0                             mov     eax,eax
+ 049b  6d 6f 76 65                       DB      6dH,6fH,76H,65H
+ 049f  04                                DB      04H
+ 04a0                    void near object::move( int ):
+ 04a0  53                                push    ebx
+ 04a1  51                                push    ecx
+ 04a2  56                                push    esi
+ 04a3  57                                push    edi
+ 04a4  55                                push    ebp
+ 04a5  89 e5                             mov     ebp,esp
+ 04a7  81 ec 08 00 00 00                 sub     esp,00000008H
+ 04ad  89 45 f8                          mov     -8H[ebp],eax
+ 04b0  89 55 fc                          mov     -4H[ebp],edx
+ 04b3  f7 45 fc 10 00 00 
+       00                                test    dword ptr -4H[ebp],00000010H
+ 04ba  74 48                             je      L19
+ 04bc  f7 45 fc 01 00 00 
+       00                                test    dword ptr -4H[ebp],00000001H
+ 04c3  74 14                             je      L17
+ 04c5  8b 45 f8                          mov     eax,-8H[ebp]
+ 04c8  8b 40 30                          mov     eax,+30H[eax]
+ 04cb  8b 50 02                          mov     edx,+2H[eax]
+ 04ce  c1 fa 10                          sar     edx,10H
+ 04d1  8b 45 f8                          mov     eax,-8H[ebp]
+ 04d4  29 50 18                          sub     +18H[eax],edx
+ 04d7  eb 12                             jmp     L18
+ 04d9  8b 45 f8          L17             mov     eax,-8H[ebp]
+ 04dc  8b 40 30                          mov     eax,+30H[eax]
+ 04df  8b 50 02                          mov     edx,+2H[eax]
+ 04e2  c1 fa 10                          sar     edx,10H
+ 04e5  8b 45 f8                          mov     eax,-8H[ebp]
+ 04e8  01 50 18                          add     +18H[eax],edx
+ 04eb  8b 45 f8          L18             mov     eax,-8H[ebp]
+ 04ee  8b 50 18                          mov     edx,+18H[eax]
+ 04f1  c1 fa 08                          sar     edx,08H
+ 04f4  8b 45 f8                          mov     eax,-8H[ebp]
+ 04f7  01 50 10                          add     +10H[eax],edx
+ 04fa  8b 45 f8                          mov     eax,-8H[ebp]
+ 04fd  81 60 18 ff 00 00 
+       00                                and     dword ptr +18H[eax],000000ffH
+ 0504  f7 45 fc 20 00 00 
+       00                L19             test    dword ptr -4H[ebp],00000020H
+ 050b  74 48                             je      L22
+ 050d  f7 45 fc 02 00 00 
+       00                                test    dword ptr -4H[ebp],00000002H
+ 0514  74 14                             je      L20
+ 0516  8b 45 f8                          mov     eax,-8H[ebp]
+ 0519  8b 40 30                          mov     eax,+30H[eax]
+ 051c  8b 50 04                          mov     edx,+4H[eax]
+ 051f  c1 fa 10                          sar     edx,10H
+ 0522  8b 45 f8                          mov     eax,-8H[ebp]
+ 0525  29 50 1c                          sub     +1cH[eax],edx
+ 0528  eb 12                             jmp     L21
+ 052a  8b 45 f8          L20             mov     eax,-8H[ebp]
+ 052d  8b 40 30                          mov     eax,+30H[eax]
+ 0530  8b 50 04                          mov     edx,+4H[eax]
+ 0533  c1 fa 10                          sar     edx,10H
+ 0536  8b 45 f8                          mov     eax,-8H[ebp]
+ 0539  01 50 1c                          add     +1cH[eax],edx
+ 053c  8b 45 f8          L21             mov     eax,-8H[ebp]
+ 053f  8b 50 1c                          mov     edx,+1cH[eax]
+ 0542  c1 fa 08                          sar     edx,08H
+ 0545  8b 45 f8                          mov     eax,-8H[ebp]
+ 0548  01 50 14                          add     +14H[eax],edx
+ 054b  8b 45 f8                          mov     eax,-8H[ebp]
+ 054e  81 60 1c ff 00 00 
+       00                                and     dword ptr +1cH[eax],000000ffH
+ 0555  89 ec             L22             mov     esp,ebp
+ 0557  5d                                pop     ebp
+ 0558  5f                                pop     edi
+ 0559  5e                                pop     esi
+ 055a  59                                pop     ecx
+ 055b  5b                                pop     ebx
+ 055c  c3                                ret     
+ 055d  8b c0                             mov     eax,eax
+ 055f  73 77 61 70                       DB      73H,77H,61H,70H
+ 0563  04                                DB      04H
+ 0564                    void near swap( object near *, object near * ):
+ 0564  53                                push    ebx
+ 0565  51                                push    ecx
+ 0566  56                                push    esi
+ 0567  57                                push    edi
+ 0568  55                                push    ebp
+ 0569  89 e5                             mov     ebp,esp
+ 056b  81 ec 08 00 00 00                 sub     esp,00000008H
+ 0571  89 45 f8                          mov     -8H[ebp],eax
+ 0574  89 55 fc                          mov     -4H[ebp],edx
+ 0577  ff 05 00 00 00 00                 inc     dword ptr int near swapcount
+ 057d  83 7d f8 00                       cmp     dword ptr -8H[ebp],00000000H
+ 0581  74 06                             je      L23
+ 0583  83 7d fc 00                       cmp     dword ptr -4H[ebp],00000000H
+ 0587  75 02                             jne     L24
+ 0589  eb 58             L23             jmp     L28
+ 058b  8b 45 f8          L24             mov     eax,-8H[ebp]
+ 058e  83 38 00                          cmp     dword ptr [eax],00000000H
+ 0591  74 0d                             je      L25
+ 0593  8b 45 f8                          mov     eax,-8H[ebp]
+ 0596  8b 10                             mov     edx,[eax]
+ 0598  8b 45 fc                          mov     eax,-4H[ebp]
+ 059b  89 42 04                          mov     +4H[edx],eax
+ 059e  eb 08                             jmp     L26
+ 05a0  8b 45 fc          L25             mov     eax,-4H[ebp]
+ 05a3  a3 00 00 00 00                    mov     object near * near o,eax
+ 05a8  8b 45 fc          L26             mov     eax,-4H[ebp]
+ 05ab  83 78 04 00                       cmp     dword ptr +4H[eax],00000000H
+ 05af  74 0b                             je      L27
+ 05b1  8b 45 fc                          mov     eax,-4H[ebp]
+ 05b4  8b 50 04                          mov     edx,+4H[eax]
+ 05b7  8b 45 f8                          mov     eax,-8H[ebp]
+ 05ba  89 02                             mov     [edx],eax
+ 05bc  8b 45 fc          L27             mov     eax,-4H[ebp]
+ 05bf  8b 50 04                          mov     edx,+4H[eax]
+ 05c2  8b 45 f8                          mov     eax,-8H[ebp]
+ 05c5  89 50 04                          mov     +4H[eax],edx
+ 05c8  8b 45 f8                          mov     eax,-8H[ebp]
+ 05cb  8b 10                             mov     edx,[eax]
+ 05cd  8b 45 fc                          mov     eax,-4H[ebp]
+ 05d0  89 10                             mov     [eax],edx
+ 05d2  8b 45 f8                          mov     eax,-8H[ebp]
+ 05d5  8b 55 fc                          mov     edx,-4H[ebp]
+ 05d8  89 42 04                          mov     +4H[edx],eax
+ 05db  8b 45 fc                          mov     eax,-4H[ebp]
+ 05de  8b 55 f8                          mov     edx,-8H[ebp]
+ 05e1  89 02                             mov     [edx],eax
+ 05e3  89 ec             L28             mov     esp,ebp
+ 05e5  5d                                pop     ebp
+ 05e6  5f                                pop     edi
+ 05e7  5e                                pop     esi
+ 05e8  59                                pop     ecx
+ 05e9  5b                                pop     ebx
+ 05ea  c3                                ret     
+ 05eb  8b c0                             mov     eax,eax
+ 05ed  72 65 73 6f                       DB      72H,65H,73H,6fH
+ 05f1  72 74 06                          DB      72H,74H,06H
+ 05f4                    void near object::resort():
+ 05f4  53                                push    ebx
+ 05f5  51                                push    ecx
+ 05f6  52                                push    edx
+ 05f7  56                                push    esi
+ 05f8  57                                push    edi
+ 05f9  55                                push    ebp
+ 05fa  89 e5                             mov     ebp,esp
+ 05fc  81 ec 04 00 00 00                 sub     esp,00000004H
+ 0602  89 45 fc                          mov     -4H[ebp],eax
+ 0605  8b 45 fc                          mov     eax,-4H[ebp]
+ 0608  83 38 00                          cmp     dword ptr [eax],00000000H
+ 060b  74 10                             je      L29
+ 060d  8b 45 fc                          mov     eax,-4H[ebp]
+ 0610  8b 10                             mov     edx,[eax]
+ 0612  8b 45 fc                          mov     eax,-4H[ebp]
+ 0615  8b 40 14                          mov     eax,+14H[eax]
+ 0618  3b 42 14                          cmp     eax,+14H[edx]
+ 061b  7c 02                             jl      L30
+ 061d  eb 17             L29             jmp     L31
+ 061f  8b 55 fc          L30             mov     edx,-4H[ebp]
+ 0622  8b 45 fc                          mov     eax,-4H[ebp]
+ 0625  8b 00                             mov     eax,[eax]
+ 0627  e8 00 00 00 00                    call    void near swap( object near *, object near * )
+ 062c  8b 45 fc                          mov     eax,-4H[ebp]
+ 062f  e8 00 00 00 00                    call    void near object::resort()
+ 0634  eb 34                             jmp     L34
+ 0636  8b 45 fc          L31             mov     eax,-4H[ebp]
+ 0639  83 78 04 00                       cmp     dword ptr +4H[eax],00000000H
+ 063d  74 11                             je      L32
+ 063f  8b 45 fc                          mov     eax,-4H[ebp]
+ 0642  8b 50 04                          mov     edx,+4H[eax]
+ 0645  8b 45 fc                          mov     eax,-4H[ebp]
+ 0648  8b 40 14                          mov     eax,+14H[eax]
+ 064b  3b 42 14                          cmp     eax,+14H[edx]
+ 064e  7f 02                             jg      L33
+ 0650  eb 18             L32             jmp     L34
+ 0652  8b 55 fc          L33             mov     edx,-4H[ebp]
+ 0655  8b 52 04                          mov     edx,+4H[edx]
+ 0658  8b 45 fc                          mov     eax,-4H[ebp]
+ 065b  e8 00 00 00 00                    call    void near swap( object near *, object near * )
+ 0660  8b 45 fc                          mov     eax,-4H[ebp]
+ 0663  8b 00                             mov     eax,[eax]
+ 0665  e8 00 00 00 00                    call    void near object::resort()
+ 066a  89 ec             L34             mov     esp,ebp
+ 066c  5d                                pop     ebp
+ 066d  5f                                pop     edi
+ 066e  5e                                pop     esi
+ 066f  5a                                pop     edx
+ 0670  59                                pop     ecx
+ 0671  5b                                pop     ebx
+ 0672  c3                                ret     
+ 0673  74 69 63 6b                       DB      74H,69H,63H,6bH
+ 0677  04                                DB      04H
+ 0678                    void near object::tick():
+ 0678  53                                push    ebx
+ 0679  51                                push    ecx
+ 067a  52                                push    edx
+ 067b  56                                push    esi
+ 067c  57                                push    edi
+ 067d  55                                push    ebp
+ 067e  89 e5                             mov     ebp,esp
+ 0680  81 ec 14 00 00 00                 sub     esp,00000014H
+ 0686  89 45 fc                          mov     -4H[ebp],eax
+ 0689  8b 45 fc                          mov     eax,-4H[ebp]
+ 068c  83 78 24 00                       cmp     dword ptr +24H[eax],00000000H
+ 0690  7e 06                             jle     L35
+ 0692  8b 45 fc                          mov     eax,-4H[ebp]
+ 0695  ff 48 24                          dec     dword ptr +24H[eax]
+ 0698  8b 45 fc          L35             mov     eax,-4H[ebp]
+ 069b  80 78 4c 00                       cmp     byte ptr +4cH[eax],00H
+ 069f  74 09                             je      L36
+ 06a1  8b 45 fc                          mov     eax,-4H[ebp]
+ 06a4  83 78 3e 00                       cmp     dword ptr +3eH[eax],00000000H
+ 06a8  75 02                             jne     L37
+ 06aa  eb 49             L36             jmp     L41
+ 06ac  8b 45 fc          L37             mov     eax,-4H[ebp]
+ 06af  83 c0 3e                          add     eax,0000003eH
+ 06b2  89 45 f8                          mov     -8H[ebp],eax
+ 06b5  8b 45 fc                          mov     eax,-4H[ebp]
+ 06b8  8b 55 f8                          mov     edx,-8H[ebp]
+ 06bb  03 42 04                          add     eax,+4H[edx]
+ 06be  89 45 f4                          mov     -0cH[ebp],eax
+ 06c1  8b 45 f4                          mov     eax,-0cH[ebp]
+ 06c4  8b 55 f8                          mov     edx,-8H[ebp]
+ 06c7  ff 12                             call    dword ptr [edx]
+ 06c9  89 45 ec                          mov     -14H[ebp],eax
+ 06cc  8b 45 f4                          mov     eax,-0cH[ebp]
+ 06cf  ff 55 ec                          call    dword ptr -14H[ebp]
+ 06d2  89 45 f0                          mov     -10H[ebp],eax
+ 06d5  83 7d f0 ff                       cmp     dword ptr -10H[ebp],0ffffffffH
+ 06d9  74 0b                             je      L38
+ 06db  8b 45 f0                          mov     eax,-10H[ebp]
+ 06de  8b 55 fc                          mov     edx,-4H[ebp]
+ 06e1  3b 42 28                          cmp     eax,+28H[edx]
+ 06e4  75 02                             jne     L39
+ 06e6  eb 0b             L38             jmp     L40
+ 06e8  8b 55 f0          L39             mov     edx,-10H[ebp]
+ 06eb  8b 45 fc                          mov     eax,-4H[ebp]
+ 06ee  e8 00 00 00 00                    call    int near object::startseries( int )
+ 06f3  eb 08             L40             jmp     L42
+ 06f5  8b 45 fc          L41             mov     eax,-4H[ebp]
+ 06f8  e8 00 00 00 00                    call    int near object::none()
+ 06fd  8b 45 fc          L42             mov     eax,-4H[ebp]
+ 0700  83 78 34 00                       cmp     dword ptr +34H[eax],00000000H
+ 0704  7e 0b                             jle     L43
+ 0706  8b 45 fc                          mov     eax,-4H[ebp]
+ 0709  ff 48 34                          dec     dword ptr +34H[eax]
+ 070c  e9 91 00 00 00                    jmp     L49
+ 0711  8b 45 fc          L43             mov     eax,-4H[ebp]
+ 0714  fe 40 38                          inc     byte ptr +38H[eax]
+ 0717  8b 45 fc                          mov     eax,-4H[ebp]
+ 071a  8a 50 38                          mov     dl,+38H[eax]
+ 071d  8b 45 fc                          mov     eax,-4H[ebp]
+ 0720  3a 50 39                          cmp     dl,+39H[eax]
+ 0723  72 4a                             jb      L48
+ 0725  8b 45 fc                          mov     eax,-4H[ebp]
+ 0728  80 78 4c 00                       cmp     byte ptr +4cH[eax],00H
+ 072c  74 21                             je      L45
+ 072e  8b 55 fc                          mov     edx,-4H[ebp]
+ 0731  8b 52 2c                          mov     edx,+2cH[edx]
+ 0734  8b 52 26                          mov     edx,+26H[edx]
+ 0737  8b 45 fc                          mov     eax,-4H[ebp]
+ 073a  e8 00 00 00 00                    call    int near object::startseries( int )
+ 073f  85 c0                             test    eax,eax
+ 0741  75 0a                             jne     L44
+ 0743  31 d2                             xor     edx,edx
+ 0745  8b 45 fc                          mov     eax,-4H[ebp]
+ 0748  e8 00 00 00 00                    call    int near object::startseries( int )
+ 074d  eb 1e             L44             jmp     L47
+ 074f  8b 45 fc          L45             mov     eax,-4H[ebp]
+ 0752  80 78 4b 00                       cmp     byte ptr +4bH[eax],00H
+ 0756  75 07                             jne     L46
+ 0758  8b 45 fc                          mov     eax,-4H[ebp]
+ 075b  c6 40 4a 00                       mov     byte ptr +4aH[eax],00H
+ 075f  8b 55 fc          L46             mov     edx,-4H[ebp]
+ 0762  8b 52 28                          mov     edx,+28H[edx]
+ 0765  8b 45 fc                          mov     eax,-4H[ebp]
+ 0768  e8 00 00 00 00                    call    int near object::startseries( int )
+ 076d  eb 33             L47             jmp     L49
+ 076f  8b 45 fc          L48             mov     eax,-4H[ebp]
+ 0772  8b 40 30                          mov     eax,+30H[eax]
+ 0775  31 d2                             xor     edx,edx
+ 0777  66 8b 10                          mov     dx,[eax]
+ 077a  8b 45 fc                          mov     eax,-4H[ebp]
+ 077d  8b 58 30                          mov     ebx,+30H[eax]
+ 0780  8b 45 fc                          mov     eax,-4H[ebp]
+ 0783  01 d3                             add     ebx,edx
+ 0785  89 58 30                          mov     +30H[eax],ebx
+ 0788  8b 45 fc                          mov     eax,-4H[ebp]
+ 078b  8b 40 30                          mov     eax,+30H[eax]
+ 078e  31 d2                             xor     edx,edx
+ 0790  66 8b 50 02                       mov     dx,+2H[eax]
+ 0794  8b 45 fc                          mov     eax,-4H[ebp]
+ 0797  89 50 34                          mov     +34H[eax],edx
+ 079a  8b 45 fc                          mov     eax,-4H[ebp]
+ 079d  e8 00 00 00 00                    call    void near object::effect()
+ 07a2  89 ec             L49             mov     esp,ebp
+ 07a4  5d                                pop     ebp
+ 07a5  5f                                pop     edi
+ 07a6  5e                                pop     esi
+ 07a7  5a                                pop     edx
+ 07a8  59                                pop     ecx
+ 07a9  5b                                pop     ebx
+ 07aa  c3                                ret     
+ 07ab  64 72 61 77                       DB      64H,72H,61H,77H
+ 07af  04                                DB      04H
+ 07b0                    void near object::draw():
+ 07b0  53                                push    ebx
+ 07b1  51                                push    ecx
+ 07b2  52                                push    edx
+ 07b3  56                                push    esi
+ 07b4  57                                push    edi
+ 07b5  55                                push    ebp
+ 07b6  89 e5                             mov     ebp,esp
+ 07b8  81 ec 10 00 00 00                 sub     esp,00000010H
+ 07be  89 45 fc                          mov     -4H[ebp],eax
+ 07c1  8b 45 fc                          mov     eax,-4H[ebp]
+ 07c4  80 78 39 00                       cmp     byte ptr +39H[eax],00H
+ 07c8  74 09                             je      L50
+ 07ca  8b 45 fc                          mov     eax,-4H[ebp]
+ 07cd  83 78 30 00                       cmp     dword ptr +30H[eax],00000000H
+ 07d1  75 05                             jne     L51
+ 07d3  e9 ba 00 00 00    L50             jmp     L56
+ 07d8  8b 45 fc          L51             mov     eax,-4H[ebp]
+ 07db  8b 40 30                          mov     eax,+30H[eax]
+ 07de  e8 00 00 00 00                    call    image near * near frame::getimgptr()
+ 07e3  89 45 f0                          mov     -10H[ebp],eax
+ 07e6  8b 45 fc                          mov     eax,-4H[ebp]
+ 07e9  8b 40 10                          mov     eax,+10H[eax]
+ 07ec  89 45 f4                          mov     -0cH[ebp],eax
+ 07ef  8b 45 fc                          mov     eax,-4H[ebp]
+ 07f2  83 78 24 00                       cmp     dword ptr +24H[eax],00000000H
+ 07f6  7e 25                             jle     L53
+ 07f8  8b 45 fc                          mov     eax,-4H[ebp]
+ 07fb  83 78 24 14                       cmp     dword ptr +24H[eax],00000014H
+ 07ff  7e 0f                             jle     L52
+ 0801  b8 08 00 00 00                    mov     eax,00000008H
+ 0806  e8 00 00 00 00                    call    int near random( int )
+ 080b  01 45 f4                          add     -0cH[ebp],eax
+ 080e  eb 0d                             jmp     L53
+ 0810  b8 03 00 00 00    L52             mov     eax,00000003H
+ 0815  e8 00 00 00 00                    call    int near random( int )
+ 081a  01 45 f4                          add     -0cH[ebp],eax
+ 081d  8b 45 fc          L53             mov     eax,-4H[ebp]
+ 0820  8b 50 30                          mov     edx,+30H[eax]
+ 0823  31 c0                             xor     eax,eax
+ 0825  8a 42 0b                          mov     al,+0bH[edx]
+ 0828  89 45 f8                          mov     -8H[ebp],eax
+ 082b  eb 06                             jmp     L55
+ 082d  8b 45 f8          L54             mov     eax,-8H[ebp]
+ 0830  ff 4d f8                          dec     dword ptr -8H[ebp]
+ 0833  83 7d f8 00       L55             cmp     dword ptr -8H[ebp],00000000H
+ 0837  7e 59                             jle     L56
+ 0839  8b 45 f0                          mov     eax,-10H[ebp]
+ 083c  8a 40 01                          mov     al,+1H[eax]
+ 083f  25 ff 00 00 00                    and     eax,000000ffH
+ 0844  50                                push    eax
+ 0845  8b 45 f0                          mov     eax,-10H[ebp]
+ 0848  8b 50 02                          mov     edx,+2H[eax]
+ 084b  c1 fa 10                          sar     edx,10H
+ 084e  8b 45 fc                          mov     eax,-4H[ebp]
+ 0851  03 50 14                          add     edx,+14H[eax]
+ 0854  52                                push    edx
+ 0855  8b 45 f0                          mov     eax,-10H[ebp]
+ 0858  8b 00                             mov     eax,[eax]
+ 085a  c1 f8 10                          sar     eax,10H
+ 085d  03 45 f4                          add     eax,-0cH[ebp]
+ 0860  50                                push    eax
+ 0861  ff 35 00 00 00 00                 push    char near * near screen
+ 0867  8b 45 fc                          mov     eax,-4H[ebp]
+ 086a  8b 50 0c                          mov     edx,+0cH[eax]
+ 086d  8b 45 f0                          mov     eax,-10H[ebp]
+ 0870  8a 00                             mov     al,[eax]
+ 0872  25 ff 00 00 00                    and     eax,000000ffH
+ 0877  6b c0 0d                          imul    eax,0dH
+ 087a  8b 52 19                          mov     edx,+19H[edx]
+ 087d  01 d0                             add     eax,edx
+ 087f  ff 30                             push    [eax]
+ 0881  e8 00 00 00 00                    call    _DrawImage
+ 0886  83 c4 14                          add     esp,00000014H
+ 0889  8b 45 f0                          mov     eax,-10H[ebp]
+ 088c  83 45 f0 06                       add     dword ptr -10H[ebp],00000006H
+ 0890  eb 9b                             jmp     L54
+ 0892  89 ec             L56             mov     esp,ebp
+ 0894  5d                                pop     ebp
+ 0895  5f                                pop     edi
+ 0896  5e                                pop     esi
+ 0897  5a                                pop     edx
+ 0898  59                                pop     ecx
+ 0899  5b                                pop     ebx
+ 089a  c3                                ret     
+ 089b  8d 40 00                          lea     eax,+0H[eax]
+ 089e  73 6f 75 6e                       DB      73H,6fH,75H,6eH
+ 08a2  64 05                             DB      64H,05H
+ 08a4                    void near object::sound( int ):
+ 08a4  53                                push    ebx
+ 08a5  51                                push    ecx
+ 08a6  56                                push    esi
+ 08a7  57                                push    edi
+ 08a8  55                                push    ebp
+ 08a9  89 e5                             mov     ebp,esp
+ 08ab  81 ec 08 00 00 00                 sub     esp,00000008H
+ 08b1  89 45 f8                          mov     -8H[ebp],eax
+ 08b4  89 55 fc                          mov     -4H[ebp],edx
+ 08b7  83 3d 00 00 00 00 
+       00                                cmp     dword ptr _sbstat,00000000H
+ 08be  74 47                             je      L59
+ 08c0  8b 45 f8                          mov     eax,-8H[ebp]
+ 08c3  8b 50 0c                          mov     edx,+0cH[eax]
+ 08c6  8b 45 fc                          mov     eax,-4H[ebp]
+ 08c9  3b 42 25                          cmp     eax,+25H[edx]
+ 08cc  7d 14                             jge     L57
+ 08ce  8b 45 f8                          mov     eax,-8H[ebp]
+ 08d1  8b 40 0c                          mov     eax,+0cH[eax]
+ 08d4  6b 55 fc 0d                       imul    edx,-4H[ebp],0dH
+ 08d8  8b 40 29                          mov     eax,+29H[eax]
+ 08db  01 d0                             add     eax,edx
+ 08dd  83 38 00                          cmp     dword ptr [eax],00000000H
+ 08e0  75 02                             jne     L58
+ 08e2  eb 23             L57             jmp     L59
+ 08e4  31 c9             L58             xor     ecx,ecx
+ 08e6  bb ff 00 00 00                    mov     ebx,000000ffH
+ 08eb  8b 55 f8                          mov     edx,-8H[ebp]
+ 08ee  8b 52 08                          mov     edx,+8H[edx]
+ 08f1  8b 45 f8                          mov     eax,-8H[ebp]
+ 08f4  8b 40 0c                          mov     eax,+0cH[eax]
+ 08f7  6b 75 fc 0d                       imul    esi,-4H[ebp],0dH
+ 08fb  8b 40 29                          mov     eax,+29H[eax]
+ 08fe  01 f0                             add     eax,esi
+ 0900  8b 00                             mov     eax,[eax]
+ 0902  e8 00 00 00 00                    call    start_sound_
+ 0907  89 ec             L59             mov     esp,ebp
+ 0909  5d                                pop     ebp
+ 090a  5f                                pop     edi
+ 090b  5e                                pop     esi
+ 090c  59                                pop     ecx
+ 090d  5b                                pop     ebx
+ 090e  c3                                ret     
+ 090f  8b c0                             mov     eax,eax
+ 0911  45 5f 53 4f                       DB      45H,5fH,53H,4fH
+ 0915  55 4e 44 5f                       DB      55H,4eH,44H,5fH
+ 0919  64 6f 0a                          DB      64H,6fH,0aH
+ 091c                    int near E_SOUND_do( object near *, e_sound near * ):
+ 091c  53                                push    ebx
+ 091d  51                                push    ecx
+ 091e  56                                push    esi
+ 091f  57                                push    edi
+ 0920  55                                push    ebp
+ 0921  89 e5                             mov     ebp,esp
+ 0923  81 ec 0c 00 00 00                 sub     esp,0000000cH
+ 0929  89 45 f8                          mov     -8H[ebp],eax
+ 092c  89 55 fc                          mov     -4H[ebp],edx
+ 092f  8b 55 fc                          mov     edx,-4H[ebp]
+ 0932  8a 52 01                          mov     dl,+1H[edx]
+ 0935  81 e2 ff 00 00 00                 and     edx,000000ffH
+ 093b  8b 45 f8                          mov     eax,-8H[ebp]
+ 093e  e8 00 00 00 00                    call    void near object::sound( int )
+ 0943  c7 45 f4 02 00 00 
+       00                                mov     dword ptr -0cH[ebp],00000002H
+ 094a  8b 45 f4                          mov     eax,-0cH[ebp]
+ 094d  89 ec                             mov     esp,ebp
+ 094f  5d                                pop     ebp
+ 0950  5f                                pop     edi
+ 0951  5e                                pop     esi
+ 0952  59                                pop     ecx
+ 0953  5b                                pop     ebx
+ 0954  c3                                ret     
+ 0955  8b c0                             mov     eax,eax
+ 0957  45 5f 47 52                       DB      45H,5fH,47H,52H
+ 095b  4f 55 4e 44                       DB      4fH,55H,4eH,44H
+ 095f  53 48 41 4b                       DB      53H,48H,41H,4bH
+ 0963  45 5f 64 6f                       DB      45H,5fH,64H,6fH
+ 0967  10                                DB      10H
+ 0968                    int near E_GROUNDSHAKE_do( object near *, e_shake near * ):
+ 0968  53                                push    ebx
+ 0969  51                                push    ecx
+ 096a  56                                push    esi
+ 096b  57                                push    edi
+ 096c  55                                push    ebp
+ 096d  89 e5                             mov     ebp,esp
+ 096f  81 ec 0c 00 00 00                 sub     esp,0000000cH
+ 0975  89 45 f8                          mov     -8H[ebp],eax
+ 0978  89 55 fc                          mov     -4H[ebp],edx
+ 097b  8b 45 fc                          mov     eax,-4H[ebp]
+ 097e  8a 40 01                          mov     al,+1H[eax]
+ 0981  25 ff 00 00 00                    and     eax,000000ffH
+ 0986  c1 e0 02                          shl     eax,02H
+ 0989  8b 80 00 00 00 00                 mov     eax,int near shakelength[][eax]
+ 098f  a3 00 00 00 00                    mov     int near gshakedur,eax
+ 0994  c7 45 f4 01 00 00 
+       00                                mov     dword ptr -0cH[ebp],00000001H
+ 099b  8b 45 f4                          mov     eax,-0cH[ebp]
+ 099e  89 ec                             mov     esp,ebp
+ 09a0  5d                                pop     ebp
+ 09a1  5f                                pop     edi
+ 09a2  5e                                pop     esi
+ 09a3  59                                pop     ecx
+ 09a4  5b                                pop     ebx
+ 09a5  c3                                ret     
+ 09a6  90                                nop     
+ 09a7  45 5f 4f 42                       DB      45H,5fH,4fH,42H
+ 09ab  4a 45 43 54                       DB      4aH,45H,43H,54H
+ 09af  53 48 41 4b                       DB      53H,48H,41H,4bH
+ 09b3  45 5f 64 6f                       DB      45H,5fH,64H,6fH
+ 09b7  10                                DB      10H
+ 09b8                    int near E_OBJECTSHAKE_do( object near *, e_shake near * ):
+ 09b8  53                                push    ebx
+ 09b9  51                                push    ecx
+ 09ba  56                                push    esi
+ 09bb  57                                push    edi
+ 09bc  55                                push    ebp
+ 09bd  89 e5                             mov     ebp,esp
+ 09bf  81 ec 0c 00 00 00                 sub     esp,0000000cH
+ 09c5  89 45 f8                          mov     -8H[ebp],eax
+ 09c8  89 55 fc                          mov     -4H[ebp],edx
+ 09cb  8b 45 fc                          mov     eax,-4H[ebp]
+ 09ce  8a 40 01                          mov     al,+1H[eax]
+ 09d1  25 ff 00 00 00                    and     eax,000000ffH
+ 09d6  c1 e0 02                          shl     eax,02H
+ 09d9  8b 90 00 00 00 00                 mov     edx,int near shakelength[][eax]
+ 09df  8b 45 f8                          mov     eax,-8H[ebp]
+ 09e2  89 50 24                          mov     +24H[eax],edx
+ 09e5  c7 45 f4 02 00 00 
+       00                                mov     dword ptr -0cH[ebp],00000002H
+ 09ec  8b 45 f4                          mov     eax,-0cH[ebp]
+ 09ef  89 ec                             mov     esp,ebp
+ 09f1  5d                                pop     ebp
+ 09f2  5f                                pop     edi
+ 09f3  5e                                pop     esi
+ 09f4  59                                pop     ecx
+ 09f5  5b                                pop     ebx
+ 09f6  c3                                ret     
+ 09f7  8b c0                             mov     eax,eax
+ 09f9  65 66 66 65                       DB      65H,66H,66H,65H
+ 09fd  63 74 06                          DB      63H,74H,06H
+ 0a00                    void near object::effect():
+ 0a00  53                                push    ebx
+ 0a01  51                                push    ecx
+ 0a02  52                                push    edx
+ 0a03  56                                push    esi
+ 0a04  57                                push    edi
+ 0a05  55                                push    ebp
+ 0a06  89 e5                             mov     ebp,esp
+ 0a08  81 ec 0c 00 00 00                 sub     esp,0000000cH
+ 0a0e  89 45 fc                          mov     -4H[ebp],eax
+ 0a11  8b 45 fc                          mov     eax,-4H[ebp]
+ 0a14  83 78 30 00                       cmp     dword ptr +30H[eax],00000000H
+ 0a18  74 0c                             je      L60
+ 0a1a  8b 45 fc                          mov     eax,-4H[ebp]
+ 0a1d  8b 40 30                          mov     eax,+30H[eax]
+ 0a20  80 78 08 00                       cmp     byte ptr +8H[eax],00H
+ 0a24  75 02                             jne     L61
+ 0a26  eb 4c             L60             jmp     L64
+ 0a28  8b 45 fc          L61             mov     eax,-4H[ebp]
+ 0a2b  8b 40 30                          mov     eax,+30H[eax]
+ 0a2e  e8 00 00 00 00                    call    char unsigned near * near frame::getextraptr()
+ 0a33  89 45 f4                          mov     -0cH[ebp],eax
+ 0a36  8b 45 fc                          mov     eax,-4H[ebp]
+ 0a39  8b 50 30                          mov     edx,+30H[eax]
+ 0a3c  31 c0                             xor     eax,eax
+ 0a3e  8a 42 08                          mov     al,+8H[edx]
+ 0a41  89 45 f8                          mov     -8H[ebp],eax
+ 0a44  eb 06                             jmp     L63
+ 0a46  8b 45 f8          L62             mov     eax,-8H[ebp]
+ 0a49  ff 4d f8                          dec     dword ptr -8H[ebp]
+ 0a4c  83 7d f8 00       L63             cmp     dword ptr -8H[ebp],00000000H
+ 0a50  7e 22                             jle     L64
+ 0a52  8b 45 f4                          mov     eax,-0cH[ebp]
+ 0a55  8a 00                             mov     al,[eax]
+ 0a57  25 ff 00 00 00                    and     eax,000000ffH
+ 0a5c  8d 1c 85 00 00 00 
+       00                                lea     ebx,+0H[eax*4]
+ 0a63  8b 55 f4                          mov     edx,-0cH[ebp]
+ 0a66  8b 45 fc                          mov     eax,-4H[ebp]
+ 0a69  ff 93 00 00 00 00                 call    dword ptr int (near * near extrado[])( object near *, char unsigned near * )[ebx]
+ 0a6f  01 45 f4                          add     -0cH[ebp],eax
+ 0a72  eb d2                             jmp     L62
+ 0a74  89 ec             L64             mov     esp,ebp
+ 0a76  5d                                pop     ebp
+ 0a77  5f                                pop     edi
+ 0a78  5e                                pop     esi
+ 0a79  5a                                pop     edx
+ 0a7a  59                                pop     ecx
+ 0a7b  5b                                pop     ebx
+ 0a7c  c3                                ret     
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: _DATA  DWORD USE32  0000001c bytes  
+ 0000                          int near shakelength[] LABEL BYTE
+ 0000  05 00 00 00 19 00 00 00                 - ........
+ 0008  32 00 00 00 96 00 00 00                 - 2.......
+ 0010                          int (near * near extrado[])( object near *, char unsigned near * ) LABEL BYTE
+ 0010  00 00 00 00                             DD      int near E_SOUND_do( object near *, e_sound near * )
+ 0014  00 00 00 00                             DD      int near E_GROUNDSHAKE_do( object near *, e_shake near * )
+ 0018  00 00 00 00                             DD      int near E_OBJECTSHAKE_do( object near *, e_shake near * )
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: _BSS  DWORD USE32  00000028 bytes  
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: XI  WORD USE32  00000006 bytes  
+ 0000                          void (near * near .mod_init)() LABEL BYTE
+ 0000  00 40                                   - .@
+ 0002  00 00 00 00                             DD      void near .fn_init()
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: $$SYMBOLS  BYTE USE16  0000069a bytes  
+ 0000  12 12                                   - ..
+ 0002  00 00 00 00 00 00                       DP      int near swapcount
+ 0008  0c 73 77 61 70 63 6f 75                 - .swapcou
+ 0010  6e 74 14 12                             - nt..
+ 0014  00 00 00 00 00 00                       DP      int near shakelength[]
+ 001a  2e 73 68 61 6b 65 6c 65                 - .shakele
+ 0022  6e 67 74 68 10 12                       - ngth..
+ 0028  00 00 00 00 00 00                       DP      int (near * near extrado[])( object near *, char unsigned near * )
+ 002e  79 65 78 74 72 61 64 6f                 - yextrado
+ 0036  08 32                                   - .2
+ 0038  00 00 00 00 00 00                       DP      L1
+ 003e  1d 24 0c 00 00 00 a7 00                 - .$......
+ 0046  00 00 00 00 0e 09 18 00                 - ........
+ 004e  00 00 5b 00 00 2e 66 6e                 - ..[...fn
+ 0056  5f 69 6e 69 74 08 32                    - _init.2
+ 005d  00 00 00 00 00 00                       DP      int (near * near object::__mbrptrthunk())()
+ 0063  08 32                                   - .2
+ 0065  00 00 00 00 00 00                       DP      int (near * near object::__mbrptrthunk())()
+ 006b  14 26 00 00 6d 06 8e 10                 - .&..m...
+ 0073  fc 61 21                                - .a!
+ 0076  00 00 00 00 00 00                       DP      DGROUP:int (near object::* near object::cfunclist[])()
+ 007c  68 01 66 25 24 00 00 00                 - h.f%$...
+ 0084  00 24 00 00 00 6b 00 0e                 - .$...k..
+ 008c  09 18 00 00 00 7b 30 1c                 - .....{0.
+ 0094  01 30 1c 5f 5f 6d 62 72                 - .0.__mbr
+ 009c  70 74 72 74 68 75 6e 6b                 - ptrthunk
+ 00a4  09 11 10 fc 7c 74 68 69                 - ....|thi
+ 00ac  73 08 32                                - s.2
+ 00af  00 00 00 00 00 00                       DP      int (near * near object::__mbrptrthunk())()
+ 00b5  08 32                                   - .2
+ 00b7  00 00 00 00 00 00                       DP      int (near * near object::__mbrptrthunk())()
+ 00bd  14 26 00 00 6d 06 8e 10                 - .&..m...
+ 00c5  fc 61 21                                - .a!
+ 00c8  00 00 00 00 00 00                       DP      DGROUP:int (near object::* near object::cfunclist[])()
+ 00ce  68 01 66 25 24 00 00 00                 - h.f%$...
+ 00d6  00 24 00 00 00 bd 00 0e                 - .$......
+ 00de  09 18 00 00 00 7b 30 1c                 - .....{0.
+ 00e6  01 30 1c 5f 5f 6d 62 72                 - .0.__mbr
+ 00ee  70 74 72 74 68 75 6e 6b                 - ptrthunk
+ 00f6  09 11 10 fc 7c 74 68 69                 - ....|thi
+ 00fe  73 08 32                                - s.2
+ 0101  00 00 00 00 00 00                       DP      int (near * near object::__mbrptrthunk())()
+ 0107  08 32                                   - .2
+ 0109  00 00 00 00 00 00                       DP      int (near * near object::__mbrptrthunk())()
+ 010f  14 26 00 00 6d 06 8e 10                 - .&..m...
+ 0117  fc 61 21                                - .a!
+ 011a  00 00 00 00 00 00                       DP      DGROUP:int (near object::* near object::cfunclist[])()
+ 0120  68 01 66 25 24 00 00 00                 - h.f%$...
+ 0128  00 24 00 00 00 0f 01 0e                 - .$......
+ 0130  09 18 00 00 00 7b 30 1c                 - .....{0.
+ 0138  01 30 1c 5f 5f 6d 62 72                 - .0.__mbr
+ 0140  70 74 72 74 68 75 6e 6b                 - ptrthunk
+ 0148  09 11 10 fc 7c 74 68 69                 - ....|thi
+ 0150  73 08 32                                - s.2
+ 0153  b3 00 00 00 00 00                       DP      L2
+ 0159  14 26 00 00 6d 06 8e 10                 - .&..m...
+ 0161  fc 61 21                                - .a!
+ 0164  00 00 00 00 00 00                       DP      DGROUP:int (near object::* near object::cfunclist[])()
+ 016a  68 01 66 1c 24 05 00 00                 - h.f.$...
+ 0172  00 31 00 00 00 59 01 0e                 - .1...Y..
+ 017a  09 18 00 00 00 5c 30 1c                 - .....\0.
+ 0182  01 30 1c 6e 6f 6e 65 09                 - .0.none.
+ 018a  11 10 fc 7c 74 68 69 73                 - ...|this
+ 0192  0c 23 8e 00 00 00 3e 00                 - .#....>.
+ 019a  00 00 9e 01 0c 23 8e 00                 - .....#..
+ 01a2  00 00 3e 00 00 00 be 01                 - ..>.....
+ 01aa  14 26 00 00 6d 06 8e 10                 - .&..m...
+ 01b2  f8 61 21                                - .a!
+ 01b5  00 00 00 00 00 00                       DP      DGROUP:int (near object::* near object::cfunclist[])()
+ 01bb  68 01 66 25 24 45 00 00                 - h.f%$E..
+ 01c3  00 44 01 00 00 aa 01 0d                 - .D......
+ 01cb  08 14 00 00 00 70 30 1c                 - .....p0.
+ 01d3  02 30 1c 30 1f 73 74 61                 - .0.0.sta
+ 01db  72 74 73 65 72 69 65 73                 - rtseries
+ 01e3  09 11 10 f8 7c 74 68 69                 - ....|thi
+ 01eb  73 0e 11 10 fc 0c 73 65                 - s.....se
+ 01f3  72 69 65 73 6e 75 6d 0c                 - riesnum.
+ 01fb  23 a8 01 00 00 ac 00 00                 - #.......
+ 0203  00 06 02 0c 23 a8 01 00                 - ....#...
+ 020b  00 ac 00 00 00 26 02 14                 - .....&..
+ 0213  26 00 00 6d 06 8e 10 f0                 - &..m....
+ 021b  61 21                                   - a!
+ 021d  00 00 00 00 00 00                       DP      DGROUP:int (near object::* near object::cfunclist[])()
+ 0223  68 01 66 24 24 91 01 00                 - h.f$$...
+ 022b  00 d4 00 00 00 12 02 0b                 - ........
+ 0233  08 0c 00 00 00 6f 30 1c                 - .....o0.
+ 023b  04 30 1c 30 1f 30 1d 30                 - .0.0.0.0
+ 0243  1e 6f 62 6a 65 63 74 09                 - .object.
+ 024b  11 10 f0 7c 74 68 69 73                 - ...|this
+ 0253  09 11 10 f4 60 6f 64 65                 - ....`ode
+ 025b  66 06 11 10 f8 0c 73 07                 - f.....s.
+ 0263  11 10 fc 0c 74 78 07 11                 - ....tx..
+ 026b  10 10 0c 74 79 07 11 10                 - ...ty...
+ 0273  14 0c 74 64 0c 23 80 02                 - ..td.#..
+ 027b  00 00 4d 00 00 00 97 02                 - ..M.....
+ 0283  14 26 00 00 6d 06 8e 10                 - .&..m...
+ 028b  f8 61 21                                - .a!
+ 028e  00 00 00 00 00 00                       DP      DGROUP:int (near object::* near object::cfunclist[])()
+ 0294  68 01 66 21 24 6d 02 00                 - h.f!$m..
+ 029c  00 71 00 00 00 83 02 0d                 - .q......
+ 02a4  08 14 00 00 00 14 30 1c                 - ......0.
+ 02ac  02 30 1c 30 1f 7e 6f 62                 - .0.0.~ob
+ 02b4  6a 65 63 74 09 11 10 f8                 - ject....
+ 02bc  7c 74 68 69 73 0b 11 10                 - |this...
+ 02c4  fc 0d 2e 63 64 74 6f 72                 - ...cdtor
+ 02cc  14 26 00 00 49 06 8e 10                 - .&..I...
+ 02d4  fc 61 21                                - .a!
+ 02d7  00 00 00 00 00 00                       DP      DGROUP:int (near object::* near object::cfunclist[])()
+ 02dd  68 01 66 21 24 e9 02 00                 - h.f!$...
+ 02e5  00 4d 00 00 00 cc 02 0e                 - .M......
+ 02ed  09 18 00 00 00 40 30 1c                 - .....@0.
+ 02f5  01 30 1c 67 65 74 69 6d                 - .0.getim
+ 02fd  67 70 74 72 09 11 10 fc                 - gptr....
+ 0305  7d 74 68 69 73 14 26 00                 - }this.&.
+ 030d  00 49 06 8e 10 fc 61 21                 - .I....a!
+ 0315  00 00 00 00 00 00                       DP      DGROUP:int (near object::* near object::cfunclist[])()
+ 031b  68 01 66 23 24 45 03 00                 - h.f#$E..
+ 0323  00 5f 00 00 00 0a 03 0e                 - ._......
+ 032b  09 18 00 00 00 47 30 1c                 - .....G0.
+ 0333  01 30 1c 67 65 74 65 78                 - .0.getex
+ 033b  74 72 61 70 74 72 09 11                 - traptr..
+ 0343  10 fc 7d 74 68 69 73 14                 - ..}this.
+ 034b  26 00 00 49 06 8e 10 fc                 - &..I....
+ 0353  61 21                                   - a!
+ 0355  00 00 00 00 00 00                       DP      DGROUP:int (near object::* near object::cfunclist[])()
+ 035b  68 01 66 22 24 b1 03 00                 - h.f"$...
+ 0363  00 35 00 00 00 4a 03 0e                 - .5...J..
+ 036b  09 18 00 00 00 45 30 1c                 - .....E0.
+ 0373  01 30 1c 67 65 74 76 75                 - .0.getvu
+ 037b  6c 6e 70 74 72 09 11 10                 - lnptr...
+ 0383  fc 7d 74 68 69 73 0c 23                 - .}this.#
+ 038b  09 04 00 00 48 00 00 00                 - ....H...
+ 0393  95 03 0c 23 09 04 00 00                 - ...#....
+ 039b  48 00 00 00 cd 03 0c 23                 - H......#
+ 03a3  5a 04 00 00 48 00 00 00                 - Z...H...
+ 03ab  ad 03 0c 23 5a 04 00 00                 - ...#Z...
+ 03b3  48 00 00 00 cd 03 14 26                 - H......&
+ 03bb  00 00 6d 06 8e 10 f8 61                 - ..m....a
+ 03c3  21                                      - !
+ 03c4  00 00 00 00 00 00                       DP      DGROUP:int (near object::* near object::cfunclist[])()
+ 03ca  68 01 66 1d 24 ed 03 00                 - h.f.$...
+ 03d2  00 bd 00 00 00 b9 03 0d                 - ........
+ 03da  08 14 00 00 00 71 00 02                 - .....q..
+ 03e2  30 1c 30 1f 6d 6f 76 65                 - 0.0.move
+ 03ea  09 11 10 f8 7c 74 68 69                 - ....|thi
+ 03f2  73 08 11 10 fc 0c 64 69                 - s.....di
+ 03fa  72 1d 24 b1 04 00 00 87                 - r.$.....
+ 0402  00 00 00 00 00 0d 08 14                 - ........
+ 040a  00 00 00 7e 00 02 30 1c                 - ...~..0.
+ 0412  30 1f 73 77 61 70 06 11                 - 0.swap..
+ 041a  10 f8 76 61 06 11 10 fc                 - ..va....
+ 0422  76 62 14 26 00 00 6d 06                 - vb.&..m.
+ 042a  8e 10 fc 61 21                          - ...a!
+ 042f  00 00 00 00 00 00                       DP      DGROUP:int (near object::* near object::cfunclist[])()
+ 0435  68 01 66 1d 24 41 05 00                 - h.f.$A..
+ 043d  00 7f 00 00 00 24 04 0e                 - .....$..
+ 0445  09 18 00 00 00 5b 00 01                 - .....[..
+ 044d  30 1c 72 65 73 6f 72 74                 - 0.resort
+ 0455  09 11 10 fc 7c 74 68 69                 - ....|thi
+ 045d  73 0c 23 f9 05 00 00 47                 - s.#....G
+ 0465  00 00 00 76 04 0c 11 10                 - ...v....
+ 046d  f0 0c 74 65 6d 70 6e 75                 - ..tempnu
+ 0475  6d 0c 23 f9 05 00 00 47                 - m.#....G
+ 047d  00 00 00 f6 04 0c 23 7b                 - ......#{
+ 0485  06 00 00 1f 00 00 00 8e                 - ........
+ 048d  04 0c 23 7b 06 00 00 1f                 - ..#{....
+ 0495  00 00 00 b2 04 0c 23 9c                 - ......#.
+ 049d  06 00 00 1e 00 00 00 a6                 - ........
+ 04a5  04 0c 23 9c 06 00 00 1e                 - ..#.....
+ 04ad  00 00 00 b2 04 0c 23 72                 - ......#r
+ 04b5  06 00 00 48 00 00 00 be                 - ...H....
+ 04bd  04 0c 23 72 06 00 00 48                 - ..#r...H
+ 04c5  00 00 00 ca 04 0c 23 5e                 - ......#^
+ 04cd  06 00 00 91 00 00 00 d6                 - ........
+ 04d5  04 0c 23 5e 06 00 00 91                 - ..#^....
+ 04dd  00 00 00 f6 04 14 26 00                 - ......&.
+ 04e5  00 6d 06 8e 10 fc 61 21                 - .m....a!
+ 04ed  00 00 00 00 00 00                       DP      DGROUP:int (near object::* near object::cfunclist[])()
+ 04f3  68 01 66 1b 24 c5 05 00                 - h.f.$...
+ 04fb  00 33 01 00 00 e2 04 0e                 - .3......
+ 0503  09 18 00 00 00 5b 00 01                 - .....[..
+ 050b  30 1c 74 69 63 6b 09 11                 - 0.tick..
+ 0513  10 fc 7c 74 68 69 73 0c                 - ..|this.
+ 051b  23 45 07 00 00 25 00 00                 - #E...%..
+ 0523  00 3a 05 14 26 00 00 6d                 - .:..&..m
+ 052b  06 8e 10 fc 61 21                       - ....a!
+ 0531  00 00 00 00 00 00                       DP      DGROUP:int (near object::* near object::cfunclist[])()
+ 0537  68 01 66 1b 24 fd 06 00                 - h.f.$...
+ 053f  00 eb 00 00 00 26 05 0e                 - .....&..
+ 0547  09 18 00 00 00 5b 00 01                 - .....[..
+ 054f  30 1c 64 72 61 77 09 11                 - 0.draw..
+ 0557  10 fc 7c 74 68 69 73 06                 - ..|this.
+ 055f  11 10 f0 3f 69 07 11 10                 - ...?i...
+ 0567  f4 0c 74 78 06 11 10 f8                 - ..tx....
+ 056f  0c 6a 14 26 00 00 6d 06                 - .j.&..m.
+ 0577  8e 10 f8 61 21                          - ...a!
+ 057c  00 00 00 00 00 00                       DP      DGROUP:int (near object::* near object::cfunclist[])()
+ 0582  68 01 66 1e 24 f1 07 00                 - h.f.$...
+ 058a  00 6b 00 00 00 71 05 0d                 - .k...q..
+ 0592  08 14 00 00 00 71 00 02                 - .....q..
+ 059a  30 1c 30 1f 73 6f 75 6e                 - 0.0.soun
+ 05a2  64 09 11 10 f8 7c 74 68                 - d....|th
+ 05aa  69 73 06 11 10 fc 0c 6e                 - is.....n
+ 05b2  25 24 69 08 00 00 39 00                 - %$i...9.
+ 05ba  00 00 00 00 0d 08 14 00                 - ........
+ 05c2  00 00 80 83 30 1c 02 30                 - ....0..0
+ 05ca  1c 30 1f 45 5f 53 4f 55                 - .0.E_SOU
+ 05d2  4e 44 5f 64 6f 06 11 10                 - ND_do...
+ 05da  f8 76 6f 07 11 10 fc 80                 - .vo.....
+ 05e2  82 74 2b 24 b5 08 00 00                 - .t+$....
+ 05ea  3e 00 00 00 00 00 0d 08                 - >.......
+ 05f2  14 00 00 00 80 88 30 1c                 - ......0.
+ 05fa  02 30 1c 30 1f 45 5f 47                 - .0.0.E_G
+ 0602  52 4f 55 4e 44 53 48 41                 - ROUNDSHA
+ 060a  4b 45 5f 64 6f 06 11 10                 - KE_do...
+ 0612  f8 76 6f 07 11 10 fc 80                 - .vo.....
+ 061a  87 74 2b 24 05 09 00 00                 - .t+$....
+ 0622  3f 00 00 00 00 00 0d 08                 - ?.......
+ 062a  14 00 00 00 80 88 30 1c                 - ......0.
+ 0632  02 30 1c 30 1f 45 5f 4f                 - .0.0.E_O
+ 063a  42 4a 45 43 54 53 48 41                 - BJECTSHA
+ 0642  4b 45 5f 64 6f 06 11 10                 - KE_do...
+ 064a  f8 76 6f 07 11 10 fc 80                 - .vo.....
+ 0652  87 74 14 26 00 00 6d 06                 - .t.&..m.
+ 065a  8e 10 fc 61 21                          - ...a!
+ 065f  00 00 00 00 00 00                       DP      DGROUP:int (near object::* near object::cfunclist[])()
+ 0665  68 01 66 1d 24 4d 09 00                 - h.f.$M..
+ 066d  00 7d 00 00 00 54 06 0e                 - .}...T..
+ 0675  09 18 00 00 00 5b 00 01                 - .....[..
+ 067d  30 1c 65 66 66 65 63 74                 - 0.effect
+ 0685  09 11 10 fc 7c 74 68 69                 - ....|thi
+ 068d  73 06 11 10 f4 46 74 06                 - s....Ft.
+ 0695  11 10 f8 0c 6e                          - ....n
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: $$TYPES  BYTE USE16  000009e2 bytes  
+ 0000  06 13 e2 09 00 00 06 11                 - ........
+ 0008  65 6e 75 6d 07 11 75 6e                 - enum..un
+ 0010  69 6f 6e 08 11 73 74 72                 - ion..str
+ 0018  75 63 74 07 11 63 6c 61                 - uct..cla
+ 0020  73 73 0c 10 11 5f 5f 73                 - ss...__s
+ 0028  65 67 6d 65 6e 74 07 10                 - egment..
+ 0030  10 63 68 61 72 03 10 00                 - .char...
+ 0038  03 10 10 03 10 11 03 10                 - ........
+ 0040  01 03 10 11 06 10 03 69                 - .......i
+ 0048  6e 74 0f 10 13 75 6e 73                 - nt...uns
+ 0050  69 67 6e 65 64 20 69 6e                 - igned in
+ 0058  74 03 10 03 03 10 13 03                 - t.......
+ 0060  10 23 03 10 27 03 10 30                 - .#..'..0
+ 0068  03 46 12 04 72 13 00 03                 - .F..r...
+ 0070  46 14 08 60 03 00 0c 00                 - F..`....
+ 0078  00 00 0f 67 01 84 22 08                 - ...g..".
+ 0080  69 0d 5f 5f 69 6e 64 65                 - i.__inde
+ 0088  78 0f 67 01 84 22 04 69                 - x.g..".i
+ 0090  0d 5f 5f 64 65 6c 74 61                 - .__delta
+ 0098  09 67 01 6b 15 5f 5f 66                 - .g.k.__f
+ 00a0  6e 08 12 00 08 62 79 74                 - n....byt
+ 00a8  65 04 20 0d 08 0e 12 00                 - e. .....
+ 00b0  18 47 52 49 50 5f 54 48                 - .GRIP_TH
+ 00b8  55 4e 4b 03 46 0f 0e 12                 - UNK.F...
+ 00c0  00 1a 47 52 49 50 5f 42                 - ..GRIP_B
+ 00c8  55 46 5f 4c 03 46 0b 0e                 - UF_L.F..
+ 00d0  12 00 1c 47 52 49 50 5f                 - ...GRIP_
+ 00d8  42 55 46 5f 53 03 46 08                 - BUF_S.F.
+ 00e0  0e 12 00 1e 47 52 49 50                 - ....GRIP
+ 00e8  5f 42 55 46 5f 43 0c 12                 - _BUF_C..
+ 00f0  00 13 47 52 49 50 5f 42                 - ..GRIP_B
+ 00f8  55 46 03 46 06 0f 12 00                 - UF.F....
+ 0100  21 47 52 49 50 5f 53 54                 - !GRIP_ST
+ 0108  52 49 4e 47 0d 12 00 0b                 - RING....
+ 0110  47 52 49 50 5f 42 4f 4f                 - GRIP_BOO
+ 0118  4c 11 12 00 0f 47 52 49                 - L....GRI
+ 0120  50 5f 42 49 54 46 49 45                 - P_BITFIE
+ 0128  4c 44 0e 12 00 0b 47 52                 - LD....GR
+ 0130  49 50 5f 56 41 4c 55 45                 - IP_VALUE
+ 0138  0e 12 00 08 47 52 49 50                 - ....GRIP
+ 0140  5f 49 4e 44 45 58 0e 12                 - _INDEX..
+ 0148  00 08 47 52 49 50 5f 43                 - ..GRIP_C
+ 0150  4c 41 53 53 0d 12 00 08                 - LASS....
+ 0158  47 52 49 50 5f 53 4c 4f                 - GRIP_SLO
+ 0160  54 04 72 12 00 03 46 29                 - T.r...F)
+ 0168  0c 12 00 2a 6f 6e 65 78                 - ...*onex
+ 0170  69 74 5f 74 0a 12 00 0d                 - it_t....
+ 0178  73 69 7a 65 5f 74 0b 12                 - size_t..
+ 0180  00 09 77 63 68 61 72 5f                 - ..wchar_
+ 0188  74 04 20 03 0c 0b 12 00                 - t. .....
+ 0190  80 6d 6f 62 6a 65 63 74                 - .mobject
+ 0198  03 46 2f 04 20 0f 06 04                 - .F/. ...
+ 01a0  20 00 06 08 60 05 00 04                 -  ...`...
+ 01a8  00 00 00 08 61 04 32 64                 - ....a.2d
+ 01b0  61 74 61 0f 61 03 06 74                 - ata.a..t
+ 01b8  72 61 6e 73 70 61 72 65                 - ranspare
+ 01c0  6e 74 06 61 02 08 79 77                 - nt.a..yw
+ 01c8  06 61 01 08 78 77 08 61                 - .a..xw.a
+ 01d0  00 06 74 79 70 65 07 12                 - ..type..
+ 01d8  03 33 69 6d 67 07 12 00                 - .3img...
+ 01e0  34 69 6d 67 03 46 35 04                 - 4img.F5.
+ 01e8  20 08 06 08 60 02 00 0d                 -  ...`...
+ 01f0  00 00 00 08 61 04 37 6e                 - ....a.7n
+ 01f8  61 6d 65 07 61 00 36 70                 - ame.a.6p
+ 0200  74 72 0c 12 03 38 69 6d                 - tr...8im
+ 0208  61 67 65 64 65 66 0c 12                 - agedef..
+ 0210  00 39 69 6d 61 67 65 64                 - .9imaged
+ 0218  65 66 03 46 3a 08 60 04                 - ef.F:.`.
+ 0220  00 06 00 00 00 09 61 04                 - ......a.
+ 0228  0a 64 69 73 70 79 09 61                 - .dispy.a
+ 0230  02 0a 64 69 73 70 78 0a                 - ..dispx.
+ 0238  61 01 08 6f 72 69 65 6e                 - a..orien
+ 0240  74 09 61 00 08 69 6e 64                 - t.a..ind
+ 0248  65 78 09 12 03 3c 69 6d                 - ex...<im
+ 0250  61 67 65 09 12 00 3d 69                 - age...=i
+ 0258  6d 61 67 65 03 46 3e 04                 - mage.F>.
+ 0260  72 3f 00 08 60 04 00 08                 - r?..`...
+ 0268  00 00 00 06 61 06 0a 79                 - ....a..y
+ 0270  32 06 61 04 0a 78 32 06                 - 2.a..x2.
+ 0278  61 02 0a 79 31 06 61 00                 - a..y1.a.
+ 0280  0a 78 31 08 12 03 41 72                 - .x1...Ar
+ 0288  65 63 74 08 12 00 42 72                 - ect...Br
+ 0290  65 63 74 03 46 43 04 72                 - ect.FC.r
+ 0298  44 00 03 46 17 04 72 46                 - D..F..rF
+ 02a0  00 08 60 0c 00 0c 00 00                 - ..`.....
+ 02a8  00 16 67 02 21                          - ..g.!
+ 02ad  00 00 00 00 00 00                       DP      char unsigned near * near frame::getextraptr()
+ 02b3  47 67 65 74 65 78 74 72                 - Ggetextr
+ 02bb  61 70 74 72 17 67 02 21                 - aptr.g.!
+ 02c3  00 00 00 00 00 00                       DP      rect near * near frame::getattackptr()
+ 02c9  45 67 65 74 61 74 74 61                 - Egetatta
+ 02d1  63 6b 70 74 72 15 67 02                 - ckptr.g.
+ 02d9  21                                      - !
+ 02da  00 00 00 00 00 00                       DP      rect near * near frame::getvulnptr()
+ 02e0  45 67 65 74 76 75 6c 6e                 - Egetvuln
+ 02e8  70 74 72 14 67 02 21                    - ptr.g.!
+ 02ef  00 00 00 00 00 00                       DP      image near * near frame::getimgptr()
+ 02f5  40 67 65 74 69 6d 67 70                 - @getimgp
+ 02fd  74 72 0d 61 0b 06 6e 75                 - tr.a..nu
+ 0305  6d 69 6d 61 67 65 73 0d                 - mimages.
+ 030d  61 0a 06 6e 75 6d 61 74                 - a..numat
+ 0315  74 61 63 6b 0b 61 09 06                 - tack.a..
+ 031d  6e 75 6d 76 75 6c 6e 0c                 - numvuln.
+ 0325  61 08 06 6e 75 6d 65 78                 - a..numex
+ 032d  74 72 61 06 61 06 0a 64                 - tra.a..d
+ 0335  79 06 61 04 0a 64 78 07                 - y.a..dx.
+ 033d  61 02 0b 64 75 72 08 61                 - a..dur.a
+ 0345  00 0b 73 69 7a 65 09 12                 - ..size..
+ 034d  03 48 66 72 61 6d 65 09                 - .Hframe.
+ 0355  12 00 49 66 72 61 6d 65                 - ..Iframe
+ 035d  03 46 4a 06 72 21 02 21                 - .FJ.r!.!
+ 0365  0c 06 72 12 02 21 0c 08                 - ..r..!..
+ 036d  60 0c 00 2e 00 00 00 16                 - `.......
+ 0375  67 02 21                                - g.!
+ 0378  00 00 00 00 00 00                       DP      void near series::deletebytes( char near *, int )
+ 037e  4d 64 65 6c 65 74 65 62                 - Mdeleteb
+ 0386  79 74 65 73 16 67 02 21                 - ytes.g.!
+ 038e  00 00 00 00 00 00                       DP      char near * near series::insertbytes( char near *, int )
+ 0394  4c 69 6e 73 65 72 74 62                 - Linsertb
+ 039c  79 74 65 73 09 61 2a 0c                 - ytes.a*.
+ 03a4  63 66 75 6e 63 08 61 26                 - cfunc.a&
+ 03ac  0c 6e 65 78 74 05 61 22                 - .next.a"
+ 03b4  0c 79 05 61 1e 0c 78 08                 - .y.a..x.
+ 03bc  61 1a 0c 70 61 72 6d 06                 - a..parm.
+ 03c4  61 19 06 6e 66 06 61 18                 - a..nf.a.
+ 03cc  06 63 66 08 61 14 0c 73                 - .cf.a..s
+ 03d4  69 7a 65 09 61 10 4b 66                 - ize.a.Kf
+ 03dc  69 72 73 74 08 61 00 31                 - irst.a.1
+ 03e4  6e 61 6d 65 0a 12 03 4e                 - name...N
+ 03ec  73 65 72 69 65 73 0a 12                 - series..
+ 03f4  00 4f 73 65 72 69 65 73                 - .Oseries
+ 03fc  03 46 50 04 20 00 07 08                 - .FP. ...
+ 0404  60 02 00 04 00 00 00 0c                 - `.......
+ 040c  61 04 52 73 6f 75 6e 64                 - a.Rsound
+ 0414  70 74 72 0d 61 00 0f 73                 - ptr.a..s
+ 041c  6f 75 6e 64 73 69 7a 65                 - oundsize
+ 0424  11 12 03 53 5f 5f 32 36                 - ...S__26
+ 042c  6a 63 37 6b 53 4f 55 4e                 - jc7kSOUN
+ 0434  44 09 12 00 54 53 4f 55                 - D...TSOU
+ 043c  4e 44 03 46 55 08 60 02                 - ND.FU.`.
+ 0444  00 0d 00 00 00 08 61 04                 - ......a.
+ 044c  37 6e 61 6d 65 07 61 00                 - 7name.a.
+ 0454  56 70 74 72 0c 12 03 57                 - Vptr...W
+ 045c  73 6f 75 6e 64 64 65 66                 - sounddef
+ 0464  0c 12 00 58 73 6f 75 6e                 - ...Xsoun
+ 046c  64 64 65 66 03 46 59 04                 - ddef.FY.
+ 0474  72 12 00 04 72 0c 00 08                 - r...r...
+ 047c  60 14 00 52 00 00 00 17                 - `..R....
+ 0484  67 02 21                                - g.!
+ 0487  00 00 00 00 00 00                       DP      int near objectdef::RequestSound()
+ 048d  5c 52 65 71 75 65 73 74                 - \Request
+ 0495  53 6f 75 6e 64 17 67 02                 - Sound.g.
+ 049d  21                                      - !
+ 049e  00 00 00 00 00 00                       DP      int near objectdef::RequestImage()
+ 04a4  5c 52 65 71 75 65 73 74                 - \Request
+ 04ac  49 6d 61 67 65 18 67 02                 - Image.g.
+ 04b4  21                                      - !
+ 04b5  00 00 00 00 00 00                       DP      int near objectdef::RequestSeries()
+ 04bb  5c 52 65 71 75 65 73 74                 - \Request
+ 04c3  53 65 72 69 65 73 19 67                 - Series.g
+ 04cb  02 21                                   - .!
+ 04cd  00 00 00 00 00 00                       DP      void near objectdef::SaveSeriesList()
+ 04d3  5b 53 61 76 65 53 65 72                 - [SaveSer
+ 04db  69 65 73 4c 69 73 74 19                 - iesList.
+ 04e3  67 02 21                                - g.!
+ 04e6  00 00 00 00 00 00                       DP      int near objectdef::LoadSeriesList()
+ 04ec  5c 4c 6f 61 64 53 65 72                 - \LoadSer
+ 04f4  69 65 73 4c 69 73 74 0f                 - iesList.
+ 04fc  67 02 21                                - g.!
+ 04ff  00 00 00 00 00 00                       DP      void near objectdef::Kill()
+ 0505  5b 4b 69 6c 6c 0f 67 02                 - [Kill.g.
+ 050d  21                                      - !
+ 050e  00 00 00 00 00 00                       DP      void near objectdef::Read()
+ 0514  5b 52 65 61 64 09 61 51                 - [Read.aQ
+ 051c  06 64 69 72 74 79 07 61                 - .dirty.a
+ 0524  41 31 64 69 72 07 61 31                 - A1dir.a1
+ 052c  31 73 64 66 05 61 2d 4b                 - 1sdf.a-K
+ 0534  66 0a 61 29 5a 73 6f 75                 - f.a)Zsou
+ 053c  6e 64 73 0d 61 25 0c 6e                 - nds.a%.n
+ 0544  75 6d 73 6f 75 6e 64 73                 - umsounds
+ 054c  06 61 21 51 73 64 08 61                 - .a!Qsd.a
+ 0554  1d 0c 6e 75 6d 73 06 61                 - ..nums.a
+ 055c  19 3b 69 64 08 61 15 0c                 - .;id.a..
+ 0564  6e 75 6d 69 0a 61 14 06                 - numi.a..
+ 056c  6c 6f 61 64 65 64 08 61                 - loaded.a
+ 0574  04 31 6e 61 6d 65 09 61                 - .1name.a
+ 057c  00 0c 6f 74 79 70 65 0d                 - ..otype.
+ 0584  12 03 5d 6f 62 6a 65 63                 - ..]objec
+ 058c  74 64 65 66 0d 12 00 5e                 - tdef...^
+ 0594  6f 62 6a 65 63 74 64 65                 - objectde
+ 059c  66 03 46 5f 04 20 05 06                 - f.F_. ..
+ 05a4  08 60 09 00 0e 00 00 00                 - .`......
+ 05ac  0a 61 08 61 62 75 74 74                 - .a.abutt
+ 05b4  6f 6e 06 61 07 06 64 72                 - on.a..dr
+ 05bc  05 61 06 06 64 06 61 05                 - .a..d.a.
+ 05c4  06 64 6c 05 61 04 06 72                 - .dl.a..r
+ 05cc  05 61 03 06 6c 06 61 02                 - .a..l.a.
+ 05d4  06 75 72 05 61 01 06 75                 - .ur.a..u
+ 05dc  06 61 00 06 75 6c 0a 12                 - .a..ul..
+ 05e4  03 62 6b 65 79 6d 61 70                 - .bkeymap
+ 05ec  0a 12 00 63 6b 65 79 6d                 - ...ckeym
+ 05f4  61 70 03 46 64 04 20 ff                 - ap.Fd. .
+ 05fc  16 05 72 12 01 06 08 60                 - ..r....`
+ 0604  10 00 11 00 00 00 0f 67                 - .......g
+ 060c  08 21                                   - .!
+ 060e  00 00 00 00 00 00                       DP      int near input::none()
+ 0614  5c 6e 6f 6e 65 0e 67 08                 - \none.g.
+ 061c  21                                      - !
+ 061d  00 00 00 00 00 00                       DP      int near input::key()
+ 0623  5c 6b 65 79 0f 67 08 21                 - \key.g.!
+ 062b  00 00 00 00 00 00                       DP      int near input::grip()
+ 0631  5c 67 72 69 70 11 67 08                 - \grip.g.
+ 0639  21                                      - !
+ 063a  00 00 00 00 00 00                       DP      int near input::gravis()
+ 0640  5c 67 72 61 76 69 73 12                 - \gravis.
+ 0648  67 08 21                                - g.!
+ 064b  00 00 00 00 00 00                       DP      int near input::analog2()
+ 0651  5c 61 6e 61 6c 6f 67 32                 - \analog2
+ 0659  12 67 08 21                             - .g.!
+ 065d  00 00 00 00 00 00                       DP      int near input::analog1()
+ 0663  5c 61 6e 61 6c 6f 67 31                 - \analog1
+ 066b  10 67 02 21                             - .g.!
+ 066f  00 00 00 00 00 00                       DP      void near input::reset()
+ 0675  5b 72 65 73 65 74 0f 67                 - [reset.g
+ 067d  02 21                                   - .!
+ 067f  00 00 00 00 00 00                       DP      int near input::read()
+ 0685  5c 72 65 61 64 11 67 02                 - \read.g.
+ 068d  21                                      - !
+ 068e  00 00 00 00 00 00                       DP      void near input::deinit()
+ 0694  5b 64 65 69 6e 69 74 0f                 - [deinit.
+ 069c  67 02 21                                - g.!
+ 069f  00 00 00 00 00 00                       DP      void near input::init( char )
+ 06a5  67 69 6e 69 74 11 67 08                 - ginit.g.
+ 06ad  21                                      - !
+ 06ae  00 00 00 00 00 00                       DP      int (near input::* near input::idfunc[])()
+ 06b4  66 69 64 66 75 6e 63 09                 - fidfunc.
+ 06bc  67 08 84 22 05 69 65 6b                 - g..".iek
+ 06c4  0f 67 08 84 22 01 69 0d                 - .g..".i.
+ 06cc  6b 65 79 73 74 61 74 09                 - keystat.
+ 06d4  67 08 6b 06 74 79 70 65                 - g.k.type
+ 06dc  07 61 0d 0d 62 75 74 08                 - .a..but.
+ 06e4  61 09 0d 73 74 61 74 09                 - a..stat.
+ 06ec  12 04 68 69 6e 70 75 74                 - ..hinput
+ 06f4  09 12 00 69 69 6e 70 75                 - ...iinpu
+ 06fc  74 03 46 6a 04 20 02 16                 - t.Fj. ..
+ 0704  0b 12 04 80 75 6f 62 6a                 - ....uobj
+ 070c  65 63 74 03 48 6d 09 72                 - ect.Hm.r
+ 0714  6e 05 60 0c 0c 0c 0c 05                 - n.`.....
+ 071c  72 0c 01 0c 05 72 12 01                 - r....r..
+ 0724  0c 03 48 6d 03 48 6d 05                 - ..Hm.Hm.
+ 072c  72 72 01 73 08 60 28 00                 - rr.s.`(.
+ 0734  4d 00 00 00 11 67 02 21                 - M....g.!
+ 073c  00 00 00 00 00 00                       DP      near object::object( object const near & )
+ 0742  74 6f 62 6a 65 63 74 14                 - tobject.
+ 074a  67 02 21                                - g.!
+ 074d  00 00 00 00 00 00                       DP      int near object::main_walk()
+ 0753  5c 6d 61 69 6e 5f 77 61                 - \main_wa
+ 075b  6c 6b 17 67 02 21                       - lk.g.!
+ 0761  00 00 00 00 00 00                       DP      int near object::main_control()
+ 0767  5c 6d 61 69 6e 5f 63 6f                 - \main_co
+ 076f  6e 74 72 6f 6c 0f 67 02                 - ntrol.g.
+ 0777  21                                      - !
+ 0778  00 00 00 00 00 00                       DP      int near object::none()
+ 077e  5c 6e 6f 6e 65 14 67 02                 - \none.g.
+ 0786  21                                      - !
+ 0787  00 00 00 00 00 00                       DP      void near object::resetfptr()
+ 078d  5b 72 65 73 65 74 66 70                 - [resetfp
+ 0795  74 72 1a 67 02 21                       - tr.g.!
+ 079b  00 00 00 00 00 00                       DP      image near * near object::CheckImageBound()
+ 07a1  40 43 68 65 63 6b 49 6d                 - @CheckIm
+ 07a9  61 67 65 42 6f 75 6e 64                 - ageBound
+ 07b1  13 67 02 21                             - .g.!
+ 07b5  00 00 00 00 00 00                       DP      void near object::AddExtra( int )
+ 07bb  71 41 64 64 45 78 74 72                 - qAddExtr
+ 07c3  61 14 67 02 21                          - a.g.!
+ 07c8  00 00 00 00 00 00                       DP      void near object::DrawExtra()
+ 07ce  5b 44 72 61 77 45 78 74                 - [DrawExt
+ 07d6  72 61 11 67 02 21                       - ra.g.!
+ 07dc  00 00 00 00 00 00                       DP      void near object::resort()
+ 07e2  5b 72 65 73 6f 72 74 0f                 - [resort.
+ 07ea  67 02 21                                - g.!
+ 07ed  00 00 00 00 00 00                       DP      void near object::move( int )
+ 07f3  71 6d 6f 76 65 11 67 02                 - qmove.g.
+ 07fb  21                                      - !
+ 07fc  00 00 00 00 00 00                       DP      void near object::effect()
+ 0802  5b 65 66 66 65 63 74 0f                 - [effect.
+ 080a  67 02 21                                - g.!
+ 080d  00 00 00 00 00 00                       DP      void near object::tick()
+ 0813  5b 74 69 63 6b 10 67 02                 - [tick.g.
+ 081b  21                                      - !
+ 081c  00 00 00 00 00 00                       DP      void near object::sound( int )
+ 0822  71 73 6f 75 6e 64 12 67                 - qsound.g
+ 082a  02 21                                   - .!
+ 082c  00 00 00 00 00 00                       DP      void near object::drawmap()
+ 0832  5b 64 72 61 77 6d 61 70                 - [drawmap
+ 083a  0f 67 02 21                             - .g.!
+ 083e  00 00 00 00 00 00                       DP      void near object::draw()
+ 0844  5b 64 72 61 77 16 67 02                 - [draw.g.
+ 084c  21                                      - !
+ 084d  00 00 00 00 00 00                       DP      int near object::startseries( int )
+ 0853  70 73 74 61 72 74 73 65                 - pstartse
+ 085b  72 69 65 73 12 67 02 21                 - ries.g.!
+ 0863  00 00 00 00 00 00                       DP      near object::~object()
+ 0869  14 7e 6f 62 6a 65 63 74                 - .~object
+ 0871  11 67 02 21                             - .g.!
+ 0875  00 00 00 00 00 00                       DP      near object::object( objectdef near *, int, int, int, int )
+ 087b  6f 6f 62 6a 65 63 74 14                 - oobject.
+ 0883  67 02 21                                - g.!
+ 0886  00 00 00 00 00 00                       DP      int (near object::* near object::cfunclist[])()
+ 088c  6c 63 66 75 6e 63 6c 69                 - lcfuncli
+ 0894  73 74 0a 61 4c 06 61 63                 - st.aL.ac
+ 089c  74 69 76 65 0e 61 4b 06                 - tive.aK.
+ 08a4  70 6c 61 79 72 65 70 65                 - playrepe
+ 08ac  61 74 0b 61 4a 06 70 6c                 - at.aJ.pl
+ 08b4  61 79 69 6e 67 0f 61 3e                 - aying.a>
+ 08bc  16 63 6f 6e 74 72 6f 6c                 - .control
+ 08c4  66 75 6e 63 06 61 3a 6b                 - func.a:k
+ 08cc  69 6e 06 61 39 06 6e 66                 - in.a9.nf
+ 08d4  06 61 38 06 63 66 07 61                 - .a8.cf.a
+ 08dc  34 0c 64 75 72 08 61 30                 - 4.dur.a0
+ 08e4  4b 66 70 74 72 06 61 2c                 - Kfptr.a,
+ 08ec  51 63 73 09 61 28 0c 63                 - Qcs.a(.c
+ 08f4  73 6e 75 6d 0c 61 24 0c                 - snum.a$.
+ 08fc  73 68 61 6b 65 64 75 72                 - shakedur
+ 0904  05 61 20 0c 64 07 61 1c                 - .a .d.a.
+ 090c  0c 74 63 79 07 61 18 0c                 - .tcy.a..
+ 0914  74 63 78 05 61 14 0c 79                 - tcx.a..y
+ 091c  05 61 10 0c 78 06 61 0c                 - .a..x.a.
+ 0924  60 6f 64 09 61 08 0c 6f                 - `od.a..o
+ 092c  74 79 70 65 08 61 04 30                 - type.a.0
+ 0934  6e 65 78 74 08 61 00 30                 - next.a.0
+ 093c  70 72 65 76 03 46 2f 06                 - prev.F/.
+ 0944  72 0c 02 76 46 03 46 77                 - r..vF.Fw
+ 094c  04 20 02 78 03 46 5c 04                 - . .x.F\.
+ 0954  72 7a 00 03 46 6d 03 46                 - rz..Fm.F
+ 095c  49 06 72 12 02 76 76 08                 - I.r..vv.
+ 0964  60 02 00 02 00 00 00 09                 - `.......
+ 096c  61 01 17 73 6f 75 6e 64                 - a..sound
+ 0974  09 61 00 17 65 74 79 70                 - .a..etyp
+ 097c  65 0b 12 03 7f 65 5f 73                 - e....e_s
+ 0984  6f 75 6e 64 0c 12 00 80                 - ound....
+ 098c  80 65 5f 73 6f 75 6e 64                 - .e_sound
+ 0994  04 46 80 81 07 72 0c 02                 - .F...r..
+ 099c  76 80 82 08 60 02 00 02                 - v...`...
+ 09a4  00 00 00 0d 61 01 17 69                 - ....a..i
+ 09ac  6e 74 65 6e 73 69 74 79                 - ntensity
+ 09b4  09 61 00 17 65 74 79 70                 - .a..etyp
+ 09bc  65 0c 12 03 80 84 65 5f                 - e.....e_
+ 09c4  73 68 61 6b 65 0c 12 00                 - shake...
+ 09cc  80 85 65 5f 73 68 61 6b                 - ..e_shak
+ 09d4  65 04 46 80 86 07 72 0c                 - e.F...r.
+ 09dc  02 76 80 87 02 14                       - .v....
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: .PREFIX_DATA.W?$Wmp09none$n()i$:object$n()pn()i  SEGMENT ANY '_TEXT'  00000010 bytes  
+ 0000  8b c0                             mov     eax,eax
+ 0002  5f 5f 6d 62                       DB      5fH,5fH,6dH,62H
+ 0006  72 70 74 72                       DB      72H,70H,74H,72H
+ 000a  74 68 75 6e                       DB      74H,68H,75H,6eH
+ 000e  6b 0d                             DB      6bH,0dH
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: int (near * near object::__mbrptrthunk())()  SEGMENT ANY '_TEXT'  00000024 bytes  
+ 0000  53                                push    ebx
+ 0001  51                                push    ecx
+ 0002  52                                push    edx
+ 0003  56                                push    esi
+ 0004  57                                push    edi
+ 0005  55                                push    ebp
+ 0006  89 e5                             mov     ebp,esp
+ 0008  81 ec 08 00 00 00                 sub     esp,00000008H
+ 000e  89 45 fc                          mov     -4H[ebp],eax
+ 0011  c7 45 f8 00 00 00 
+       00                                mov     dword ptr -8H[ebp],offset int near object::none()
+ 0018  8b 45 f8                          mov     eax,-8H[ebp]
+ 001b  89 ec                             mov     esp,ebp
+ 001d  5d                                pop     ebp
+ 001e  5f                                pop     edi
+ 001f  5e                                pop     esi
+ 0020  5a                                pop     edx
+ 0021  59                                pop     ecx
+ 0022  5b                                pop     ebx
+ 0023  c3                                ret     
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: .PREFIX_DATA.W?$Wmp0hmain_control$n()i$:object$n()pn()i  SEGMENT ANY '_TEXT'  00000010 bytes  
+ 0000  8b c0                             mov     eax,eax
+ 0002  5f 5f 6d 62                       DB      5fH,5fH,6dH,62H
+ 0006  72 70 74 72                       DB      72H,70H,74H,72H
+ 000a  74 68 75 6e                       DB      74H,68H,75H,6eH
+ 000e  6b 0d                             DB      6bH,0dH
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: int (near * near object::__mbrptrthunk())()  SEGMENT ANY '_TEXT'  00000024 bytes  
+ 0000  53                                push    ebx
+ 0001  51                                push    ecx
+ 0002  52                                push    edx
+ 0003  56                                push    esi
+ 0004  57                                push    edi
+ 0005  55                                push    ebp
+ 0006  89 e5                             mov     ebp,esp
+ 0008  81 ec 08 00 00 00                 sub     esp,00000008H
+ 000e  89 45 fc                          mov     -4H[ebp],eax
+ 0011  c7 45 f8 00 00 00 
+       00                                mov     dword ptr -8H[ebp],offset int near object::main_control()
+ 0018  8b 45 f8                          mov     eax,-8H[ebp]
+ 001b  89 ec                             mov     esp,ebp
+ 001d  5d                                pop     ebp
+ 001e  5f                                pop     edi
+ 001f  5e                                pop     esi
+ 0020  5a                                pop     edx
+ 0021  59                                pop     ecx
+ 0022  5b                                pop     ebx
+ 0023  c3                                ret     
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: .PREFIX_DATA.W?$Wmp0emain_walk$n()i$:object$n()pn()i  SEGMENT ANY '_TEXT'  00000010 bytes  
+ 0000  8b c0                             mov     eax,eax
+ 0002  5f 5f 6d 62                       DB      5fH,5fH,6dH,62H
+ 0006  72 70 74 72                       DB      72H,70H,74H,72H
+ 000a  74 68 75 6e                       DB      74H,68H,75H,6eH
+ 000e  6b 0d                             DB      6bH,0dH
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: int (near * near object::__mbrptrthunk())()  SEGMENT ANY '_TEXT'  00000024 bytes  
+ 0000  53                                push    ebx
+ 0001  51                                push    ecx
+ 0002  52                                push    edx
+ 0003  56                                push    esi
+ 0004  57                                push    edi
+ 0005  55                                push    ebp
+ 0006  89 e5                             mov     ebp,esp
+ 0008  81 ec 08 00 00 00                 sub     esp,00000008H
+ 000e  89 45 fc                          mov     -4H[ebp],eax
+ 0011  c7 45 f8 00 00 00 
+       00                                mov     dword ptr -8H[ebp],offset int near object::main_walk()
+ 0018  8b 45 f8                          mov     eax,-8H[ebp]
+ 001b  89 ec                             mov     esp,ebp
+ 001d  5d                                pop     ebp
+ 001e  5f                                pop     edi
+ 001f  5e                                pop     esi
+ 0020  5a                                pop     edx
+ 0021  59                                pop     ecx
+ 0022  5b                                pop     ebx
+ 0023  c3                                ret     
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: $$TYPES  BYTE USE16  0000001f bytes  
+ 0000  00 00 01 00 00 00 63 3a                 - ......c:
+ 0008  5c 73 6f 75 72 63 65 5c                 - \source\
+ 0010  61 33 32 5c 6f 62 6a 65                 - a32\obje
+ 0018  63 74 2e 63 70 70 00                    - ct.cpp.
+
+No disassembly errors
+
+------------------------------------------------------------

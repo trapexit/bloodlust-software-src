@@ -1,0 +1,424 @@
+#include "tgraph.h"
+
+#include <dos.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <conio.h>
+#include <io.h>
+
+
+#include "tinput.h"
+#include "time.h"
+
+extern volatile int kbint;
+extern volatile char kbscan;
+
+int gripinstalled=0;
+int analoginstalled=0;
+
+//last read analog positions/buttons
+int joypos[4];
+int joybuttons;
+
+extern unsigned volatile uu;
+extern int timerbusy;
+
+void RefreshInput()
+{
+ if (gripinstalled) GrRefresh(0);
+ if (analoginstalled)
+  {
+   if (!timerbusy || !(uu&3)) ReadAnalogJoyPos(joypos,1024);
+   joybuttons=ReadAnalogJoyButtons();
+  }
+}    
+
+
+
+void pause(int i)
+{
+while(kbhit()) getch();
+
+while (ReadAnalogJoyButtons()); //wait till no buttons pressed
+
+do
+{
+ RefreshInput();
+ if (i) joybuttons>>=2;
+} while (!kbhit() && !(joybuttons&3));
+
+while (kbhit()) getch();
+}    
+
+//centers joystick
+void input::CenterJoy()
+{
+int j;
+    
+//only center if it is a joystick
+if (type!=1 && type!=2 && type!=5) return;
+
+//find joystick number
+j=type-1;
+if (type==5) j=0;  //if gravis, check 1
+printf("Center Joystick %d and press any key.\n",j+1);
+pause(j);
+center.x=joypos[j*2]; center.y=joypos[j*2+1];
+
+printf("Move Joystick %d to the upper left corner and press any key.\n",j+1);
+pause(j);
+min.x=joypos[j*2]; min.y=joypos[j*2+1];
+
+printf("Move Joystick %d to the lower right corner and press any key.\n",j+1);
+pause(j);
+max.x=joypos[j*2]; max.y=joypos[j*2+1];
+
+printf("\n");
+
+
+
+//calculate threshold
+min.x=((min.x-center.x)*5/6)+center.x;
+min.y=((min.y-center.y)*5/6)+center.y;
+
+max.x=((max.x-center.x)*5/6)+center.x;
+max.y=((max.y-center.y)*5/6)+center.y;
+
+}
+
+
+
+
+
+
+
+
+int InstallGrip()
+{ 
+ if (gripinstalled) return(1);
+    
+ int h;
+ unsigned bytes;
+ char *gripmem;
+
+ cprintf("init GrIP...");
+ if (_dos_open("grip.vol",O_BINARY | O_RDONLY,&h))
+    {
+     printf("ERROR: grip.vol not found.\n");
+     return(0);
+    }
+  else
+  {
+   bytes=filelength(h); gripmem=(char *)malloc(bytes);
+   _dos_read(h,gripmem,bytes,&bytes);
+   _dos_close(h);
+  }
+ 
+  if (!GrLink(gripmem, bytes))
+    {
+     printf("ERROR: Unable to link to GrIP driver.\n");
+     return(0);
+    }
+ free(gripmem);
+
+ if (!GrInitialize()) //initialize grip stuff
+  {
+   GrUnlink();
+   printf("ERROR: initialization failed.\n");
+   return(0); //failed
+  }
+  
+gripinstalled=1;
+return(1);
+
+}
+
+void TerminateGrip()
+{
+if (!gripinstalled) return;
+
+//cprintf("-terminating GrIP...");
+// Shutdown the GrIP system
+GrShutdown();
+
+// Disconnect from the GrIP library
+GrUnlink();
+
+gripinstalled=0;
+
+//printf("done.\n");
+}    
+
+extern cfg *options;
+
+
+void input::Init(char t)
+{
+type=options->pinput[t]; stat=but=oldbut=cycle=0;
+triggered=0;
+switch(type)
+ {
+  case 1:
+  case 2:
+  case 5:
+        butdur[0]=butdur[1]=butdur[2]=butdur[3]=0;
+        triggered=0;
+        analoginstalled=1;
+
+  break;
+
+  case 3:
+  case 4:
+        oldkey=0; //Cur key stat
+        k=options->k[type-3]; //get keymap for this input device!
+  break;
+
+  case 6: //grip stuff
+   InstallGrip();
+   if (!gripinstalled) {type=0; break;} //none
+   grslot=options->gripslot[t]+1; //get the grip slot for this input
+
+   if (!(GrGetSlotMap()&(1<<grslot)))
+     {
+      printf("\n");
+      printf("       ERROR: GrIP Slot %d: EMPTY...",grslot);
+         type=0; break;
+     } //if not exists
+   
+   
+   min.x=0; max.x=GrGetMaxValue(grslot,GRIP_CLASS_AXIS);
+   min.y=0; max.y=GrGetMaxValue(grslot,GRIP_CLASS_AXIS);
+   center.x=max.x/2; center.y=max.y/2;
+
+//   printf("\n  min.x=%d max.x=%d center.x=%d\n",min.x,max.x,center.x);
+   
+  break;
+  
+ }
+}
+
+void input::Reset()
+{
+    stat&=0xF;
+//stat=but=cycle=0;
+//butdur[0]=butdur[1]=butdur[2]=butdur[3]=0;
+//triggered=0;
+//oldkey=0;
+}
+
+extern volatile unsigned uu;
+
+extern playerstat p[2];
+
+
+//cause a button press to do a move
+void input::Trigger(unsigned char i,int pl)  //i==button that was triggered (letting go or time out)
+{
+if (but&(1<<(i^2))) //if cooresponding but is down toooooo
+        {
+         if (!(i&1)) {p[pl].kbmove=3; stat|=16;} else {p[pl].kbmove=6; stat|=32;} //fierce move    (both)
+        }
+ else
+        {
+         if (!(i&1)) {p[pl].kbmove=(i>>1)+1; stat|=16;} else {p[pl].kbmove=(i>>1)+4; stat|=32;} //regular move (single)
+        }
+
+triggered|=1<<i; //we triggered it
+
+}
+
+
+//READ POSITION OF CURRENT INPUT DEVICE
+void input::ReadPosition(int d)
+{
+
+
+switch (type)
+{
+ case 1:
+ case 5:
+  if (kbint) break;
+  stat&=~15;
+  if (joypos[0]>max.x) stat|=1 << 1;
+  if (joypos[0]<min.x) stat|=1 << 0;
+  if (joypos[1]>max.y) stat|=1 << 3;
+  if (joypos[1]<min.y) stat|=1 << 2;
+  if (d && (stat&3)) stat^=3;
+  break;
+
+ case 2:
+  if (kbint) break;
+  stat&=~15;
+  if (joypos[2]>max.x) stat|=1 << 1;
+  if (joypos[2]<min.x) stat|=1 << 0;
+  if (joypos[3]>max.y) stat|=1 << 3;
+  if (joypos[3]<min.y) stat|=1 << 2;
+  if (d && (stat&3)) stat^=3;
+  break;
+
+ case 3:
+  if (!kbint) break;
+  if (  ! ((kbscan&0x7F)>=71 && (kbscan&0x7F)<=81) ) break;
+
+  stat=0;
+
+  if (!(kbscan&0x80)) oldkey|= 1<<(kbscan-71);
+        else          oldkey&= ~(  1<< ( (kbscan&0x7f) -71)  );
+
+  if (oldkey& ( (1<< 0) + (1<< 1) + (1<< 2)  ) ) stat|=4;   //Up
+        else
+  if (oldkey& ( (1<< 8) + (1<< 9) + (1<<10)  ) ) stat|=8;   //Down
+
+if (d)
+{
+  if (oldkey& ( (1<< 0) + (1<< 4) + (1<< 8)  ) ) stat|=2;   //Left
+         else
+  if (oldkey& ( (1<< 2) + (1<< 6) + (1<<10)  ) ) {stat|=1; stat&=~2;}  //right
+}
+ else
+{
+  if (oldkey& ( (1<< 2) + (1<< 6) + (1<<10)  ) ) stat|=2;   //right
+         else
+  if (oldkey& ( (1<< 0) + (1<< 4) + (1<< 8)  ) ) {stat|=1; stat&=~2;}   //Left
+
+}
+
+  break;
+
+ case 4:
+ {
+  if (!kbint) break;
+
+  unsigned char k=kbscan&0x7F;
+  if (k>=19 && k<=21) k+=-19; else
+  if (k>=33 && k<=35) k+=-33+3+1; else
+  if (k>=47 && k<=49) k+=-47+6+2; else  break;
+
+  stat=0;
+
+  if (!(kbscan&0x80)) oldkey|= 1<<k;
+        else               oldkey&= ~(  1<<k   );
+
+  if (oldkey& ( (1<< 0) + (1<< 1) + (1<< 2)  ) ) stat|=4;   //Up
+        else
+  if (oldkey& ( (1<< 8) + (1<< 9) + (1<<10)  ) ) stat|=8;   //Down
+
+
+if (d)
+{
+  if (oldkey& ( (1<< 0) + (1<< 4) + (1<< 8)  ) ) stat|=2;   //Left
+         else
+  if (oldkey& ( (1<< 2) + (1<< 6) + (1<<10)  ) ) {stat|=1; stat&=~2;}  //right
+}
+ else
+{
+  if (oldkey& ( (1<< 2) + (1<< 6) + (1<<10)  ) ) stat|=2;   //right
+         else
+  if (oldkey& ( (1<< 0) + (1<< 4) + (1<< 8)  ) ) {stat|=1; stat&=~2;}   //Left
+
+}
+}
+
+break;
+
+ case 6: ///GRIP POSITION
+ 
+  joy.x=GrGetValue(grslot,GRIP_CLASS_AXIS,0); //read x position
+  joy.y=GrGetValue(grslot,GRIP_CLASS_AXIS,1); //read y position
+  
+  stat&=~15;
+  if (joy.x>=max.x) stat|=1 << 1;
+  if (joy.x<=min.x) stat|=1 << 0;
+  if (joy.y>=max.y) stat|=1 << 2;
+  if (joy.y<=min.y) stat|=1 << 3;  //calculate stat
+  if (d && (stat&3)) stat^=3;
+  break;
+
+ default:  stat=0;
+ }
+
+}
+
+
+//READ BUTTONS OF INPUT DEVICE
+int input::ReadButt(int pl)
+{
+//char  k;
+
+//return(0);
+
+ char b;
+ int i;
+
+oldbut=but;
+
+switch (type)
+{
+ case 1:
+ case 2:
+  but=joybuttons; //stat&=15;
+  if (type==2)  but>>=2;
+  but&=3;
+  stat|=((but&(oldbut^0xF))<<4);
+
+  if (stat&(16+32)) //if button pushed
+   {
+    p[pl].kbmove=2;   
+    if (stat&2) p[pl].kbmove=1;
+    if (stat&1) p[pl].kbmove=3;
+     
+    if (stat&32) p[pl].kbmove+=3;
+   } 
+  break;
+ case 5:
+
+ but=joybuttons;
+         //do buttons-------------------
+ for (i=0,b=1; i<4; i++,b<<=1)
+  if (!(triggered&b))  //if it hasn't been triggered yet, do triggering
+  {
+         if (but&(b)) //if pressed
+          {
+                 if (oldbut&(b)) //if was pressed
+                        {if (butdur[i]<=uu) //if timed out
+                                Trigger(i,pl);           //then TRIGGER it!
+                        }
+                        else        //if wasn't pressed previously
+                         {butdur[i]=uu+12;}  //calculate timeout dur
+          } else    //if not pressed
+            {
+             if ((oldbut&(b)) && butdur[i]>uu) //if was pressed and not timed out
+                   Trigger(i,pl);      //Trigger it!
+            }
+   }  else if (!(but&b)) triggered&=~b;
+
+  break;
+  case 3:
+  case 4:
+  break;
+
+  case 6: //GRIP buttons
+//  GrRefresh(2);
+
+  but=(unsigned char) GrGetPackedValues(grslot,GRIP_CLASS_BUTTON,2,7);
+  triggered=but&(oldbut^0xFF); //see what was triggered
+  if (triggered&0x7)
+    {  stat|=32;  //kick
+       for (int i=4,j=1; i<=6; i++,j<<=1)
+        if (triggered&j) p[pl].kbmove=i;
+    }
+  if (triggered&(0x7<<3))
+    {
+      stat|=16;  //punch
+      for (int i=1,j=8; i<=3; i++,j<<=1)
+        if (triggered&j) p[pl].kbmove=i;
+    }
+
+  break;
+
+ default:  stat=0;
+ }
+
+return(stat);
+}

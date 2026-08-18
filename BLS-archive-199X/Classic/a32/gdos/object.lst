@@ -1,0 +1,2903 @@
+
+Module: c:\source\a32\object.cpp
+Group: 'DGROUP' CONST,CONST2,_DATA,_BSS,XIB,XI,XIE
+
+Segment: _TEXT  PARA USE32  000010cc bytes  
+
+//Copyright(c) 1996 Bloodlust Software All rights reserved
+//Object functions
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+
+#include "r2img.h"
+#include "dd.h"
+
+#include "guiroot.h"
+
+#include "region.h"
+#include "objdef.h"
+#include "object.h"
+#include "objspace.h"
+#include "bg.h"
+
+#include "effect.h"
+
+#include "input.h"
+#include "font.h"
+#include "message.h"
+#include "a32.h"
+
+//include list of all control functions
+#include "\a32\cfunc.lst"
+
+
+//trajectory
+//constructor
+ 0000                    void near .fn_init():
+ 0000  53                                push    ebx
+ 0001  51                                push    ecx
+ 0002  52                                push    edx
+ 0003  56                                push    esi
+ 0004  57                                push    edi
+ 0005  55                                push    ebp
+ 0006  ba 00 00 00 00                    mov     edx,offset int (near * near object::__mbrptrthunk())( int )
+ 000b  be 00 00 00 00                    mov     esi,offset int (near * near object::__mbrptrthunk())( int )
+ 0010  b8 00 00 00 00                    mov     eax,offset int (near * near object::__mbrptrthunk())( int )
+ 0015  b9 00 00 00 00                    mov     ecx,offset int (near * near object::__mbrptrthunk())( int )
+ 001a  bd 00 00 00 00                    mov     ebp,offset int (near * near object::__mbrptrthunk())( int )
+ 001f  31 db                             xor     ebx,ebx
+ 0021  31 ff                             xor     edi,edi
+ 0023  89 15 00 00 00 00                 mov     int (near object::* near object::cfunclist[])( int ),edx
+ 0029  89 1d 04 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+4H,ebx
+ 002f  89 1d 08 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+8H,ebx
+ 0035  89 35 0c 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+0cH,esi
+ 003b  89 1d 10 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+10H,ebx
+ 0041  89 1d 14 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+14H,ebx
+ 0047  a3 18 00 00 00                    mov     int (near object::* near object::cfunclist[])( int )+18H,eax
+ 004c  89 1d 1c 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+1cH,ebx
+ 0052  89 1d 20 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+20H,ebx
+ 0058  89 0d 24 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+24H,ecx
+ 005e  89 1d 28 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+28H,ebx
+ 0064  89 1d 2c 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+2cH,ebx
+ 006a  89 2d 30 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+30H,ebp
+ 0070  89 1d 34 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+34H,ebx
+ 0076  89 1d 38 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+38H,ebx
+ 007c  89 3d 40 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+40H,edi
+ 0082  89 3d 44 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+44H,edi
+ 0088  bb 00 00 00 00                    mov     ebx,offset int (near * near object::__mbrptrthunk())( int )
+ 008d  bf 00 00 00 00                    mov     edi,offset int (near * near object::__mbrptrthunk())( int )
+ 0092  ba 00 00 00 00                    mov     edx,offset int (near * near object::__mbrptrthunk())( int )
+ 0097  be 00 00 00 00                    mov     esi,offset int (near * near object::__mbrptrthunk())( int )
+ 009c  31 c0                             xor     eax,eax
+ 009e  31 c9                             xor     ecx,ecx
+ 00a0  31 ed                             xor     ebp,ebp
+ 00a2  89 1d 3c 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+3cH,ebx
+ 00a8  89 3d 48 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+48H,edi
+ 00ae  89 2d 4c 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+4cH,ebp
+ 00b4  a3 50 00 00 00                    mov     int (near object::* near object::cfunclist[])( int )+50H,eax
+ 00b9  89 15 54 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+54H,edx
+ 00bf  a3 58 00 00 00                    mov     int (near object::* near object::cfunclist[])( int )+58H,eax
+ 00c4  89 0d 5c 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+5cH,ecx
+ 00ca  89 35 60 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+60H,esi
+ 00d0  a3 64 00 00 00                    mov     int (near object::* near object::cfunclist[])( int )+64H,eax
+ 00d5  89 2d 68 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+68H,ebp
+ 00db  89 0d 70 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+70H,ecx
+ 00e1  89 0d 74 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+74H,ecx
+ 00e7  b8 00 00 00 00                    mov     eax,offset int (near * near object::__mbrptrthunk())( int )
+ 00ec  b9 00 00 00 00                    mov     ecx,offset int (near * near object::__mbrptrthunk())( int )
+ 00f1  bd 00 00 00 00                    mov     ebp,offset int (near * near object::__mbrptrthunk())( int )
+ 00f6  bb 00 00 00 00                    mov     ebx,offset int (near * near object::__mbrptrthunk())( int )
+ 00fb  bf 00 00 00 00                    mov     edi,offset int (near * near object::__mbrptrthunk())( int )
+ 0100  ba 00 00 00 00                    mov     edx,offset int (near * near object::__mbrptrthunk())( int )
+ 0105  31 f6                             xor     esi,esi
+ 0107  a3 6c 00 00 00                    mov     int (near object::* near object::cfunclist[])( int )+6cH,eax
+ 010c  89 0d 78 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+78H,ecx
+ 0112  89 35 7c 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+7cH,esi
+ 0118  89 35 80 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+80H,esi
+ 011e  89 2d 84 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+84H,ebp
+ 0124  89 35 88 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+88H,esi
+ 012a  89 35 8c 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+8cH,esi
+ 0130  89 1d 90 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+90H,ebx
+ 0136  89 35 98 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+98H,esi
+ 013c  89 3d 9c 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+9cH,edi
+ 0142  31 c0                             xor     eax,eax
+ 0144  89 15 a8 00 00 00                 mov     int (near object::* near object::cfunclist[])( int )+0a8H,edx
+ 014a  a3 94 00 00 00                    mov     int (near object::* near object::cfunclist[])( int )+94H,eax
+ 014f  a3 a0 00 00 00                    mov     int (near object::* near object::cfunclist[])( int )+0a0H,eax
+ 0154  a3 a4 00 00 00                    mov     int (near object::* near object::cfunclist[])( int )+0a4H,eax
+ 0159  a3 ac 00 00 00                    mov     int (near object::* near object::cfunclist[])( int )+0acH,eax
+ 015e  a3 b0 00 00 00                    mov     int (near object::* near object::cfunclist[])( int )+0b0H,eax
+ 0163  5d                                pop     ebp
+ 0164  5f                                pop     edi
+ 0165  5e                                pop     esi
+ 0166  5a                                pop     edx
+ 0167  59                                pop     ecx
+ 0168  5b                                pop     ebx
+ 0169  c3                                ret     
+ 016a  8b c0                             mov     eax,eax
+
+jumptrajectory::jumptrajectory(object *to):trajectory(to)
+{
+ //copy over jump parms
+ 016c                    near jumptrajectory::jumptrajectory( object near * ):
+ 016c  53                                push    ebx
+ 016d  51                                push    ecx
+ 016e  89 10                             mov     [eax],edx
+ 0170  89 c3                             mov     ebx,eax
+ 0172  8b 10                             mov     edx,[eax]
+ 0174  c7 40 04 00 00 00 
+       00                                mov     dword ptr +4H[eax],offset void (near * const near __vftbl[])()
+ 017b  85 d2                             test    edx,edx
+ 017d  74 1c                             je      L2
+ 017f  8b 4a 57                          mov     ecx,+57H[edx]
+ 0182  89 d0                             mov     eax,edx
+ 0184  85 c9                             test    ecx,ecx
+ 0186  74 0e                             je      L1
+ 0188  89 c8                             mov     eax,ecx
+ 018a  74 0a                             je      L1
+ 018c  8b 49 04                          mov     ecx,+4H[ecx]
+ 018f  ba 02 00 00 00                    mov     edx,00000002H
+ 0194  ff 11                             call    dword ptr [ecx]
+ 0196  8b 03             L1              mov     eax,[ebx]
+ 0198  89 58 57                          mov     +57H[eax],ebx
+
+ fptr=o->fptr;
+ 019b  8b 03             L2              mov     eax,[ebx]
+ 019d  c7 43 04 00 00 00 
+       00                                mov     dword ptr +4H[ebx],offset void (near * const near __vftbl[])()
+ 01a4  8b 40 26                          mov     eax,+26H[eax]
+ 01a7  89 43 08                          mov     +8H[ebx],eax
+
+ dur=o->dur;
+ 01aa  8b 03                             mov     eax,[ebx]
+ 01ac  8b 40 2a                          mov     eax,+2aH[eax]
+ 01af  89 43 0c                          mov     +0cH[ebx],eax
+
+ cf=o->cf; nf=o->nf; csnum=o->csnum;
+ 01b2  8b 03                             mov     eax,[ebx]
+ 01b4  8a 40 2e                          mov     al,+2eH[eax]
+ 01b7  88 43 10                          mov     +10H[ebx],al
+ 01ba  8b 03                             mov     eax,[ebx]
+ 01bc  8a 40 2f                          mov     al,+2fH[eax]
+ 01bf  88 43 11                          mov     +11H[ebx],al
+ 01c2  8b 03                             mov     eax,[ebx]
+ 01c4  8a 40 15                          mov     al,+15H[eax]
+ 01c7  88 43 12                          mov     +12H[ebx],al
+
+}
+
+//destructor
+ 01ca  89 d8                             mov     eax,ebx
+ 01cc  59                                pop     ecx
+ 01cd  5b                                pop     ebx
+ 01ce  c3                                ret     
+ 01cf  90                                nop     
+
+jumptrajectory::~jumptrajectory()
+{
+ 01d0                    near jumptrajectory::~jumptrajectory():
+ 01d0  53                                push    ebx
+ 01d1  51                                push    ecx
+ 01d2  56                                push    esi
+ 01d3  89 c3                             mov     ebx,eax
+ 01d5  89 d1                             mov     ecx,edx
+ 01d7  f6 c2 04                          test    dl,04H
+ 01da  74 11                             je      L3
+ 01dc  ba 00 00 00 00                    mov     edx,offset char unsigned const near __typesig[]
+ 01e1  e8 00 00 00 00                    call    __wcpp_2_dtor_array_store__
+ 01e6  e8 00 00 00 00                    call    void near operator delete []( void near * )
+ 01eb  eb 5e                             jmp     L6
+ 01ed  c7 40 04 00 00 00 
+       00                L3              mov     dword ptr +4H[eax],offset void (near * const near __vftbl[])()
+
+ if (cf<nf)
+ {
+ //copy jump parms back
+ 01f4  8a 40 10                          mov     al,+10H[eax]
+ 01f7  3a 43 11                          cmp     al,+11H[ebx]
+ 01fa  73 2d                             jae     L4
+
+ o->startseries(csnum);
+ 01fc  8b 03                             mov     eax,[ebx]
+ 01fe  31 d2                             xor     edx,edx
+ 0200  8b 70 67                          mov     esi,+67H[eax]
+ 0203  8a 53 12                          mov     dl,+12H[ebx]
+ 0206  ff 56 08                          call    dword ptr +8H[esi]
+
+ o->fptr=fptr;
+ 0209  8b 13                             mov     edx,[ebx]
+ 020b  8b 43 08                          mov     eax,+8H[ebx]
+ 020e  89 42 26                          mov     +26H[edx],eax
+
+ o->dur=dur;
+ 0211  8b 13                             mov     edx,[ebx]
+ 0213  8b 43 0c                          mov     eax,+0cH[ebx]
+ 0216  89 42 2a                          mov     +2aH[edx],eax
+
+ o->cf=cf; o->nf=nf; //o->csnum=csnum;
+ }
+ 0219  8b 13                             mov     edx,[ebx]
+ 021b  8a 43 10                          mov     al,+10H[ebx]
+ 021e  88 42 2e                          mov     +2eH[edx],al
+ 0221  8b 03                             mov     eax,[ebx]
+ 0223  8a 53 11                          mov     dl,+11H[ebx]
+ 0226  88 50 2f                          mov     +2fH[eax],dl
+
+}
+
+ 0229  89 d8             L4              mov     eax,ebx
+ 022b  8b 13                             mov     edx,[ebx]
+ 022d  c7 43 04 00 00 00 
+       00                                mov     dword ptr +4H[ebx],offset void (near * const near __vftbl[])()
+ 0234  85 d2                             test    edx,edx
+ 0236  74 07                             je      L5
+ 0238  c7 42 57 00 00 00 
+       00                                mov     dword ptr +57H[edx],00000000H
+ 023f  89 c3             L5              mov     ebx,eax
+ 0241  f6 c1 02                          test    cl,02H
+ 0244  74 05                             je      L6
+ 0246  e8 00 00 00 00                    call    void near operator delete( void near * )
+ 024b  89 d8             L6              mov     eax,ebx
+ 024d  5e                                pop     esi
+ 024e  59                                pop     ecx
+ 024f  5b                                pop     ebx
+ 0250  c3                                ret     
+ 0251  8d 40 00                          lea     eax,+0H[eax]
+
+void jumptrajectory::tick()
+{
+ //advance trajectory frames
+ 0254                    void near jumptrajectory::tick():
+ 0254  53                                push    ebx
+ 0255  51                                push    ecx
+ 0256  52                                push    edx
+ 0257  56                                push    esi
+ 0258  57                                push    edi
+ 0259  89 c3                             mov     ebx,eax
+
+ if (dur>0) dur--;
+  else
+   {
+ 025b  8b 50 0c                          mov     edx,+0cH[eax]
+ 025e  85 d2                             test    edx,edx
+ 0260  7e 08                             jle     L7
+ 0262  8d 4a ff                          lea     ecx,-1H[edx]
+ 0265  89 48 0c                          mov     +0cH[eax],ecx
+ 0268  eb 67                             jmp     L9
+
+    cf++;
+ 026a  8a 60 10          L7              mov     ah,+10H[eax]
+ 026d  fe c4                             inc     ah
+
+    if (cf>=nf) //we completed jump...but attack is still going on
+      {
+ 026f  8a 53 11                          mov     dl,+11H[ebx]
+ 0272  88 63 10                          mov     +10H[ebx],ah
+ 0275  38 d4                             cmp     ah,dl
+ 0277  72 3f                             jb      L8
+ 0279  31 d2                             xor     edx,edx
+ 027b  8a 53 12                          mov     dl,+12H[ebx]
+ 027e  8d 04 95 00 00 00 
+       00                                lea     eax,+0H[edx*4]
+ 0285  01 d0                             add     eax,edx
+
+        o->startseries(o->od->sd[csnum].next); //abort attack
+ 0287  8b 0b                             mov     ecx,[ebx]
+ 0289  c1 e0 03                          shl     eax,03H
+ 028c  8b 71 11                          mov     esi,+11H[ecx]
+ 028f  01 c2                             add     edx,eax
+ 0291  8b 46 23                          mov     eax,+23H[esi]
+ 0294  8b 79 67                          mov     edi,+67H[ecx]
+ 0297  8a 54 02 14                       mov     dl,+14H[edx+eax]
+ 029b  81 e2 ff 00 00 00                 and     edx,000000ffH
+ 02a1  89 c8                             mov     eax,ecx
+ 02a3  ff 57 08                          call    dword ptr +8H[edi]
+
+        delete this; //no more trajectory
+      }      else
+      {        //advance to next frame
+ 02a6  8b 4b 04                          mov     ecx,+4H[ebx]
+ 02a9  ba 02 00 00 00                    mov     edx,00000002H
+ 02ae  89 d8                             mov     eax,ebx
+ 02b0  ff 11                             call    dword ptr [ecx]
+ 02b2  5f                                pop     edi
+ 02b3  5e                                pop     esi
+ 02b4  5a                                pop     edx
+ 02b5  59                                pop     ecx
+ 02b6  5b                                pop     ebx
+ 02b7  c3                                ret     
+
+       fptr=(frame *) (((char *)fptr)+fptr->size);
+ 02b8  8b 43 08          L8              mov     eax,+8H[ebx]
+ 02bb  31 d2                             xor     edx,edx
+ 02bd  66 8b 10                          mov     dx,[eax]
+ 02c0  01 d0                             add     eax,edx
+ 02c2  89 43 08                          mov     +8H[ebx],eax
+
+       dur=fptr->dur;
+      }
+   }
+ 02c5  66 8b 40 02                       mov     ax,+2H[eax]
+ 02c9  25 ff ff 00 00                    and     eax,0000ffffH
+ 02ce  89 43 0c                          mov     +0cH[ebx],eax
+
+}
+
+ 02d1  5f                L9              pop     edi
+ 02d2  5e                                pop     esi
+ 02d3  5a                                pop     edx
+ 02d4  59                                pop     ecx
+ 02d5  5b                                pop     ebx
+ 02d6  c3                                ret     
+ 02d7  90                                nop     
+
+void jumptrajectory::move(int instat)
+{
+ 02d8                    void near jumptrajectory::move( int ):
+ 02d8  53                                push    ebx
+ 02d9  51                                push    ecx
+
+ if (instat&ID_RIGHT) o->move(fptr->dx,fptr->dy,0);
+ 02da  f6 c2 01                          test    dl,01H
+ 02dd  74 15                             je      L10
+ 02df  8b 50 08                          mov     edx,+8H[eax]
+ 02e2  31 c9                             xor     ecx,ecx
+ 02e4  8b 5a 06                          mov     ebx,+6H[edx]
+ 02e7  8b 00                             mov     eax,[eax]
+ 02e9  8b 52 02                          mov     edx,+2H[edx]
+ 02ec  c1 fb 10                          sar     ebx,10H
+ 02ef  c1 fa 10                          sar     edx,10H
+ 02f2  eb 0f                             jmp     L11
+
+     else             o->move(0, fptr->dy,0);
+ 02f4  8b 58 08          L10             mov     ebx,+8H[eax]
+ 02f7  31 c9                             xor     ecx,ecx
+ 02f9  31 d2                             xor     edx,edx
+ 02fb  8b 5b 06                          mov     ebx,+6H[ebx]
+ 02fe  8b 00                             mov     eax,[eax]
+ 0300  c1 fb 10                          sar     ebx,10H
+ 0303  e8 ac 09 00 00    L11             call    void near object::move( int, int, int )
+
+}
+
+int shaketrajectory::oshake[8]={0,1,0,2,-1,0,-2,0};
+
+
+ 0308  59                                pop     ecx
+ 0309  5b                                pop     ebx
+ 030a  c3                                ret     
+ 030b  90                                nop     
+
+void movetrajectory::tick()
+{
+ 030c                    void near movetrajectory::tick():
+ 030c  53                                push    ebx
+ 030d  52                                push    edx
+
+ if (dur>0) dur--;
+ 030e  8b 50 14                          mov     edx,+14H[eax]
+ 0311  85 d2                             test    edx,edx
+ 0313  7e 09                             jle     L12
+ 0315  8d 5a ff                          lea     ebx,-1H[edx]
+ 0318  89 58 14                          mov     +14H[eax],ebx
+ 031b  5a                                pop     edx
+ 031c  5b                                pop     ebx
+ 031d  c3                                ret     
+
+  else delete this; //no more trajectory
+ 031e  8b 58 04          L12             mov     ebx,+4H[eax]
+ 0321  ba 02 00 00 00                    mov     edx,00000002H
+ 0326  ff 13                             call    dword ptr [ebx]
+
+}
+
+ 0328  5a                                pop     edx
+ 0329  5b                                pop     ebx
+ 032a  c3                                ret     
+ 032b  90                                nop     
+
+void movetrajectory::move(int stat)
+{
+ 032c                    void near movetrajectory::move( int ):
+ 032c  53                                push    ebx
+ 032d  51                                push    ecx
+
+ o->move(dx,dy,dz);
+ 032e  8b 48 10                          mov     ecx,+10H[eax]
+ 0331  8b 58 0c                          mov     ebx,+0cH[eax]
+ 0334  8b 50 08                          mov     edx,+8H[eax]
+ 0337  8b 00                             mov     eax,[eax]
+ 0339  e8 76 09 00 00                    call    void near object::move( int, int, int )
+
+}
+
+//---------------------
+
+//cheapo control function
+ 033e  59                                pop     ecx
+ 033f  5b                                pop     ebx
+ 0340  c3                                ret     
+ 0341  8d 40 00                          lea     eax,+0H[eax]
+
+int object::none(int instat)
+ {
+  instat=instat;
+ 0344                    int near object::none( int ):
+ 0344  53                                push    ebx
+ 0345  51                                push    ecx
+
+  move(fptr->dx,fptr->dy,fptr->dz); //just move
+  return -1; //no series change
+ 0346  8b 50 26                          mov     edx,+26H[eax]
+ 0349  8b 4a 04                          mov     ecx,+4H[edx]
+ 034c  8b 5a 06                          mov     ebx,+6H[edx]
+ 034f  c1 f9 10                          sar     ecx,10H
+ 0352  8b 52 02                          mov     edx,+2H[edx]
+ 0355  c1 fb 10                          sar     ebx,10H
+ 0358  c1 fa 10                          sar     edx,10H
+ 035b  e8 54 09 00 00                    call    void near object::move( int, int, int )
+
+ };
+
+
+
+//spawn object
+ 0360  b8 ff ff ff ff                    mov     eax,0ffffffffH
+ 0365  59                                pop     ecx
+ 0366  5b                                pop     ebx
+ 0367  c3                                ret     
+
+object *object::spawn(int objnum,int series,int tx,int ty,int tz, int td)
+{
+ 0368                    object near * near object::spawn( int, int, int, int, int, int ):
+ 0368  56                                push    esi
+ 0369  57                                push    edi
+ 036a  55                                push    ebp
+ 036b  89 c6                             mov     esi,eax
+
+ if (!osp) return 0;
+ 036d  83 38 00                          cmp     dword ptr [eax],00000000H
+ 0370  75 04                             jne     L13
+ 0372  31 c0                             xor     eax,eax
+ 0374  eb 2b                             jmp     L14
+
+ return new object(osp->odf[objnum],series,tx,ty,tz,td,this);
+ 0376  b8 6b 00 00 00    L13             mov     eax,0000006bH
+ 037b  e8 00 00 00 00                    call    void near * near operator new( int unsigned )
+ 0380  85 c0                             test    eax,eax
+ 0382  74 1d                             je      L14
+ 0384  56                                push    esi
+ 0385  8b 6c 24 1c                       mov     ebp,+1cH[esp]
+ 0389  55                                push    ebp
+ 038a  8b 7c 24 1c                       mov     edi,+1cH[esp]
+ 038e  8b 36                             mov     esi,[esi]
+ 0390  57                                push    edi
+ 0391  8b 6c 24 1c                       mov     ebp,+1cH[esp]
+ 0395  8b 76 4d                          mov     esi,+4dH[esi]
+ 0398  55                                push    ebp
+ 0399  8b 14 96                          mov     edx,[esi+edx*4]
+ 039c  e8 00 00 00 00                    call    near object::object( objectdef near *, int, int, int, int, int, object near * )
+
+}
+
+
+#ifdef ANIMATOR
+void object::print()
+{
+ msg.printf(1,"%s %d/%d",cs->name,cf,nf);
+}
+#endif
+
+extern int blah;
+ 03a1  5d                L14             pop     ebp
+ 03a2  5f                                pop     edi
+ 03a3  5e                                pop     esi
+ 03a4  c2 0c 00                          ret     000cH
+ 03a7  90                                nop     
+
+frame *object::resetfptr()
+{
+ 03a8                    frame near * near object::resetfptr():
+ 03a8  53                                push    ebx
+ 03a9  51                                push    ecx
+ 03aa  52                                push    edx
+
+if (!cs) return 0;
+ 03ab  8b 50 16                          mov     edx,+16H[eax]
+ 03ae  85 d2                             test    edx,edx
+ 03b0  75 06                             jne     L15
+ 03b2  31 c0                             xor     eax,eax
+ 03b4  5a                                pop     edx
+ 03b5  59                                pop     ecx
+ 03b6  5b                                pop     ebx
+ 03b7  c3                                ret     
+
+fptr=cs->first; nf=cs->nf;
+ 03b8  8b 12             L15             mov     edx,[edx]
+ 03ba  89 50 26                          mov     +26H[eax],edx
+ 03bd  8b 50 16                          mov     edx,+16H[eax]
+ 03c0  8a 52 09                          mov     dl,+9H[edx]
+
+if (!fptr) {dur=0; return 0;}
+
+//uchar i=cf;
+//if (i>=nf) i=nf-1;
+ 03c3  8b 58 26                          mov     ebx,+26H[eax]
+ 03c6  88 50 2f                          mov     +2fH[eax],dl
+ 03c9  85 db                             test    ebx,ebx
+ 03cb  75 09                             jne     L16
+ 03cd  89 58 2a                          mov     +2aH[eax],ebx
+ 03d0  31 c0                             xor     eax,eax
+ 03d2  5a                                pop     edx
+ 03d3  59                                pop     ecx
+ 03d4  5b                                pop     ebx
+ 03d5  c3                                ret     
+
+for (int i=0; i<cf; i++)  //skip ahead to frameptr
+ 03d6  31 d2             L16             xor     edx,edx
+ 03d8  eb 0e                             jmp     L18
+
+ 03da  8b 58 26          L17             mov     ebx,+26H[eax]
+ 03dd  31 c9                             xor     ecx,ecx
+ 03df  66 8b 0b                          mov     cx,[ebx]
+ 03e2  01 cb                             add     ebx,ecx
+
+  fptr=(frame *) (((char *)fptr)+fptr->size);
+ 03e4  42                                inc     edx
+ 03e5  89 58 26                          mov     +26H[eax],ebx
+ 03e8  31 db             L18             xor     ebx,ebx
+ 03ea  8a 58 2e                          mov     bl,+2eH[eax]
+ 03ed  39 da                             cmp     edx,ebx
+ 03ef  7c e9                             jl      L17
+
+dur=fptr->dur;
+ 03f1  8b 50 26                          mov     edx,+26H[eax]
+ 03f4  66 8b 52 02                       mov     dx,+2H[edx]
+ 03f8  81 e2 ff ff 00 00                 and     edx,0000ffffH
+ 03fe  89 50 2a                          mov     +2aH[eax],edx
+
+return fptr;
+ 0401  8b 40 26                          mov     eax,+26H[eax]
+
+}
+
+
+
+ 0404  5a                                pop     edx
+ 0405  59                                pop     ecx
+ 0406  5b                                pop     ebx
+ 0407  c3                                ret     
+
+void object::play(int s)
+{
+ 0408                    void near object::play( int ):
+ 0408  53                                push    ebx
+ 0409  51                                push    ecx
+ 040a  89 c3                             mov     ebx,eax
+
+ playing=1; playrepeat=0;  //play it
+ 040c  8a 60 41                          mov     ah,+41H[eax]
+ 040f  80 cc 40                          or      ah,40H
+ 0412  88 e1                             mov     cl,ah
+ 0414  88 63 41                          mov     +41H[ebx],ah
+ 0417  80 e1 7f                          and     cl,7fH
+ 041a  88 4b 41                          mov     +41H[ebx],cl
+
+ startseries(s);   //start up animation
+ 041d  8b 4b 67                          mov     ecx,+67H[ebx]
+ 0420  89 d8                             mov     eax,ebx
+ 0422  ff 51 08                          call    dword ptr +8H[ecx]
+
+ basey=getbasey();
+ 0425  89 d8                             mov     eax,ebx
+ 0427  e8 00 00 00 00                    call    int near object::getbasey()
+ 042c  89 43 3c                          mov     +3cH[ebx],eax
+
+}
+
+ 042f  59                                pop     ecx
+ 0430  5b                                pop     ebx
+ 0431  c3                                ret     
+ 0432  8b c0                             mov     eax,eax
+
+void object::playlooped(int s)
+{
+ 0434                    void near object::playlooped( int ):
+ 0434  53                                push    ebx
+ 0435  51                                push    ecx
+ 0436  89 c3                             mov     ebx,eax
+
+ playing=1; playrepeat=1;  //play it
+ 0438  8a 60 41                          mov     ah,+41H[eax]
+ 043b  80 cc c0                          or      ah,0c0H
+
+ startseries(s);   //start up animation
+ 043e  8b 4b 67                          mov     ecx,+67H[ebx]
+ 0441  88 63 41                          mov     +41H[ebx],ah
+ 0444  89 d8                             mov     eax,ebx
+ 0446  ff 51 08                          call    dword ptr +8H[ecx]
+
+ basey=getbasey();
+ 0449  89 d8                             mov     eax,ebx
+ 044b  e8 00 00 00 00                    call    int near object::getbasey()
+ 0450  89 43 3c                          mov     +3cH[ebx],eax
+
+}
+
+ 0453  59                                pop     ecx
+ 0454  5b                                pop     ebx
+ 0455  c3                                ret     
+ 0456  8b c0                             mov     eax,eax
+
+void object::activate(int s)
+{
+ 0458                    void near object::activate( int ):
+ 0458  53                                push    ebx
+ 0459  51                                push    ecx
+ 045a  56                                push    esi
+ 045b  57                                push    edi
+ 045c  55                                push    ebp
+ 045d  89 c3                             mov     ebx,eax
+ 045f  89 d1                             mov     ecx,edx
+
+ if (!od->loaded)
+  {
+ 0461  8b 40 11                          mov     eax,+11H[eax]
+ 0464  f6 40 04 01                       test    byte ptr +4H[eax],01H
+ 0468  75 11                             jne     L19
+
+   active=1; csnum=s;
+ 046a  8a 73 41                          mov     dh,+41H[ebx]
+ 046d  88 4b 15                          mov     +15H[ebx],cl
+ 0470  80 ce 20                          or      dh,20H
+ 0473  88 73 41                          mov     +41H[ebx],dh
+
+   return;
+  }
+
+ 0476  e9 b8 00 00 00                    jmp     L27
+
+ if (in) in->reset();
+ intersect=0;
+ 047b  8b 53 53          L19             mov     edx,+53H[ebx]
+ 047e  85 d2                             test    edx,edx
+ 0480  74 08                             je      L20
+ 0482  89 d0                             mov     eax,edx
+ 0484  74 04                             je      L20
+ 0486  83 62 08 0f                       and     dword ptr +8H[edx],0000000fH
+
+ 048a  8b 7b 45          L20             mov     edi,+45H[ebx]
+
+ 048d  c6 43 44 00                       mov     byte ptr +44H[ebx],00H
+ 0491  85 ff                             test    edi,edi
+ 0493  74 10                             je      L21
+
+ if (r[0]) delete r[0];
+ 0495  89 f8                             mov     eax,edi
+ 0497  74 0c                             je      L21
+ 0499  31 d2                             xor     edx,edx
+ 049b  e8 00 00 00 00                    call    near region::~region()
+ 04a0  e8 00 00 00 00                    call    void near operator delete( void near * )
+
+ if (r[1]) delete r[1];
+ 04a5  8b 6b 49          L21             mov     ebp,+49H[ebx]
+ 04a8  85 ed                             test    ebp,ebp
+ 04aa  74 10                             je      L22
+ 04ac  89 e8                             mov     eax,ebp
+ 04ae  74 0c                             je      L22
+ 04b0  31 d2                             xor     edx,edx
+ 04b2  e8 00 00 00 00                    call    near region::~region()
+ 04b7  e8 00 00 00 00                    call    void near operator delete( void near * )
+
+ if (r[2]) delete r[2];
+
+  //reset energy
+ 04bc  8b 43 4d          L22             mov     eax,+4dH[ebx]
+ 04bf  85 c0                             test    eax,eax
+ 04c1  74 0e                             je      L23
+ 04c3  74 0c                             je      L23
+ 04c5  31 d2                             xor     edx,edx
+ 04c7  e8 00 00 00 00                    call    near region::~region()
+ 04cc  e8 00 00 00 00                    call    void near operator delete( void near * )
+
+ invincible=0;
+ 04d1  80 63 42 fb       L23             and     byte ptr +42H[ebx],0fbH
+
+ if (od->sd[0].energy) energy=od->sd[0].energy;
+ 04d5  8b 43 11                          mov     eax,+11H[ebx]
+ 04d8  8b 40 23                          mov     eax,+23H[eax]
+ 04db  66 8b 50 17                       mov     dx,+17H[eax]
+ 04df  66 85 d2                          test    dx,dx
+ 04e2  74 06                             je      L24
+ 04e4  66 89 53 51                       mov     +51H[ebx],dx
+ 04e8  eb 04                             jmp     L25
+
+                 else invincible=1;
+ 04ea  80 4b 42 04       L24             or      byte ptr +42H[ebx],04H
+
+ if (traj) delete traj; traj=0;
+
+ //activate object
+ 04ee  8b 53 57          L25             mov     edx,+57H[ebx]
+ 04f1  85 d2                             test    edx,edx
+ 04f3  74 0e                             je      L26
+ 04f5  89 d0                             mov     eax,edx
+ 04f7  74 0a                             je      L26
+ 04f9  8b 72 04                          mov     esi,+4H[edx]
+ 04fc  ba 02 00 00 00                    mov     edx,00000002H
+ 0501  ff 16                             call    dword ptr [esi]
+
+ active=1; updated|=OU_ALL;
+ 0503  8a 53 41          L26             mov     dl,+41H[ebx]
+ 0506  80 ca 20                          or      dl,20H
+ 0509  88 d0                             mov     al,dl
+ 050b  88 53 41                          mov     +41H[ebx],dl
+ 050e  24 1f                             and     al,1fH
+ 0510  88 d6                             mov     dh,dl
+ 0512  0c 1f                             or      al,1fH
+ 0514  80 e6 e0                          and     dh,0e0H
+ 0517  24 1f                             and     al,1fH
+ 0519  88 f4                             mov     ah,dh
+ 051b  88 73 41                          mov     +41H[ebx],dh
+ 051e  08 c4                             or      ah,al
+
+ play(s);
+ 0520  89 ca                             mov     edx,ecx
+ 0522  88 63 41                          mov     +41H[ebx],ah
+ 0525  89 d8                             mov     eax,ebx
+ 0527  c7 43 57 00 00 00 
+       00                                mov     dword ptr +57H[ebx],00000000H
+ 052e  e8 00 00 00 00                    call    void near object::play( int )
+
+}
+
+ 0533  5d                L27             pop     ebp
+ 0534  5f                                pop     edi
+ 0535  5e                                pop     esi
+ 0536  59                                pop     ecx
+ 0537  5b                                pop     ebx
+ 0538  c3                                ret     
+ 0539  8d 40 00                          lea     eax,+0H[eax]
+
+void object::stop()
+{
+ 053c                    void near object::stop():
+ 053c  53                                push    ebx
+ 053d  51                                push    ecx
+ 053e  52                                push    edx
+ 053f  56                                push    esi
+ 0540  57                                push    edi
+ 0541  89 c3                             mov     ebx,eax
+
+ if (r[0]) delete r[0];
+ 0543  8b 50 45                          mov     edx,+45H[eax]
+ 0546  85 d2                             test    edx,edx
+ 0548  74 10                             je      L28
+ 054a  89 d0                             mov     eax,edx
+ 054c  74 0c                             je      L28
+ 054e  31 d2                             xor     edx,edx
+ 0550  e8 00 00 00 00                    call    near region::~region()
+ 0555  e8 00 00 00 00                    call    void near operator delete( void near * )
+
+ if (r[1]) delete r[1];
+ 055a  8b 4b 49          L28             mov     ecx,+49H[ebx]
+ 055d  85 c9                             test    ecx,ecx
+ 055f  74 10                             je      L29
+ 0561  89 c8                             mov     eax,ecx
+ 0563  74 0c                             je      L29
+ 0565  31 d2                             xor     edx,edx
+ 0567  e8 00 00 00 00                    call    near region::~region()
+ 056c  e8 00 00 00 00                    call    void near operator delete( void near * )
+
+ if (r[2]) delete r[2];
+ 0571  8b 73 4d          L29             mov     esi,+4dH[ebx]
+ 0574  85 f6                             test    esi,esi
+ 0576  74 10                             je      L30
+ 0578  89 f0                             mov     eax,esi
+ 057a  74 0c                             je      L30
+ 057c  31 d2                             xor     edx,edx
+ 057e  e8 00 00 00 00                    call    near region::~region()
+ 0583  e8 00 00 00 00                    call    void near operator delete( void near * )
+
+ playing=0; playrepeat=0; //stop playing
+ active=0; //no longer active either
+ 0588  8a 63 41          L30             mov     ah,+41H[ebx]
+ 058b  80 e4 1f                          and     ah,1fH
+
+ if (traj) {delete traj; traj=0;}
+ 058e  8b 7b 57                          mov     edi,+57H[ebx]
+ 0591  88 63 41                          mov     +41H[ebx],ah
+ 0594  85 ff                             test    edi,edi
+ 0596  74 15                             je      L32
+ 0598  89 f8                             mov     eax,edi
+ 059a  74 0a                             je      L31
+ 059c  8b 4f 04                          mov     ecx,+4H[edi]
+ 059f  ba 02 00 00 00                    mov     edx,00000002H
+ 05a4  ff 11                             call    dword ptr [ecx]
+ 05a6  c7 43 57 00 00 00 
+       00                L31             mov     dword ptr +57H[ebx],00000000H
+
+}
+
+//kills this object,sets kill flag
+ 05ad  5f                L32             pop     edi
+ 05ae  5e                                pop     esi
+ 05af  5a                                pop     edx
+ 05b0  59                                pop     ecx
+ 05b1  5b                                pop     ebx
+ 05b2  c3                                ret     
+ 05b3  90                                nop     
+
+void object::kill()
+{
+ 05b4                    void near object::kill():
+ 05b4  53                                push    ebx
+ 05b5  51                                push    ecx
+ 05b6  52                                push    edx
+ 05b7  89 c3                             mov     ebx,eax
+
+ fptr=0;  playing=active=0; killme=1;
+ 05b9  c7 40 26 00 00 00 
+       00                                mov     dword ptr +26H[eax],00000000H
+ 05c0  8a 53 42                          mov     dl,+42H[ebx]
+ 05c3  80 ca 01                          or      dl,01H
+ 05c6  8a 60 41                          mov     ah,+41H[eax]
+ 05c9  88 53 42                          mov     +42H[ebx],dl
+ 05cc  80 e4 9f                          and     ah,9fH
+
+ if (osp)
+  {
+ 05cf  8b 13                             mov     edx,[ebx]
+ 05d1  88 63 41                          mov     +41H[ebx],ah
+ 05d4  85 d2                             test    edx,edx
+ 05d6  74 15                             je      L34
+ 05d8  8b 4a 59                          mov     ecx,+59H[edx]
+
+   if (osp->p==this) osp->setp(0);
+ 05db  89 d0                             mov     eax,edx
+ 05dd  39 cb                             cmp     ebx,ecx
+ 05df  75 07                             jne     L33
+ 05e1  31 d2                             xor     edx,edx
+ 05e3  e8 00 00 00 00                    call    void near objectspace::setp( object near * )
+
+   osp->needdelete++;
+  }
+ 05e8  8b 03             L33             mov     eax,[ebx]
+ 05ea  ff 40 35                          inc     dword ptr +35H[eax]
+
+}
+
+//extern int seriesstarts;
+ 05ed  5a                L34             pop     edx
+ 05ee  59                                pop     ecx
+ 05ef  5b                                pop     ebx
+ 05f0  c3                                ret     
+ 05f1  8d 40 00                          lea     eax,+0H[eax]
+
+int object::startseries(int seriesnum)
+{
+//if suicide
+ 05f4                    int near object::startseries( int ):
+ 05f4  53                                push    ebx
+ 05f5  51                                push    ecx
+ 05f6  89 c3                             mov     ebx,eax
+
+if (seriesnum==SP_SUICIDE)  {kill(); return -1;}
+//if lastforever
+ 05f8  81 fa ff 00 00 00                 cmp     edx,000000ffH
+ 05fe  75 0d                             jne     L35
+ 0600  e8 00 00 00 00                    call    void near object::kill()
+ 0605  b8 ff ff ff ff                    mov     eax,0ffffffffH
+ 060a  59                                pop     ecx
+ 060b  5b                                pop     ebx
+ 060c  c3                                ret     
+
+if (seriesnum==SP_LASTFOREVER) {cf=nf-1; lastforever=1; return -1;}
+ 060d  81 fa fe 00 00 00 L35             cmp     edx,000000feH
+ 0613  75 19                             jne     L36
+ 0615  8a 40 2f                          mov     al,+2fH[eax]
+ 0618  8a 6b 42                          mov     ch,+42H[ebx]
+ 061b  fe c8                             dec     al
+ 061d  80 cd 02                          or      ch,02H
+ 0620  88 43 2e                          mov     +2eH[ebx],al
+ 0623  88 6b 42                          mov     +42H[ebx],ch
+ 0626  b8 ff ff ff ff                    mov     eax,0ffffffffH
+ 062b  59                                pop     ecx
+ 062c  5b                                pop     ebx
+ 062d  c3                                ret     
+
+lastforever=0;
+
+ 062e  8a 60 42          L36             mov     ah,+42H[eax]
+
+csnum=seriesnum;      //number of series
+ 0631  88 53 15                          mov     +15H[ebx],dl
+ 0634  80 e4 fd                          and     ah,0fdH
+
+if (!od->loaded) {fptr=0; return 0;}  //if not loaded, hey, lets get the fuck out of here
+ 0637  8b 4b 11                          mov     ecx,+11H[ebx]
+ 063a  88 63 42                          mov     +42H[ebx],ah
+ 063d  f6 41 04 01                       test    byte ptr +4H[ecx],01H
+ 0641  75 0c                             jne     L37
+ 0643  c7 43 26 00 00 00 
+       00                                mov     dword ptr +26H[ebx],00000000H
+ 064a  31 c0                             xor     eax,eax
+ 064c  59                                pop     ecx
+ 064d  5b                                pop     ebx
+ 064e  c3                                ret     
+
+cs=&od->sd[seriesnum]; //pointer to series
+
+ 064f  8d 04 95 00 00 00 
+       00                L37             lea     eax,+0H[edx*4]
+ 0656  01 d0                             add     eax,edx
+ 0658  c1 e0 03                          shl     eax,03H
+ 065b  01 d0                             add     eax,edx
+ 065d  8b 51 23                          mov     edx,+23H[ecx]
+ 0660  01 c2                             add     edx,eax
+ 0662  89 53 16                          mov     +16H[ebx],edx
+
+nf=cs->nf;  //store number of frames
+ 0665  8a 42 09                          mov     al,+9H[edx]
+ 0668  8d 53 1a                          lea     edx,+1aH[ebx]
+ 066b  88 43 2f                          mov     +2fH[ebx],al
+
+if (!nf) {controlfunc=0; fptr=0; cf=0; return 0;}
+
+ 066e  84 c0                             test    al,al
+ 0670  75 23                             jne     L38
+ 0672  c7 02 00 00 00 00                 mov     dword ptr [edx],00000000H
+ 0678  c7 42 04 00 00 00 
+       00                                mov     dword ptr +4H[edx],00000000H
+ 067f  c7 42 08 00 00 00 
+       00                                mov     dword ptr +8H[edx],00000000H
+ 0686  c7 43 26 00 00 00 
+       00                                mov     dword ptr +26H[ebx],00000000H
+ 068d  88 43 2e                          mov     +2eH[ebx],al
+ 0690  31 c0                             xor     eax,eax
+ 0692  59                                pop     ecx
+ 0693  5b                                pop     ebx
+ 0694  c3                                ret     
+
+controlfunc=object::cfunclist[cs->cfunc]; //get pointer to the control function.
+
+ 0695  8b 43 16          L38             mov     eax,+16H[ebx]
+ 0698  31 c9                             xor     ecx,ecx
+ 069a  8a 48 15                          mov     cl,+15H[eax]
+ 069d  8d 04 8d 00 00 00 
+       00                                lea     eax,+0H[ecx*4]
+ 06a4  29 c8                             sub     eax,ecx
+ 06a6  c1 e0 02                          shl     eax,02H
+ 06a9  05 00 00 00 00                    add     eax,offset int (near object::* near object::cfunclist[])( int )
+ 06ae  8b 08                             mov     ecx,[eax]
+ 06b0  89 0a                             mov     [edx],ecx
+ 06b2  8b 48 04                          mov     ecx,+4H[eax]
+ 06b5  89 4a 04                          mov     +4H[edx],ecx
+ 06b8  8b 40 08                          mov     eax,+8H[eax]
+ 06bb  89 42 08                          mov     +8H[edx],eax
+
+cf=0; fptr=cs->first; //reset to first frame of series
+ 06be  8b 43 16                          mov     eax,+16H[ebx]
+ 06c1  c6 43 2e 00                       mov     byte ptr +2eH[ebx],00H
+ 06c5  8b 00                             mov     eax,[eax]
+
+if (playing)  effect();
+
+ 06c7  8a 53 41                          mov     dl,+41H[ebx]
+ 06ca  89 43 26                          mov     +26H[ebx],eax
+ 06cd  f6 c2 40                          test    dl,40H
+ 06d0  74 08                             je      L39
+ 06d2  8b 53 67                          mov     edx,+67H[ebx]
+ 06d5  89 d8                             mov     eax,ebx
+ 06d7  ff 52 14                          call    dword ptr +14H[edx]
+
+dur=fptr->dur;
+ 06da  8b 43 26          L39             mov     eax,+26H[ebx]
+ 06dd  66 8b 40 02                       mov     ax,+2H[eax]
+ 06e1  25 ff ff 00 00                    and     eax,0000ffffH
+ 06e6  89 43 2a                          mov     +2aH[ebx],eax
+
+updated|=OU_SERIES|OU_FRAME;
+ 06e9  8a 43 41                          mov     al,+41H[ebx]
+ 06ec  8a 73 41                          mov     dh,+41H[ebx]
+ 06ef  24 1f                             and     al,1fH
+ 06f1  80 e6 e0                          and     dh,0e0H
+ 06f4  0c 18                             or      al,18H
+ 06f6  88 f1                             mov     cl,dh
+ 06f8  24 1f                             and     al,1fH
+ 06fa  88 73 41                          mov     +41H[ebx],dh
+ 06fd  08 c1                             or      cl,al
+
+return nf;
+ 06ff  31 c0                             xor     eax,eax
+ 0701  88 4b 41                          mov     +41H[ebx],cl
+ 0704  8a 43 2f                          mov     al,+2fH[ebx]
+
+}
+
+//finds a series from a character name
+ 0707  59                                pop     ecx
+ 0708  5b                                pop     ebx
+ 0709  c3                                ret     
+ 070a  8b c0                             mov     eax,eax
+
+int object::findseries(char *seriesname)
+{
+ 070c                    int near object::findseries( char near * ):
+ 070c  53                                push    ebx
+ 070d  51                                push    ecx
+ 070e  56                                push    esi
+ 070f  57                                push    edi
+ 0710  55                                push    ebp
+ 0711  89 c5                             mov     ebp,eax
+ 0713  89 d7                             mov     edi,edx
+
+ series *s=od->sd;
+ 0715  8b 70 11                          mov     esi,+11H[eax]
+ 0718  8b 76 23                          mov     esi,+23H[esi]
+
+ for (int i=0; i<od->nums; i++,s++)
+ 071b  31 c9                             xor     ecx,ecx
+ 071d  8d 5e 19                          lea     ebx,+19H[esi]
+ 0720  eb 07                             jmp     L41
+ 0722  41                L40             inc     ecx
+ 0723  83 c3 29                          add     ebx,00000029H
+ 0726  83 c6 29                          add     esi,00000029H
+ 0729  8b 45 11          L41             mov     eax,+11H[ebp]
+ 072c  3b 48 1f                          cmp     ecx,+1fH[eax]
+ 072f  7d 11                             jge     L42
+
+  if (!stricmp(s->name,seriesname))  return i;
+ 0731  89 fa                             mov     edx,edi
+ 0733  89 d8                             mov     eax,ebx
+ 0735  e8 00 00 00 00                    call    stricmp_
+ 073a  85 c0                             test    eax,eax
+ 073c  75 e4                             jne     L40
+ 073e  89 c8                             mov     eax,ecx
+ 0740  eb 05                             jmp     L43
+
+ return -1;
+ 0742  b8 ff ff ff ff    L42             mov     eax,0ffffffffH
+
+}
+
+//starts series from a character name
+ 0747  5d                L43             pop     ebp
+ 0748  5f                                pop     edi
+ 0749  5e                                pop     esi
+ 074a  59                                pop     ecx
+ 074b  5b                                pop     ebx
+ 074c  c3                                ret     
+ 074d  8d 40 00                          lea     eax,+0H[eax]
+
+int object::startseries(char *seriesname)
+{
+ 0750                    int near object::startseries( char near * ):
+ 0750  53                                push    ebx
+ 0751  51                                push    ecx
+ 0752  89 c3                             mov     ebx,eax
+
+ int s=findseries(seriesname);
+ 0754  e8 00 00 00 00                    call    int near object::findseries( char near * )
+
+ if (s==-1) return 0;
+
+ 0759  83 f8 ff                          cmp     eax,0ffffffffH
+ 075c  75 05                             jne     L44
+ 075e  31 c0                             xor     eax,eax
+ 0760  59                                pop     ecx
+ 0761  5b                                pop     ebx
+ 0762  c3                                ret     
+
+ return startseries(s);
+ 0763  8b 4b 67          L44             mov     ecx,+67H[ebx]
+ 0766  89 c2                             mov     edx,eax
+ 0768  89 d8                             mov     eax,ebx
+ 076a  ff 51 08                          call    dword ptr +8H[ecx]
+
+}
+
+
+//object constructor
+ 076d  59                                pop     ecx
+ 076e  5b                                pop     ebx
+ 076f  c3                                ret     
+
+object::object(objectdef *objdef,int s,int tx,int ty,int tz,int td, object *c)
+ :osp(0)
+{
+ 0770                    near object::object( objectdef near *, int, int, int, int, int, object near * ):
+ 0770  56                                push    esi
+ 0771  89 c6                             mov     esi,eax
+ 0773  c7 00 00 00 00 00                 mov     dword ptr [eax],00000000H
+ 0779  c7 40 67 00 00 00 
+       00                                mov     dword ptr +67H[eax],offset void (near * const near __vftbl[])()
+
+next=prev=0;
+ 0780  c7 40 04 00 00 00 
+       00                                mov     dword ptr +4H[eax],00000000H
+ 0787  8b 40 04                          mov     eax,+4H[eax]
+
+fptr=0;      //no frame
+playing=active=0; killme=0;
+net=0; //this is not a net object (presumably)
+
+ 078a  c7 46 26 00 00 00 
+       00                                mov     dword ptr +26H[esi],00000000H
+
+r[0]=r[1]=r[2]=0;
+ 0791  c7 46 4d 00 00 00 
+       00                                mov     dword ptr +4dH[esi],00000000H
+
+floor=wall=ceiling=0;
+
+ 0798  c7 46 63 00 00 00 
+       00                                mov     dword ptr +63H[esi],00000000H
+ 079f  89 46 08                          mov     +8H[esi],eax
+ 07a2  8a 66 41                          mov     ah,+41H[esi]
+
+layer=0;
+
+ 07a5  c6 46 43 00                       mov     byte ptr +43H[esi],00H
+ 07a9  80 e4 9f                          and     ah,9fH
+ 07ac  88 66 41                          mov     +41H[esi],ah
+ 07af  8a 46 42                          mov     al,+42H[esi]
+
+od=objdef;       //bind to objectdef
+ 07b2  89 56 11                          mov     +11H[esi],edx
+ 07b5  24 f6                             and     al,0f6H
+ 07b7  88 46 42                          mov     +42H[esi],al
+ 07ba  8b 46 4d                          mov     eax,+4dH[esi]
+ 07bd  89 46 49                          mov     +49H[esi],eax
+ 07c0  89 46 45                          mov     +45H[esi],eax
+ 07c3  8b 46 63                          mov     eax,+63H[esi]
+ 07c6  89 46 5f                          mov     +5fH[esi],eax
+ 07c9  89 46 5b                          mov     +5bH[esi],eax
+
+onum=od->onum;   //store ordinal object type
+ 07cc  8a 42 06                          mov     al,+6H[edx]
+ 07cf  88 46 10                          mov     +10H[esi],al
+
+creator=c;       //set creator
+
+//initialize position
+ 07d2  8b 44 24 14                       mov     eax,+14H[esp]
+ 07d6  89 46 0c                          mov     +0cH[esi],eax
+
+x=tx<<16; y=ty<<16; z=tz<<16; d=td;
+updated=OU_X|OU_Y|OU_Z; //position changed 421
+ 07d9  8b 44 24 08                       mov     eax,+8H[esp]
+ 07dd  c1 e0 10                          shl     eax,10H
+ 07e0  89 46 34                          mov     +34H[esi],eax
+ 07e3  8b 44 24 0c                       mov     eax,+0cH[esp]
+
+ 07e7  c7 46 57 00 00 00 
+       00                                mov     dword ptr +57H[esi],00000000H
+ 07ee  c1 e0 10                          shl     eax,10H
+ 07f1  89 46 38                          mov     +38H[esi],eax
+ 07f4  8a 44 24 10                       mov     al,+10H[esp]
+ 07f8  88 46 40                          mov     +40H[esi],al
+ 07fb  c1 e1 10                          shl     ecx,10H
+
+traj=0;
+
+//msg.printf(2,"%d,%d,%d",x>>16,y>>16,z>>16);
+
+//bind to null input
+ 07fe  8a 66 41                          mov     ah,+41H[esi]
+
+in=NULL;
+
+//load object
+ 0801  c7 46 53 00 00 00 
+       00                                mov     dword ptr +53H[esi],00000000H
+ 0808  80 e4 e0                          and     ah,0e0H
+ 080b  89 4e 30                          mov     +30H[esi],ecx
+ 080e  88 e2                             mov     dl,ah
+ 0810  88 66 41                          mov     +41H[esi],ah
+ 0813  80 ca 07                          or      dl,07H
+
+od->load(); //load objectdef into memory (if not loaded already, inc ref count)
+
+//link to objectspace
+ 0816  8b 46 11                          mov     eax,+11H[esi]
+ 0819  88 56 41                          mov     +41H[esi],dl
+ 081c  e8 00 00 00 00                    call    int near objectdef::load()
+
+od->osp->addobject(this);
+
+//activate object
+ 0821  8b 46 11                          mov     eax,+11H[esi]
+ 0824  89 f2                             mov     edx,esi
+ 0826  8b 00                             mov     eax,[eax]
+ 0828  e8 00 00 00 00                    call    object near * near objectspace::addobject( object near * )
+
+if (s!=-1) activate(s);
+ 082d  83 fb ff                          cmp     ebx,0ffffffffH
+ 0830  74 09                             je      L45
+ 0832  89 da                             mov     edx,ebx
+ 0834  89 f0                             mov     eax,esi
+ 0836  e8 00 00 00 00                    call    void near object::activate( int )
+
+}
+
+ 083b  89 f0             L45             mov     eax,esi
+ 083d  5e                                pop     esi
+ 083e  c2 10 00                          ret     0010H
+ 0841  8d 40 00                          lea     eax,+0H[eax]
+
+object::~object()
+{
+ //unbind from input
+ 0844                    near object::~object():
+ 0844  53                                push    ebx
+ 0845  51                                push    ecx
+ 0846  56                                push    esi
+ 0847  57                                push    edi
+ 0848  55                                push    ebp
+ 0849  89 c3                             mov     ebx,eax
+ 084b  89 d1                             mov     ecx,edx
+ 084d  f6 c1 04                          test    cl,04H
+ 0850  74 14                             je      L46
+ 0852  ba 00 00 00 00                    mov     edx,offset char unsigned const near __typesig[]
+ 0857  e8 00 00 00 00                    call    __wcpp_2_dtor_array_store__
+ 085c  e8 00 00 00 00                    call    void near operator delete []( void near * )
+ 0861  e9 8a 00 00 00                    jmp     L52
+ 0866  c7 40 67 00 00 00 
+       00                L46             mov     dword ptr +67H[eax],offset void (near * const near __vftbl[])()
+
+in->unbind();
+ //dereference object
+ 086d  8b 40 53                          mov     eax,+53H[eax]
+ 0870  e8 00 00 00 00                    call    void near input::unbind()
+
+od->kill();
+
+ //delete regions
+ 0875  8b 43 11                          mov     eax,+11H[ebx]
+ 0878  e8 00 00 00 00                    call    void near objectdef::kill()
+
+if (r[0]) delete r[0];
+ 087d  8b 53 45                          mov     edx,+45H[ebx]
+ 0880  85 d2                             test    edx,edx
+ 0882  74 10                             je      L47
+ 0884  89 d0                             mov     eax,edx
+ 0886  74 0c                             je      L47
+ 0888  31 d2                             xor     edx,edx
+ 088a  e8 00 00 00 00                    call    near region::~region()
+ 088f  e8 00 00 00 00                    call    void near operator delete( void near * )
+
+if (r[1]) delete r[1];
+ 0894  8b 73 49          L47             mov     esi,+49H[ebx]
+ 0897  85 f6                             test    esi,esi
+ 0899  74 10                             je      L48
+ 089b  89 f0                             mov     eax,esi
+ 089d  74 0c                             je      L48
+ 089f  31 d2                             xor     edx,edx
+ 08a1  e8 00 00 00 00                    call    near region::~region()
+ 08a6  e8 00 00 00 00                    call    void near operator delete( void near * )
+
+if (r[2]) delete r[2];
+ 08ab  8b 7b 4d          L48             mov     edi,+4dH[ebx]
+ 08ae  85 ff                             test    edi,edi
+ 08b0  74 10                             je      L49
+ 08b2  89 f8                             mov     eax,edi
+ 08b4  74 0c                             je      L49
+ 08b6  31 d2                             xor     edx,edx
+ 08b8  e8 00 00 00 00                    call    near region::~region()
+ 08bd  e8 00 00 00 00                    call    void near operator delete( void near * )
+
+if (traj) delete traj;
+
+ //unlink from objectspace
+ 08c2  8b 6b 57          L49             mov     ebp,+57H[ebx]
+ 08c5  85 ed                             test    ebp,ebp
+ 08c7  74 0e                             je      L50
+ 08c9  89 e8                             mov     eax,ebp
+ 08cb  74 0a                             je      L50
+ 08cd  8b 75 04                          mov     esi,+4H[ebp]
+ 08d0  ba 02 00 00 00                    mov     edx,00000002H
+ 08d5  ff 16                             call    dword ptr [esi]
+
+if (osp) osp->removeobject(this);
+ 08d7  8b 03             L50             mov     eax,[ebx]
+ 08d9  85 c0                             test    eax,eax
+ 08db  74 07                             je      L51
+ 08dd  89 da                             mov     edx,ebx
+ 08df  e8 00 00 00 00                    call    void near objectspace::removeobject( object near * )
+
+}
+
+
+
+ 08e4  f6 c1 02          L51             test    cl,02H
+ 08e7  74 07                             je      L52
+ 08e9  89 d8                             mov     eax,ebx
+ 08eb  e8 00 00 00 00                    call    void near operator delete( void near * )
+ 08f0  89 d8             L52             mov     eax,ebx
+ 08f2  5d                                pop     ebp
+ 08f3  5f                                pop     edi
+ 08f4  5e                                pop     esi
+ 08f5  59                                pop     ecx
+ 08f6  5b                                pop     ebx
+ 08f7  c3                                ret     
+
+int object::hitground(int groundy)
+{
+ 08f8                    int near object::hitground( int ):
+ 08f8  53                                push    ebx
+ 08f9  51                                push    ecx
+ 08fa  56                                push    esi
+ 08fb  57                                push    edi
+ 08fc  55                                push    ebp
+ 08fd  89 c6                             mov     esi,eax
+
+ if (y<=groundy || !cs || (cs->parm&SP_NOGROUND)) return 0; //this object doesn't hit ground
+
+ 08ff  3b 50 34                          cmp     edx,+34H[eax]
+ 0902  7d 0d                             jge     L53
+ 0904  8b 48 16                          mov     ecx,+16H[eax]
+ 0907  85 c9                             test    ecx,ecx
+ 0909  74 06                             je      L53
+ 090b  f6 41 0a 02                       test    byte ptr +0aH[ecx],02H
+ 090f  74 07                             je      L54
+ 0911  31 c0             L53             xor     eax,eax
+ 0913  e9 a8 00 00 00                    jmp     L62
+
+ y=groundy; updated|=OU_Y;
+ 0918  89 50 34          L54             mov     +34H[eax],edx
+ 091b  8a 40 41                          mov     al,+41H[eax]
+ 091e  8a 7e 41                          mov     bh,+41H[esi]
+ 0921  24 1f                             and     al,1fH
+ 0923  80 e7 e0                          and     bh,0e0H
+ 0926  0c 02                             or      al,02H
+ 0928  88 f9                             mov     cl,bh
+ 092a  24 1f                             and     al,1fH
+ 092c  88 7e 41                          mov     +41H[esi],bh
+ 092f  08 c1                             or      cl,al
+
+ if (traj) delete traj; //stop jump
+
+ //do ground hit
+ 0931  8b 7e 57                          mov     edi,+57H[esi]
+ 0934  88 4e 41                          mov     +41H[esi],cl
+ 0937  85 ff                             test    edi,edi
+ 0939  74 0e                             je      L55
+ 093b  89 f8                             mov     eax,edi
+ 093d  74 0a                             je      L55
+ 093f  8b 4f 04                          mov     ecx,+4H[edi]
+ 0942  ba 02 00 00 00                    mov     edx,00000002H
+ 0947  ff 11                             call    dword ptr [ecx]
+
+ if (fptr)
+ {
+ 0949  8b 6e 26          L55             mov     ebp,+26H[esi]
+ 094c  85 ed                             test    ebp,ebp
+ 094e  74 52                             je      L60
+
+  class effect *t=fptr->geteffectptr();
+ 0950  89 ea                             mov     edx,ebp
+ 0952  75 04                             jne     L56
+ 0954  31 c0                             xor     eax,eax
+ 0956  eb 16                             jmp     L57
+ 0958  31 c9             L56             xor     ecx,ecx
+ 095a  8a 4d 0d                          mov     cl,+0dH[ebp]
+ 095d  8d 04 8d 00 00 00 
+       00                                lea     eax,+0H[ecx*4]
+ 0964  29 c8                             sub     eax,ecx
+ 0966  8d 0c 00                          lea     ecx,[eax+eax]
+ 0969  8d 45 0e                          lea     eax,+0eH[ebp]
+ 096c  01 c8                             add     eax,ecx
+
+  for (int i=fptr->numextra; i>0; i--,t=t->next())
+ 096e  8b 7e 26          L57             mov     edi,+26H[esi]
+ 0971  0f b6 7f 0a                       movzx   edi,byte ptr +0aH[edi]
+ 0975  89 c1                             mov     ecx,eax
+ 0977  eb 0a                             jmp     L59
+ 0979  89 c8             L58             mov     eax,ecx
+ 097b  4f                                dec     edi
+ 097c  e8 00 00 00 00                    call    int near effect::size()
+ 0981  01 c1                             add     ecx,eax
+ 0983  85 ff             L59             test    edi,edi
+ 0985  7e 1b                             jle     L60
+
+     if (t->type==E_ONHITGROUND) t->hittrigger(this,0);
+ }
+
+ //go to next frame with no y movement
+ 0987  8a 01                             mov     al,[ecx]
+ 0989  24 7f                             and     al,7fH
+ 098b  25 ff 00 00 00                    and     eax,000000ffH
+ 0990  83 f8 10                          cmp     eax,00000010H
+ 0993  75 e4                             jne     L58
+ 0995  89 f2                             mov     edx,esi
+ 0997  89 c8                             mov     eax,ecx
+ 0999  31 db                             xor     ebx,ebx
+ 099b  e8 00 00 00 00                    call    void near effect::hittrigger( object near *, lpoint near * )
+ 09a0  eb d7                             jmp     L58
+
+ while (!advanceframe() && fptr->dy>0);
+
+ 09a2  8b 4e 67          L60             mov     ecx,+67H[esi]
+ 09a5  89 f0                             mov     eax,esi
+ 09a7  ff 51 10                          call    dword ptr +10H[ecx]
+ 09aa  85 c0                             test    eax,eax
+ 09ac  75 0d                             jne     L61
+ 09ae  8b 46 26                          mov     eax,+26H[esi]
+ 09b1  8b 40 06                          mov     eax,+6H[eax]
+ 09b4  c1 f8 10                          sar     eax,10H
+ 09b7  85 c0                             test    eax,eax
+ 09b9  7f e7                             jg      L60
+
+ return 1;
+ 09bb  b8 01 00 00 00    L61             mov     eax,00000001H
+
+}
+
+//make this character fall (if above the bg ground level)
+ 09c0  5d                L62             pop     ebp
+ 09c1  5f                                pop     edi
+ 09c2  5e                                pop     esi
+ 09c3  59                                pop     ecx
+ 09c4  5b                                pop     ebx
+ 09c5  c3                                ret     
+ 09c6  8b c0                             mov     eax,eax
+
+void object::falldown()
+{
+ 09c8                    void near object::falldown():
+ 09c8  53                                push    ebx
+ 09c9  52                                push    edx
+
+ if  (y<basey) //nothing below us
+  {
+ 09ca  8b 50 34                          mov     edx,+34H[eax]
+ 09cd  3b 50 3c                          cmp     edx,+3cH[eax]
+ 09d0  7d 2b                             jge     L64
+
+   if (!(cs->parm&SP_NOFALLDOWN))
+     {
+ 09d2  8b 50 16                          mov     edx,+16H[eax]
+ 09d5  f6 42 0a 04                       test    byte ptr +0aH[edx],04H
+ 09d9  75 22                             jne     L64
+
+      if (cs->falldown) startseries(cs->falldown);
+ 09db  80 7a 16 00                       cmp     byte ptr +16H[edx],00H
+ 09df  74 12                             je      L63
+ 09e1  8b 58 67                          mov     ebx,+67H[eax]
+ 09e4  8a 52 16                          mov     dl,+16H[edx]
+ 09e7  81 e2 ff 00 00 00                 and     edx,000000ffH
+ 09ed  ff 53 08                          call    dword ptr +8H[ebx]
+ 09f0  5a                                pop     edx
+ 09f1  5b                                pop     ebx
+ 09f2  c3                                ret     
+
+                   else startseries("falldown");
+      return;
+     }
+//   if ((cs->parm&SP_MOVEDOWN) && !traj)
+//    move(0,2<<8,0); //make us move down
+  }
+ 09f3  ba 00 00 00 00    L63             mov     edx,offset L121
+ 09f8  e8 00 00 00 00                    call    int near object::startseries( char near * )
+
+}
+
+ 09fd  5a                L64             pop     edx
+ 09fe  5b                                pop     ebx
+ 09ff  c3                                ret     
+
+void object::flip()
+{
+ 0a00                    void near object::flip():
+ 0a00  53                                push    ebx
+ 0a01  52                                push    edx
+
+ d^=1;
+ 0a02  80 70 40 01                       xor     byte ptr +40H[eax],01H
+
+ updated|=OU_X;
+ 0a06  8a 50 41                          mov     dl,+41H[eax]
+ 0a09  80 e2 1f                          and     dl,1fH
+ 0a0c  80 ca 01                          or      dl,01H
+ 0a0f  80 e2 1f                          and     dl,1fH
+ 0a12  8a 70 41                          mov     dh,+41H[eax]
+ 0a15  80 e6 e0                          and     dh,0e0H
+ 0a18  88 f3                             mov     bl,dh
+ 0a1a  88 70 41                          mov     +41H[eax],dh
+ 0a1d  08 d3                             or      bl,dl
+ 0a1f  88 58 41                          mov     +41H[eax],bl
+
+}
+
+
+ 0a22  5a                                pop     edx
+ 0a23  5b                                pop     ebx
+ 0a24  c3                                ret     
+ 0a25  8d 40 00                          lea     eax,+0H[eax]
+
+int object::hitwallright()
+{
+ 0a28                    int near object::hitwallright():
+ 0a28  53                                push    ebx
+ 0a29  51                                push    ecx
+ 0a2a  52                                push    edx
+ 0a2b  56                                push    esi
+ 0a2c  57                                push    edi
+ 0a2d  89 c3                             mov     ebx,eax
+
+ if (!osp->bg || !r[0]) return 0;
+
+ 0a2f  8b 00                             mov     eax,[eax]
+ 0a31  83 78 5d 00                       cmp     dword ptr +5dH[eax],00000000H
+ 0a35  74 07                             je      L65
+ 0a37  8b 4b 45                          mov     ecx,+45H[ebx]
+ 0a3a  85 c9                             test    ecx,ecx
+ 0a3c  75 07                             jne     L66
+ 0a3e  31 c0             L65             xor     eax,eax
+ 0a40  e9 79 00 00 00                    jmp     L71
+
+ if (!wall || wall->type!=BGL_WALLRIGHT || !wall->wallrightintersect(r[0]->r))
+ 0a45  8b 73 5f          L66             mov     esi,+5fH[ebx]
+ 0a48  85 f6                             test    esi,esi
+ 0a4a  74 17                             je      L67
+ 0a4c  31 d2                             xor     edx,edx
+ 0a4e  8a 16                             mov     dl,[esi]
+ 0a50  89 f0                             mov     eax,esi
+ 0a52  83 fa 03                          cmp     edx,00000003H
+ 0a55  75 0c                             jne     L67
+ 0a57  8d 51 25                          lea     edx,+25H[ecx]
+ 0a5a  e8 00 00 00 00                    call    int near bgline::wallrightintersect( lrect near & )
+ 0a5f  85 c0                             test    eax,eax
+ 0a61  75 13                             jne     L68
+
+      wall=osp->bg->hitwallright(r[0]->r);
+ 0a63  8b 53 45          L67             mov     edx,+45H[ebx]
+ 0a66  8b 03                             mov     eax,[ebx]
+ 0a68  83 c2 25                          add     edx,00000025H
+ 0a6b  8b 40 5d                          mov     eax,+5dH[eax]
+ 0a6e  e8 00 00 00 00                    call    bgline near * near bgobject::hitwallright( lrect near & )
+ 0a73  89 43 5f                          mov     +5fH[ebx],eax
+
+ if (!wall) return 0; //we didn't hit no wall
+
+ 0a76  8b 7b 5f          L68             mov     edi,+5fH[ebx]
+ 0a79  85 ff                             test    edi,edi
+ 0a7b  75 08                             jne     L69
+ 0a7d  31 c0                             xor     eax,eax
+ 0a7f  5f                                pop     edi
+ 0a80  5e                                pop     esi
+ 0a81  5a                                pop     edx
+ 0a82  59                                pop     ecx
+ 0a83  5b                                pop     ebx
+ 0a84  c3                                ret     
+ 0a85  8b 57 03          L69             mov     edx,+3H[edi]
+ 0a88  8b 4b 3c                          mov     ecx,+3cH[ebx]
+ 0a8b  c1 fa 10                          sar     edx,10H
+ 0a8e  c1 f9 10                          sar     ecx,10H
+ 0a91  83 c2 03                          add     edx,00000003H
+
+ if ((basey>>16)<wall->y1+3) return 0;
+ 0a94  89 f8                             mov     eax,edi
+ 0a96  39 d1                             cmp     ecx,edx
+ 0a98  7d 08                             jge     L70
+ 0a9a  31 f8                             xor     eax,edi
+ 0a9c  5f                                pop     edi
+ 0a9d  5e                                pop     esi
+ 0a9e  5a                                pop     edx
+ 0a9f  59                                pop     ecx
+ 0aa0  5b                                pop     ebx
+ 0aa1  c3                                ret     
+
+ return x=((wall->calcx(r[0]->r.y2)-r[0]->e->r.p2.x)<<16);
+ 0aa2  8b 53 45          L70             mov     edx,+45H[ebx]
+ 0aa5  8b 4a 21                          mov     ecx,+21H[edx]
+ 0aa8  8b 49 06                          mov     ecx,+6H[ecx]
+ 0aab  8b 52 31                          mov     edx,+31H[edx]
+ 0aae  c1 f9 10                          sar     ecx,10H
+ 0ab1  e8 00 00 00 00                    call    int near bgline::calcx( int )
+ 0ab6  29 c8                             sub     eax,ecx
+ 0ab8  c1 e0 10                          shl     eax,10H
+ 0abb  89 43 30                          mov     +30H[ebx],eax
+
+}
+
+ 0abe  5f                L71             pop     edi
+ 0abf  5e                                pop     esi
+ 0ac0  5a                                pop     edx
+ 0ac1  59                                pop     ecx
+ 0ac2  5b                                pop     ebx
+ 0ac3  c3                                ret     
+
+int object::hitwallleft()
+{
+ 0ac4                    int near object::hitwallleft():
+ 0ac4  53                                push    ebx
+ 0ac5  51                                push    ecx
+ 0ac6  52                                push    edx
+ 0ac7  56                                push    esi
+ 0ac8  57                                push    edi
+ 0ac9  89 c3                             mov     ebx,eax
+
+ if (!osp->bg || !r[0]) return 0;
+
+ 0acb  8b 00                             mov     eax,[eax]
+ 0acd  83 78 5d 00                       cmp     dword ptr +5dH[eax],00000000H
+ 0ad1  74 07                             je      L72
+ 0ad3  8b 4b 45                          mov     ecx,+45H[ebx]
+ 0ad6  85 c9                             test    ecx,ecx
+ 0ad8  75 07                             jne     L73
+ 0ada  31 c0             L72             xor     eax,eax
+ 0adc  e9 79 00 00 00                    jmp     L78
+
+ if (!wall || wall->type!=BGL_WALLLEFT || !wall->wallleftintersect(r[0]->r))
+ 0ae1  8b 73 5f          L73             mov     esi,+5fH[ebx]
+ 0ae4  85 f6                             test    esi,esi
+ 0ae6  74 17                             je      L74
+ 0ae8  31 d2                             xor     edx,edx
+ 0aea  8a 16                             mov     dl,[esi]
+ 0aec  89 f0                             mov     eax,esi
+ 0aee  83 fa 02                          cmp     edx,00000002H
+ 0af1  75 0c                             jne     L74
+ 0af3  8d 51 25                          lea     edx,+25H[ecx]
+ 0af6  e8 00 00 00 00                    call    int near bgline::wallleftintersect( lrect near & )
+ 0afb  85 c0                             test    eax,eax
+ 0afd  75 13                             jne     L75
+
+       wall=osp->bg->hitwallleft(r[0]->r);
+ 0aff  8b 53 45          L74             mov     edx,+45H[ebx]
+ 0b02  8b 03                             mov     eax,[ebx]
+ 0b04  83 c2 25                          add     edx,00000025H
+ 0b07  8b 40 5d                          mov     eax,+5dH[eax]
+ 0b0a  e8 00 00 00 00                    call    bgline near * near bgobject::hitwallleft( lrect near & )
+ 0b0f  89 43 5f                          mov     +5fH[ebx],eax
+
+ if (!wall) return 0; //we didn't hit no wall
+
+ 0b12  8b 7b 5f          L75             mov     edi,+5fH[ebx]
+ 0b15  85 ff                             test    edi,edi
+ 0b17  75 08                             jne     L76
+ 0b19  31 c0                             xor     eax,eax
+ 0b1b  5f                                pop     edi
+ 0b1c  5e                                pop     esi
+ 0b1d  5a                                pop     edx
+ 0b1e  59                                pop     ecx
+ 0b1f  5b                                pop     ebx
+ 0b20  c3                                ret     
+ 0b21  8b 57 03          L76             mov     edx,+3H[edi]
+ 0b24  8b 4b 3c                          mov     ecx,+3cH[ebx]
+ 0b27  c1 fa 10                          sar     edx,10H
+ 0b2a  c1 f9 10                          sar     ecx,10H
+ 0b2d  83 c2 03                          add     edx,00000003H
+
+ if ((basey>>16)<wall->y1+3) return 0;
+ 0b30  89 f8                             mov     eax,edi
+ 0b32  39 d1                             cmp     ecx,edx
+ 0b34  7d 08                             jge     L77
+ 0b36  31 f8                             xor     eax,edi
+ 0b38  5f                                pop     edi
+ 0b39  5e                                pop     esi
+ 0b3a  5a                                pop     edx
+ 0b3b  59                                pop     ecx
+ 0b3c  5b                                pop     ebx
+ 0b3d  c3                                ret     
+
+ return x=((wall->calcx(r[0]->r.y2)+r[0]->e->r.p2.x)<<16);
+ 0b3e  8b 53 45          L77             mov     edx,+45H[ebx]
+ 0b41  8b 4a 21                          mov     ecx,+21H[edx]
+ 0b44  8b 49 06                          mov     ecx,+6H[ecx]
+ 0b47  8b 52 31                          mov     edx,+31H[edx]
+ 0b4a  c1 f9 10                          sar     ecx,10H
+ 0b4d  e8 00 00 00 00                    call    int near bgline::calcx( int )
+ 0b52  01 c8                             add     eax,ecx
+ 0b54  c1 e0 10                          shl     eax,10H
+ 0b57  89 43 30                          mov     +30H[ebx],eax
+
+}
+
+
+ 0b5a  5f                L78             pop     edi
+ 0b5b  5e                                pop     esi
+ 0b5c  5a                                pop     edx
+ 0b5d  59                                pop     ecx
+ 0b5e  5b                                pop     ebx
+ 0b5f  c3                                ret     
+
+int object::hitceiling()
+{
+ 0b60                    int near object::hitceiling():
+ 0b60  53                                push    ebx
+ 0b61  51                                push    ecx
+ 0b62  52                                push    edx
+ 0b63  56                                push    esi
+ 0b64  57                                push    edi
+ 0b65  89 c3                             mov     ebx,eax
+
+ if (!osp->bg || !r[0]) return 0;
+
+ 0b67  8b 00                             mov     eax,[eax]
+ 0b69  83 78 5d 00                       cmp     dword ptr +5dH[eax],00000000H
+ 0b6d  74 07                             je      L79
+ 0b6f  8b 4b 45                          mov     ecx,+45H[ebx]
+ 0b72  85 c9                             test    ecx,ecx
+ 0b74  75 04                             jne     L80
+ 0b76  31 c0             L79             xor     eax,eax
+ 0b78  eb 58                             jmp     L84
+
+ if (!ceiling || !ceiling->ceilingintersect(r[0]->r))
+ 0b7a  8b 73 63          L80             mov     esi,+63H[ebx]
+ 0b7d  85 f6                             test    esi,esi
+ 0b7f  74 0e                             je      L81
+ 0b81  8d 51 25                          lea     edx,+25H[ecx]
+ 0b84  89 f0                             mov     eax,esi
+ 0b86  e8 00 00 00 00                    call    int near bgline::ceilingintersect( lrect near & )
+ 0b8b  85 c0                             test    eax,eax
+ 0b8d  75 13                             jne     L82
+
+       ceiling=osp->bg->hitceiling(r[0]->r);
+ 0b8f  8b 53 45          L81             mov     edx,+45H[ebx]
+ 0b92  8b 03                             mov     eax,[ebx]
+ 0b94  83 c2 25                          add     edx,00000025H
+ 0b97  8b 40 5d                          mov     eax,+5dH[eax]
+ 0b9a  e8 00 00 00 00                    call    bgline near * near bgobject::hitceiling( lrect near & )
+ 0b9f  89 43 63                          mov     +63H[ebx],eax
+
+ if (!ceiling) return 0; //we didn't hit no ceiling
+
+ 0ba2  8b 7b 63          L82             mov     edi,+63H[ebx]
+ 0ba5  85 ff                             test    edi,edi
+ 0ba7  75 08                             jne     L83
+ 0ba9  31 c0                             xor     eax,eax
+ 0bab  5f                                pop     edi
+ 0bac  5e                                pop     esi
+ 0bad  5a                                pop     edx
+ 0bae  59                                pop     ecx
+ 0baf  5b                                pop     ebx
+ 0bb0  c3                                ret     
+
+ return y=((ceiling->calcy(x>>16)-r[0]->e->r.p1.y)<<16);
+ 0bb1  8b 43 45          L83             mov     eax,+45H[ebx]
+ 0bb4  8b 53 30                          mov     edx,+30H[ebx]
+ 0bb7  8b 40 21                          mov     eax,+21H[eax]
+ 0bba  c1 fa 10                          sar     edx,10H
+ 0bbd  8b 48 04                          mov     ecx,+4H[eax]
+ 0bc0  89 f8                             mov     eax,edi
+ 0bc2  c1 f9 10                          sar     ecx,10H
+ 0bc5  e8 00 00 00 00                    call    int near bgline::calcy( int )
+ 0bca  29 c8                             sub     eax,ecx
+ 0bcc  c1 e0 10                          shl     eax,10H
+ 0bcf  89 43 34                          mov     +34H[ebx],eax
+
+}
+
+
+//moves absolutely with <<16 based coords
+ 0bd2  5f                L84             pop     edi
+ 0bd3  5e                                pop     esi
+ 0bd4  5a                                pop     edx
+ 0bd5  59                                pop     ecx
+ 0bd6  5b                                pop     ebx
+ 0bd7  c3                                ret     
+
+void object::moveabs(int tx, int ty, int tz)
+{
+ //move X
+ 0bd8                    void near object::moveabs( int, int, int ):
+ 0bd8  56                                push    esi
+ 0bd9  55                                push    ebp
+ 0bda  89 c6                             mov     esi,eax
+
+ if (tx)
+  {
+ 0bdc  85 d2                             test    edx,edx
+ 0bde  74 62                             je      L89
+
+   x+=tx; updated|=OU_X;
+
+   //hit wall
+ 0be0  01 50 30                          add     +30H[eax],edx
+ 0be3  8a 40 41                          mov     al,+41H[eax]
+ 0be6  24 1f                             and     al,1fH
+ 0be8  0c 01                             or      al,01H
+ 0bea  24 1f                             and     al,1fH
+ 0bec  8a 66 41                          mov     ah,+41H[esi]
+ 0bef  80 e4 e0                          and     ah,0e0H
+ 0bf2  88 66 41                          mov     +41H[esi],ah
+ 0bf5  08 c4                             or      ah,al
+ 0bf7  88 66 41                          mov     +41H[esi],ah
+
+   if (tx>0) hitwallright();
+ 0bfa  85 d2                             test    edx,edx
+ 0bfc  7e 09                             jle     L85
+ 0bfe  89 f0                             mov     eax,esi
+ 0c00  e8 00 00 00 00                    call    int near object::hitwallright()
+ 0c05  eb 07                             jmp     L86
+
+        else hitwallleft();
+
+ 0c07  89 f0             L85             mov     eax,esi
+ 0c09  e8 00 00 00 00                    call    int near object::hitwallleft()
+
+   if (y==basey)  //we're on a floor
+    {
+ 0c0e  8b 46 34          L86             mov     eax,+34H[esi]
+ 0c11  3b 46 3c                          cmp     eax,+3cH[esi]
+ 0c14  75 25                             jne     L88
+
+     getbasey();
+ 0c16  89 f0                             mov     eax,esi
+ 0c18  e8 00 00 00 00                    call    int near object::getbasey()
+
+     int dy=basey-y;  //get change in floor
+ 0c1d  8b 46 3c                          mov     eax,+3cH[esi]
+ 0c20  2b 46 34                          sub     eax,+34H[esi]
+
+     if (dy<(5<<16)) y=basey;//follow floor
+ 0c23  3d 00 00 05 00                    cmp     eax,00050000H
+ 0c28  7d 08                             jge     L87
+ 0c2a  8b 46 3c                          mov     eax,+3cH[esi]
+ 0c2d  89 46 34                          mov     +34H[esi],eax
+ 0c30  eb 10                             jmp     L89
+
+               else falldown();
+ 0c32  89 f0             L87             mov     eax,esi
+ 0c34  e8 00 00 00 00                    call    void near object::falldown()
+ 0c39  eb 07                             jmp     L89
+
+    } else getbasey();
+  }
+
+ //move Y
+ 0c3b  89 f0             L88             mov     eax,esi
+ 0c3d  e8 00 00 00 00                    call    int near object::getbasey()
+
+ if (ty)
+  {
+ 0c42  85 db             L89             test    ebx,ebx
+ 0c44  74 48                             je      L91
+
+   y+=ty; updated|=OU_Y;
+   //hit ceiling
+ 0c46  8a 46 41                          mov     al,+41H[esi]
+ 0c49  24 1f                             and     al,1fH
+ 0c4b  0c 02                             or      al,02H
+ 0c4d  8b 6e 34                          mov     ebp,+34H[esi]
+ 0c50  24 1f                             and     al,1fH
+ 0c52  01 dd                             add     ebp,ebx
+ 0c54  8a 66 41                          mov     ah,+41H[esi]
+ 0c57  89 6e 34                          mov     +34H[esi],ebp
+ 0c5a  80 e4 e0                          and     ah,0e0H
+ 0c5d  88 66 41                          mov     +41H[esi],ah
+ 0c60  08 c4                             or      ah,al
+ 0c62  88 66 41                          mov     +41H[esi],ah
+
+   if (ty<0) //going up...
+    {
+ 0c65  85 db                             test    ebx,ebx
+ 0c67  7d 14                             jge     L90
+
+     hitceiling();
+ 0c69  89 f0                             mov     eax,esi
+ 0c6b  e8 00 00 00 00                    call    int near object::hitceiling()
+
+     if (!tx) getbasey();
+ 0c70  85 d2                             test    edx,edx
+ 0c72  75 1a                             jne     L91
+ 0c74  89 f0                             mov     eax,esi
+ 0c76  e8 00 00 00 00                    call    int near object::getbasey()
+ 0c7b  eb 11                             jmp     L91
+
+    } else   //going down.....
+    {
+     ceiling=0;
+ 0c7d  89 f0             L90             mov     eax,esi
+
+ 0c7f  8b 56 3c                          mov     edx,+3cH[esi]
+
+     hitground(basey);
+    }
+  }
+ //move Z
+ 0c82  c7 46 63 00 00 00 
+       00                                mov     dword ptr +63H[esi],00000000H
+ 0c89  e8 00 00 00 00                    call    int near object::hitground( int )
+
+ if (tz) {z+=tz; updated|=OU_Z; }
+ 0c8e  85 c9             L91             test    ecx,ecx
+ 0c90  74 1c                             je      L92
+ 0c92  01 4e 38                          add     +38H[esi],ecx
+ 0c95  8a 56 41                          mov     dl,+41H[esi]
+ 0c98  8a 46 41                          mov     al,+41H[esi]
+ 0c9b  80 e2 e0                          and     dl,0e0H
+ 0c9e  24 1f                             and     al,1fH
+ 0ca0  88 56 41                          mov     +41H[esi],dl
+ 0ca3  0c 04                             or      al,04H
+ 0ca5  88 d6                             mov     dh,dl
+ 0ca7  24 1f                             and     al,1fH
+ 0ca9  08 c6                             or      dh,al
+ 0cab  88 76 41                          mov     +41H[esi],dh
+
+}
+
+
+
+
+ 0cae  5d                L92             pop     ebp
+ 0caf  5e                                pop     esi
+ 0cb0  c3                                ret     
+ 0cb1  8d 40 00                          lea     eax,+0H[eax]
+
+void object::move(int tx, int ty, int tz)
+{
+ 0cb4                    void near object::move( int, int, int ):
+ 0cb4  c1 e3 08                          shl     ebx,08H
+ 0cb7  c1 e1 08                          shl     ecx,08H
+
+ if (!d) moveabs(tx<<8,ty<<8,tz<<8);
+ 0cba  80 78 40 00                       cmp     byte ptr +40H[eax],00H
+ 0cbe  74 02                             je      L93
+
+   else  moveabs(-tx<<8,ty<<8,tz<<8);
+ 0cc0  f7 da                             neg     edx
+ 0cc2  c1 e2 08          L93             shl     edx,08H
+ 0cc5  e8 00 00 00 00                    call    void near object::moveabs( int, int, int )
+
+}
+
+
+
+
+ 0cca  c3                                ret     
+ 0ccb  90                                nop     
+
+void object::resort()
+{
+ 0ccc                    void near object::resort():
+ 0ccc  53                                push    ebx
+ 0ccd  51                                push    ecx
+ 0cce  52                                push    edx
+ 0ccf  56                                push    esi
+ 0cd0  57                                push    edi
+ 0cd1  89 c1                             mov     ecx,eax
+
+if (prev && (z<prev->z)) // || (z==prev->z && (y>prev->y)))// || (y==prev->y && x<prev->x)) )) ) //should be moved up in list
+ 0cd3  8b 51 04          L94             mov     edx,+4H[ecx]
+ 0cd6  85 d2                             test    edx,edx
+ 0cd8  74 13                             je      L95
+ 0cda  8b 41 38                          mov     eax,+38H[ecx]
+ 0cdd  3b 42 38                          cmp     eax,+38H[edx]
+ 0ce0  7d 0b                             jge     L95
+ 0ce2  89 cb                             mov     ebx,ecx
+
+ {osp->swap(prev,this); resort(); return;}
+
+ 0ce4  8b 01                             mov     eax,[ecx]
+ 0ce6  e8 00 00 00 00                    call    void near objectspace::swap( object near *, object near * )
+ 0ceb  eb e6                             jmp     L94
+
+if (next && (z>next->z) )// || (z==next->z && (y<next->y)))  || (y==next->y && x>next->x)) )) )//should be moved up in list
+ 0ced  8b 71 08          L95             mov     esi,+8H[ecx]
+ 0cf0  85 f6                             test    esi,esi
+ 0cf2  0f 84 da fe ff ff                 je      L84
+ 0cf8  8b 41 38                          mov     eax,+38H[ecx]
+ 0cfb  8b 7e 38                          mov     edi,+38H[esi]
+ 0cfe  89 f3                             mov     ebx,esi
+ 0d00  39 f8                             cmp     eax,edi
+ 0d02  0f 8e ca fe ff ff                 jle     L84
+ 0d08  89 ca                             mov     edx,ecx
+
+ {osp->swap(this,next); prev->resort(); return;}
+}
+
+
+
+//returns 0 if advanced frame, returns 1 if series completed
+ 0d0a  8b 01                             mov     eax,[ecx]
+ 0d0c  e8 00 00 00 00                    call    void near objectspace::swap( object near *, object near * )
+ 0d11  8b 49 04                          mov     ecx,+4H[ecx]
+ 0d14  eb bd                             jmp     L94
+ 0d16  8b c0                             mov     eax,eax
+
+int object::advanceframe()
+{
+ //we have completed a frame
+ 0d18                    int near object::advanceframe():
+ 0d18  53                                push    ebx
+ 0d19  51                                push    ecx
+ 0d1a  52                                push    edx
+ 0d1b  89 c3                             mov     ebx,eax
+
+ cf++;
+ 0d1d  8a 60 2e                          mov     ah,+2eH[eax]
+ 0d20  fe c4                             inc     ah
+ 0d22  88 63 2e                          mov     +2eH[ebx],ah
+ 0d25  8a 53 41                          mov     dl,+41H[ebx]
+
+ updated|=OU_FRAME;
+ 0d28  8a 43 41                          mov     al,+41H[ebx]
+ 0d2b  80 e2 e0                          and     dl,0e0H
+ 0d2e  24 1f                             and     al,1fH
+ 0d30  88 53 41                          mov     +41H[ebx],dl
+ 0d33  0c 08                             or      al,08H
+ 0d35  88 d6                             mov     dh,dl
+ 0d37  24 1f                             and     al,1fH
+ 0d39  8a 4b 2f                          mov     cl,+2fH[ebx]
+ 0d3c  08 c6                             or      dh,al
+
+ if (cf>=nf) //gone through all frames
+  {        //done with series
+ 0d3e  8a 43 2e                          mov     al,+2eH[ebx]
+ 0d41  88 73 41                          mov     +41H[ebx],dh
+ 0d44  38 c8                             cmp     al,cl
+ 0d46  72 48                             jb      L99
+
+   if (active) //if it's an active object
+     {
+      //initiate next series
+ 0d48  f6 c6 20                          test    dh,20H
+ 0d4b  74 21                             je      L96
+ 0d4d  8b 53 16                          mov     edx,+16H[ebx]
+
+      if (!startseries(cs->next)) {fptr=0; playing=active=0;} //if no frames, stop playing
+     } else //it's just a played series
+     {
+ 0d50  8b 4b 67                          mov     ecx,+67H[ebx]
+ 0d53  8a 52 14                          mov     dl,+14H[edx]
+ 0d56  81 e2 ff 00 00 00                 and     edx,000000ffH
+ 0d5c  89 d8                             mov     eax,ebx
+ 0d5e  ff 51 08                          call    dword ptr +8H[ecx]
+ 0d61  85 c0                             test    eax,eax
+ 0d63  75 22                             jne     L98
+ 0d65  89 43 26                          mov     +26H[ebx],eax
+ 0d68  80 63 41 9f                       and     byte ptr +41H[ebx],9fH
+ 0d6c  eb 19                             jmp     L98
+
+      if (!playrepeat) stop();
+ 0d6e  f6 c6 80          L96             test    dh,80H
+ 0d71  75 07                             jne     L97
+ 0d73  89 d8                             mov     eax,ebx
+ 0d75  e8 00 00 00 00                    call    void near object::stop()
+
+       startseries(csnum);
+     }
+ 0d7a  8b 4b 67          L97             mov     ecx,+67H[ebx]
+ 0d7d  31 d2                             xor     edx,edx
+ 0d7f  89 d8                             mov     eax,ebx
+ 0d81  8a 53 15                          mov     dl,+15H[ebx]
+ 0d84  ff 51 08                          call    dword ptr +8H[ecx]
+
+     return 1; //series completed
+    }
+   else
+    { //advance to next frame
+ 0d87  b8 01 00 00 00    L98             mov     eax,00000001H
+ 0d8c  5a                                pop     edx
+ 0d8d  59                                pop     ecx
+ 0d8e  5b                                pop     ebx
+ 0d8f  c3                                ret     
+
+     fptr=(frame *) (((char *)fptr)+fptr->size);
+ 0d90  8b 43 26          L99             mov     eax,+26H[ebx]
+ 0d93  31 d2                             xor     edx,edx
+ 0d95  66 8b 10                          mov     dx,[eax]
+ 0d98  01 d0                             add     eax,edx
+ 0d9a  89 43 26                          mov     +26H[ebx],eax
+
+     dur=fptr->dur;
+ 0d9d  66 8b 40 02                       mov     ax,+2H[eax]
+ 0da1  25 ff ff 00 00                    and     eax,0000ffffH
+
+     effect(); //do the extra effect thingees
+ 0da6  8b 53 67                          mov     edx,+67H[ebx]
+ 0da9  89 43 2a                          mov     +2aH[ebx],eax
+ 0dac  89 d8                             mov     eax,ebx
+ 0dae  ff 52 14                          call    dword ptr +14H[edx]
+
+     return 0; //just next frame
+    }
+ 0db1  31 c0                             xor     eax,eax
+
+}
+
+
+
+//extern int playing;
+ 0db3  5a                                pop     edx
+ 0db4  59                                pop     ecx
+ 0db5  5b                                pop     ebx
+ 0db6  c3                                ret     
+ 0db7  90                                nop     
+
+void object::tick()
+{
+ 0db8                    void near object::tick():
+ 0db8  53                                push    ebx
+ 0db9  51                                push    ecx
+ 0dba  52                                push    edx
+ 0dbb  56                                push    esi
+ 0dbc  57                                push    edi
+ 0dbd  55                                push    ebp
+ 0dbe  83 ec 04                          sub     esp,00000004H
+ 0dc1  89 c6                             mov     esi,eax
+
+ if (!fptr) return; //must leave if no frame
+
+ 0dc3  83 78 26 00                       cmp     dword ptr +26H[eax],00000000H
+ 0dc7  0f 84 09 01 00 00                 je      L108
+
+ if (!lastforever)
+ {
+  //move according to trajectory, if one exists
+ 0dcd  f6 40 42 02                       test    byte ptr +42H[eax],02H
+ 0dd1  0f 85 a6 00 00 00                 jne     L107
+
+  if (traj) traj->move(in->getstat());
+ 0dd7  8b 5e 57                          mov     ebx,+57H[esi]
+ 0dda  85 db                             test    ebx,ebx
+ 0ddc  74 12                             je      L100
+ 0dde  8b 46 53                          mov     eax,+53H[esi]
+ 0de1  8b 4b 04                          mov     ecx,+4H[ebx]
+ 0de4  e8 00 00 00 00                    call    int unsigned near input::getstat()
+ 0de9  89 c2                             mov     edx,eax
+ 0deb  89 d8                             mov     eax,ebx
+ 0ded  ff 51 08                          call    dword ptr +8H[ecx]
+
+  if (traj) traj->tick();
+
+
+ //call control func for this series
+ 0df0  8b 4e 57          L100            mov     ecx,+57H[esi]
+ 0df3  85 c9                             test    ecx,ecx
+ 0df5  74 08                             je      L101
+ 0df7  8b 51 04                          mov     edx,+4H[ecx]
+ 0dfa  89 c8                             mov     eax,ecx
+ 0dfc  ff 52 04                          call    dword ptr +4H[edx]
+
+ if (active && controlfunc) //do control function if active
+  {
+ 0dff  f6 46 41 20       L101            test    byte ptr +41H[esi],20H
+ 0e03  74 3e                             je      L102
+ 0e05  83 7e 1a 00                       cmp     dword ptr +1aH[esi],00000000H
+ 0e09  74 38                             je      L102
+
+   int s=(this->*(this->controlfunc))(in->getstat());
+ 0e0b  8d 56 1a                          lea     edx,+1aH[esi]
+ 0e0e  8b 5a 04                          mov     ebx,+4H[edx]
+ 0e11  01 f3                             add     ebx,esi
+ 0e13  89 d8                             mov     eax,ebx
+ 0e15  ff 12                             call    dword ptr [edx]
+ 0e17  89 04 24                          mov     [esp],eax
+ 0e1a  8b 46 53                          mov     eax,+53H[esi]
+ 0e1d  e8 00 00 00 00                    call    int unsigned near input::getstat()
+ 0e22  89 c2                             mov     edx,eax
+ 0e24  89 d8                             mov     eax,ebx
+ 0e26  ff 14 24                          call    dword ptr [esp]
+
+   if (s!=-1 && s!=csnum) startseries(s); //start up new series
+ 0e29  83 f8 ff                          cmp     eax,0ffffffffH
+ 0e2c  74 1e                             je      L103
+ 0e2e  31 d2                             xor     edx,edx
+ 0e30  8a 56 15                          mov     dl,+15H[esi]
+ 0e33  39 d0                             cmp     eax,edx
+ 0e35  74 15                             je      L103
+ 0e37  8b 5e 67                          mov     ebx,+67H[esi]
+ 0e3a  89 c2                             mov     edx,eax
+ 0e3c  89 f0                             mov     eax,esi
+ 0e3e  ff 53 08                          call    dword ptr +8H[ebx]
+ 0e41  eb 09                             jmp     L103
+
+  } else none(0);
+
+ //dur
+ 0e43  89 f0             L102            mov     eax,esi
+ 0e45  31 d2                             xor     edx,edx
+ 0e47  e8 00 00 00 00                    call    int near object::none( int )
+
+ if (dur>0) dur--;
+ 0e4c  8b 6e 2a          L103            mov     ebp,+2aH[esi]
+ 0e4f  85 ed                             test    ebp,ebp
+ 0e51  7e 08                             jle     L104
+ 0e53  8d 45 ff                          lea     eax,-1H[ebp]
+ 0e56  89 46 2a                          mov     +2aH[esi],eax
+ 0e59  eb 08                             jmp     L105
+
+  else advanceframe();
+
+  //falldown if nothing's underneath us
+ 0e5b  8b 56 67          L104            mov     edx,+67H[esi]
+ 0e5e  89 f0                             mov     eax,esi
+ 0e60  ff 52 10                          call    dword ptr +10H[edx]
+
+ if (!r[R_IMPERM] || !r[R_IMPERM]->platform)
+ 0e63  8b 56 45          L105            mov     edx,+45H[esi]
+ 0e66  85 d2                             test    edx,edx
+ 0e68  74 06                             je      L106
+ 0e6a  83 7a 0c 00                       cmp     dword ptr +0cH[edx],00000000H
+ 0e6e  75 0d                             jne     L107
+
+    if (active) falldown();
+
+ } //else falldown(); //falldown if lastforever
+
+
+  //slide down steep floors....
+ 0e70  f6 46 41 20       L106            test    byte ptr +41H[esi],20H
+ 0e74  74 07                             je      L107
+ 0e76  89 f0                             mov     eax,esi
+ 0e78  e8 00 00 00 00                    call    void near object::falldown()
+
+ if (y==basey && floor) //we're on a floor
+  {
+ 0e7d  8b 46 34          L107            mov     eax,+34H[esi]
+ 0e80  3b 46 3c                          cmp     eax,+3cH[esi]
+ 0e83  75 51                             jne     L108
+ 0e85  8b 7e 5b                          mov     edi,+5bH[esi]
+ 0e88  85 ff                             test    edi,edi
+ 0e8a  74 4a                             je      L108
+
+   int s=floor->getslope(); //get slope of floor
+ 0e8c  8b 57 05                          mov     edx,+5H[edi]
+ 0e8f  8b 5f 03                          mov     ebx,+3H[edi]
+ 0e92  c1 fa 10                          sar     edx,10H
+ 0e95  c1 fb 10                          sar     ebx,10H
+ 0e98  29 da                             sub     edx,ebx
+ 0e9a  8b 5f 01                          mov     ebx,+1H[edi]
+ 0e9d  0f bf 47 01                       movsx   eax,word ptr +1H[edi]
+ 0ea1  c1 fb 10                          sar     ebx,10H
+ 0ea4  c1 e2 10                          shl     edx,10H
+ 0ea7  29 c3                             sub     ebx,eax
+ 0ea9  89 d0                             mov     eax,edx
+ 0eab  c1 fa 1f                          sar     edx,1fH
+ 0eae  f7 fb                             idiv    ebx
+ 0eb0  89 c3                             mov     ebx,eax
+
+   if (abs(s)>(1<<16)) moveabs(s/2,0,0); //slide
+  }
+
+ 0eb2  99                                cdq     
+ 0eb3  31 d0                             xor     eax,edx
+ 0eb5  29 d0                             sub     eax,edx
+ 0eb7  3d 00 00 01 00                    cmp     eax,00010000H
+ 0ebc  7e 18                             jle     L108
+ 0ebe  89 da                             mov     edx,ebx
+ 0ec0  89 d8                             mov     eax,ebx
+ 0ec2  c1 fa 1f                          sar     edx,1fH
+ 0ec5  2b c2                             sub     eax,edx
+ 0ec7  d1 f8                             sar     eax,1
+ 0ec9  31 c9                             xor     ecx,ecx
+ 0ecb  31 db                             xor     ebx,ebx
+ 0ecd  89 c2                             mov     edx,eax
+ 0ecf  89 f0                             mov     eax,esi
+ 0ed1  e8 00 00 00 00                    call    void near object::moveabs( int, int, int )
+
+}
+
+
+ 0ed6  83 c4 04          L108            add     esp,00000004H
+ 0ed9  5d                                pop     ebp
+ 0eda  5f                                pop     edi
+ 0edb  5e                L109            pop     esi
+ 0edc  5a                                pop     edx
+ 0edd  59                                pop     ecx
+ 0ede  5b                                pop     ebx
+ 0edf  c3                                ret     
+
+int object::loseenergy(int e)
+{
+if (!active || invincible) return 0;
+ 0ee0                    int near object::loseenergy( int ):
+ 0ee0  f6 40 41 20                       test    byte ptr +41H[eax],20H
+ 0ee4  74 0a                             je      L110
+ 0ee6  f6 40 42 04                       test    byte ptr +42H[eax],04H
+ 0eea  75 04                             jne     L110
+
+energy-=e;
+ 0eec  66 29 50 51                       sub     +51H[eax],dx
+
+return 0;
+ 0ef0  31 c0             L110            xor     eax,eax
+
+}
+
+
+int oshake[8]={0,1,0,2,-1,0,-2,0};
+
+ 0ef2  c3                                ret     
+ 0ef3  90                                nop     
+
+void object::draw(char *dest)
+{
+ 0ef4                    void near object::draw( char near * ):
+ 0ef4  53                                push    ebx
+ 0ef5  51                                push    ecx
+ 0ef6  56                                push    esi
+ 0ef7  57                                push    edi
+ 0ef8  55                                push    ebp
+ 0ef9  83 ec 14                          sub     esp,00000014H
+ 0efc  89 c7                             mov     edi,eax
+ 0efe  89 54 24 0c                       mov     +0cH[esp],edx
+
+ if (!fptr) return;
+
+ 0f02  83 78 26 00                       cmp     dword ptr +26H[eax],00000000H
+ 0f06  0f 84 29 01 00 00                 je      L117
+
+ _disable();
+ int tx,ty;
+ 0f0c  e8 00 00 00 00                    call    _disable_
+
+ if (osp->bg) {tx=(x>>16)-(osp->bg->x>>16); ty=(y>>16)-(osp->bg->y>>16);}
+ 0f11  8b 2f                             mov     ebp,[edi]
+ 0f13  8b 5d 5d                          mov     ebx,+5dH[ebp]
+ 0f16  85 db                             test    ebx,ebx
+ 0f18  74 26                             je      L111
+ 0f1a  8b 57 30                          mov     edx,+30H[edi]
+ 0f1d  89 d8                             mov     eax,ebx
+ 0f1f  c1 fa 10                          sar     edx,10H
+ 0f22  8b 5b 09                          mov     ebx,+9H[ebx]
+ 0f25  8b 68 0d                          mov     ebp,+0dH[eax]
+ 0f28  c1 fb 10                          sar     ebx,10H
+ 0f2b  8b 47 34                          mov     eax,+34H[edi]
+ 0f2e  c1 fd 10                          sar     ebp,10H
+ 0f31  c1 f8 10                          sar     eax,10H
+ 0f34  29 da                             sub     edx,ebx
+ 0f36  29 e8                             sub     eax,ebp
+ 0f38  89 54 24 10                       mov     +10H[esp],edx
+ 0f3c  89 c5                             mov     ebp,eax
+ 0f3e  eb 10                             jmp     L112
+
+         else {tx=(x>>16); ty=(y>>16);}
+ 0f40  8b 47 30          L111            mov     eax,+30H[edi]
+ 0f43  8b 6f 34                          mov     ebp,+34H[edi]
+ 0f46  c1 f8 10                          sar     eax,10H
+ 0f49  c1 fd 10                          sar     ebp,10H
+ 0f4c  89 44 24 10                       mov     +10H[esp],eax
+
+ register image *i=fptr->getimgptr();
+ 0f50  8b 5f 26          L112            mov     ebx,+26H[edi]
+ 0f53  85 db                             test    ebx,ebx
+ 0f55  74 03                             je      L113
+ 0f57  83 c3 0e                          add     ebx,0000000eH
+
+ int j=fptr->numimages;
+ 0f5a  8b 77 26          L113            mov     esi,+26H[edi]
+ 0f5d  0f b6 76 0d                       movzx   esi,byte ptr +0dH[esi]
+
+ _enable();
+
+ 0f61  e8 00 00 00 00                    call    _enable_
+
+ if (!d)
+ {
+  for (; j>0; j--)
+  {
+//   if ((!i->exclusive && i->layer<=layer) || (i->exclusive && i->layer==layer))
+ 0f66  80 7f 40 00                       cmp     byte ptr +40H[edi],00H
+ 0f6a  0f 85 c1 00 00 00                 jne     L116
+ 0f70  85 f6                             test    esi,esi
+ 0f72  0f 8e bd 00 00 00                 jle     L117
+
+    od->id[i->index]->draw(dest,tx+i->dispx,ty+i->dispy,i->orient);
+   i++;
+  }
+ } else
+ {
+  for (; j>0; j--)
+  {
+//   if ((!i->exclusive && i->layer<=layer) || (i->exclusive && i->layer==layer))
+   {
+ 0f78  8a 43 01          L114            mov     al,+1H[ebx]
+ 0f7b  24 03                             and     al,03H
+ 0f7d  25 ff 00 00 00                    and     eax,000000ffH
+ 0f82  89 44 24 04                       mov     +4H[esp],eax
+ 0f86  8b 43 02                          mov     eax,+2H[ebx]
+ 0f89  c1 f8 10                          sar     eax,10H
+ 0f8c  8d 14 28                          lea     edx,[eax+ebp]
+ 0f8f  89 54 24 08                       mov     +8H[esp],edx
+ 0f93  8b 03                             mov     eax,[ebx]
+ 0f95  8b 54 24 10                       mov     edx,+10H[esp]
+ 0f99  c1 f8 10                          sar     eax,10H
+ 0f9c  01 c2                             add     edx,eax
+ 0f9e  31 c0                             xor     eax,eax
+ 0fa0  8a 03                             mov     al,[ebx]
+ 0fa2  c1 e0 02                          shl     eax,02H
+ 0fa5  8b 4f 11                          mov     ecx,+11H[edi]
+ 0fa8  89 04 24                          mov     [esp],eax
+ 0fab  8b 41 1b                          mov     eax,+1bH[ecx]
+ 0fae  03 04 24                          add     eax,[esp]
+ 0fb1  8b 4c 24 04                       mov     ecx,+4H[esp]
+ 0fb5  51                                push    ecx
+ 0fb6  8b 4c 24 0c                       mov     ecx,+0cH[esp]
+ 0fba  51                                push    ecx
+ 0fbb  52                                push    edx
+ 0fbc  8b 54 24 18                       mov     edx,+18H[esp]
+ 0fc0  52                                push    edx
+ 0fc1  8b 00                             mov     eax,[eax]
+ 0fc3  50                                push    eax
+ 0fc4  83 c3 06                          add     ebx,00000006H
+ 0fc7  4e                                dec     esi
+ 0fc8  e8 00 00 00 00                    call    _drawimager2
+ 0fcd  83 c4 14                          add     esp,00000014H
+ 0fd0  85 f6                             test    esi,esi
+ 0fd2  7e 61                             jle     L117
+ 0fd4  eb a2                             jmp     L114
+ 0fd6  31 d2             L115            xor     edx,edx
+
+    IMG *iptr=od->id[i->index];
+ 0fd8  8b 47 11                          mov     eax,+11H[edi]
+ 0fdb  8a 13                             mov     dl,[ebx]
+ 0fdd  8b 40 1b                          mov     eax,+1bH[eax]
+ 0fe0  8b 04 90                          mov     eax,[eax+edx*4]
+
+    iptr->draw(dest,tx-i->dispx-iptr->xw,ty+i->dispy,0x2^i->orient);
+   }
+   i++;
+  }
+ }
+
+// char s[30];
+// font[0]->draw(itoa(energy,s,10),dest,tx,ty);
+
+// sprintf(s,"%p:%p:%p",r[0],r[1],r[2]);
+// font[0]->draw(s,dest,tx,ty+10);
+
+ /*
+ char s[30];
+ font[0]->draw(itoa(intersect,s,10),dest,tx,ty);
+ if (r[0] && r[0]->platform)
+ font[0]->draw(itoa((int)r[0]->platform,s,16),dest,tx,ty+10);
+ */
+ 0fe3  8a 53 01                          mov     dl,+1H[ebx]
+ 0fe6  80 e2 03                          and     dl,03H
+ 0fe9  80 f2 02                          xor     dl,02H
+ 0fec  8b 0b                             mov     ecx,[ebx]
+ 0fee  c1 f9 10                          sar     ecx,10H
+ 0ff1  89 0c 24                          mov     [esp],ecx
+ 0ff4  8b 4c 24 10                       mov     ecx,+10H[esp]
+ 0ff8  81 e2 ff 00 00 00                 and     edx,000000ffH
+ 0ffe  2b 0c 24                          sub     ecx,[esp]
+ 1001  89 54 24 08                       mov     +8H[esp],edx
+ 1005  2b 48 08                          sub     ecx,+8H[eax]
+ 1008  8b 53 02                          mov     edx,+2H[ebx]
+ 100b  89 4c 24 04                       mov     +4H[esp],ecx
+ 100f  8b 4c 24 08                       mov     ecx,+8H[esp]
+ 1013  c1 fa 10                          sar     edx,10H
+ 1016  51                                push    ecx
+ 1017  01 ea                             add     edx,ebp
+ 1019  52                                push    edx
+ 101a  8b 54 24 0c                       mov     edx,+0cH[esp]
+ 101e  52                                push    edx
+ 101f  8b 4c 24 18                       mov     ecx,+18H[esp]
+ 1023  51                                push    ecx
+ 1024  50                                push    eax
+ 1025  83 c3 06                          add     ebx,00000006H
+ 1028  4e                                dec     esi
+ 1029  e8 00 00 00 00                    call    _drawimager2
+ 102e  83 c4 14                          add     esp,00000014H
+ 1031  85 f6             L116            test    esi,esi
+ 1033  7f a1                             jg      L115
+
+}
+
+void object::drawshadow(char *dest)
+{
+ if (!fptr) return;
+ if(!(cs->parm&SP_NOSHADOW))     //and shadow exists
+  {
+   #ifdef ANIMATOR
+   IMG *s=this!=osp->p ? shadow : a95vol.shadowsel;
+   s->draw(dest,(relx()>>16)-s->xw/2,((relbasey()+z)>>16)-s->yw/2,0);
+   #else
+//   shadow->drawmap(*shadowmap,dest,(x>>16)-shadow->xw/2,((basey+z)>>16)-shadow->yw/2);
+ /*  if (this==osp->p)
+    {
+     IMG *s=a95vol.shadowsel;
+       s->draw(dest,(x>>16)-s->xw/2,((basey+z)>>16)-s->yw/2,0);
+    }*/
+
+   #endif
+  } else //draw dot shadow
+  {
+  // if (!t->active)
+  // if (uu&16) drawpixel(t->x>>16,t->z>>16,3);
+  }
+}
+
+
+ 1035  83 c4 14          L117            add     esp,00000014H
+ 1038  5d                                pop     ebp
+ 1039  5f                                pop     edi
+ 103a  5e                                pop     esi
+ 103b  59                                pop     ecx
+ 103c  5b                                pop     ebx
+ 103d  8d 40 00                          lea     eax,+0H[eax]
+ 1040                    void near object::drawshadow( char near * ):
+ 1040  c3                                ret     
+ 1041  8d 40 00                          lea     eax,+0H[eax]
+
+void object::effect()
+{
+ 1044                    void near object::effect():
+ 1044  53                                push    ebx
+ 1045  51                                push    ecx
+ 1046  52                                push    edx
+ 1047  56                                push    esi
+ 1048  89 c6                             mov     esi,eax
+
+ if (!fptr || !fptr->numextra) return;
+ 104a  8b 50 26                          mov     edx,+26H[eax]
+ 104d  85 d2                             test    edx,edx
+ 104f  0f 84 86 fe ff ff                 je      L109
+ 1055  8a 62 0a                          mov     ah,+0aH[edx]
+ 1058  89 d3                             mov     ebx,edx
+ 105a  84 e4                             test    ah,ah
+ 105c  0f 84 79 fe ff ff                 je      L109
+
+ class effect *t=fptr->geteffectptr();
+
+ 1062  31 c9                             xor     ecx,ecx
+ 1064  8a 4a 0d                          mov     cl,+0dH[edx]
+ 1067  8d 04 8d 00 00 00 
+       00                                lea     eax,+0H[ecx*4]
+ 106e  29 c8                             sub     eax,ecx
+ 1070  8d 0c 00                          lea     ecx,[eax+eax]
+ 1073  8d 42 0e                          lea     eax,+0eH[edx]
+ 1076  01 c8                             add     eax,ecx
+
+ for (int i=fptr->numextra; i>0; i--,t=t->next())
+ 1078  8b 4e 26                          mov     ecx,+26H[esi]
+ 107b  89 c3                             mov     ebx,eax
+ 107d  8a 49 0a                          mov     cl,+0aH[ecx]
+ 1080  81 e1 ff 00 00 00                 and     ecx,000000ffH
+ 1086  eb 0a                             jmp     L119
+ 1088  89 d8             L118            mov     eax,ebx
+ 108a  49                                dec     ecx
+ 108b  e8 00 00 00 00                    call    int near effect::size()
+ 1090  01 c3                             add     ebx,eax
+ 1092  85 c9             L119            test    ecx,ecx
+ 1094  0f 8e 41 fe ff ff                 jle     L109
+
+  if (!t->onhit) t->trigger(this);
+}
+
+ 109a  f6 03 80                          test    byte ptr [ebx],80H
+ 109d  75 e9                             jne     L118
+ 109f  89 f2                             mov     edx,esi
+ 10a1  89 d8                             mov     eax,ebx
+ 10a3  e8 00 00 00 00                    call    void near effect::trigger( object near * )
+ 10a8  eb de                             jmp     L118
+ 10aa  8b c0                             mov     eax,eax
+
+void object::sound(int n)
+{
+ 10ac                    void near object::sound( int ):
+ 10ac  51                                push    ecx
+
+ if (n>=od->numsounds || n<0) return;
+
+ #ifdef DOS
+ 10ad  8b 40 11                          mov     eax,+11H[eax]
+ 10b0  3b 50 2b                          cmp     edx,+2bH[eax]
+ 10b3  7d 15                             jge     L120
+ 10b5  85 d2                             test    edx,edx
+ 10b7  7c 11                             jl      L120
+
+ if (!od->sounds) return;
+ 10b9  8b 48 2f                          mov     ecx,+2fH[eax]
+ 10bc  85 c9                             test    ecx,ecx
+ 10be  74 0a                             je      L120
+
+ playsound(od->sounds[n]);
+ #endif
+ #ifdef WIN95
+ if (!od->dsounds) return;
+ playsound(od->dsounds[n],((relx()>>16)-(osp->width()/2))*8000/osp->width());
+ #endif
+ 10c0  89 c8                             mov     eax,ecx
+ 10c2  8b 04 90                          mov     eax,[eax+edx*4]
+ 10c5  e8 00 00 00 00                    call    void near playsound( SOUND near * )
+
+}
+
+
+ 10ca  59                L120            pop     ecx
+ 10cb  c3                                ret     
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: CONST  DWORD USE32  00000009 bytes  
+ 0000  66 61 6c 6c 64 6f 77 6e L121            - falldown
+ 0008  00                                      - .
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: _DATA  DWORD USE32  00000040 bytes  
+ 0000                          int near shaketrajectory::oshake[] LABEL BYTE
+ 0000  00 00 00 00 01 00 00 00                 - ........
+ 0008  00 00 00 00 02 00 00 00                 - ........
+ 0010  ff ff ff ff 00 00 00 00                 - ........
+ 0018  fe ff ff ff 00 00 00 00                 - ........
+ 0020                          int near oshake[] LABEL BYTE
+ 0020  00 00 00 00 01 00 00 00                 - ........
+ 0028  00 00 00 00 02 00 00 00                 - ........
+ 0030  ff ff ff ff 00 00 00 00                 - ........
+ 0038  fe ff ff ff 00 00 00 00                 - ........
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: _BSS  DWORD USE32  000000b4 bytes  
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: XI  WORD USE32  00000006 bytes  
+ 0000                          void (near * near .mod_init)() LABEL BYTE
+ 0000  00 40                                   - .@
+ 0002  00 00 00 00                             DD      void near .fn_init()
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: effect near * near effect::next()  SEGMENT ANY '_TEXT'  0000000c bytes  
+ 0000  52                                push    edx
+ 0001  89 c2                             mov     edx,eax
+ 0003  e8 00 00 00 00                    call    int near effect::size()
+ 0008  01 d0                             add     eax,edx
+ 000a  5a                                pop     edx
+ 000b  c3                                ret     
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: image near * near frame::getimgptr()  SEGMENT ANY '_TEXT'  00000008 bytes  
+ 0000  85 c0                             test    eax,eax
+ 0002  74 03                             je      L122
+ 0004  83 c0 0e                          add     eax,0000000eH
+ 0007  c3                L122            ret     
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: effect near * near frame::geteffectptr()  SEGMENT ANY '_TEXT'  00000024 bytes  
+ 0000  53                                push    ebx
+ 0001  52                                push    edx
+ 0002  89 c2                             mov     edx,eax
+ 0004  85 c0                             test    eax,eax
+ 0006  74 16                             je      L123
+ 0008  31 db                             xor     ebx,ebx
+ 000a  8a 58 0d                          mov     bl,+0dH[eax]
+ 000d  8d 04 9d 00 00 00 
+       00                                lea     eax,+0H[ebx*4]
+ 0014  29 d8                             sub     eax,ebx
+ 0016  8d 1c 00                          lea     ebx,[eax+eax]
+ 0019  8d 42 0e                          lea     eax,+0eH[edx]
+ 001c  01 d8                             add     eax,ebx
+ 001e  5a                L123            pop     edx
+ 001f  5b                                pop     ebx
+ 0020  c3                                ret     
+ 0021  8d 40 00                          lea     eax,+0H[eax]
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: void near input::reset()  SEGMENT ANY '_TEXT'  0000000c bytes  
+ 0000  85 c0                             test    eax,eax
+ 0002  74 04                             je      L124
+ 0004  83 60 08 0f                       and     dword ptr +8H[eax],0000000fH
+ 0008  c3                L124            ret     
+ 0009  8d 40 00                          lea     eax,+0H[eax]
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: near trajectory::~trajectory()  SEGMENT ANY '_TEXT'  00000018 bytes  
+ 0000  8b 10                             mov     edx,[eax]
+ 0002  c7 40 04 00 00 00 
+       00                                mov     dword ptr +4H[eax],offset void (near * const near __vftbl[])()
+ 0009  85 d2                             test    edx,edx
+ 000b  74 07                             je      L125
+ 000d  c7 42 57 00 00 00 
+       00                                mov     dword ptr +57H[edx],00000000H
+ 0014  c3                L125            ret     
+ 0015  8d 40 00                          lea     eax,+0H[eax]
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: int (near * near object::__mbrptrthunk())( int )  SEGMENT ANY '_TEXT'  00000008 bytes  
+ 0000  b8 00 00 00 00                    mov     eax,offset int near object::none( int )
+ 0005  c3                                ret     
+ 0006  8b c0                             mov     eax,eax
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: int (near * near object::__mbrptrthunk())( int )  SEGMENT ANY '_TEXT'  00000008 bytes  
+ 0000  b8 00 00 00 00                    mov     eax,offset int near object::main_stance( int )
+ 0005  c3                                ret     
+ 0006  8b c0                             mov     eax,eax
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: int (near * near object::__mbrptrthunk())( int )  SEGMENT ANY '_TEXT'  00000008 bytes  
+ 0000  b8 00 00 00 00                    mov     eax,offset int near object::main_walk( int )
+ 0005  c3                                ret     
+ 0006  8b c0                             mov     eax,eax
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: int (near * near object::__mbrptrthunk())( int )  SEGMENT ANY '_TEXT'  00000008 bytes  
+ 0000  b8 00 00 00 00                    mov     eax,offset int near object::main_jump( int )
+ 0005  c3                                ret     
+ 0006  8b c0                             mov     eax,eax
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: int (near * near object::__mbrptrthunk())( int )  SEGMENT ANY '_TEXT'  00000008 bytes  
+ 0000  b8 00 00 00 00                    mov     eax,offset int near object::main_duck( int )
+ 0005  c3                                ret     
+ 0006  8b c0                             mov     eax,eax
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: int (near * near object::__mbrptrthunk())( int )  SEGMENT ANY '_TEXT'  00000008 bytes  
+ 0000  b8 00 00 00 00                    mov     eax,offset int near object::main_walkfire( int )
+ 0005  c3                                ret     
+ 0006  8b c0                             mov     eax,eax
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: int (near * near object::__mbrptrthunk())( int )  SEGMENT ANY '_TEXT'  00000008 bytes  
+ 0000  b8 00 00 00 00                    mov     eax,offset int near object::bullet( int )
+ 0005  c3                                ret     
+ 0006  8b c0                             mov     eax,eax
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: int (near * near object::__mbrptrthunk())( int )  SEGMENT ANY '_TEXT'  00000008 bytes  
+ 0000  b8 00 00 00 00                    mov     eax,offset int near object::main_hang( int )
+ 0005  c3                                ret     
+ 0006  8b c0                             mov     eax,eax
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: int (near * near object::__mbrptrthunk())( int )  SEGMENT ANY '_TEXT'  00000008 bytes  
+ 0000  b8 00 00 00 00                    mov     eax,offset int near object::randomdur( int )
+ 0005  c3                                ret     
+ 0006  8b c0                             mov     eax,eax
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: int (near * near object::__mbrptrthunk())( int )  SEGMENT ANY '_TEXT'  00000008 bytes  
+ 0000  b8 00 00 00 00                    mov     eax,offset int near object::main_climb( int )
+ 0005  c3                                ret     
+ 0006  8b c0                             mov     eax,eax
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: int (near * near object::__mbrptrthunk())( int )  SEGMENT ANY '_TEXT'  00000008 bytes  
+ 0000  b8 00 00 00 00                    mov     eax,offset int near object::enemy_pig( int )
+ 0005  c3                                ret     
+ 0006  8b c0                             mov     eax,eax
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: int (near * near object::__mbrptrthunk())( int )  SEGMENT ANY '_TEXT'  00000008 bytes  
+ 0000  b8 00 00 00 00                    mov     eax,offset int near object::enemy_sniper( int )
+ 0005  c3                                ret     
+ 0006  8b c0                             mov     eax,eax
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: int (near * near object::__mbrptrthunk())( int )  SEGMENT ANY '_TEXT'  00000008 bytes  
+ 0000  b8 00 00 00 00                    mov     eax,offset int near object::enemy_boomer( int )
+ 0005  c3                                ret     
+ 0006  8b c0                             mov     eax,eax
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: int (near * near object::__mbrptrthunk())( int )  SEGMENT ANY '_TEXT'  00000008 bytes  
+ 0000  b8 00 00 00 00                    mov     eax,offset int near object::enemy_jet( int )
+ 0005  c3                                ret     
+ 0006  8b c0                             mov     eax,eax
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: int (near * near object::__mbrptrthunk())( int )  SEGMENT ANY '_TEXT'  00000006 bytes  
+ 0000  b8 00 00 00 00                    mov     eax,offset int near object::enemy_tawch( int )
+ 0005  c3                                ret     
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: void (near * const near __vftbl[])()  SEGMENT ANY 'DGROUP:CONST2'  0000000c bytes  
+ 0000  00 00 00 00                             DD      near trajectory::~trajectory()
+ 0004  00 00 00 00                             DD      void near trajectory::tick()
+ 0008  00 00 00 00                             DD      void near trajectory::move( int )
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: void (near * const near __vftbl[])()  SEGMENT ANY 'DGROUP:CONST2'  0000000c bytes  
+ 0000  00 00 00 00                             DD      near jumptrajectory::~jumptrajectory()
+ 0004  00 00 00 00                             DD      void near jumptrajectory::tick()
+ 0008  00 00 00 00                             DD      void near jumptrajectory::move( int )
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: void (near * const near __vftbl[])()  SEGMENT ANY 'DGROUP:CONST2'  00000018 bytes  
+ 0000  00 00 00 00                             DD      near object::~object()
+ 0004  00 00 00 00                             DD      object near * near object::spawn( int, int, int, int, int, int )
+ 0008  00 00 00 00                             DD      int near object::startseries( int )
+ 000c  00 00 00 00                             DD      void near object::tick()
+ 0010  00 00 00 00                             DD      int near object::advanceframe()
+ 0014  00 00 00 00                             DD      void near object::effect()
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: char unsigned const near __typesig[]  SEGMENT ANY 'DGROUP:CONST2'  00000011 bytes  
+ 0000  00 00 00 00 00                          - .....
+ 0005  00 00 00 00                             DD      near jumptrajectory::jumptrajectory( jumptrajectory const near & )
+ 0009  00 00 00 00                             DD      near jumptrajectory::~jumptrajectory()
+ 000d  13 00 00 00                             - ....
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: char unsigned const near __typesig[]  SEGMENT ANY 'DGROUP:CONST2'  00000011 bytes  
+ 0000  00 00 00 00 00                          - .....
+ 0005  00 00 00 00                             DD      near object::object( object const near & )
+ 0009  00 00 00 00                             DD      near object::~object()
+ 000d  6b 00 00 00                             - k...
+
+No disassembly errors
+
+------------------------------------------------------------

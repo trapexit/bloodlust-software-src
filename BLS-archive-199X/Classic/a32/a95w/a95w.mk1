@@ -1,0 +1,293 @@
+!define BLANK ""
+c:\source\a32\a95w\r2imgasm.obj : c:\source\a32\r2imgasm.asm .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wasm ..\r2imgasm.asm -i=C:\WATCOM\h;C:\WATCOM\h\nt -mf -5r -w4 -e25 -zq
+
+c:\source\a32\a95w\a32.obj : c:\source\a32\a32.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\a32.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 -dA&
+NIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -bt=n&
+t -mf
+
+c:\source\a32\a95w\adlg.obj : c:\source\a32\adlg.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\adlg.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 -d&
+ANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -bt=&
+nt -mf
+
+c:\source\a32\a95w\bg.obj : c:\source\a32\bg.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\bg.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 -dAN&
+IMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -bt=nt&
+ -mf
+
+c:\source\a32\a95w\bgdef.obj : c:\source\a32\bgdef.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\bgdef.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 -&
+dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -bt&
+=nt -mf
+
+c:\source\a32\a95w\bgdefw.obj : c:\source\a32\bgdefw.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\bgdefw.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 &
+-dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -b&
+t=nt -mf
+
+c:\source\a32\a95w\build.obj : c:\source\a32\build.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\build.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 -&
+dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -bt&
+=nt -mf
+
+c:\source\a32\a95w\cfboomer.obj : c:\source\a32\cfboomer.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\cfboomer.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e2&
+5 -dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r &
+-bt=nt -mf
+
+c:\source\a32\a95w\cfjet.obj : c:\source\a32\cfjet.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\cfjet.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 -&
+dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -bt&
+=nt -mf
+
+c:\source\a32\a95w\cfmain.obj : c:\source\a32\cfmain.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\cfmain.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 &
+-dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -b&
+t=nt -mf
+
+c:\source\a32\a95w\cfpig.obj : c:\source\a32\cfpig.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\cfpig.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 -&
+dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -bt&
+=nt -mf
+
+c:\source\a32\a95w\cfsniper.obj : c:\source\a32\cfsniper.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\cfsniper.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e2&
+5 -dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r &
+-bt=nt -mf
+
+c:\source\a32\a95w\clip.obj : c:\source\a32\clip.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\clip.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 -d&
+ANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -bt=&
+nt -mf
+
+c:\source\a32\a95w\config.obj : c:\source\a32\config.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\config.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 &
+-dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -b&
+t=nt -mf
+
+c:\source\a32\a95w\effect.obj : c:\source\a32\effect.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\effect.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 &
+-dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -b&
+t=nt -mf
+
+c:\source\a32\a95w\effectw.obj : c:\source\a32\effectw.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\effectw.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25&
+ -dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -&
+bt=nt -mf
+
+c:\source\a32\a95w\file.obj : c:\source\a32\file.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\file.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 -d&
+ANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -bt=&
+nt -mf
+
+c:\source\a32\a95w\font.obj : c:\source\a32\font.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\font.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 -d&
+ANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -bt=&
+nt -mf
+
+c:\source\a32\a95w\gui.obj : c:\source\a32\gui.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\gui.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 -dA&
+NIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -bt=n&
+t -mf
+
+c:\source\a32\a95w\guimenu.obj : c:\source\a32\guimenu.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\guimenu.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25&
+ -dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -&
+bt=nt -mf
+
+c:\source\a32\a95w\guirect.obj : c:\source\a32\guirect.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\guirect.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25&
+ -dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -&
+bt=nt -mf
+
+c:\source\a32\a95w\input.obj : c:\source\a32\input.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\input.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 -&
+dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -bt&
+=nt -mf
+
+c:\source\a32\a95w\inputw.obj : c:\source\a32\inputw.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\inputw.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 &
+-dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -b&
+t=nt -mf
+
+c:\source\a32\a95w\line.obj : c:\source\a32\line.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\line.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 -d&
+ANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -bt=&
+nt -mf
+
+c:\source\a32\a95w\message.obj : c:\source\a32\message.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\message.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25&
+ -dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -&
+bt=nt -mf
+
+c:\source\a32\a95w\mouse.obj : c:\source\a32\mouse.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\mouse.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 -&
+dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -bt&
+=nt -mf
+
+c:\source\a32\a95w\objdef.obj : c:\source\a32\objdef.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\objdef.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 &
+-dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -b&
+t=nt -mf
+
+c:\source\a32\a95w\objdefw.obj : c:\source\a32\objdefw.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\objdefw.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25&
+ -dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -&
+bt=nt -mf
+
+c:\source\a32\a95w\object.obj : c:\source\a32\object.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\object.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 &
+-dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -b&
+t=nt -mf
+
+c:\source\a32\a95w\osp.obj : c:\source\a32\osp.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\osp.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 -dA&
+NIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -bt=n&
+t -mf
+
+c:\source\a32\a95w\ospw.obj : c:\source\a32\ospw.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\ospw.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 -d&
+ANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -bt=&
+nt -mf
+
+c:\source\a32\a95w\r2img.obj : c:\source\a32\r2img.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\r2img.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 -&
+dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -bt&
+=nt -mf
+
+c:\source\a32\a95w\region.obj : c:\source\a32\region.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\region.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 &
+-dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -b&
+t=nt -mf
+
+c:\source\a32\a95w\vol.obj : c:\source\a32\vol.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\vol.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 -dA&
+NIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -bt=n&
+t -mf
+
+c:\source\a32\a95w\volw.obj : c:\source\a32\volw.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\volw.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e25 -d&
+ANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r -bt=&
+nt -mf
+
+c:\source\a32\a95w\dx.obj : c:\source\a32\win95\dx.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\win95\dx.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -e2&
+5 -dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5r &
+-bt=nt -mf
+
+c:\source\a32\a95w\keyb.obj : c:\source\a32\win95\keyb.cpp .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ *wpp386 ..\win95\keyb.cpp -i=C:\WATCOM\h;C:\WATCOM\h\nt;c:\source\a32 -w0 -&
+e25 -dANIMATOR -dWIN95 -zq -otexan -ol -ol+ -om -oc -oi -oa -or -oe20 -bm -5&
+r -bt=nt -mf
+
+c:\source\a32\a95w\a95w.exe : c:\source\a32\a95w\r2imgasm.obj c:\source\a32\&
+a95w\a32.obj c:\source\a32\a95w\adlg.obj c:\source\a32\a95w\bg.obj c:\source&
+\a32\a95w\bgdef.obj c:\source\a32\a95w\bgdefw.obj c:\source\a32\a95w\build.o&
+bj c:\source\a32\a95w\cfboomer.obj c:\source\a32\a95w\cfjet.obj c:\source\a3&
+2\a95w\cfmain.obj c:\source\a32\a95w\cfpig.obj c:\source\a32\a95w\cfsniper.o&
+bj c:\source\a32\a95w\clip.obj c:\source\a32\a95w\config.obj c:\source\a32\a&
+95w\effect.obj c:\source\a32\a95w\effectw.obj c:\source\a32\a95w\file.obj c:&
+\source\a32\a95w\font.obj c:\source\a32\a95w\gui.obj c:\source\a32\a95w\guim&
+enu.obj c:\source\a32\a95w\guirect.obj c:\source\a32\a95w\input.obj c:\sourc&
+e\a32\a95w\inputw.obj c:\source\a32\a95w\line.obj c:\source\a32\a95w\message&
+.obj c:\source\a32\a95w\mouse.obj c:\source\a32\a95w\objdef.obj c:\source\a3&
+2\a95w\objdefw.obj c:\source\a32\a95w\object.obj c:\source\a32\a95w\osp.obj &
+c:\source\a32\a95w\ospw.obj c:\source\a32\a95w\r2img.obj c:\source\a32\a95w\&
+region.obj c:\source\a32\a95w\vol.obj c:\source\a32\a95w\volw.obj c:\source\&
+a32\a95w\dx.obj c:\source\a32\a95w\keyb.obj .AUTODEPEND
+ @c:
+ cd c:\source\a32\a95w
+ @%write a95w.lk1 NAME a95w
+ @%append a95w.lk1 FIL r2imgasm.obj,a32.obj,adlg.obj,bg.obj,bgdef.obj,bgdefw&
+.obj,build.obj,cfboomer.obj,cfjet.obj,cfmain.obj,cfpig.obj,cfsniper.obj,clip&
+.obj,config.obj,effect.obj,effectw.obj,file.obj,font.obj,gui.obj,guimenu.obj&
+,guirect.obj,input.obj,inputw.obj,line.obj,message.obj,mouse.obj,objdef.obj,&
+objdefw.obj,object.obj,osp.obj,ospw.obj,r2img.obj,region.obj,vol.obj,volw.ob&
+j,dx.obj,keyb.obj
+ @%append a95w.lk1 
+!ifneq BLANK ""
+ *wlib -q -n -b a95w.imp 
+ @%append a95w.lk1 LIBR a95w.imp
+!endif
+ *wlink SYS nt_win op m libr ..\ddraw.lib libr ..\dsound.lib op maxe=25 op q&
+ op symf @a95w.lk1
+!ifneq BLANK ""
+ wrc -q -ad  a95w.exe
+!endif
+

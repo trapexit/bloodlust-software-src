@@ -1,0 +1,3 @@
+NAME noggin
+FIL joy.obj,smixasm.obj,tdpmi.obj,timeback.obj,timg256.obj,tipxasm.obj,tsimg256.obj,detect.obj,grip.obj,lowmem.obj,opl2fm.obj,smix.obj,midilib.obj,noggin.obj,tchat.obj,tcin.obj,tfunc.obj,tgraph.obj,tinput.obj,tipx.obj,title.obj,tkeyb.obj,tpacket.obj,ttimer.obj
+LIBR pawe32.lib

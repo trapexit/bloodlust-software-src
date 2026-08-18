@@ -1,0 +1,8 @@
+keytest.cpp(2): Error! E059: (col 16) unable to open 'dir.h' 
+keytest.cpp(16): Error! E006: (col 9) syntax error; probable cause: missing ';' 
+keytest.cpp(20): Error! E029: (col 25) symbol 'f' has not been declared 
+keytest.cpp(23): Error! E029: (col 7) symbol 'i' has not been declared 
+keytest.cpp(24): Warning! W013: (col 7) unreachable code 
+keytest.cpp(25): Warning! W013: (col 8) unreachable code 
+keytest.cpp(42): Error! E029: (col 23) symbol 'bytes' has not been declared 
+keytest.cpp(58): Warning! W389: (col 13) integral value may be truncated during assignment or initialization 

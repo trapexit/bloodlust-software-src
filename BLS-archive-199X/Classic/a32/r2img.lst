@@ -1,0 +1,2140 @@
+
+Module: c:\source\a32\r2img.cpp
+Group: 'DGROUP' CONST,CONST2,_DATA,_BSS
+
+Segment: _TEXT  PARA USE32  00000c5d bytes  
+
+Comdat: near FILEIO::FILEIO()  SEGMENT ANY '_TEXT'  0000000c bytes  
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <malloc.h>
+#include <dos.h>
+#include <fcntl.h>
+#include <io.h>
+#include <string.h>
+#include <conio.h>
+#include <ctype.h>
+#include <direct.h>
+
+//functions for image 
+#include "r2img.h"
+#include "file.h"
+
+extern "C" int PITCH,SCREENX,SCREENY;
+
+ 0000  c6 40 08 00                       mov     byte ptr +8H[eax],00H
+ 0004  c7 40 09 00 00 00 
+       00                                mov     dword ptr +9H[eax],00000000H
+ 000b  c3                                ret     
+
+
+No disassembly errors
+
+------------------------------------------------------------
+ 0000                    IMG near * near loadimage( char near * ):
+ 0000  53                                push    ebx
+ 0001  51                                push    ecx
+ 0002  52                                push    edx
+ 0003  56                                push    esi
+ 0004  57                                push    edi
+ 0005  83 ec 10                          sub     esp,00000010H
+ 0008  89 c3                             mov     ebx,eax
+
+IMG *loadimage(char *file)
+{
+ if (!strchr(file,'.')) strcat(file,".r2");
+
+ 000a  b2 2e                             mov     dl,2eH
+ 000c  89 c6                             mov     esi,eax
+ 000e  8a 06             L1              mov     al,[esi]
+ 0010  3a c2                             cmp     al,dl
+ 0012  74 12                             je      L3
+ 0014  3c 00                             cmp     al,00H
+ 0016  74 0c                             je      L2
+ 0018  46                                inc     esi
+ 0019  8a 06                             mov     al,[esi]
+ 001b  3a c2                             cmp     al,dl
+ 001d  74 07                             je      L3
+ 001f  46                                inc     esi
+ 0020  3c 00                             cmp     al,00H
+ 0022  75 ea                             jne     L1
+ 0024  2b f6             L2              sub     esi,esi
+ 0026  85 f6             L3              test    esi,esi
+ 0028  75 29                             jne     L6
+ 002a  be 00 00 00 00                    mov     esi,offset L102
+ 002f  89 df                             mov     edi,ebx
+ 0031  57                                push    edi
+ 0032  2b c9                             sub     ecx,ecx
+ 0034  49                                dec     ecx
+ 0035  b0 00                             mov     al,00H
+ 0037  f2 ae                             repne   scasb    
+ 0039  4f                                dec     edi
+ 003a  8a 06             L4              mov     al,[esi]
+ 003c  88 07                             mov     [edi],al
+ 003e  3c 00                             cmp     al,00H
+ 0040  74 10                             je      L5
+ 0042  8a 46 01                          mov     al,+1H[esi]
+ 0045  83 c6 02                          add     esi,00000002H
+ 0048  88 47 01                          mov     +1H[edi],al
+ 004b  83 c7 02                          add     edi,00000002H
+ 004e  3c 00                             cmp     al,00H
+ 0050  75 e8                             jne     L4
+ 0052  5f                L5              pop     edi
+
+ FILEIO g;
+ 0053  30 e4             L6              xor     ah,ah
+ 0055  31 d2                             xor     edx,edx
+ 0057  88 64 24 08                       mov     +8H[esp],ah
+ 005b  89 54 24 09                       mov     +9H[esp],edx
+ 005f  89 e0                             mov     eax,esp
+
+ if (g.open(file)) return 0;
+
+ 0061  89 da                             mov     edx,ebx
+ 0063  e8 00 00 00 00                    call    int near FILEIO::open( char near * )
+ 0068  85 c0                             test    eax,eax
+ 006a  74 0b                             je      L7
+ 006c  89 e0                             mov     eax,esp
+ 006e  e8 00 00 00 00                    call    void near FILEIO::close()
+ 0073  31 db                             xor     ebx,ebx
+ 0075  eb 39                             jmp     L9
+
+ IMG *i=(IMG *)g.readalloc(g.size());
+ 0077  89 e0             L7              mov     eax,esp
+ 0079  e8 00 00 00 00                    call    int unsigned near FILEIO::size()
+ 007e  89 c2                             mov     edx,eax
+ 0080  89 e0                             mov     eax,esp
+ 0082  e8 00 00 00 00                    call    void near * near FILEIO::readalloc( int unsigned )
+ 0087  89 c3                             mov     ebx,eax
+
+ g.close();
+ 0089  89 e0                             mov     eax,esp
+ 008b  e8 00 00 00 00                    call    void near FILEIO::close()
+
+ if (i->type!=IMG_TYPE) return 0;
+ 0090  83 3b 01                          cmp     dword ptr [ebx],00000001H
+ 0093  74 14                             je      L8
+ 0095  89 e0                             mov     eax,esp
+ 0097  e8 00 00 00 00                    call    void near FILEIO::close()
+ 009c  31 db                             xor     ebx,ebx
+ 009e  89 d8                             mov     eax,ebx
+ 00a0  83 c4 10                          add     esp,00000010H
+ 00a3  5f                                pop     edi
+ 00a4  5e                                pop     esi
+ 00a5  5a                                pop     edx
+ 00a6  59                                pop     ecx
+ 00a7  5b                                pop     ebx
+ 00a8  c3                                ret     
+
+ return i;
+ 00a9  89 e0             L8              mov     eax,esp
+ 00ab  e8 00 00 00 00                    call    void near FILEIO::close()
+
+}    
+
+
+ 00b0  89 d8             L9              mov     eax,ebx
+ 00b2  83 c4 10                          add     esp,00000010H
+ 00b5  5f                                pop     edi
+ 00b6  5e                                pop     esi
+ 00b7  5a                                pop     edx
+ 00b8  59                                pop     ecx
+ 00b9  5b                                pop     ebx
+ 00ba  c3                                ret     
+ 00bb  90                                nop     
+
+SCR *loadscreen(char *file)
+{
+ 00bc                    SCR near * near loadscreen( char near * ):
+ 00bc  53                                push    ebx
+ 00bd  51                                push    ecx
+ 00be  52                                push    edx
+ 00bf  56                                push    esi
+ 00c0  57                                push    edi
+ 00c1  83 ec 10                          sub     esp,00000010H
+ 00c4  89 c3                             mov     ebx,eax
+
+ if (!strchr(file,'.')) strcat(file,".scr");
+
+ 00c6  b2 2e                             mov     dl,2eH
+ 00c8  89 c6                             mov     esi,eax
+ 00ca  8a 06             L10             mov     al,[esi]
+ 00cc  3a c2                             cmp     al,dl
+ 00ce  74 12                             je      L12
+ 00d0  3c 00                             cmp     al,00H
+ 00d2  74 0c                             je      L11
+ 00d4  46                                inc     esi
+ 00d5  8a 06                             mov     al,[esi]
+ 00d7  3a c2                             cmp     al,dl
+ 00d9  74 07                             je      L12
+ 00db  46                                inc     esi
+ 00dc  3c 00                             cmp     al,00H
+ 00de  75 ea                             jne     L10
+ 00e0  2b f6             L11             sub     esi,esi
+ 00e2  85 f6             L12             test    esi,esi
+ 00e4  75 29                             jne     L15
+ 00e6  be 04 00 00 00                    mov     esi,offset L103
+ 00eb  89 df                             mov     edi,ebx
+ 00ed  57                                push    edi
+ 00ee  2b c9                             sub     ecx,ecx
+ 00f0  49                                dec     ecx
+ 00f1  b0 00                             mov     al,00H
+ 00f3  f2 ae                             repne   scasb    
+ 00f5  4f                                dec     edi
+ 00f6  8a 06             L13             mov     al,[esi]
+ 00f8  88 07                             mov     [edi],al
+ 00fa  3c 00                             cmp     al,00H
+ 00fc  74 10                             je      L14
+ 00fe  8a 46 01                          mov     al,+1H[esi]
+ 0101  83 c6 02                          add     esi,00000002H
+ 0104  88 47 01                          mov     +1H[edi],al
+ 0107  83 c7 02                          add     edi,00000002H
+ 010a  3c 00                             cmp     al,00H
+ 010c  75 e8                             jne     L13
+ 010e  5f                L14             pop     edi
+
+ FILEIO g;
+ 010f  30 e4             L15             xor     ah,ah
+ 0111  31 d2                             xor     edx,edx
+ 0113  88 64 24 08                       mov     +8H[esp],ah
+ 0117  89 54 24 09                       mov     +9H[esp],edx
+ 011b  89 e0                             mov     eax,esp
+
+ if (g.open(file)) return 0;
+
+ 011d  89 da                             mov     edx,ebx
+ 011f  e8 00 00 00 00                    call    int near FILEIO::open( char near * )
+ 0124  85 c0                             test    eax,eax
+ 0126  74 0b                             je      L16
+ 0128  89 e0                             mov     eax,esp
+ 012a  e8 00 00 00 00                    call    void near FILEIO::close()
+ 012f  31 db                             xor     ebx,ebx
+ 0131  eb 39                             jmp     L18
+
+ SCR *i=(SCR *)g.readalloc(g.size());
+ 0133  89 e0             L16             mov     eax,esp
+ 0135  e8 00 00 00 00                    call    int unsigned near FILEIO::size()
+ 013a  89 c2                             mov     edx,eax
+ 013c  89 e0                             mov     eax,esp
+ 013e  e8 00 00 00 00                    call    void near * near FILEIO::readalloc( int unsigned )
+ 0143  89 c3                             mov     ebx,eax
+
+ g.close();
+ 0145  89 e0                             mov     eax,esp
+ 0147  e8 00 00 00 00                    call    void near FILEIO::close()
+
+ if (i->type!=SCR_TYPE) return 0;
+ 014c  83 3b 02                          cmp     dword ptr [ebx],00000002H
+ 014f  74 14                             je      L17
+ 0151  89 e0                             mov     eax,esp
+ 0153  e8 00 00 00 00                    call    void near FILEIO::close()
+ 0158  31 db                             xor     ebx,ebx
+ 015a  89 d8                             mov     eax,ebx
+ 015c  83 c4 10                          add     esp,00000010H
+ 015f  5f                                pop     edi
+ 0160  5e                                pop     esi
+ 0161  5a                                pop     edx
+ 0162  59                                pop     ecx
+ 0163  5b                                pop     ebx
+ 0164  c3                                ret     
+
+ return i;
+ 0165  89 e0             L17             mov     eax,esp
+ 0167  e8 00 00 00 00                    call    void near FILEIO::close()
+
+}    
+
+ 016c  89 d8             L18             mov     eax,ebx
+ 016e  83 c4 10                          add     esp,00000010H
+ 0171  5f                                pop     edi
+ 0172  5e                                pop     esi
+ 0173  5a                                pop     edx
+ 0174  59                                pop     ecx
+ 0175  5b                                pop     ebx
+ 0176  c3                                ret     
+ 0177  90                                nop     
+
+SCR *SCR::newSCR(int x,int y)
+{
+ 0178                    SCR near * near SCR::newSCR( int, int ):
+ 0178  53                                push    ebx
+ 0179  51                                push    ecx
+ 017a  89 c3                             mov     ebx,eax
+
+ SCR *s=(SCR *)malloc(sizeof(SCR)+x*y+8);
+ 017c  89 c1                             mov     ecx,eax
+ 017e  0f af ca                          imul    ecx,edx
+ 0181  8d 41 18                          lea     eax,+18H[ecx]
+ 0184  e8 00 00 00 00                    call    malloc_
+
+ if (!s) return 0;
+
+ 0189  85 c0                             test    eax,eax
+ 018b  74 12                             je      L19
+
+ s->type=SCR_TYPE;
+ 018d  c7 00 02 00 00 00                 mov     dword ptr [eax],00000002H
+
+ s->xw=x;
+ s->yw=y;
+ 0193  89 58 08                          mov     +8H[eax],ebx
+
+ 0196  83 c1 10                          add     ecx,00000010H
+
+ s->size=sizeof(SCR)+x*y;
+ return s;
+ 0199  89 50 0c                          mov     +0cH[eax],edx
+ 019c  89 48 04                          mov     +4H[eax],ecx
+
+}    
+
+
+
+//****************************************************
+//****************************************************
+
+
+extern "C" {
+ void __cdecl drawscr(char *s,char *d,int xw,int yw,int pitch);
+};
+
+//draws uncompressed bitmap
+ 019f  59                L19             pop     ecx
+ 01a0  5b                                pop     ebx
+ 01a1  c3                                ret     
+ 01a2  8b c0                             mov     eax,eax
+
+void SCR::draw(char *d,int dx,int dy)
+{
+ char *s=data();
+ 01a4                    void near SCR::draw( char near *, int, int ):
+ 01a4  56                                push    esi
+ 01a5  57                                push    edi
+ 01a6  55                                push    ebp
+ 01a7  89 e5                             mov     ebp,esp
+ 01a9  83 ec 0c                          sub     esp,0000000cH
+ 01ac  89 55 f4                          mov     -0cH[ebp],edx
+
+ int xstart=0,xlen=xw;
+ 01af  31 d2                             xor     edx,edx
+ 01b1  8b 70 08                          mov     esi,+8H[eax]
+ 01b4  89 55 f8                          mov     -8H[ebp],edx
+
+ int ystart=0,ylen=yw;
+ 01b7  89 55 fc                          mov     -4H[ebp],edx
+ 01ba  8b 50 0c                          mov     edx,+0cH[eax]
+
+ if (dx<0) {xstart=-dx; xlen+=dx; dx=0;}
+ 01bd  85 db                             test    ebx,ebx
+ 01bf  7d 0e                             jge     L20
+ 01c1  89 5d f8                          mov     -8H[ebp],ebx
+ 01c4  89 df                             mov     edi,ebx
+ 01c6  01 de                             add     esi,ebx
+ 01c8  f7 df                             neg     edi
+ 01ca  31 db                             xor     ebx,ebx
+ 01cc  89 7d f8                          mov     -8H[ebp],edi
+
+ if (dy<0) {ystart=-dy; ylen+=dy; dy=0;}
+ 01cf  85 c9             L20             test    ecx,ecx
+ 01d1  7d 0e                             jge     L21
+ 01d3  89 4d fc                          mov     -4H[ebp],ecx
+ 01d6  89 cf                             mov     edi,ecx
+ 01d8  01 ca                             add     edx,ecx
+ 01da  f7 df                             neg     edi
+ 01dc  31 c9                             xor     ecx,ecx
+ 01de  89 7d fc                          mov     -4H[ebp],edi
+
+ if (dx+xlen>SCREENX) {xlen=SCREENX-dx;}
+ 01e1  8d 3c 33          L21             lea     edi,[ebx+esi]
+ 01e4  3b 3d 00 00 00 00                 cmp     edi,_SCREENX
+ 01ea  7e 08                             jle     L22
+ 01ec  8b 35 00 00 00 00                 mov     esi,_SCREENX
+ 01f2  29 de                             sub     esi,ebx
+
+ if (dy+ylen>SCREENY) {ylen=SCREENY-dy;}
+
+ 01f4  8d 3c 11          L22             lea     edi,[ecx+edx]
+ 01f7  3b 3d 00 00 00 00                 cmp     edi,_SCREENY
+ 01fd  7e 08                             jle     L23
+ 01ff  8b 15 00 00 00 00                 mov     edx,_SCREENY
+ 0205  29 ca                             sub     edx,ecx
+
+ drawscr(data()+ystart*xw+xstart,d+dx+dy*PITCH,
+       xlen,ylen,xw);
+ 0207  8b 78 08          L23             mov     edi,+8H[eax]
+ 020a  57                                push    edi
+ 020b  52                                push    edx
+ 020c  56                                push    esi
+ 020d  0f af 0d 00 00 00 
+       00                                imul    ecx,_PITCH
+ 0214  03 5d f4                          add     ebx,-0cH[ebp]
+ 0217  8b 55 fc                          mov     edx,-4H[ebp]
+ 021a  0f af d7                          imul    edx,edi
+ 021d  83 c0 10                          add     eax,00000010H
+ 0220  01 cb                             add     ebx,ecx
+ 0222  01 d0                             add     eax,edx
+ 0224  8b 55 f8                          mov     edx,-8H[ebp]
+ 0227  53                                push    ebx
+ 0228  01 d0                             add     eax,edx
+ 022a  50                                push    eax
+ 022b  e8 00 00 00 00                    call    _drawscr
+ 0230  83 c4 14                          add     esp,00000014H
+
+}
+
+
+
+/*
+//draws uncompressed bitmap
+void SCR::draw(char *d,int dx,int dy)
+{
+ char *s=data();
+ int xstart=0,xlen=xw;
+ int ystart=0,ylen=yw;
+ if (dx<0) {xstart=-dx; xlen+=dx; dx=0;}
+ if (dy<0) {ystart=-dy; ylen+=dy; dy=0;}
+ if (dx+xlen>SCREENX) {xlen=SCREENX-dx;}
+ if (dy+ylen>SCREENY) {ylen=SCREENY-dy;}
+
+ d+=dx+dy*PITCH;
+ s+=ystart*xw+xstart;
+
+ for (; ylen>0; ylen--,d+=PITCH,s+=xw)
+  memcpy(d,s,xlen);
+} */
+
+
+ 0233  89 ec                             mov     esp,ebp
+ 0235  5d                                pop     ebp
+ 0236  5f                                pop     edi
+ 0237  5e                                pop     esi
+ 0238  c3                                ret     
+ 0239  8d 40 00                          lea     eax,+0H[eax]
+
+void BMAP::draw(char *d,int x,int y,int o)
+{
+ 023c                    void near BMAP::draw( char near *, int, int, int ):
+ 023c  56                                push    esi
+ 023d  57                                push    edi
+ 023e  55                                push    ebp
+ 023f  89 c6                             mov     esi,eax
+ 0241  89 d5                             mov     ebp,edx
+ 0243  89 df                             mov     edi,ebx
+ 0245  89 cb                             mov     ebx,ecx
+
+ if (type==IMG_TYPE) ((IMG *)this)->draw(d,x,y,o);
+ 0247  83 38 01                          cmp     dword ptr [eax],00000001H
+ 024a  75 11                             jne     L24
+ 024c  8b 4c 24 10                       mov     ecx,+10H[esp]
+ 0250  51                                push    ecx
+ 0251  53                                push    ebx
+ 0252  57                                push    edi
+ 0253  55                                push    ebp
+ 0254  50                                push    eax
+ 0255  e8 00 00 00 00                    call    _drawimager2
+ 025a  83 c4 14                          add     esp,00000014H
+
+ if (type==SCR_TYPE) ((SCR *)this)->draw(d,x,y);
+ 025d  83 3e 02          L24             cmp     dword ptr [esi],00000002H
+ 0260  75 0d                             jne     L25
+ 0262  89 d9                             mov     ecx,ebx
+ 0264  89 ea                             mov     edx,ebp
+ 0266  89 f0                             mov     eax,esi
+ 0268  89 fb                             mov     ebx,edi
+ 026a  e8 00 00 00 00                    call    void near SCR::draw( char near *, int, int )
+
+}    
+
+ 026f  5d                L25             pop     ebp
+ 0270  5f                                pop     edi
+ 0271  5e                                pop     esi
+ 0272  c2 04 00                          ret     0004H
+ 0275  8d 40 00                          lea     eax,+0H[eax]
+
+void BMAP::write(char *file)
+{
+ 0278                    void near BMAP::write( char near * ):
+ 0278  53                                push    ebx
+ 0279  51                                push    ecx
+ 027a  56                                push    esi
+ 027b  57                                push    edi
+ 027c  55                                push    ebp
+ 027d  83 ec 10                          sub     esp,00000010H
+ 0280  89 c5                             mov     ebp,eax
+ 0282  89 d3                             mov     ebx,edx
+
+ if (!strchr(file,'.')) //no extension
+  {
+ 0284  b2 2e                             mov     dl,2eH
+ 0286  89 de                             mov     esi,ebx
+ 0288  8a 06             L26             mov     al,[esi]
+ 028a  3a c2                             cmp     al,dl
+ 028c  74 12                             je      L28
+ 028e  3c 00                             cmp     al,00H
+ 0290  74 0c                             je      L27
+ 0292  46                                inc     esi
+ 0293  8a 06                             mov     al,[esi]
+ 0295  3a c2                             cmp     al,dl
+ 0297  74 07                             je      L28
+ 0299  46                                inc     esi
+ 029a  3c 00                             cmp     al,00H
+ 029c  75 ea                             jne     L26
+ 029e  2b f6             L27             sub     esi,esi
+ 02a0  85 f6             L28             test    esi,esi
+ 02a2  75 5e                             jne     L34
+
+   if (type==IMG_TYPE) strcat(file,".R2");
+ 02a4  83 7d 00 01                       cmp     dword ptr +0H[ebp],00000001H
+ 02a8  75 29                             jne     L31
+ 02aa  be 09 00 00 00                    mov     esi,offset L104
+ 02af  89 df                             mov     edi,ebx
+ 02b1  57                                push    edi
+ 02b2  2b c9                             sub     ecx,ecx
+ 02b4  49                                dec     ecx
+ 02b5  b0 00                             mov     al,00H
+ 02b7  f2 ae                             repne   scasb    
+ 02b9  4f                                dec     edi
+ 02ba  8a 06             L29             mov     al,[esi]
+ 02bc  88 07                             mov     [edi],al
+ 02be  3c 00                             cmp     al,00H
+ 02c0  74 10                             je      L30
+ 02c2  8a 46 01                          mov     al,+1H[esi]
+ 02c5  83 c6 02                          add     esi,00000002H
+ 02c8  88 47 01                          mov     +1H[edi],al
+ 02cb  83 c7 02                          add     edi,00000002H
+ 02ce  3c 00                             cmp     al,00H
+ 02d0  75 e8                             jne     L29
+ 02d2  5f                L30             pop     edi
+
+   if (type==SCR_TYPE) strcat(file,".SCR");
+  }
+
+ FILEIO f;
+ 02d3  83 7d 00 02       L31             cmp     dword ptr +0H[ebp],00000002H
+ 02d7  75 29                             jne     L34
+ 02d9  be 0d 00 00 00                    mov     esi,offset L105
+ 02de  89 df                             mov     edi,ebx
+ 02e0  57                                push    edi
+ 02e1  2b c9                             sub     ecx,ecx
+ 02e3  49                                dec     ecx
+ 02e4  b0 00                             mov     al,00H
+ 02e6  f2 ae                             repne   scasb    
+ 02e8  4f                                dec     edi
+ 02e9  8a 06             L32             mov     al,[esi]
+ 02eb  88 07                             mov     [edi],al
+ 02ed  3c 00                             cmp     al,00H
+ 02ef  74 10                             je      L33
+ 02f1  8a 46 01                          mov     al,+1H[esi]
+ 02f4  83 c6 02                          add     esi,00000002H
+ 02f7  88 47 01                          mov     +1H[edi],al
+ 02fa  83 c7 02                          add     edi,00000002H
+ 02fd  3c 00                             cmp     al,00H
+ 02ff  75 e8                             jne     L32
+ 0301  5f                L33             pop     edi
+
+ 0302  89 da             L34             mov     edx,ebx
+
+ f.create(file);
+ 0304  30 e4                             xor     ah,ah
+ 0306  31 f6                             xor     esi,esi
+ 0308  88 64 24 08                       mov     +8H[esp],ah
+ 030c  89 e0                             mov     eax,esp
+ 030e  89 74 24 09                       mov     +9H[esp],esi
+ 0312  e8 00 00 00 00                    call    int near FILEIO::create( char near * )
+ 0317  89 e0                             mov     eax,esp
+ 0319  89 ea                             mov     edx,ebp
+
+ f.write(this,size);
+ 031b  8b 5d 04                          mov     ebx,+4H[ebp]
+ 031e  e8 00 00 00 00                    call    int near FILEIO::write( void near *, int unsigned )
+
+ f.close();
+}    
+
+
+
+//compress uncompressed image into rle form
+ 0323  89 e0                             mov     eax,esp
+ 0325  e8 00 00 00 00                    call    void near FILEIO::close()
+ 032a  89 e0                             mov     eax,esp
+ 032c  e8 00 00 00 00                    call    void near FILEIO::close()
+ 0331  83 c4 10                          add     esp,00000010H
+ 0334  5d                                pop     ebp
+ 0335  5f                                pop     edi
+ 0336  5e                                pop     esi
+ 0337  59                                pop     ecx
+ 0338  5b                                pop     ebx
+ 0339  c3                                ret     
+ 033a  8b c0                             mov     eax,eax
+
+IMG *SCR::compress(char tcolor)
+{
+ 033c                    IMG near * near SCR::compress( char ):
+ 033c  53                                push    ebx
+ 033d  51                                push    ecx
+ 033e  56                                push    esi
+ 033f  57                                push    edi
+ 0340  55                                push    ebp
+ 0341  83 ec 0c                          sub     esp,0000000cH
+ 0344  89 44 24 04                       mov     +4H[esp],eax
+ 0348  88 d1                             mov     cl,dl
+
+ if (!this) return 0;
+// printf("\n");
+ 034a  85 c0                             test    eax,eax
+ 034c  0f 84 0a 01 00 00                 je      L45
+ 0352  8b 54 24 04                       mov     edx,+4H[esp]
+
+ int bufsize=sizeof(IMG)+yw*sizeof(int)+xw*yw+30000;
+// printf("allocating memory %d\n",bufsize);
+ 0356  8b 40 08                          mov     eax,+8H[eax]
+ 0359  8b 5a 0c                          mov     ebx,+0cH[edx]
+ 035c  89 c2                             mov     edx,eax
+ 035e  0f af d3                          imul    edx,ebx
+ 0361  8b 44 24 04                       mov     eax,+4H[esp]
+ 0365  8b 40 0c                          mov     eax,+0cH[eax]
+ 0368  c1 e0 02                          shl     eax,02H
+ 036b  83 c0 10                          add     eax,00000010H
+ 036e  01 d0                             add     eax,edx
+ 0370  05 30 75 00 00                    add     eax,00007530H
+
+ IMG  *img=(IMG *)malloc(bufsize);
+ 0375  e8 00 00 00 00                    call    malloc_
+ 037a  89 c2                             mov     edx,eax
+ 037c  89 04 24                          mov     [esp],eax
+
+ if (!img) return 0;
+// printf("allocated memory %X %d\n",img,bufsize);
+ 037f  85 c0                             test    eax,eax
+ 0381  0f 84 d5 00 00 00                 je      L45
+
+ img->type=IMG_TYPE;
+ 0387  c7 00 01 00 00 00                 mov     dword ptr [eax],00000001H
+
+ img->xw=xw;
+ 038d  8b 44 24 04                       mov     eax,+4H[esp]
+ 0391  8b 40 08                          mov     eax,+8H[eax]
+ 0394  89 42 08                          mov     +8H[edx],eax
+
+ img->yw=yw;
+ 0397  8b 44 24 04                       mov     eax,+4H[esp]
+ 039b  83 c2 10                          add     edx,00000010H
+ 039e  8b 40 0c                          mov     eax,+0cH[eax]
+
+ img->size=0;
+
+ char *s=data();
+ char *d=img->data();
+ int  *yd=img->ydisp();
+ 
+ 03a1  c7 42 f4 00 00 00 
+       00                                mov     dword ptr -0cH[edx],00000000H
+
+ for (int y=0; y<yw; y++) //go through all scanlines
+ {
+  yd[y]=d-((char *)img); //find y displacement
+
+ //cprintf("line %d: ydisp=%d ",y,yd[y]);
+  for (int x=xw; x>0; ) //encode scanline
+   {
+    unsigned int runlength;
+    //encode transparent run
+ 03a8  31 ed                             xor     ebp,ebp
+ 03aa  89 42 fc                          mov     -4H[edx],eax
+ 03ad  89 54 24 08                       mov     +8H[esp],edx
+ 03b1  8b 72 fc                          mov     esi,-4H[edx]
+ 03b4  8b 44 24 04                       mov     eax,+4H[esp]
+ 03b8  c1 e6 02                          shl     esi,02H
+ 03bb  83 c0 10                          add     eax,00000010H
+ 03be  01 d6                             add     esi,edx
+ 03c0  e9 5a 00 00 00                    jmp     L42
+
+    for (runlength=0; *s==tcolor && x>0 && runlength<255; x--,runlength++,s++);
+ 03c5  4b                L35             dec     ebx
+ 03c6  42                                inc     edx
+ 03c7  8a 68 01                          mov     ch,+1H[eax]
+ 03ca  40                                inc     eax
+ 03cb  38 e9                             cmp     cl,ch
+ 03cd  75 0c                             jne     L37
+ 03cf  85 db             L36             test    ebx,ebx
+ 03d1  7e 08                             jle     L37
+ 03d3  81 fa ff 00 00 00                 cmp     edx,000000ffH
+ 03d9  72 ea                             jb      L35
+
+    *d=(unsigned char)runlength; d++; //store transparent run length
+    //cprintf("%dT ",runlength);
+ 03db  46                L37             inc     esi
+ 03dc  88 56 ff                          mov     -1H[esi],dl
+
+    if (x<=0) break; //we're done with line
+
+    //encode opaque run
+ 03df  85 db                             test    ebx,ebx
+ 03e1  7e 30                             jle     L41
+
+    d++; //skip byte that'll hold run length
+ 03e3  46                                inc     esi
+ 03e4  8a 28                             mov     ch,[eax]
+
+    for (runlength=0; *s!=tcolor && x>0 && runlength<255; x--,runlength++,s++,d++) *d=*s;
+    //cprintf("%dO ",runlength);    
+ 03e6  31 d2                             xor     edx,edx
+ 03e8  38 e9                             cmp     cl,ch
+ 03ea  75 10                             jne     L39
+ 03ec  eb 1a                             jmp     L40
+ 03ee  4b                L38             dec     ebx
+ 03ef  8a 28                             mov     ch,[eax]
+ 03f1  40                                inc     eax
+ 03f2  88 2e                             mov     [esi],ch
+ 03f4  42                                inc     edx
+ 03f5  8a 28                             mov     ch,[eax]
+ 03f7  46                                inc     esi
+ 03f8  38 e9                             cmp     cl,ch
+ 03fa  74 0c                             je      L40
+ 03fc  85 db             L39             test    ebx,ebx
+ 03fe  7e 08                             jle     L40
+ 0400  81 fa ff 00 00 00                 cmp     edx,000000ffH
+ 0406  72 e6                             jb      L38
+
+    *(d-runlength-1)=(unsigned char)runlength; //store it back at beginning of run
+   }
+// printf("\n");
+  
+ }   
+
+ 0408  89 f7             L40             mov     edi,esi
+ 040a  29 d7                             sub     edi,edx
+ 040c  88 57 ff                          mov     -1H[edi],dl
+ 040f  85 db                             test    ebx,ebx
+ 0411  7f 2d                             jg      L43
+ 0413  8b 54 24 08       L41             mov     edx,+8H[esp]
+ 0417  83 c2 04                          add     edx,00000004H
+ 041a  45                                inc     ebp
+ 041b  89 54 24 08                       mov     +8H[esp],edx
+ 041f  8b 3c 24          L42             mov     edi,[esp]
+ 0422  89 f2                             mov     edx,esi
+ 0424  8b 5c 24 04                       mov     ebx,+4H[esp]
+ 0428  29 fa                             sub     edx,edi
+ 042a  3b 6b 0c                          cmp     ebp,+0cH[ebx]
+ 042d  7d 1b                             jge     L44
+ 042f  8b 5c 24 08                       mov     ebx,+8H[esp]
+ 0433  89 13                             mov     [ebx],edx
+ 0435  8b 5c 24 04                       mov     ebx,+4H[esp]
+ 0439  8b 5b 08                          mov     ebx,+8H[ebx]
+ 043c  85 db                             test    ebx,ebx
+ 043e  7e d3                             jle     L41
+ 0440  8a 28             L43             mov     ch,[eax]
+ 0442  31 d2                             xor     edx,edx
+ 0444  38 e9                             cmp     cl,ch
+ 0446  74 87                             je      L36
+ 0448  eb 91                             jmp     L37
+
+ free(this); //kill uncompressed form
+ 
+ 044a  89 d8             L44             mov     eax,ebx
+ 044c  e8 00 00 00 00                    call    free_
+
+ img->size=d-((char *)img); //find size
+ 0451  8b 04 24                          mov     eax,[esp]
+ 0454  89 50 04                          mov     +4H[eax],edx
+
+ img=(IMG *)realloc(img,img->size); //reallocate it
+ return img;
+ 0457  e8 00 00 00 00                    call    realloc_
+
+}    
+
+
+/*
+//draws compressed rle bitmap
+void IMG::draw(char *d,int dx,int dy,int o)
+{
+    o=o;
+ int *yd=ydisp();
+ unsigned char *s;
+ d+=dx+dy*PITCH;
+
+ for (int y=0; y<yw; y++)
+  {
+   s=((unsigned char *)this)+yd[y]; //get pointer to start of rle line
+   
+   for (int x=xw; x>0; ) //draw line
+    {
+     unsigned int runlength=*s; s++;
+     d+=runlength; x-=runlength;
+     if (x<=0) break;
+
+     runlength=*s; s++;
+     memcpy(d,s,runlength);
+     s+=runlength; d+=runlength; x-=runlength;
+    }
+
+    d-=xw;
+    d+=PITCH;
+  }
+}    
+
+*/
+
+
+
+
+//draws compressed rle bitmap as shadow map
+ 045c  83 c4 0c          L45             add     esp,0000000cH
+ 045f  5d                                pop     ebp
+ 0460  5f                                pop     edi
+ 0461  5e                                pop     esi
+ 0462  59                                pop     ecx
+ 0463  5b                                pop     ebx
+ 0464  c3                                ret     
+ 0465  8d 40 00                          lea     eax,+0H[eax]
+
+void IMG::drawmap(COLORMAP &map,char *d,int dx,int dy,int o)
+{
+ 0468                    void near IMG::drawmap( COLORMAP near &, char near *, int, int, int ):
+ 0468  56                                push    esi
+ 0469  57                                push    edi
+ 046a  55                                push    ebp
+ 046b  83 ec 0c                          sub     esp,0000000cH
+ 046e  89 c5                             mov     ebp,eax
+ 0470  89 d6                             mov     esi,edx
+
+ int *yd=ydisp();
+ unsigned char *s;
+ 0472  8d 50 10                          lea     edx,+10H[eax]
+ 0475  8b 3d 00 00 00 00                 mov     edi,_PITCH
+
+ d+=dx+dy*PITCH;
+
+ 047b  8b 44 24 1c                       mov     eax,+1cH[esp]
+ 047f  0f af c7                          imul    eax,edi
+ 0482  01 c1                             add     ecx,eax
+
+ for (int y=0; y<yw; y++)
+  {
+   s=((unsigned char *)this)+yd[y]; //get pointer to start of rle line
+   
+   for (int x=xw; x>0; ) //draw line
+    {
+     unsigned int runlength=*s; s++;
+     d+=runlength; x-=runlength;
+     if (x<=0) break;
+
+     runlength=*s; s++;
+     for (int i=0; i<runlength; i++,d++)
+       *d=map.c[*d];
+     s+=runlength; x-=runlength;
+    }
+ 0484  31 c0                             xor     eax,eax
+ 0486  89 44 24 04                       mov     +4H[esp],eax
+ 048a  89 e8                             mov     eax,ebp
+ 048c  01 cb                             add     ebx,ecx
+ 048e  83 78 0c 00                       cmp     dword ptr +0cH[eax],00000000H
+ 0492  0f 8e 7b 00 00 00                 jle     L51
+ 0498  89 14 24                          mov     [esp],edx
+ 049b  8b 04 24          L46             mov     eax,[esp]
+ 049e  8b 38                             mov     edi,[eax]
+ 04a0  8b 45 08                          mov     eax,+8H[ebp]
+ 04a3  01 ef                             add     edi,ebp
+ 04a5  89 44 24 08                       mov     +8H[esp],eax
+ 04a9  85 c0                             test    eax,eax
+ 04ab  7e 41                             jle     L50
+ 04ad  31 c0             L47             xor     eax,eax
+ 04af  8b 54 24 08                       mov     edx,+8H[esp]
+ 04b3  8a 07                             mov     al,[edi]
+ 04b5  47                                inc     edi
+ 04b6  29 c2                             sub     edx,eax
+ 04b8  01 c3                             add     ebx,eax
+ 04ba  89 54 24 08                       mov     +8H[esp],edx
+ 04be  85 d2                             test    edx,edx
+ 04c0  7e 2c                             jle     L50
+ 04c2  47                                inc     edi
+ 04c3  31 c9                             xor     ecx,ecx
+ 04c5  8a 4f ff                          mov     cl,-1H[edi]
+ 04c8  31 c0                             xor     eax,eax
+ 04ca  85 c9                             test    ecx,ecx
+ 04cc  76 10                             jbe     L49
+ 04ce  31 d2             L48             xor     edx,edx
+ 04d0  8a 13                             mov     dl,[ebx]
+ 04d2  43                                inc     ebx
+ 04d3  8a 14 32                          mov     dl,[edx+esi]
+ 04d6  40                                inc     eax
+ 04d7  88 53 ff                          mov     -1H[ebx],dl
+ 04da  39 c8                             cmp     eax,ecx
+ 04dc  72 f0                             jb      L48
+ 04de  8b 54 24 08       L49             mov     edx,+8H[esp]
+ 04e2  29 ca                             sub     edx,ecx
+ 04e4  01 cf                             add     edi,ecx
+ 04e6  89 54 24 08                       mov     +8H[esp],edx
+ 04ea  85 d2                             test    edx,edx
+ 04ec  7f bf                             jg      L47
+
+    d+=PITCH-xw;
+  }
+ 04ee  a1 00 00 00 00    L50             mov     eax,_PITCH
+ 04f3  8b 7d 08                          mov     edi,+8H[ebp]
+ 04f6  8b 54 24 04                       mov     edx,+4H[esp]
+ 04fa  29 f8                             sub     eax,edi
+ 04fc  8b 4d 0c                          mov     ecx,+0cH[ebp]
+ 04ff  01 c3                             add     ebx,eax
+ 0501  8b 04 24                          mov     eax,[esp]
+ 0504  42                                inc     edx
+ 0505  83 c0 04                          add     eax,00000004H
+ 0508  89 54 24 04                       mov     +4H[esp],edx
+ 050c  89 04 24                          mov     [esp],eax
+ 050f  39 ca                             cmp     edx,ecx
+ 0511  7c 88                             jl      L46
+
+}    
+
+
+
+
+
+
+ 0513  83 c4 0c          L51             add     esp,0000000cH
+ 0516  5d                                pop     ebp
+ 0517  5f                                pop     edi
+ 0518  5e                                pop     esi
+ 0519  c2 08 00                          ret     0008H
+
+void IMG::convertcolor(char a,char b)
+{
+ 051c                    void near IMG::convertcolor( char, char ):
+ 051c  51                                push    ecx
+ 051d  56                                push    esi
+ 051e  57                                push    edi
+ 051f  55                                push    ebp
+ 0520  83 ec 0c                          sub     esp,0000000cH
+ 0523  89 c7                             mov     edi,eax
+ 0525  88 54 24 08                       mov     +8H[esp],dl
+ 0529  88 5c 24 04                       mov     +4H[esp],bl
+
+ unsigned char *s=(unsigned char *)data();
+ unsigned int runlength;
+ int *yd=ydisp();
+
+ 052d  83 c0 10                          add     eax,00000010H
+ 0530  8b 57 0c                          mov     edx,+0cH[edi]
+
+ for (int y=0; y<yw; y++)
+ {
+  s=((unsigned char *)this)+yd[y]; //get pointer to start of rle line
+   
+  for (int x=xw; x>0; ) //line
+   {
+
+   //transparent
+   runlength=*s; s++;
+   x-=runlength;
+   if (x<=0) break;
+   //opaque
+   runlength=*s; s++;
+ 
+ 0533  31 ed                             xor     ebp,ebp
+ 0535  85 d2                             test    edx,edx
+ 0537  0f 8e 60 00 00 00                 jle     L59
+ 053d  89 04 24                          mov     [esp],eax
+ 0540  8b 04 24          L52             mov     eax,[esp]
+ 0543  8b 00                             mov     eax,[eax]
+ 0545  8b 57 08                          mov     edx,+8H[edi]
+ 0548  01 f8                             add     eax,edi
+ 054a  85 d2                             test    edx,edx
+ 054c  7e 16                             jle     L54
+ 054e  31 db             L53             xor     ebx,ebx
+ 0550  8a 18                             mov     bl,[eax]
+ 0552  29 da                             sub     edx,ebx
+ 0554  40                                inc     eax
+ 0555  85 d2                             test    edx,edx
+ 0557  7e 0b                             jle     L54
+ 0559  31 db                             xor     ebx,ebx
+ 055b  8a 18                             mov     bl,[eax]
+ 055d  40                                inc     eax
+ 055e  85 db                             test    ebx,ebx
+ 0560  77 1c                             ja      L56
+ 0562  eb 1e                             jmp     L57
+ 0564  8b 1c 24          L54             mov     ebx,[esp]
+ 0567  45                                inc     ebp
+ 0568  83 c3 04                          add     ebx,00000004H
+ 056b  8b 4f 0c                          mov     ecx,+0cH[edi]
+ 056e  89 1c 24                          mov     [esp],ebx
+ 0571  39 cd                             cmp     ebp,ecx
+ 0573  7d 28                             jge     L59
+ 0575  eb c9                             jmp     L52
+
+   for ( ; runlength>0 && x>0; s++,runlength--,x--)
+ 0577  40                L55             inc     eax
+ 0578  4b                                dec     ebx
+ 0579  4a                                dec     edx
+ 057a  85 db                             test    ebx,ebx
+ 057c  76 04                             jbe     L57
+ 057e  85 d2             L56             test    edx,edx
+ 0580  7f 06                             jg      L58
+ 0582  85 d2             L57             test    edx,edx
+ 0584  7f c8                             jg      L53
+ 0586  eb dc                             jmp     L54
+ 0588  31 c9             L58             xor     ecx,ecx
+
+    if (*s==a) *s=b;
+  }
+ }
+
+ 058a  0f b6 30                          movzx   esi,byte ptr [eax]
+ 058d  8a 4c 24 08                       mov     cl,+8H[esp]
+ 0591  39 ce                             cmp     esi,ecx
+ 0593  75 e2                             jne     L55
+ 0595  8a 4c 24 04                       mov     cl,+4H[esp]
+ 0599  88 08                             mov     [eax],cl
+ 059b  eb da                             jmp     L55
+
+}    
+
+
+
+
+ 059d  83 c4 0c          L59             add     esp,0000000cH
+ 05a0  5d                                pop     ebp
+ 05a1  5f                                pop     edi
+ 05a2  5e                                pop     esi
+ 05a3  59                                pop     ecx
+ 05a4  c3                                ret     
+ 05a5  8d 40 00                          lea     eax,+0H[eax]
+
+IMG *IMG::duplicate()
+{
+ 05a8                    IMG near * near IMG::duplicate():
+ 05a8  51                                push    ecx
+ 05a9  52                                push    edx
+ 05aa  56                                push    esi
+ 05ab  57                                push    edi
+ 05ac  89 c6                             mov     esi,eax
+
+ IMG *t=(IMG *)malloc(size);
+ 05ae  8b 40 04                          mov     eax,+4H[eax]
+ 05b1  e8 00 00 00 00                    call    malloc_
+ 05b6  89 c7                             mov     edi,eax
+
+ memcpy(t,this,size);
+ return t;
+ 05b8  8b 4e 04                          mov     ecx,+4H[esi]
+ 05bb  89 c2                             mov     edx,eax
+ 05bd  57                                push    edi
+ 05be  89 c8                             mov     eax,ecx
+ 05c0  c1 e9 02                          shr     ecx,02H
+ 05c3  f2 a5                             repne   movsd    
+ 05c5  8a c8                             mov     cl,al
+ 05c7  80 e1 03                          and     cl,03H
+ 05ca  f2 a4                             repne   movsb    
+ 05cc  5f                                pop     edi
+
+}
+
+ 05cd  89 d0                             mov     eax,edx
+ 05cf  5f                                pop     edi
+ 05d0  5e                                pop     esi
+ 05d1  5a                                pop     edx
+ 05d2  59                                pop     ecx
+ 05d3  c3                                ret     
+
+void IMG::colormap(COLORMAP &map)
+{
+ 05d4                    void near IMG::colormap( COLORMAP near & ):
+ 05d4  53                                push    ebx
+ 05d5  51                                push    ecx
+ 05d6  56                                push    esi
+ 05d7  57                                push    edi
+ 05d8  55                                push    ebp
+ 05d9  83 ec 04                          sub     esp,00000004H
+ 05dc  89 c7                             mov     edi,eax
+ 05de  89 d6                             mov     esi,edx
+
+ unsigned char *s=(unsigned char *)data();
+ unsigned int runlength;
+ int *yd=ydisp();
+
+ 05e0  83 c0 10                          add     eax,00000010H
+
+ for (int y=0; y<yw; y++)
+ {
+  s=((unsigned char *)this)+yd[y]; //get pointer to start of rle line
+   
+  for (int x=xw; x>0; ) //line
+   {
+
+   //transparent
+   runlength=*s; s++;
+   x-=runlength;
+   if (x<=0) break;
+   //opaque
+   runlength=*s; s++;
+ 
+   for ( ; runlength>0 && x>0; s++,runlength--,x--)
+ 05e3  31 d2                             xor     edx,edx
+ 05e5  8b 5f 0c                          mov     ebx,+0cH[edi]
+ 05e8  89 14 24                          mov     [esp],edx
+ 05eb  85 db                             test    ebx,ebx
+ 05ed  7e 52                             jle     L66
+ 05ef  89 c5                             mov     ebp,eax
+ 05f1  8b 45 00          L60             mov     eax,+0H[ebp]
+ 05f4  8b 57 08                          mov     edx,+8H[edi]
+ 05f7  01 f8                             add     eax,edi
+ 05f9  85 d2                             test    edx,edx
+ 05fb  7e 16                             jle     L62
+ 05fd  31 db             L61             xor     ebx,ebx
+ 05ff  8a 18                             mov     bl,[eax]
+ 0601  29 da                             sub     edx,ebx
+ 0603  40                                inc     eax
+ 0604  85 d2                             test    edx,edx
+ 0606  7e 0b                             jle     L62
+ 0608  31 db                             xor     ebx,ebx
+ 060a  8a 18                             mov     bl,[eax]
+ 060c  40                                inc     eax
+ 060d  85 db                             test    ebx,ebx
+ 060f  77 26                             ja      L64
+ 0611  eb 28                             jmp     L65
+ 0613  8b 0c 24          L62             mov     ecx,[esp]
+ 0616  83 c5 04                          add     ebp,00000004H
+ 0619  41                                inc     ecx
+ 061a  8b 57 0c                          mov     edx,+0cH[edi]
+ 061d  89 0c 24                          mov     [esp],ecx
+ 0620  39 d1                             cmp     ecx,edx
+ 0622  7d 1d                             jge     L66
+ 0624  eb cb                             jmp     L60
+
+ 0626  31 c9             L63             xor     ecx,ecx
+ 0628  8a 08                             mov     cl,[eax]
+
+    *s=map.c[*s];
+  }
+ }
+ 062a  40                                inc     eax
+ 062b  4b                                dec     ebx
+ 062c  8a 0c 31                          mov     cl,[ecx+esi]
+ 062f  4a                                dec     edx
+ 0630  88 48 ff                          mov     -1H[eax],cl
+ 0633  85 db                             test    ebx,ebx
+ 0635  76 04                             jbe     L65
+ 0637  85 d2             L64             test    edx,edx
+ 0639  7f eb                             jg      L63
+ 063b  85 d2             L65             test    edx,edx
+ 063d  7f be                             jg      L61
+ 063f  eb d2                             jmp     L62
+
+}
+
+
+ 0641  83 c4 04          L66             add     esp,00000004H
+ 0644  5d                                pop     ebp
+ 0645  5f                                pop     edi
+ 0646  5e                                pop     esi
+ 0647  59                                pop     ecx
+ 0648  5b                                pop     ebx
+ 0649  c3                                ret     
+ 064a  8b c0                             mov     eax,eax
+
+void COLORMAP::clear()
+{
+ 064c                    void near COLORMAP::clear():
+ 064c  52                                push    edx
+ 064d  89 c2                             mov     edx,eax
+
+ for (int i=0; i<256; i++)
+ 064f  31 c0                             xor     eax,eax
+
+ 0651  88 02             L67             mov     [edx],al
+ 0653  40                                inc     eax
+
+  c[i]=i;
+ 0654  42                                inc     edx
+ 0655  3d 00 01 00 00                    cmp     eax,00000100H
+ 065a  7c f5                             jl      L67
+
+}    
+
+
+ 065c  5a                                pop     edx
+ 065d  c3                                ret     
+ 065e  8b c0                             mov     eax,eax
+
+PALETTE *PALETTE::duplicate(int num)
+{
+  //get memory for other palette
+ 0660                    PALETTE near * near PALETTE::duplicate( int ):
+ 0660  51                                push    ecx
+ 0661  56                                push    esi
+ 0662  57                                push    edi
+ 0663  89 c6                             mov     esi,eax
+
+ PALETTE *p=(PALETTE *)malloc(num*sizeof(COLOR));
+ 0665  89 d1                             mov     ecx,edx
+ 0667  c1 e2 02                          shl     edx,02H
+ 066a  29 ca                             sub     edx,ecx
+ 066c  89 d0                             mov     eax,edx
+ 066e  89 d1                             mov     ecx,edx
+ 0670  e8 00 00 00 00                    call    malloc_
+
+ memcpy(p,this,num*sizeof(COLOR));
+ return p;
+ 0675  89 c7                             mov     edi,eax
+ 0677  89 c2                             mov     edx,eax
+ 0679  57                                push    edi
+ 067a  89 c8                             mov     eax,ecx
+ 067c  c1 e9 02                          shr     ecx,02H
+ 067f  f2 a5                             repne   movsd    
+ 0681  8a c8                             mov     cl,al
+ 0683  80 e1 03                          and     cl,03H
+ 0686  f2 a4                             repne   movsb    
+ 0688  5f                                pop     edi
+
+}
+
+inline void COLOR::fade(COLOR &d,int level)
+{
+ d.r=r*level/MAXFADELEVEL;
+ d.g=g*level/MAXFADELEVEL;
+ d.b=b*level/MAXFADELEVEL; 
+}
+
+    
+ 0689  89 d0                             mov     eax,edx
+ 068b  5f                                pop     edi
+ 068c  5e                                pop     esi
+ 068d  59                                pop     ecx
+ 068e  c3                                ret     
+ 068f  90                                nop     
+
+void PALETTE::fade(PALETTE &p,int num, int level)
+{
+ 0690                    void near PALETTE::fade( PALETTE near &, int, int ):
+ 0690  56                                push    esi
+ 0691  57                                push    edi
+ 0692  55                                push    ebp
+ 0693  89 dd                             mov     ebp,ebx
+ 0695  89 ce                             mov     esi,ecx
+
+ for (int i=0; i<num; i++)
+ 0697  31 ff                             xor     edi,edi
+ 0699  85 db                             test    ebx,ebx
+ 069b  7e 55                             jle     L69
+ 069d  89 c3                             mov     ebx,eax
+ 069f  89 d1                             mov     ecx,edx
+
+ 06a1  31 d2             L68             xor     edx,edx
+ 06a3  8a 13                             mov     dl,[ebx]
+ 06a5  0f af d6                          imul    edx,esi
+ 06a8  89 d0                             mov     eax,edx
+ 06aa  c1 fa 1f                          sar     edx,1fH
+ 06ad  c1 e2 05                          shl     edx,05H
+ 06b0  1b c2                             sbb     eax,edx
+ 06b2  c1 f8 05                          sar     eax,05H
+ 06b5  31 d2                             xor     edx,edx
+ 06b7  88 01                             mov     [ecx],al
+ 06b9  8a 53 01                          mov     dl,+1H[ebx]
+ 06bc  0f af d6                          imul    edx,esi
+ 06bf  89 d0                             mov     eax,edx
+ 06c1  c1 fa 1f                          sar     edx,1fH
+ 06c4  c1 e2 05                          shl     edx,05H
+ 06c7  1b c2                             sbb     eax,edx
+ 06c9  c1 f8 05                          sar     eax,05H
+ 06cc  31 d2                             xor     edx,edx
+ 06ce  88 41 01                          mov     +1H[ecx],al
+ 06d1  8a 53 02                          mov     dl,+2H[ebx]
+ 06d4  0f af d6                          imul    edx,esi
+ 06d7  89 d0                             mov     eax,edx
+ 06d9  c1 fa 1f                          sar     edx,1fH
+ 06dc  c1 e2 05                          shl     edx,05H
+ 06df  1b c2                             sbb     eax,edx
+ 06e1  c1 f8 05                          sar     eax,05H
+ 06e4  83 c1 03                          add     ecx,00000003H
+
+   c[i].fade(p.c[i],level);
+ 06e7  83 c3 03                          add     ebx,00000003H
+ 06ea  47                                inc     edi
+ 06eb  88 41 ff                          mov     -1H[ecx],al
+ 06ee  39 ef                             cmp     edi,ebp
+ 06f0  7c af                             jl      L68
+
+}
+
+inline int SQUARE(int x) {return x*x;}
+
+ 06f2  5d                L69             pop     ebp
+ 06f3  5f                                pop     edi
+ 06f4  5e                                pop     esi
+ 06f5  c3                                ret     
+ 06f6  8b c0                             mov     eax,eax
+
+int PALETTE::findclosestmatch(COLOR &a,int num)
+{
+ 06f8                    int near PALETTE::findclosestmatch( COLOR near &, int ):
+ 06f8  51                                push    ecx
+ 06f9  56                                push    esi
+ 06fa  57                                push    edi
+ 06fb  55                                push    ebp
+ 06fc  83 ec 10                          sub     esp,00000010H
+ 06ff  89 c6                             mov     esi,eax
+ 0701  89 df                             mov     edi,ebx
+ 0703  89 d0                             mov     eax,edx
+
+int closest=0;
+ 0705  31 d2                             xor     edx,edx
+
+int distance=0xFFFFFFF;
+
+ 0707  b9 ff ff ff 0f                    mov     ecx,0fffffffH
+ 070c  89 54 24 0c                       mov     +0cH[esp],edx
+
+for (int i=0; i<num; i++)
+ {
+  int dist=SQUARE(c[i].r-a.r)+SQUARE(c[i].g-a.g)+SQUARE(c[i].b-a.b);
+  if (dist<distance) {closest=i; distance=dist;}
+ }
+ 
+return closest;
+ 0710  85 db                             test    ebx,ebx
+ 0712  7e 5e                             jle     L72
+ 0714  31 db                             xor     ebx,ebx
+ 0716  8a 18                             mov     bl,[eax]
+ 0718  89 5c 24 08                       mov     +8H[esp],ebx
+ 071c  31 db                             xor     ebx,ebx
+ 071e  8a 58 01                          mov     bl,+1H[eax]
+ 0721  89 5c 24 04                       mov     +4H[esp],ebx
+ 0725  8a 40 02                          mov     al,+2H[eax]
+ 0728  25 ff 00 00 00                    and     eax,000000ffH
+ 072d  89 04 24                          mov     [esp],eax
+ 0730  89 f0                             mov     eax,esi
+ 0732  31 db             L70             xor     ebx,ebx
+ 0734  8b 74 24 08                       mov     esi,+8H[esp]
+ 0738  8a 18                             mov     bl,[eax]
+ 073a  29 f3                             sub     ebx,esi
+ 073c  89 de                             mov     esi,ebx
+ 073e  0f af f3                          imul    esi,ebx
+ 0741  31 db                             xor     ebx,ebx
+ 0743  8b 6c 24 04                       mov     ebp,+4H[esp]
+ 0747  8a 58 01                          mov     bl,+1H[eax]
+ 074a  29 eb                             sub     ebx,ebp
+ 074c  0f af db                          imul    ebx,ebx
+ 074f  01 de                             add     esi,ebx
+ 0751  31 db                             xor     ebx,ebx
+ 0753  8b 2c 24                          mov     ebp,[esp]
+ 0756  8a 58 02                          mov     bl,+2H[eax]
+ 0759  29 eb                             sub     ebx,ebp
+ 075b  0f af db                          imul    ebx,ebx
+ 075e  01 f3                             add     ebx,esi
+ 0760  39 cb                             cmp     ebx,ecx
+ 0762  7d 06                             jge     L71
+ 0764  89 54 24 0c                       mov     +0cH[esp],edx
+ 0768  89 d9                             mov     ecx,ebx
+ 076a  42                L71             inc     edx
+ 076b  83 c0 03                          add     eax,00000003H
+ 076e  39 fa                             cmp     edx,edi
+ 0770  7c c0                             jl      L70
+
+}
+
+ 0772  8b 44 24 0c       L72             mov     eax,+0cH[esp]
+ 0776  83 c4 10                          add     esp,00000010H
+ 0779  5d                                pop     ebp
+ 077a  5f                                pop     edi
+ 077b  5e                                pop     esi
+ 077c  59                                pop     ecx
+ 077d  c3                                ret     
+ 077e  8b c0                             mov     eax,eax
+
+void COLORMAP::createshademap(PALETTE &p,int rl,int gl,int bl)
+{
+ 0780                    void near COLORMAP::createshademap( PALETTE near &, int, int, int ):
+ 0780  56                                push    esi
+ 0781  57                                push    edi
+ 0782  55                                push    ebp
+ 0783  83 ec 0c                          sub     esp,0000000cH
+ 0786  89 d7                             mov     edi,edx
+ 0788  89 5c 24 04                       mov     +4H[esp],ebx
+ 078c  89 cd                             mov     ebp,ecx
+
+ for (int i=0; i<256; i++)
+ {
+  COLOR x;
+  //calculate shaded color
+ 078e  89 c6                             mov     esi,eax
+ 0790  89 d1                             mov     ecx,edx
+ 0792  8d 82 00 03 00 00                 lea     eax,+300H[edx]
+ 0798  89 04 24                          mov     [esp],eax
+
+  x.r=p.c[i].r*rl/MAXFADELEVEL;
+ 079b  31 d2             L73             xor     edx,edx
+ 079d  8b 5c 24 04                       mov     ebx,+4H[esp]
+ 07a1  8a 11                             mov     dl,[ecx]
+ 07a3  0f af d3                          imul    edx,ebx
+ 07a6  89 d0                             mov     eax,edx
+ 07a8  c1 fa 1f                          sar     edx,1fH
+ 07ab  c1 e2 05                          shl     edx,05H
+ 07ae  1b c2                             sbb     eax,edx
+ 07b0  c1 f8 05                          sar     eax,05H
+ 07b3  88 44 24 08                       mov     +8H[esp],al
+
+  x.g=p.c[i].g*gl/MAXFADELEVEL;
+ 07b7  31 d2                             xor     edx,edx
+ 07b9  8a 51 01                          mov     dl,+1H[ecx]
+ 07bc  0f af d5                          imul    edx,ebp
+ 07bf  89 d0                             mov     eax,edx
+ 07c1  c1 fa 1f                          sar     edx,1fH
+ 07c4  c1 e2 05                          shl     edx,05H
+ 07c7  1b c2                             sbb     eax,edx
+ 07c9  c1 f8 05                          sar     eax,05H
+ 07cc  88 44 24 09                       mov     +9H[esp],al
+
+  x.b=p.c[i].b*bl/MAXFADELEVEL;
+
+ 07d0  31 d2                             xor     edx,edx
+ 07d2  8b 44 24 1c                       mov     eax,+1cH[esp]
+ 07d6  8a 51 02                          mov     dl,+2H[ecx]
+ 07d9  0f af d0                          imul    edx,eax
+ 07dc  89 d0                             mov     eax,edx
+ 07de  c1 fa 1f                          sar     edx,1fH
+ 07e1  c1 e2 05                          shl     edx,05H
+ 07e4  1b c2                             sbb     eax,edx
+ 07e6  c1 f8 05                          sar     eax,05H
+ 07e9  46                                inc     esi
+
+  c[i]=p.findclosestmatch(x,256);
+ }     
+ 07ea  bb 00 01 00 00                    mov     ebx,00000100H
+ 07ef  8d 54 24 08                       lea     edx,+8H[esp]
+ 07f3  88 44 24 0a                       mov     +0aH[esp],al
+ 07f7  89 f8                             mov     eax,edi
+ 07f9  83 c1 03                          add     ecx,00000003H
+ 07fc  e8 00 00 00 00                    call    int near PALETTE::findclosestmatch( COLOR near &, int )
+ 0801  8b 14 24                          mov     edx,[esp]
+ 0804  88 46 ff                          mov     -1H[esi],al
+ 0807  39 d1                             cmp     ecx,edx
+ 0809  75 90                             jne     L73
+
+}
+
+//*****************************************************
+//*****************************************************
+//********* decodes lbm files *************************
+//*****************************************************
+//*****************************************************
+
+ 080b  83 c4 0c                          add     esp,0000000cH
+ 080e  5d                                pop     ebp
+ 080f  5f                                pop     edi
+ 0810  5e                                pop     esi
+ 0811  c2 04 00                          ret     0004H
+
+void expandword(unsigned short s,char *d,int plane)
+{
+ 0814                    void near expandword( short unsigned, char near *, int ):
+ 0814  51                                push    ecx
+ 0815  56                                push    esi
+ 0816  57                                push    edi
+ 0817  83 ec 04                          sub     esp,00000004H
+ 081a  89 c7                             mov     edi,eax
+
+for (int i=15; i>=0; i--)
+  {
+ 081c  b8 0f 00 00 00                    mov     eax,0000000fH
+
+   *d|=(char) ( ((s>>i)&1)<<plane );
+ 0821  31 f6             L74             xor     esi,esi
+ 0823  88 c1                             mov     cl,al
+ 0825  66 89 fe                          mov     si,di
+ 0828  d3 fe                             sar     esi,cl
+ 082a  83 e6 01                          and     esi,00000001H
+ 082d  88 d9                             mov     cl,bl
+ 082f  d3 e6                             shl     esi,cl
+ 0831  89 34 24                          mov     [esp],esi
+ 0834  8a 0c 24                          mov     cl,[esp]
+ 0837  8a 2a                             mov     ch,[edx]
+
+   d++;
+  }
+ 0839  42                                inc     edx
+ 083a  08 cd                             or      ch,cl
+ 083c  48                                dec     eax
+ 083d  88 6a ff                          mov     -1H[edx],ch
+ 0840  85 c0                             test    eax,eax
+ 0842  7d dd                             jge     L74
+
+}    
+
+ 0844  83 c4 04                          add     esp,00000004H
+ 0847  5f                                pop     edi
+ 0848  5e                                pop     esi
+ 0849  59                                pop     ecx
+ 084a  c3                                ret     
+ 084b  90                                nop     
+
+void expandbyte(unsigned char s,char *d,int plane)
+{
+ 084c                    void near expandbyte( char unsigned, char near *, int ):
+ 084c  51                                push    ecx
+ 084d  56                                push    esi
+ 084e  83 ec 08                          sub     esp,00000008H
+ 0851  88 44 24 04                       mov     +4H[esp],al
+
+for (int i=7; i>=0; i--)
+  {
+ 0855  b8 07 00 00 00                    mov     eax,00000007H
+
+   *d|=(char) ( ((s>>i)&1)<<plane );
+ 085a  0f b6 74 24 04    L75             movzx   esi,byte ptr +4H[esp]
+ 085f  88 c1                             mov     cl,al
+ 0861  d3 fe                             sar     esi,cl
+ 0863  83 e6 01                          and     esi,00000001H
+ 0866  88 d9                             mov     cl,bl
+ 0868  d3 e6                             shl     esi,cl
+ 086a  89 34 24                          mov     [esp],esi
+ 086d  8a 0c 24                          mov     cl,[esp]
+ 0870  8a 2a                             mov     ch,[edx]
+
+   d++;
+  }
+ 0872  42                                inc     edx
+ 0873  08 cd                             or      ch,cl
+ 0875  48                                dec     eax
+ 0876  88 6a ff                          mov     -1H[edx],ch
+ 0879  85 c0                             test    eax,eax
+ 087b  7d dd                             jge     L75
+
+}    
+
+
+ 087d  83 c4 08                          add     esp,00000008H
+ 0880  5e                                pop     esi
+ 0881  59                                pop     ecx
+ 0882  c3                                ret     
+ 0883  90                                nop     
+
+unsigned short reverseword(unsigned short x)
+{
+ 0884                    short unsigned near reverseword( short unsigned ):
+ 0884  52                                push    edx
+
+ return( (unsigned short)((x>>8)|(x<<8)));
+ 0885  25 ff ff 00 00                    and     eax,0000ffffH
+ 088a  89 c2                             mov     edx,eax
+ 088c  c1 fa 08                          sar     edx,08H
+ 088f  c1 e0 08                          shl     eax,08H
+ 0892  09 d0                             or      eax,edx
+
+}    
+
+
+//no compression
+ 0894  5a                                pop     edx
+ 0895  c3                                ret     
+ 0896  8b c0                             mov     eax,eax
+
+unsigned DecodeIFF(char *s,char *d,int bx,int by,int compression)
+{
+ int i,j,k;
+ 
+ int wpl; //words per scan line per plane
+ 0898                    int unsigned near DecodeIFF( char near *, char near *, int, int, int ):
+ 0898  56                                push    esi
+ 0899  57                                push    edi
+ 089a  55                                push    ebp
+ 089b  83 ec 20                          sub     esp,00000020H
+ 089e  89 c7                             mov     edi,eax
+ 08a0  89 54 24 04                       mov     +4H[esp],edx
+ 08a4  89 1c 24                          mov     [esp],ebx
+ 08a7  89 4c 24 08                       mov     +8H[esp],ecx
+
+ wpl=(bx+15)>>4; //words per scanline
+    
+// cprintf("wpl%d",wpl);
+
+ 08ab  8d 43 0f                          lea     eax,+0fH[ebx]
+ 08ae  c1 f8 04                          sar     eax,04H
+
+ char *dw=d;
+ for ( ;by>0; by--) //go through all lines
+  {
+   for (i=0; i<=bx; i++) dw[i]=0; //erase next widthlength of bytes
+//     printf("n=%d x=%d plane=%d y=%d\n",k,k,j,by);
+   
+   for (j=0; j<8; j++) //go through all planes
+    {
+     char *td=dw;
+     if (!compression)
+     { //not compressed
+     for (k=0; k<wpl; k++,s+=2,td+=16) //go through all words in each plane
+      expandword(reverseword( *((unsigned short *)s) ),td,j);
+     } else
+     { //compressed
+      k=wpl*2;
+      while (k>0)
+       {
+        signed n=(signed)(*((signed char*)s)); s++;
+        if (n>=0)
+          {
+            
+            for (n++,k-=n;  n>0; n--,s++,td+=8)
+              expandbyte((unsigned char)*s,td,j);
+          } else
+         if (n!=((signed)-128)) 
+          {
+            unsigned char c=*s; s++; 
+            for (n=1-n,k-=n;  n>0; n--,td+=8)
+              expandbyte(c,td,j);
+          }
+       }//while
+      } //if (!compression)
+     } //for j=0
+ 08b1  89 54 24 0c                       mov     +0cH[esp],edx
+ 08b5  89 44 24 14                       mov     +14H[esp],eax
+ 08b9  85 c9                             test    ecx,ecx
+ 08bb  0f 8e 11 01 00 00                 jle     L89
+ 08c1  01 c0                             add     eax,eax
+ 08c3  89 44 24 10                       mov     +10H[esp],eax
+ 08c7  8b 04 24          L76             mov     eax,[esp]
+ 08ca  31 ed                             xor     ebp,ebp
+ 08cc  85 c0                             test    eax,eax
+ 08ce  7c 10                             jl      L78
+ 08d0  8b 44 24 0c                       mov     eax,+0cH[esp]
+ 08d4  8b 14 24                          mov     edx,[esp]
+ 08d7  45                L77             inc     ebp
+ 08d8  c6 00 00                          mov     byte ptr [eax],00H
+ 08db  40                                inc     eax
+ 08dc  39 d5                             cmp     ebp,edx
+ 08de  7e f7                             jle     L77
+ 08e0  31 ed             L78             xor     ebp,ebp
+ 08e2  eb 26                             jmp     L81
+
+   dw+=bx;
+  }
+
+return(dw-d); 
+ 08e4  8b 04 24          L79             mov     eax,[esp]
+ 08e7  8b 5c 24 0c                       mov     ebx,+0cH[esp]
+ 08eb  8b 4c 24 08                       mov     ecx,+8H[esp]
+ 08ef  01 c3                             add     ebx,eax
+ 08f1  49                                dec     ecx
+ 08f2  89 5c 24 0c                       mov     +0cH[esp],ebx
+ 08f6  89 4c 24 08                       mov     +8H[esp],ecx
+ 08fa  85 c9                             test    ecx,ecx
+ 08fc  0f 8e d0 00 00 00                 jle     L89
+ 0902  eb c3                             jmp     L76
+ 0904  45                L80             inc     ebp
+ 0905  83 fd 08                          cmp     ebp,00000008H
+ 0908  7d da                             jge     L79
+ 090a  8b 5c 24 30       L81             mov     ebx,+30H[esp]
+ 090e  8b 74 24 0c                       mov     esi,+0cH[esp]
+ 0912  85 db                             test    ebx,ebx
+ 0914  75 3b                             jne     L83
+ 0916  8b 44 24 14                       mov     eax,+14H[esp]
+ 091a  31 c9                             xor     ecx,ecx
+ 091c  85 c0                             test    eax,eax
+ 091e  7e e4                             jle     L80
+ 0920  66 8b 07          L82             mov     ax,[edi]
+ 0923  25 ff ff 00 00                    and     eax,0000ffffH
+ 0928  89 c2                             mov     edx,eax
+ 092a  c1 fa 08                          sar     edx,08H
+ 092d  c1 e0 08                          shl     eax,08H
+ 0930  09 d0                             or      eax,edx
+ 0932  25 ff ff 00 00                    and     eax,0000ffffH
+ 0937  89 eb                             mov     ebx,ebp
+ 0939  89 f2                             mov     edx,esi
+ 093b  e8 00 00 00 00                    call    void near expandword( short unsigned, char near *, int )
+ 0940  41                                inc     ecx
+ 0941  83 c7 02                          add     edi,00000002H
+ 0944  8b 5c 24 14                       mov     ebx,+14H[esp]
+ 0948  83 c6 10                          add     esi,00000010H
+ 094b  39 d9                             cmp     ecx,ebx
+ 094d  7d b5                             jge     L80
+ 094f  eb cf                             jmp     L82
+ 0951  8b 44 24 10       L83             mov     eax,+10H[esp]
+ 0955  89 44 24 18                       mov     +18H[esp],eax
+ 0959  85 c0                             test    eax,eax
+ 095b  7e a7                             jle     L80
+ 095d  0f be 0f          L84             movsx   ecx,byte ptr [edi]
+ 0960  47                                inc     edi
+ 0961  85 c9                             test    ecx,ecx
+ 0963  7c 27                             jl      L86
+ 0965  8b 54 24 18                       mov     edx,+18H[esp]
+ 0969  41                                inc     ecx
+ 096a  29 ca                             sub     edx,ecx
+ 096c  89 54 24 18                       mov     +18H[esp],edx
+ 0970  85 c9                             test    ecx,ecx
+ 0972  7e 52                             jle     L88
+ 0974  89 eb             L85             mov     ebx,ebp
+ 0976  89 f2                             mov     edx,esi
+ 0978  31 c0                             xor     eax,eax
+ 097a  49                                dec     ecx
+ 097b  8a 07                             mov     al,[edi]
+ 097d  47                                inc     edi
+ 097e  e8 00 00 00 00                    call    void near expandbyte( char unsigned, char near *, int )
+ 0983  83 c6 08                          add     esi,00000008H
+ 0986  85 c9                             test    ecx,ecx
+ 0988  7e 3c                             jle     L88
+ 098a  eb e8                             jmp     L85
+ 098c  83 f9 80          L86             cmp     ecx,0ffffff80H
+ 098f  74 35                             je      L88
+ 0991  8a 07                             mov     al,[edi]
+ 0993  88 44 24 1c                       mov     +1cH[esp],al
+ 0997  b8 01 00 00 00                    mov     eax,00000001H
+ 099c  29 c8                             sub     eax,ecx
+ 099e  89 c1                             mov     ecx,eax
+ 09a0  8b 44 24 18                       mov     eax,+18H[esp]
+ 09a4  29 c8                             sub     eax,ecx
+ 09a6  47                                inc     edi
+ 09a7  89 44 24 18                       mov     +18H[esp],eax
+ 09ab  85 c9                             test    ecx,ecx
+ 09ad  7e 17                             jle     L88
+ 09af  89 eb             L87             mov     ebx,ebp
+ 09b1  31 c0                             xor     eax,eax
+ 09b3  89 f2                             mov     edx,esi
+ 09b5  8a 44 24 1c                       mov     al,+1cH[esp]
+ 09b9  49                                dec     ecx
+ 09ba  e8 00 00 00 00                    call    void near expandbyte( char unsigned, char near *, int )
+ 09bf  83 c6 08                          add     esi,00000008H
+ 09c2  85 c9                             test    ecx,ecx
+ 09c4  7f e9                             jg      L87
+ 09c6  83 7c 24 18 00    L88             cmp     dword ptr +18H[esp],00000000H
+ 09cb  7f 90                             jg      L84
+ 09cd  e9 32 ff ff ff                    jmp     L80
+
+}    
+
+
+
+
+
+
+
+
+ 09d2  8b 44 24 0c       L89             mov     eax,+0cH[esp]
+ 09d6  2b 44 24 04                       sub     eax,+4H[esp]
+ 09da  83 c4 20                          add     esp,00000020H
+ 09dd  5d                                pop     ebp
+ 09de  5f                                pop     edi
+ 09df  5e                                pop     esi
+ 09e0  c2 04 00                          ret     0004H
+ 09e3  90                                nop     
+
+unsigned int FindChunk(char *s, unsigned size,char c1, char c2, char c3, char c4)
+{
+ 09e4                    int unsigned near FindChunk( char near *, int unsigned, char, char, char, char ):
+ 09e4  56                                push    esi
+ 09e5  57                                push    edi
+ 09e6  8a 7c 24 0c                       mov     bh,+0cH[esp]
+ 09ea  89 c6                             mov     esi,eax
+ 09ec  89 d7                             mov     edi,edx
+
+unsigned int i=0;
+ 09ee  31 d2                             xor     edx,edx
+
+do
+{
+ 09f0  8d 34 38                          lea     esi,[eax+edi]
+
+if (s[i]==c1 && s[i+1]==c2 && s[i+2]==c3 && s[i+3]==c4)
+   break;
+ 09f3  3a 18             L90             cmp     bl,[eax]
+ 09f5  75 13                             jne     L91
+ 09f7  3a 48 01                          cmp     cl,+1H[eax]
+ 09fa  75 0e                             jne     L91
+ 09fc  3a 78 02                          cmp     bh,+2H[eax]
+ 09ff  75 09                             jne     L91
+ 0a01  8a 68 03                          mov     ch,+3H[eax]
+ 0a04  3a 6c 24 10                       cmp     ch,+10H[esp]
+ 0a08  74 06                             je      L92
+
+i++;   
+ 0a0a  40                L91             inc     eax
+ 0a0b  42                                inc     edx
+
+} while (i<size);
+
+ 0a0c  39 f0                             cmp     eax,esi
+ 0a0e  72 e3                             jb      L90
+
+if (i==size) return 0;
+ 0a10  39 fa             L92             cmp     edx,edi
+ 0a12  75 07                             jne     L93
+ 0a14  31 c0                             xor     eax,eax
+ 0a16  5f                                pop     edi
+ 0a17  5e                                pop     esi
+ 0a18  c2 08 00                          ret     0008H
+
+  else return i;
+ 0a1b  89 d0             L93             mov     eax,edx
+
+}    
+
+//reads a lbm/bbm file and decodes it uncompressed
+ 0a1d  5f                                pop     edi
+ 0a1e  5e                                pop     esi
+ 0a1f  c2 08 00                          ret     0008H
+ 0a22  8b c0                             mov     eax,eax
+
+SCR *ReadLBMFile(char *file)
+{
+//read lbm/bbm file
+ 0a24                    SCR near * near ReadLBMFile( char near * ):
+ 0a24  53                                push    ebx
+ 0a25  51                                push    ecx
+ 0a26  52                                push    edx
+ 0a27  56                                push    esi
+ 0a28  57                                push    edi
+ 0a29  55                                push    ebp
+ 0a2a  89 e5                             mov     ebp,esp
+ 0a2c  83 ec 1c                          sub     esp,0000001cH
+ 0a2f  89 c2                             mov     edx,eax
+
+FILEIO f;
+ 0a31  30 e4                             xor     ah,ah
+ 0a33  31 db                             xor     ebx,ebx
+ 0a35  88 65 ec                          mov     -14H[ebp],ah
+
+if (f.open(file)) return 0;
+ 0a38  8d 45 e4                          lea     eax,-1cH[ebp]
+ 0a3b  89 5d ed                          mov     -13H[ebp],ebx
+ 0a3e  e8 00 00 00 00                    call    int near FILEIO::open( char near * )
+ 0a43  85 c0                             test    eax,eax
+ 0a45  74 0f                             je      L94
+ 0a47  8d 45 e4                          lea     eax,-1cH[ebp]
+ 0a4a  e8 00 00 00 00                    call    void near FILEIO::close()
+ 0a4f  31 d2                             xor     edx,edx
+ 0a51  e9 9e 01 00 00                    jmp     L101
+
+int filesize=f.size();
+ 0a56  8d 45 e4          L94             lea     eax,-1cH[ebp]
+ 0a59  e8 00 00 00 00                    call    int unsigned near FILEIO::size()
+ 0a5e  89 c7                             mov     edi,eax
+
+char *s=(char *)f.readalloc(filesize);
+ 0a60  89 c2                             mov     edx,eax
+ 0a62  8d 45 e4                          lea     eax,-1cH[ebp]
+ 0a65  e8 00 00 00 00                    call    void near * near FILEIO::readalloc( int unsigned )
+ 0a6a  89 c6                             mov     esi,eax
+ 0a6c  89 c2                             mov     edx,eax
+
+f.close();
+
+//get header info from file
+ 0a6e  8d 45 e4                          lea     eax,-1cH[ebp]
+ 0a71  e8 00 00 00 00                    call    void near FILEIO::close()
+
+if (s[0]!='F' || s[1]!='O' || s[2]!='R' || s[3]!='M')
+ 0a76  80 3e 46                          cmp     byte ptr [esi],46H
+ 0a79  75 12                             jne     L95
+ 0a7b  80 7e 01 4f                       cmp     byte ptr +1H[esi],4fH
+ 0a7f  75 0c                             jne     L95
+ 0a81  80 7e 02 52                       cmp     byte ptr +2H[esi],52H
+ 0a85  75 06                             jne     L95
+ 0a87  80 7e 03 4d                       cmp     byte ptr +3H[esi],4dH
+ 0a8b  74 29                             je      L96
+
+ { printf("error: not IFF file.\n"); free(s);  return(0); }
+
+ 0a8d  68 12 00 00 00    L95             push    offset L106
+ 0a92  e8 00 00 00 00                    call    printf_
+ 0a97  83 c4 04                          add     esp,00000004H
+ 0a9a  89 d0                             mov     eax,edx
+ 0a9c  e8 00 00 00 00                    call    free_
+ 0aa1  8d 45 e4                          lea     eax,-1cH[ebp]
+ 0aa4  e8 00 00 00 00                    call    void near FILEIO::close()
+ 0aa9  31 d2                             xor     edx,edx
+ 0aab  89 d0                             mov     eax,edx
+ 0aad  89 ec                             mov     esp,ebp
+ 0aaf  5d                                pop     ebp
+ 0ab0  5f                                pop     edi
+ 0ab1  5e                                pop     esi
+ 0ab2  5a                                pop     edx
+ 0ab3  59                                pop     ecx
+ 0ab4  5b                                pop     ebx
+ 0ab5  c3                                ret     
+
+if (!FindChunk(s,filesize,'I','L','B','M'))
+ 0ab6  6a 4d             L96             push    0000004dH
+ 0ab8  b9 4c 00 00 00                    mov     ecx,0000004cH
+ 0abd  bb 49 00 00 00                    mov     ebx,00000049H
+ 0ac2  6a 42                             push    00000042H
+ 0ac4  89 fa                             mov     edx,edi
+ 0ac6  89 f0                             mov     eax,esi
+ 0ac8  e8 00 00 00 00                    call    int unsigned near FindChunk( char near *, int unsigned, char, char, char, char )
+ 0acd  85 c0                             test    eax,eax
+ 0acf  75 1e                             jne     L97
+
+ {printf("error: not old DP2 format.\n"); free(s); return(0);} 
+
+ 0ad1  68 28 00 00 00                    push    offset L107
+ 0ad6  e8 00 00 00 00                    call    printf_
+ 0adb  83 c4 04                          add     esp,00000004H
+ 0ade  89 f0                             mov     eax,esi
+ 0ae0  e8 00 00 00 00                    call    free_
+ 0ae5  8d 45 e4                          lea     eax,-1cH[ebp]
+ 0ae8  31 d2                             xor     edx,edx
+ 0aea  e9 00 01 00 00                    jmp     L100
+
+int i=FindChunk(s,filesize,'B','M','H','D');
+ 0aef  6a 44             L97             push    00000044H
+ 0af1  b9 4d 00 00 00                    mov     ecx,0000004dH
+ 0af6  bb 42 00 00 00                    mov     ebx,00000042H
+ 0afb  6a 48                             push    00000048H
+ 0afd  89 fa                             mov     edx,edi
+ 0aff  89 f0                             mov     eax,esi
+ 0b01  e8 00 00 00 00                    call    int unsigned near FindChunk( char near *, int unsigned, char, char, char, char )
+
+if (!i) { printf("error: BMHD tag not found.\n"); free(s);  return(0); }
+ 0b06  85 c0                             test    eax,eax
+ 0b08  75 29                             jne     L98
+ 0b0a  68 44 00 00 00                    push    offset L108
+ 0b0f  e8 00 00 00 00                    call    printf_
+ 0b14  83 c4 04                          add     esp,00000004H
+ 0b17  89 f0                             mov     eax,esi
+ 0b19  e8 00 00 00 00                    call    free_
+ 0b1e  8d 45 e4                          lea     eax,-1cH[ebp]
+ 0b21  31 d2                             xor     edx,edx
+ 0b23  e8 00 00 00 00                    call    void near FILEIO::close()
+ 0b28  89 d0                             mov     eax,edx
+ 0b2a  89 ec                             mov     esp,ebp
+ 0b2c  5d                                pop     ebp
+ 0b2d  5f                                pop     edi
+ 0b2e  5e                                pop     esi
+ 0b2f  5a                                pop     edx
+ 0b30  59                                pop     ecx
+ 0b31  5b                                pop     ebx
+ 0b32  c3                                ret     
+
+i+=8; unsigned bx=reverseword(*((unsigned short *)&s[i]));
+ 0b33  8d 50 08          L98             lea     edx,+8H[eax]
+ 0b36  66 8b 04 32                       mov     ax,[edx+esi]
+ 0b3a  25 ff ff 00 00                    and     eax,0000ffffH
+ 0b3f  89 c3                             mov     ebx,eax
+ 0b41  c1 fb 08                          sar     ebx,08H
+ 0b44  c1 e0 08                          shl     eax,08H
+ 0b47  09 d8                             or      eax,ebx
+ 0b49  25 ff ff 00 00                    and     eax,0000ffffH
+
+i+=2; unsigned by=reverseword(*((unsigned short *)&s[i]));
+i+=2; 
+i+=6; unsigned compression=s[i];
+
+//position at data start
+ 0b4e  83 c2 02                          add     edx,00000002H
+ 0b51  89 45 fc                          mov     -4H[ebp],eax
+ 0b54  66 8b 04 32                       mov     ax,[edx+esi]
+ 0b58  25 ff ff 00 00                    and     eax,0000ffffH
+ 0b5d  89 c3                             mov     ebx,eax
+ 0b5f  c1 fb 08                          sar     ebx,08H
+ 0b62  c1 e0 08                          shl     eax,08H
+ 0b65  09 d8                             or      eax,ebx
+
+i=FindChunk(s,filesize,'B','O','D','Y');
+ 0b67  6a 59                             push    00000059H
+ 0b69  b9 4f 00 00 00                    mov     ecx,0000004fH
+ 0b6e  25 ff ff 00 00                    and     eax,0000ffffH
+ 0b73  83 c2 08                          add     edx,00000008H
+ 0b76  89 45 f4                          mov     -0cH[ebp],eax
+ 0b79  31 c0                             xor     eax,eax
+ 0b7b  bb 42 00 00 00                    mov     ebx,00000042H
+ 0b80  8a 04 32                          mov     al,[edx+esi]
+ 0b83  6a 44                             push    00000044H
+ 0b85  89 45 f8                          mov     -8H[ebp],eax
+ 0b88  89 fa                             mov     edx,edi
+ 0b8a  89 f0                             mov     eax,esi
+ 0b8c  e8 00 00 00 00                    call    int unsigned near FindChunk( char near *, int unsigned, char, char, char, char )
+
+if (!i) { printf("error: BODY tag not found.\n"); free(s); return(0); }
+ 0b91  85 c0                             test    eax,eax
+ 0b93  75 29                             jne     L99
+ 0b95  68 60 00 00 00                    push    offset L109
+ 0b9a  e8 00 00 00 00                    call    printf_
+ 0b9f  83 c4 04                          add     esp,00000004H
+ 0ba2  89 f0                             mov     eax,esi
+ 0ba4  e8 00 00 00 00                    call    free_
+ 0ba9  8d 45 e4                          lea     eax,-1cH[ebp]
+ 0bac  31 d2                             xor     edx,edx
+ 0bae  e8 00 00 00 00                    call    void near FILEIO::close()
+ 0bb3  89 d0                             mov     eax,edx
+ 0bb5  89 ec                             mov     esp,ebp
+ 0bb7  5d                                pop     ebp
+ 0bb8  5f                                pop     edi
+ 0bb9  5e                                pop     esi
+ 0bba  5a                                pop     edx
+ 0bbb  59                                pop     ecx
+ 0bbc  5b                                pop     ebx
+ 0bbd  c3                                ret     
+
+i+=8; 
+
+
+
+SCR *scr=SCR::newSCR(bx,by);
+//scr->size=sizeof(SCR)+
+ 0bbe  8d 58 08          L99             lea     ebx,+8H[eax]
+ 0bc1  8b 55 f4                          mov     edx,-0cH[ebp]
+ 0bc4  8b 45 fc                          mov     eax,-4H[ebp]
+
+DecodeIFF(&s[i],scr->data(),bx,by,compression);
+ 0bc7  8b 4d f8                          mov     ecx,-8H[ebp]
+ 0bca  e8 00 00 00 00                    call    SCR near * near SCR::newSCR( int, int )
+ 0bcf  89 c7                             mov     edi,eax
+ 0bd1  51                                push    ecx
+ 0bd2  8d 50 10                          lea     edx,+10H[eax]
+ 0bd5  8b 4d f4                          mov     ecx,-0cH[ebp]
+ 0bd8  8d 04 1e                          lea     eax,[esi+ebx]
+ 0bdb  8b 5d fc                          mov     ebx,-4H[ebp]
+ 0bde  e8 00 00 00 00                    call    int unsigned near DecodeIFF( char near *, char near *, int, int, int )
+
+free(s);
+//scr=(SCR *)realloc(scr,scr->size);
+
+ 0be3  89 f0                             mov     eax,esi
+ 0be5  e8 00 00 00 00                    call    free_
+ 0bea  8d 45 e4                          lea     eax,-1cH[ebp]
+
+return(scr);
+ 0bed  89 fa                             mov     edx,edi
+ 0bef  e8 00 00 00 00    L100            call    void near FILEIO::close()
+
+}    
+
+
+
+ 0bf4  89 d0             L101            mov     eax,edx
+ 0bf6  89 ec                             mov     esp,ebp
+ 0bf8  5d                                pop     ebp
+ 0bf9  5f                                pop     edi
+ 0bfa  5e                                pop     esi
+ 0bfb  5a                                pop     edx
+ 0bfc  59                                pop     ecx
+ 0bfd  5b                                pop     ebx
+ 0bfe  c3                                ret     
+ 0bff  90                                nop     
+
+void drawbox(char *d,int color,int x1,int y1,int x2,int y2)
+{
+ //top
+ 0c00                    void near drawbox( char near *, int, int, int, int, int ):
+ 0c00  56                                push    esi
+ 0c01  57                                push    edi
+ 0c02  55                                push    ebp
+ 0c03  89 c7                             mov     edi,eax
+ 0c05  89 d6                             mov     esi,edx
+ 0c07  89 cd                             mov     ebp,ecx
+
+ drawhline(d,color,x1,y1,x2);
+ //bottom
+ 0c09  8b 54 24 10                       mov     edx,+10H[esp]
+ 0c0d  52                                push    edx
+ 0c0e  51                                push    ecx
+ 0c0f  53                                push    ebx
+ 0c10  56                                push    esi
+ 0c11  50                                push    eax
+ 0c12  e8 00 00 00 00                    call    _drawhline
+ 0c17  83 c4 14                          add     esp,00000014H
+
+ drawhline(d,color,x1,y2-1,x2);
+ //left
+ 0c1a  8b 4c 24 10                       mov     ecx,+10H[esp]
+ 0c1e  8b 44 24 14                       mov     eax,+14H[esp]
+ 0c22  51                                push    ecx
+ 0c23  48                                dec     eax
+ 0c24  50                                push    eax
+ 0c25  53                                push    ebx
+ 0c26  56                                push    esi
+ 0c27  57                                push    edi
+ 0c28  e8 00 00 00 00                    call    _drawhline
+ 0c2d  83 c4 14                          add     esp,00000014H
+
+ drawvline(d,color,x1,y1,y2);
+ //right
+ 0c30  8b 44 24 14                       mov     eax,+14H[esp]
+ 0c34  50                                push    eax
+ 0c35  55                                push    ebp
+ 0c36  53                                push    ebx
+ 0c37  56                                push    esi
+ 0c38  57                                push    edi
+ 0c39  e8 00 00 00 00                    call    _drawvline
+ 0c3e  83 c4 14                          add     esp,00000014H
+
+ drawvline(d,color,x2-1,y1,y2);
+ 0c41  8b 54 24 14                       mov     edx,+14H[esp]
+ 0c45  52                                push    edx
+ 0c46  8b 44 24 14                       mov     eax,+14H[esp]
+ 0c4a  55                                push    ebp
+ 0c4b  48                                dec     eax
+ 0c4c  50                                push    eax
+ 0c4d  56                                push    esi
+ 0c4e  57                                push    edi
+ 0c4f  e8 00 00 00 00                    call    _drawvline
+ 0c54  83 c4 14                          add     esp,00000014H
+
+}
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 0c57  5d                                pop     ebp
+ 0c58  5f                                pop     edi
+ 0c59  5e                                pop     esi
+ 0c5a  c2 08 00                          ret     0008H
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: CONST  DWORD USE32  0000007c bytes  
+ 0000  2e 72 32 00             L102            - .r2.
+ 0004  2e 73 63 72 00          L103            - .scr.
+ 0009  2e 52 32 00             L104            - .R2.
+ 000d  2e 53 43 52 00          L105            - .SCR.
+ 0012  65 72 72 6f 72 3a 20 6e L106            - error: n
+ 001a  6f 74 20 49 46 46 20 66                 - ot IFF f
+ 0022  69 6c 65 2e 0a 00                       - ile...
+ 0028  65 72 72 6f 72 3a 20 6e L107            - error: n
+ 0030  6f 74 20 6f 6c 64 20 44                 - ot old D
+ 0038  50 32 20 66 6f 72 6d 61                 - P2 forma
+ 0040  74 2e 0a 00                             - t...
+ 0044  65 72 72 6f 72 3a 20 42 L108            - error: B
+ 004c  4d 48 44 20 74 61 67 20                 - MHD tag 
+ 0054  6e 6f 74 20 66 6f 75 6e                 - not foun
+ 005c  64 2e 0a 00                             - d...
+ 0060  65 72 72 6f 72 3a 20 42 L109            - error: B
+ 0068  4f 44 59 20 74 61 67 20                 - ODY tag 
+ 0070  6e 6f 74 20 66 6f 75 6e                 - not foun
+ 0078  64 2e 0a 00                             - d...
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: near FILEIO::~FILEIO()  SEGMENT ANY '_TEXT'  0000000c bytes  
+ 0000  53                                push    ebx
+ 0001  89 c3                             mov     ebx,eax
+ 0003  e8 00 00 00 00                    call    void near FILEIO::close()
+ 0008  89 d8                             mov     eax,ebx
+ 000a  5b                                pop     ebx
+ 000b  c3                                ret     
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Comdat: char unsigned const near __typesig[]  SEGMENT ANY 'DGROUP:CONST2'  00000011 bytes  
+ 0000  00                                      - .
+ 0001  00 00 00 00                             DD      near FILEIO::FILEIO()
+ 0005  00 00 00 00                             DD      near FILEIO::FILEIO( FILEIO const near & )
+ 0009  00 00 00 00                             DD      near FILEIO::~FILEIO()
+ 000d  0d 00 00 00                             - ....
+
+No disassembly errors
+
+------------------------------------------------------------

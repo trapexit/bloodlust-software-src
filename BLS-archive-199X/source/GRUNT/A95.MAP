@@ -1,0 +1,3686 @@
+
+ Start         Length     Name                   Class
+ 0001:00000000 000028B0BH _TEXT                  CODE
+ 0002:00000000 0000081B8H _DATA                  DATA
+ 0002:000081B8 000000000H _TLSCBA                TLSCBA
+ 0002:000081B8 000000084H _INIT_                 INITDATA
+ 0002:0000823C 000000000H _INITEND_              INITDATA
+ 0002:0000823C 000000036H _EXIT_                 EXITDATA
+ 0002:00008272 000000000H _EXITEND_              EXITDATA
+ 0002:00008274 000000000H CONST                  CONST
+ 0002:00008274 000003E74H _BSS                   BSS
+ 0002:0000C0E8 000000000H _BSSEND                BSS
+
+  Address         Publics by Name
+
+ 0001:00026844       operator delete(void*)
+ 0001:00026854       operator delete[](void*)
+ 0001:00026878       operator new(unsigned int)
+ 0001:000117BB       __tpdsc__[analogjoy1]
+ 0001:00011767       __tpdsc__[analogjoy2]
+ 0001:00020A33       __tpdsc__[Bad_typeid]
+ 0001:0000B48D       __tpdsc__[bglinedraw]
+ 0001:0000B4E1       __tpdsc__[bglinemove]
+ 0001:00005D4E       __tpdsc__[clip_frame]
+ 0001:0001057E       __tpdsc__[effectpane]
+ 0001:0000FC23       __tpdsc__[e_dir_edit]
+ 0001:00005B4E       __tpdsc__[GUIintedit]
+ 0001:00008234       __tpdsc__[GUIlistbox]
+ 0001:00005DF6       __tpdsc__[GUImessage]
+ 0001:00007A22       __tpdsc__[GUImonitor]
+ 0001:0000B395       __tpdsc__[objectdefw]
+ 0001:00005CA6       __tpdsc__[objectedit]
+ 0001:0000B3E9       __tpdsc__[objectmove]
+ 0001:0001B940       __tpdsc__[trajectory]
+ 0001:0000E53C       __tpdsc__[volumefile]
+ 0001:000087C9       __tpdsc__[afterseries]
+ 0001:00005EE2       __tpdsc__[bgimagemove]
+ 0001:00005DA2       __tpdsc__[clip_images]
+ 0001:0000FD7B       __tpdsc__[editeffects]
+ 0001:0000FC77       __tpdsc__[e_goto_edit]
+ 0001:0000FE0B       __tpdsc__[e_newobject]
+ 0001:00005996       __tpdsc__[GUIcheckbox]
+ 0001:00007E4E       __tpdsc__[GUIcontents]
+ 0001:000058EA       __tpdsc__[GUItextedit]
+ 0001:0001A9A1       __tpdsc__[objectspace]
+ 0001:000085FE       __tpdsc__[selectcfunc]
+ 0001:0000572A       __tpdsc__[changeseries]
+ 0001:0000FB6F       __tpdsc__[e_blood_edit]
+ 0001:0000FCCB       __tpdsc__[e_shake_edit]
+ 0001:0000FD23       __tpdsc__[e_sound_edit]
+ 0001:00005AF6       __tpdsc__[GUIfloatedit]
+ 0001:000083B8       __tpdsc__[GUIscrollbar]
+ 0001:00010DC8       __tpdsc__[neweffectdlg]
+ 0001:0000D44F       __tpdsc__[redefinekeys]
+ 0001:0000645D       __tpdsc__[selectseries]
+ 0001:0000FEC3       __tpdsc__[e_groundshake]
+ 0001:0000FF07       __tpdsc__[e_objectshake]
+ 0001:00005782       __tpdsc__[GUIhscrollbar]
+ 0001:00008162       __tpdsc__[GUInumberedit]
+ 0001:00005C4E       __tpdsc__[GUIstatictext]
+ 0001:000089C1       __tpdsc__[GUItextbutton]
+ 0001:00019099       __tpdsc__[GUIvscrollbar]
+ 0001:0000C88C       __tpdsc__[inputtestarea]
+ 0001:00005A46       __tpdsc__[loadobjectdlg]
+ 0001:00005BF6       __tpdsc__[GUIimagebutton]
+ 0001:00019596       __tpdsc__[GUImaximizebox]
+ 0001:0000561E       __tpdsc__[GUIstaticimage]
+ 0001:0001946B       __tpdsc__[GUItrackbutton]
+ 0001:0001B8E8       __tpdsc__[jumptrajectory]
+ 0001:0000593E       __tpdsc__[newobjectspace]
+ 0001:000057DA       __tpdsc__[selectimagedlg]
+ 0001:00019199       __tpdsc__[GUIhtrackbutton]
+ 0001:00005A9E       __tpdsc__[GUIonebuttonbox]
+ 0001:00008A19       __tpdsc__[GUItwobuttonbox]
+ 0001:000191F1       __tpdsc__[GUIvtrackbutton]
+ 0001:0000C834       __tpdsc__[inputtestbutton]
+ 0001:0001D9CF       __tpdsc__[shaketrajectory]
+ 0001:0000FBC7       __tpdsc__[e_newobject_edit]
+ 0001:000059EA       __tpdsc__[GUIstringlistbox]
+ 0001:00005832       __tpdsc__[seriesproperties]
+ 0001:0000C8E4       __tpdsc__[changeinputdevice]
+ 0001:0000588E       __tpdsc__[GUInumbertextedit]
+ 0001:000056CA       __tpdsc__[GUIstaticcenteredtext]
+ 0001:00003075       __tpdsc__[CLIP]
+ 0001:0000091E       __tpdsc__[ROOT]
+ 0001:0001EA19       __tpdsc__[xmsg] const
+ 0001:0000B345       __tpdsc__[bgdef]
+ 0001:0000FE4B       __tpdsc__[e_dir]
+ 0001:0000D53F       __tpdsc__[input]
+ 0001:00000A31       __tpdsc__[A95VOL]
+ 0001:0000557A       __tpdsc__[bgedit]
+ 0001:0000B43D       __tpdsc__[bgmove]
+ 0001:000009A2       __tpdsc__[config]
+ 0001:00010A08       __tpdsc__[effect]
+ 0001:0000FE87       __tpdsc__[e_goto]
+ 0001:00000DF7       __tpdsc__[FILEIO]
+ 0001:00011717       __tpdsc__[gravis]
+ 0001:00019249       __tpdsc__[GUIbar]
+ 0001:00005E4A       __tpdsc__[GUIbox]
+ 0001:0000B535       __tpdsc__[object]
+ 0001:0001EC57       __tpdsc__[string]
+ 0001:0001E96B       __tpdsc__[xalloc] const
+ 0001:0000FDCF       __tpdsc__[e_blood]
+ 0001:00010A38       __tpdsc__[e_shake]
+ 0001:0000FF4B       __tpdsc__[e_sound]
+ 0001:000082EE       __tpdsc__[GUIedit]
+ 0001:00008016       __tpdsc__[GUImenu]
+ 0001:00000AA1       __tpdsc__[GUIrect]
+ 0001:000008CE       __tpdsc__[GUIroot]
+ 0001:0000D2E6       __tpdsc__[keyedit]
+ 0001:0001D509       __tpdsc__[surface]
+ 0001:00005676       __tpdsc__[aboutdlg]
+ 0001:00020A4F       __tpdsc__[Bad_cast]
+ 0001:00005E9A       __tpdsc__[bgobject]
+ 0001:00007F96       __tpdsc__[clipdata]
+ 0001:0000096E       __tpdsc__[COLORMAP]
+ 0001:00005BA2       __tpdsc__[framebar]
+ 0001:00005CFA       __tpdsc__[GUIhmenu]
+ 0001:0001935F       __tpdsc__[GUItrack]
+ 0001:00019DD8       __tpdsc__[GUIvmenu]
+ 0001:00011B65       __tpdsc__[joystick]
+ 0001:0001192A       __tpdsc__[keyboard]
+ 0001:00020A6B       __tpdsc__[typeinfo]
+ 0001:00000A6D       __tpdsc__[volbatch]
+ 0001:0000C0E4       __tpdsc__[CLIPBOARD]
+ 0001:000080CC       __tpdsc__[GUIbutton]
+ 0001:000190F1       __tpdsc__[GUIhtrack]
+ 0001:00019145       __tpdsc__[GUIvtrack]
+ 0001:00005F36       __tpdsc__[imagemove]
+ 0001:0001180F       __tpdsc__[inputnone]
+ 0001:000116C3       __tpdsc__[keyboard1]
+ 0001:0001166F       __tpdsc__[keyboard2]
+ 0001:000055CA       __tpdsc__[loadbgdlg]
+ 0001:0000BC3D       __tpdsc__[objectdef]
+ 0001:000115F8       __tpdsc__[analogjoy1*]
+ 0001:00011611       __tpdsc__[analogjoy2*]
+ 0001:0000B2D1       __tpdsc__[bglinedraw*]
+ 0001:0000B2B8       __tpdsc__[bglinemove*]
+ 0001:0000314A       __tpdsc__[clip_frame*]
+ 0001:00010DAF       __tpdsc__[effectpane*]
+ 0001:0000FB1C       __tpdsc__[e_dir_edit*]
+ 0001:00005384       __tpdsc__[GUIintedit*]
+ 0001:00003117       __tpdsc__[GUImessage*]
+ 0001:0000B318       __tpdsc__[objectdefw*]
+ 0001:0000531B       __tpdsc__[objectedit*]
+ 0001:0000B2FF       __tpdsc__[objectmove*]
+ 0001:0001B8B2       __tpdsc__[trajectory*]
+ 0001:000085AE       __tpdsc__[afterseries*]
+ 0001:000030D1       __tpdsc__[bgimagemove*]
+ 0001:00003130       __tpdsc__[clip_images*]
+ 0001:0000F4BF       __tpdsc__[editeffects*]
+ 0001:0000FB02       __tpdsc__[e_goto_edit*]
+ 0001:0000F48F       __tpdsc__[e_newobject*]
+ 0001:00005411       __tpdsc__[GUIcheckbox*]
+ 0001:00005448       __tpdsc__[GUItextedit*]
+ 0001:0001A987       __tpdsc__[objectspace*]
+ 0001:000085C8       __tpdsc__[selectcfunc*]
+ 0001:000054DA       __tpdsc__[changeseries*]
+ 0001:0000FB54       __tpdsc__[e_blood_edit*]
+ 0001:0000FAE7       __tpdsc__[e_shake_edit*]
+ 0001:0000FACC       __tpdsc__[e_sound_edit*]
+ 0001:0000539D       __tpdsc__[GUIfloatedit*]
+ 0001:00010D94       __tpdsc__[neweffectdlg*]
+ 0001:0000D29F       __tpdsc__[redefinekeys*]
+ 0001:0000F44A       __tpdsc__[e_groundshake*]
+ 0001:0000F42E       __tpdsc__[e_objectshake*]
+ 0001:000054BE       __tpdsc__[GUIhscrollbar*]
+ 0001:00005334       __tpdsc__[GUIstatictext*]
+ 0001:000085E2       __tpdsc__[GUItextbutton*]
+ 0001:0001907D       __tpdsc__[GUIvscrollbar*]
+ 0001:0000C7FA       __tpdsc__[inputtestarea*]
+ 0001:000053D6       __tpdsc__[loadobjectdlg*]
+ 0001:00005350       __tpdsc__[GUIimagebutton*]
+ 0001:0001A96A       __tpdsc__[GUImaximizebox*]
+ 0001:00005530       __tpdsc__[GUIstaticimage*]
+ 0001:0001B8CB       __tpdsc__[jumptrajectory*]
+ 0001:0000542B       __tpdsc__[newobjectspace*]
+ 0001:000054A1       __tpdsc__[selectimagedlg*]
+ 0001:0001902F       __tpdsc__[GUIhtrackbutton*]
+ 0001:000053B8       __tpdsc__[GUIonebuttonbox*]
+ 0001:00008590       __tpdsc__[GUItwobuttonbox*]
+ 0001:00019011       __tpdsc__[GUIvtrackbutton*]
+ 0001:0000C816       __tpdsc__[inputtestbutton*]
+ 0001:0001D9B1       __tpdsc__[shaketrajectory*]
+ 0001:0000FB35       __tpdsc__[e_newobject_edit*]
+ 0001:000053F2       __tpdsc__[GUIstringlistbox*]
+ 0001:00005482       __tpdsc__[seriesproperties*]
+ 0001:0000C7DA       __tpdsc__[changeinputdevice*]
+ 0001:00005462       __tpdsc__[GUInumbertextedit*]
+ 0001:000054F5       __tpdsc__[GUIstaticcenteredtext*]
+ 0001:000008A5       __tpdsc__[ROOT*]
+ 0001:0000B331       __tpdsc__[bgdef*]
+ 0001:0000F47B       __tpdsc__[e_dir*]
+ 0001:0000D11D       __tpdsc__[input*]
+ 0001:00005565       __tpdsc__[bgedit*]
+ 0001:0000B2EA       __tpdsc__[bgmove*]
+ 0001:00000879       __tpdsc__[config*]
+ 0001:0000F466       __tpdsc__[e_goto*]
+ 0001:0001162A       __tpdsc__[gravis*]
+ 0001:00018FFC       __tpdsc__[GUIbar*]
+ 0001:00003102       __tpdsc__[GUIbox*]
+ 0001:0000B2A3       __tpdsc__[object*]
+ 0001:0001EC42       __tpdsc__[string*]
+ 0001:0000F4A9       __tpdsc__[e_blood*]
+ 0001:0000F418       __tpdsc__[e_sound*]
+ 0001:0000D2BA       __tpdsc__[GUIrect*]
+ 0001:000008B8       __tpdsc__[GUIroot*]
+ 0001:0000D2D0       __tpdsc__[keyedit*]
+ 0001:0001D173       __tpdsc__[surface*]
+ 0001:00005519       __tpdsc__[aboutdlg*]
+ 0001:000030EB       __tpdsc__[bgobject*]
+ 0001:0000C0CD       __tpdsc__[clipdata*]
+ 0001:0000088E       __tpdsc__[COLORMAP*]
+ 0001:0000536D       __tpdsc__[framebar*]
+ 0001:00005304       __tpdsc__[GUIhmenu*]
+ 0001:00019DC1       __tpdsc__[GUIvmenu*]
+ 0001:00020A1C       __tpdsc__[typeinfo*]
+ 0001:00018FE4       __tpdsc__[GUIbutton*]
+ 0001:00019065       __tpdsc__[GUIhtrack*]
+ 0001:0001904D       __tpdsc__[GUIvtrack*]
+ 0001:000030B9       __tpdsc__[imagemove*]
+ 0001:000115E0       __tpdsc__[inputnone*]
+ 0001:0001163F       __tpdsc__[keyboard1*]
+ 0001:00011657       __tpdsc__[keyboard2*]
+ 0001:0000554D       __tpdsc__[loadbgdlg*]
+ 0001:00000084  Idle A95VOL::size() __fastcall
+ 0002:000002DC       a95vol::
+ 0001:00006384       aboutdlg::~aboutdlg() __fastcall
+ 0001:000063EF       aboutdlg::acceptfocus() __fastcall
+ 0001:000063F5       aboutdlg::draw(char*) __fastcall
+ 0001:00006410       aboutdlg::getname() __fastcall
+ 0001:00004A8A       aboutdlg::open() __fastcall
+ 0002:00008604  Idle aboutdlg::pos
+ 0001:00006416       aboutdlg::sendmessage(GUIrect*,int) __fastcall
+ 0002:00001FD0       aboutdlg::
+ 0001:0000881D       afterseries::~afterseries() __fastcall
+ 0001:0000889D       afterseries::getname() __fastcall
+ 0001:0000889A       afterseries::keyhit(char,char) __fastcall
+ 0002:000085A4  Idle afterseries::pos
+ 0001:00008935       afterseries::refreshobjdef() __fastcall
+ 0001:00008977       afterseries::refreshseries() __fastcall
+ 0001:000088A3       afterseries::sendmessage(GUIrect*,int) __fastcall
+ 0002:000025F8       afterseries::
+ 0001:00011BE8       analogjoy1::~analogjoy1() __fastcall
+ 0001:00011C27       analogjoy1::main() __fastcall
+ 0001:00011C21       analogjoy1::timer() __fastcall
+ 0002:000045A4       analogjoy1::
+ 0001:00011AE3       analogjoy2::~analogjoy2() __fastcall
+ 0001:00011B22       analogjoy2::main() __fastcall
+ 0001:00011B1C       analogjoy2::timer() __fastcall
+ 0002:0000454C       analogjoy2::
+ 0001:0001C824  Idle bgchunk::create(bgobject*,int,int,int,int) __fastcall
+ 0001:0001C8E8  Idle bgchunk::destroy() __fastcall
+ 0001:0001D293       bgchunk::drawbg(bgobject*,char*,int,int) __fastcall
+ 0001:0001D3CE       bgchunk::drawfg(bgobject*,char*,int,int) __fastcall
+ 0001:0001C2C4  Idle bgchunk::hittest(bgobject*,int,int,int,int) __fastcall
+ 0001:0001D550       bgdef::bgdef(objectspace*,int,char*,char*,char*,char*) __fastcall
+ 0001:0000BC85       bgdef::~bgdef() __fastcall
+ 0001:00001608       bgdef::deletebgline(bgline*) __fastcall
+ 0001:0000173C       bgdef::deleteimage(bgimage*) __fastcall
+ 0001:0001D5C4  Idle bgdef::freeodf() __fastcall
+ 0001:00001680       bgdef::insertbgline(bgline*) __fastcall
+ 0001:000017B4       bgdef::insertimage(bgimage*) __fastcall
+ 0001:000010DC  Idle bgdef::loadbgimages(char*) __fastcall
+ 0001:00000F9C  Idle bgdef::loadbglines(char*) __fastcall
+ 0001:00000E68  Idle bgdef::loadscrmap(char*) __fastcall
+ 0001:00001224       bgdef::read() __fastcall
+ 0001:0000198C  Idle bgdef::readscreens(char*) __fastcall
+ 0001:000015C4  Idle bgdef::resortbgimages() __fastcall
+ 0001:000014A0       bgdef::save() __fastcall
+ 0001:00001178  Idle bgdef::savebgimages(char*) __fastcall
+ 0001:00001030  Idle bgdef::savebglines(char*) __fastcall
+ 0001:00000EFC  Idle bgdef::savescrmap(char*) __fastcall
+ 0001:00001540       bgdef::writevol(volumefile&) __fastcall
+ 0002:0000662C       bgdef::
+ 0001:00005FB6       bgedit::~bgedit() __fastcall
+ 0001:000061B8       bgedit::draw(char*) __fastcall
+ 0001:000061D8       bgedit::getname() __fastcall
+ 0001:0000505B       bgedit::open() __fastcall
+ 0002:000085F4  Idle bgedit::pos
+ 0001:0000623F       bgedit::refreshbg() __fastcall
+ 0001:00006250       bgedit::refreshbgdef() __fastcall
+ 0001:000061DE       bgedit::sendmessage(GUIrect*,int) __fastcall
+ 0002:00001EE8       bgedit::
+ 0001:0001C67C  Idle bgimage::calcextent(lrect&,bgobject*) __fastcall
+ 0001:000094B4       bgimagemove::bgimagemove(bgdef*,bgimage*,int,int) __fastcall
+ 0001:0000952C  Idle bgimagemove::bgimagemove(bgobject*,bgimage*,int,int) __fastcall
+ 0001:000095A0       bgimagemove::~bgimagemove() __fastcall
+ 0001:0000BC03       bgimagemove::acceptfocus() __fastcall
+ 0001:0000941C  Idle bgimagemove::bind(bgobject*) __fastcall
+ 0001:00009604  Idle bgimagemove::deleteimage() __fastcall
+ 0001:000096A8  Idle bgimagemove::drag(mouse&) __fastcall
+ 0001:0000981C  Idle bgimagemove::draw(char*) __fastcall
+ 0001:0000BC09       bgimagemove::getname() __fastcall
+ 0001:0000965C  Idle bgimagemove::insertimage() __fastcall
+ 0001:000099D4  Idle bgimagemove::keyhit(char,char) __fastcall
+ 0001:000097AC  Idle bgimagemove::release(mouse&) __fastcall
+ 0002:00002E68       bgimagemove::
+ 0001:00001578  Idle bgimgcmp(bgimage*,bgimage*)
+ 0001:00001704       bgline::set(int,int,int,int) __fastcall
+ 0001:0000B8F9       bglinedraw::~bglinedraw() __fastcall
+ 0001:0000B944       bglinedraw::acceptfocus() __fastcall
+ 0001:0000B9AB       bglinedraw::drag(mouse&) __fastcall
+ 0001:0000B9E7       bglinedraw::draw(char*) __fastcall
+ 0001:0000BA7A       bglinedraw::getname() __fastcall
+ 0001:0000B9E8       bglinedraw::keyhit(char,char) __fastcall
+ 0001:0000B94A       bglinedraw::release(mouse&) __fastcall
+ 0002:00002D84       bglinedraw::
+ 0001:0000BA80       bglinemove::~bglinemove() __fastcall
+ 0001:0000BACB       bglinemove::acceptfocus() __fastcall
+ 0001:0000BB32       bglinemove::drag(mouse&) __fastcall
+ 0001:0000BB5E       bglinemove::draw(char*) __fastcall
+ 0001:0000BBF1       bglinemove::getname() __fastcall
+ 0001:0000BB5F       bglinemove::keyhit(char,char) __fastcall
+ 0001:0000BAD1       bglinemove::release(mouse&) __fastcall
+ 0002:00002DD0       bglinemove::
+ 0001:0000B7B9       bgmove::~bgmove() __fastcall
+ 0001:0000B856       bgmove::drag(mouse&) __fastcall
+ 0001:0000B87D       bgmove::draw(char*) __fastcall
+ 0001:0000B8F3       bgmove::getname() __fastcall
+ 0001:0000B7F5       bgmove::release(mouse&) __fastcall
+ 0002:00002D38       bgmove::
+ 0001:0001C0A4       bgobject::bgobject(bgdef*,int,int) __fastcall
+ 0001:0001C148       bgobject::~bgobject() __fastcall
+ 0001:0001C18C       bgobject::activate() __fastcall
+ 0001:0001C718  Idle bgobject::calcextent() __fastcall
+ 0001:0001C8F8  Idle bgobject::createchunks() __fastcall
+ 0001:0001C23C       bgobject::deactivate() __fastcall
+ 0001:0001CC04  Idle bgobject::drawbg(char*) __fastcall
+ 0001:0001CDC0  Idle bgobject::drawbglines(char*) __fastcall
+ 0001:0001CB08  Idle bgobject::drawbgscr(char*) __fastcall
+ 0001:0001D189       bgobject::drawchunkbg(char*,int,int) __fastcall
+ 0001:0001D20E       bgobject::drawchunkfg(char*,int,int) __fastcall
+ 0001:0001CD90       bgobject::drawfg(char*) __fastcall
+ 0001:0001CF6C  Idle bgobject::getbasey(int,int,int&) __fastcall
+ 0001:0001C3E8       bgobject::hittest(int,int) __fastcall
+ 0001:0001C5B0       bgobject::linehittest(int,int) __fastcall
+ 0001:0001CE90       bgobject::refreshbg(char*) __fastcall
+ 0001:0001C994  Idle bgobject::scroll() __fastcall
+ 0001:0001CA10       bgobject::tick() __fastcall
+ 0002:0000661C       bgobject::
+ 0001:000140B4  Idle BMAP::draw(char*,int,int,int) __fastcall
+ 0001:0001410C       BMAP::write(char*) __fastcall
+ 0001:000004DC  Idle calcfps() __fastcall
+ 0001:0000C528       changeinputdevice::changeinputdevice(int,input*&) __fastcall
+ 0001:0000CA7B       changeinputdevice::~changeinputdevice() __fastcall
+ 0001:0000CB7B       changeinputdevice::acceptfocus() __fastcall
+ 0001:0000CB9D       changeinputdevice::draw(char*) __fastcall
+ 0001:0000CC2B       changeinputdevice::getname() __fastcall
+ 0001:0000CB97       changeinputdevice::losefocus() __fastcall
+ 0002:00008740  Idle changeinputdevice::pos
+ 0001:0000CB81       changeinputdevice::receivefocus() __fastcall
+ 0001:0000CC31       changeinputdevice::sendmessage(GUIrect*,int) __fastcall
+ 0002:000035E4       changeinputdevice::
+ 0001:00015008       changeresolution(int,int) __fastcall
+ 0001:000065B5       changeseries::~changeseries() __fastcall
+ 0001:0000663E       changeseries::getname() __fastcall
+ 0001:00006633       changeseries::keyhit(char,char) __fastcall
+ 0001:00006632       changeseries::losefocus() __fastcall
+ 0001:0000455D       changeseries::open() __fastcall
+ 0002:000085C4  Idle changeseries::pos
+ 0001:00006AC5       changeseries::refreshseries() __fastcall
+ 0001:00006AE2       changeseries::refreshstopped() __fastcall
+ 0001:00006644       changeseries::sendmessage(GUIrect*,int) __fastcall
+ 0002:000020E4       changeseries::
+ 0001:00015D98  Idle checkkbstatdown(char) __fastcall
+ 0001:00015DDC  Idle checkkbstatup(char) __fastcall
+ 0001:00014B58       cleanexit(int) __fastcall
+ 0001:000154DC  Idle cleanup() __fastcall
+ 0001:00005F8A       CLIP::~CLIP() __fastcall
+ 0001:0000C12C       CLIPBOARD::~CLIPBOARD() __fastcall
+ 0001:0000BCC0  Idle clipdata::clipdata() __fastcall
+ 0001:00008B61       clipdata::~clipdata() __fastcall
+ 0002:0000266C       clipdata::
+ 0001:0000BEE0       clip_frame::clip_frame(frame*,int,objectdef*) __fastcall
+ 0001:0000BF74       clip_frame::~clip_frame() __fastcall
+ 0001:0000BFB8  Idle clip_frame::paste() __fastcall
+ 0002:00002FC4       clip_frame::
+ 0001:0000BD44       clip_images::clip_images(frame*,objectdef*) __fastcall
+ 0001:0000BDC0       clip_images::~clip_images() __fastcall
+ 0001:0000BE04  Idle clip_images::paste() __fastcall
+ 0002:00002FD8       clip_images::
+ 0001:000144C8  Idle COLORMAP::clear() __fastcall
+ 0001:00014618       COLORMAP::createshademap(PALETTE&,int,int,int) __fastcall
+ 0001:00000C5C       config::config() __fastcall
+ 0001:00000CBC       config::load(char*) __fastcall
+ 0001:00000D70       config::save(char*) __fastcall
+ 0001:00015220  Idle @createdsoundbuffer
+ 0001:00014BC8  Idle createsurfaces() __fastcall
+ 0001:00014E18       ddrawinfo() __fastcall
+ 0001:000146FC  Idle DecodeIFF(char*,char*,int,int,int) __fastcall
+ 0001:00014AB0       drawbox(char*,int,int,int,int,int) __fastcall
+ 0001:0001352C  Idle DrawHorizontalRun(char**,int,int,int) __fastcall
+ 0001:0001550C       drawrect(char*,int,int,int,int,int) __fastcall
+ 0001:00013560  Idle DrawVerticalRun(char**,int,int,int) __fastcall
+ 0001:00010673       editeffects::~editeffects() __fastcall
+ 0001:000107AE       editeffects::acceptfocus() __fastcall
+ 0001:000107B4       editeffects::draw(char*) __fastcall
+ 0001:00010C28       editeffects::geteffectptr() __fastcall
+ 0001:000107F5       editeffects::getname() __fastcall
+ 0001:000107F2       editeffects::keyhit(char,char) __fastcall
+ 0002:000087A4  Idle editeffects::pos
+ 0001:000106DD       editeffects::refresh(int,void*) __fastcall
+ 0001:00010A74       editeffects::refreshepane() __fastcall
+ 0001:000107FB       editeffects::sendmessage(GUIrect*,int) __fastcall
+ 0002:000042D0       editeffects::
+ 0001:0000C1B0       editinputdevice0() __fastcall
+ 0001:0000C358       editinputdevice1() __fastcall
+ 0001:0001D6C8       effect::getname() __fastcall
+ 0001:0000EC20  Idle effect::neweffectpane(int,int,editeffects*) __fastcall
+ 0001:0001D69C       effect::size() __fastcall
+ 0001:0001D6B0       effect::trigger(object*) __fastcall
+ 0001:000105D2       effectpane::~effectpane() __fastcall
+ 0001:0000FFC9       effectpane::acceptfocus() __fastcall
+ 0001:0001022C       effectpane::draweffect(char*) __fastcall
+ 0002:00004220       effectpane::
+ 0001:00000080       enablegui() __fastcall
+ 0001:00013908       enumdir(char*,int(*)(char*,void*) __fastcall,void*) __fastcall
+ 0001:000146C4  Idle expandbyte(unsigned char,char*,int) __fastcall
+ 0001:000146A0  Idle expandword(unsigned short,char*,int) __fastcall
+ 0001:0001D940       e_blood::e_blood() __fastcall
+ 0001:0000E8A8  Idle e_blood::draw(char*,object*) __fastcall
+ 0001:0001D99F       e_blood::size() __fastcall
+ 0001:0001D96C  Idle e_blood::trigger(object*) __fastcall
+ 0001:00010361       e_blood_edit::~e_blood_edit() __fastcall
+ 0001:000103A3       e_blood_edit::click(mouse&) __fastcall
+ 0001:00010465       e_blood_edit::drag(mouse&) __fastcall
+ 0001:00010504       e_blood_edit::draweffect(char*) __fastcall
+ 0001:000104DD       e_blood_edit::getname() __fastcall
+ 0001:0001045F       e_blood_edit::release(mouse&) __fastcall
+ 0001:000104E3       e_blood_edit::sendmessage(GUIrect*,int) __fastcall
+ 0002:00004170       e_blood_edit::
+ 0001:0001D854       e_dir::e_dir() __fastcall
+ 0001:0001D9AB       e_dir::size() __fastcall
+ 0001:0001D868  Idle e_dir::trigger(object*) __fastcall
+ 0001:00010515       e_dir_edit::~e_dir_edit() __fastcall
+ 0001:00010557       e_dir_edit::getname() __fastcall
+ 0001:0001055D       e_dir_edit::sendmessage(GUIrect*,int) __fastcall
+ 0002:000041C8       e_dir_edit::
+ 0001:0001D830       e_goto::e_goto() __fastcall
+ 0001:0001D999       e_goto::size() __fastcall
+ 0001:0001D844  Idle e_goto::trigger(object*) __fastcall
+ 0001:0000F70D       e_goto_edit::e_goto_edit(int,int,e_goto*,objectdefw*) __fastcall
+ 0001:000101C3       e_goto_edit::~e_goto_edit() __fastcall
+ 0001:00010205       e_goto_edit::getname() __fastcall
+ 0001:0001020B       e_goto_edit::sendmessage(GUIrect*,int) __fastcall
+ 0002:000040C0       e_goto_edit::
+ 0001:0001D81C       e_groundshake::e_groundshake() __fastcall
+ 0001:0001D987       e_groundshake::size() __fastcall
+ 0001:0001D82C  Idle e_groundshake::trigger(object*) __fastcall
+ 0001:0001D890       e_newobject::e_newobject() __fastcall
+ 0001:0000E7A8  Idle e_newobject::draw(char*,object*) __fastcall
+ 0001:0001D993       e_newobject::size() __fastcall
+ 0001:0001D8C0  Idle e_newobject::trigger(object*) __fastcall
+ 0001:0000F84E       e_newobject_edit::e_newobject_edit(int,int,e_newobject*,object*) __fastcall
+ 0001:0000FF87       e_newobject_edit::~e_newobject_edit() __fastcall
+ 0001:0000FFCF       e_newobject_edit::click(mouse&) __fastcall
+ 0001:00010091       e_newobject_edit::drag(mouse&) __fastcall
+ 0001:000101B2       e_newobject_edit::draweffect(char*) __fastcall
+ 0001:00010109       e_newobject_edit::getname() __fastcall
+ 0001:0001008B       e_newobject_edit::release(mouse&) __fastcall
+ 0001:0001010F       e_newobject_edit::sendmessage(GUIrect*,int) __fastcall
+ 0002:00004068       e_newobject_edit::
+ 0001:0001D714       e_objectshake::e_objectshake() __fastcall
+ 0001:0001D98D       e_objectshake::size() __fastcall
+ 0001:0001D724  Idle e_objectshake::trigger(object*) __fastcall
+ 0001:0001D970  Idle e_oldregion::e_oldregion() __fastcall
+ 0001:0001D9A5       e_oldregion::size() __fastcall
+ 0001:0001D980  Idle e_oldregion::trigger(object*) __fastcall
+ 0001:0001D6F8  Idle e_shake::e_shake(unsigned char) __fastcall
+ 0001:0001060A       e_shake_edit::~e_shake_edit() __fastcall
+ 0001:0001064C       e_shake_edit::getname() __fastcall
+ 0001:00010652       e_shake_edit::sendmessage(GUIrect*,int) __fastcall
+ 0002:00004278       e_shake_edit::
+ 0001:0001D6DC       e_sound::e_sound() __fastcall
+ 0001:0001D981       e_sound::size() __fastcall
+ 0001:0001D6E8       e_sound::trigger(object*) __fastcall
+ 0001:0000F4D9       e_sound_edit::e_sound_edit(int,int,e_sound*,objectdefw*) __fastcall
+ 0001:0001022D       e_sound_edit::~e_sound_edit() __fastcall
+ 0001:0001026F       e_sound_edit::getname() __fastcall
+ 0001:00010275       e_sound_edit::sendmessage(GUIrect*,int) __fastcall
+ 0002:00004118       e_sound_edit::
+ 0001:00000E3B       FILEIO::~FILEIO() __fastcall
+ 0001:000139A0       FILEIO::close() __fastcall
+ 0001:00013974       FILEIO::create(char*) __fastcall
+ 0001:00013AC8       FILEIO::getpos() __fastcall
+ 0001:00013948       FILEIO::open(char*) __fastcall
+ 0001:000139C0       FILEIO::read(void*,unsigned int) __fastcall
+ 0001:00013A40       FILEIO::readalloc(unsigned int) __fastcall
+ 0001:00013A84       FILEIO::readint() __fastcall
+ 0001:00013AE8       FILEIO::setpos(unsigned int) __fastcall
+ 0001:00013AB0       FILEIO::size() __fastcall
+ 0001:00013A04       FILEIO::write(void*,unsigned int) __fastcall
+ 0001:00013A9C       FILEIO::writeint(int) __fastcall
+ 0001:0001482C  Idle FindChunk(char*,unsigned int,char,char,char,char) __fastcall
+ 0001:00013B00  Idle FONT::FONT() __fastcall
+ 0001:00013CD4  Idle FONT::addsymbol(FONT*,IMG*,char) __fastcall
+ 0001:00013DC8       FONT::convertcolor(char,char) __fastcall
+ 0001:00013B20       FONT::draw(char,char*,int,int) __fastcall
+ 0001:00013B6C       FONT::draw(char*,char*,int,int) __fastcall
+ 0001:00013DA4       FONT::duplicate() __fastcall
+ 0001:00013BDC       FONT::getwidth(char*) __fastcall
+ 0001:00013C20       FONT::printf(int,int,char*,...)
+ 0001:00013C64  Idle FONT::write(char*) __fastcall
+ 0001:0001BFA8       frame::draw(char*,int,int,objectdef*) __fastcall
+ 0001:0001C020       frame::drawflipx(char*,int,int,objectdef*) __fastcall
+ 0001:000078AF       framebar::~framebar() __fastcall
+ 0001:000078DD       framebar::click(mouse&) __fastcall
+ 0001:000078E4       framebar::drag(mouse&) __fastcall
+ 0001:0000795F       framebar::draw(char*) __fastcall
+ 0001:000078DE       framebar::release(mouse&) __fastcall
+ 0002:00002358       framebar::
+ 0001:000153B8       freesound(IDirectSoundBuffer*) __fastcall
+ 0001:00000380       gametimer() __fastcall
+ 0001:000128D8  Idle GetFileExtension(char*,char*) __fastcall
+ 0001:0001285C       GetFileName(char*,char*) __fastcall
+ 0001:00015E3C  Idle getkey() __fastcall
+ 0001:00015EC8       getkeyname(char) __fastcall
+ 0001:000153C0       getsoundsize(IDirectSoundBuffer*) __fastcall
+ 0001:0000DC7C  Idle gettime(char*) __fastcall
+ 0001:000119E6       gravis::~gravis() __fastcall
+ 0002:00004394  Idle gravis::gravtable
+ 0001:00011A7D       gravis::main() __fastcall
+ 0001:00011A77       gravis::timer() __fastcall
+ 0002:00004520       gravis::
+ 0001:00019562       GUIbar::~GUIbar() __fastcall
+ 0001:000164C4  Idle GUIbar::draw(char*) __fastcall
+ 0002:000059F4       GUIbar::
+ 0001:000177DC       GUIbox::GUIbox(GUIrect*,char*,GUIcontents*,int,int) __fastcall
+ 0001:00007F68       GUIbox::~GUIbox() __fastcall
+ 0001:00019517       GUIbox::acceptfocus() __fastcall
+ 0001:000178E4  Idle GUIbox::click(mouse&) __fastcall
+ 0001:00017904  Idle GUIbox::drag(mouse&) __fastcall
+ 0001:00017924  Idle GUIbox::draw(char*) __fastcall
+ 0001:0001963B       GUIbox::getname() __fastcall
+ 0001:00017A5C  Idle GUIbox::keyhit(char,char) __fastcall
+ 0001:0001953F       GUIbox::losechildfocus() __fastcall
+ 0001:0001951D       GUIbox::receivefocus() __fastcall
+ 0001:00019501       GUIbox::refresh(int,void*) __fastcall
+ 0001:000178FC  Idle GUIbox::release(mouse&) __fastcall
+ 0001:000179CC  Idle GUIbox::sendmessage(GUIrect*,int) __fastcall
+ 0001:000177A4       GUIbox::settitle(char*) __fastcall
+ 0002:00005AD8       GUIbox::
+ 0001:0001663C  Idle GUIbutton::GUIbutton(GUIrect*,int,int,int,int) __fastcall
+ 0001:00008B05       GUIbutton::~GUIbutton() __fastcall
+ 0001:000167CC  Idle GUIbutton::click(mouse&) __fastcall
+ 0001:0001668C  Idle GUIbutton::draw(char*) __fastcall
+ 0001:0001967E       GUIbutton::getname() __fastcall
+ 0001:0001680C  Idle GUIbutton::release(mouse&) __fastcall
+ 0002:00005E14       GUIbutton::
+ 0001:000169C4       GUIcheckbox::GUIcheckbox(GUIrect*,char*,int,int,int) __fastcall
+ 0001:00008288       GUIcheckbox::~GUIcheckbox() __fastcall
+ 0001:00019666       GUIcheckbox::acceptfocus() __fastcall
+ 0001:00016AF8  Idle GUIcheckbox::click(mouse&) __fastcall
+ 0001:00016A4C  Idle GUIcheckbox::draw(char*) __fastcall
+ 0001:0001966C       GUIcheckbox::getname() __fastcall
+ 0001:00016B6C  Idle GUIcheckbox::keyhit(char,char) __fastcall
+ 0001:00016B0C  Idle GUIcheckbox::release(mouse&) __fastcall
+ 0002:00005D30       GUIcheckbox::
+ 0001:00007EA2       GUIcontents::~GUIcontents() __fastcall
+ 0001:000176EC       GUIcontents::keyhit(char,char) __fastcall
+ 0001:0000623C       GUIcontents::maximize() __fastcall
+ 0001:0000623D       GUIcontents::restore() __fastcall
+ 0002:0000248C       GUIcontents::
+ 0001:00016B84       GUIedit::GUIedit(GUIrect*,char*,int,int,int) __fastcall
+ 0001:00008A9F       GUIedit::~GUIedit() __fastcall
+ 0001:0000D36E       GUIedit::acceptfocus() __fastcall
+ 0001:00016C44  Idle GUIedit::click(mouse&) __fastcall
+ 0001:00016C48       GUIedit::draw(char*) __fastcall
+ 0001:00019653       GUIedit::drawdata(char*,int,int,int) __fastcall
+ 0001:0001964D       GUIedit::getname() __fastcall
+ 0001:00016C30       GUIedit::hittest(int,int) __fastcall
+ 0002:00005CE0       GUIedit::
+ 0001:000174C0       GUIfloatedit::GUIfloatedit(GUIrect*,char*,int,int,int,float,float,float) __fastcall
+ 0001:000081BA       GUIfloatedit::~GUIfloatedit() __fastcall
+ 0001:000175D4  Idle GUIfloatedit::add(float) __fastcall
+ 0001:00017538  Idle GUIfloatedit::clear() __fastcall
+ 0001:00017594  Idle GUIfloatedit::clip() __fastcall
+ 0001:0001764C  Idle GUIfloatedit::drawdata(char*,int,int,int) __fastcall
+ 0001:00019641       GUIfloatedit::getname() __fastcall
+ 0001:00017610  Idle GUIfloatedit::minus(float) __fastcall
+ 0001:00017678  Idle GUIfloatedit::sendmessage(GUIrect*,int) __fastcall
+ 0001:00017560  Idle GUIfloatedit::setmax() __fastcall
+ 0002:00005B24       GUIfloatedit::
+ 0001:00019944       GUIhmenu::GUIhmenu(GUIrect*,menu*,int,int) __fastcall
+ 0001:00007FDE       GUIhmenu::~GUIhmenu() __fastcall
+ 0001:0001999C  Idle GUIhmenu::draw(char*) __fastcall
+ 0001:00019EAC       GUIhmenu::getmenuheight() __fastcall
+ 0001:00019EA3       GUIhmenu::getmenuwidth() __fastcall
+ 0001:00019E9D       GUIhmenu::getname() __fastcall
+ 0001:00019D4C  Idle GUIhmenu::keyhit(char,char) __fastcall
+ 0001:00019A38  Idle GUIhmenu::menuhittest(int,int,int&,int&) __fastcall
+ 0002:00005FF4       GUIhmenu::
+ 0001:000189CC       GUIhscrollbar::GUIhscrollbar(GUIrect*,int,int,int) __fastcall
+ 0001:00008380       GUIhscrollbar::~GUIhscrollbar() __fastcall
+ 0001:0001929F       GUIhscrollbar::getname() __fastcall
+ 0001:000183A8  Idle GUIhscrollbar::keyhit(char,char) __fastcall
+ 0002:000056E4       GUIhscrollbar::
+ 0001:00018678  Idle GUIhtrack::GUIhtrack(GUIhscrollbar*) __fastcall
+ 0001:000192E3       GUIhtrack::~GUIhtrack() __fastcall
+ 0001:0001931B       GUIhtrack::getname() __fastcall
+ 0001:00018860  Idle GUIhtrack::positionthumb() __fastcall
+ 0001:000187FC  Idle GUIhtrack::setthumbsize(int) __fastcall
+ 0002:0000577C       GUIhtrack::
+ 0001:00018538  Idle GUIhtrackbutton::GUIhtrackbutton(GUIhtrack*,int) __fastcall
+ 0001:000193E1       GUIhtrackbutton::~GUIhtrackbutton() __fastcall
+ 0001:00018558  Idle GUIhtrackbutton::click(mouse&) __fastcall
+ 0001:00018568  Idle GUIhtrackbutton::drag(mouse&) __fastcall
+ 0002:00005878       GUIhtrackbutton::
+ 0001:0001692C       GUIimagebutton::GUIimagebutton(GUIrect*,IMG*,int,int) __fastcall
+ 0001:00008094       GUIimagebutton::~GUIimagebutton() __fastcall
+ 0001:00016994  Idle GUIimagebutton::draw(char*) __fastcall
+ 0001:00019672       GUIimagebutton::getname() __fastcall
+ 0002:00005D7C       GUIimagebutton::
+ 0001:000172C8       GUIintedit::GUIintedit(GUIrect*,char*,int,int,int,int,int,int) __fastcall
+ 0001:00008120       GUIintedit::~GUIintedit() __fastcall
+ 0001:000173C0  Idle GUIintedit::add(int) __fastcall
+ 0001:00017340  Idle GUIintedit::clear() __fastcall
+ 0001:00017394  Idle GUIintedit::clip() __fastcall
+ 0001:00017424  Idle GUIintedit::drawdata(char*,int,int,int) __fastcall
+ 0001:00019647       GUIintedit::getname() __fastcall
+ 0001:000173F0  Idle GUIintedit::minus(int) __fastcall
+ 0001:0001744C  Idle GUIintedit::sendmessage(GUIrect*,int) __fastcall
+ 0001:00017368  Idle GUIintedit::setmax() __fastcall
+ 0002:00005B80       GUIintedit::
+ 0001:00018B8C       GUIlistbox::GUIlistbox(GUIrect*,int,int,int,int,int) __fastcall
+ 0001:00008781       GUIlistbox::~GUIlistbox() __fastcall
+ 0001:00007758       GUIlistbox::acceptfocus() __fastcall
+ 0001:00018B24       GUIlistbox::clearsel() __fastcall
+ 0001:00018EB8       GUIlistbox::click(mouse&) __fastcall
+ 0001:00018F2C       GUIlistbox::drag(mouse&) __fastcall
+ 0001:00018D20       GUIlistbox::draw(char*) __fastcall
+ 0001:000087C2       GUIlistbox::drawitems(char*,int,int) __fastcall
+ 0001:00018C9C       GUIlistbox::freeitems() __fastcall
+ 0001:000087BC       GUIlistbox::getname() __fastcall
+ 0001:00018E24       GUIlistbox::keyhit(char,char) __fastcall
+ 0001:00018F20       GUIlistbox::release(mouse&) __fastcall
+ 0001:00018CC0       GUIlistbox::resizeitems(int) __fastcall
+ 0001:00018B2C       GUIlistbox::setsel(int) __fastcall
+ 0002:000025A8       GUIlistbox::
+ 0001:00017A70       GUImaximizebox::GUImaximizebox(GUIrect*,char*,GUIcontents*,int,int) __fastcall
+ 0001:000195EE       GUImaximizebox::~GUImaximizebox() __fastcall
+ 0001:00019626       GUImaximizebox::bringtofront() __fastcall
+ 0001:00017B24  Idle GUImaximizebox::draw(char*) __fastcall
+ 0001:00019635       GUImaximizebox::getname() __fastcall
+ 0001:00017C44  Idle GUImaximizebox::hittest(int,int) __fastcall
+ 0001:00017B5C       GUImaximizebox::maximize() __fastcall
+ 0001:00017C04       GUImaximizebox::reposmaxbutton() __fastcall
+ 0001:00017BB4       GUImaximizebox::restore() __fastcall
+ 0001:00017C94  Idle GUImaximizebox::sendmessage(GUIrect*,int) __fastcall
+ 0002:00005A8C       GUImaximizebox::
+ 0001:000197C0  Idle GUImenu::GUImenu(GUIrect*,menu*,int,int) __fastcall
+ 0001:00008B33       GUImenu::~GUImenu() __fastcall
+ 0001:00019E65       GUImenu::acceptfocus() __fastcall
+ 0001:00019804  Idle GUImenu::click(mouse&) __fastcall
+ 0001:00019A88  Idle GUImenu::drag(mouse&) __fastcall
+ 0001:00019EB5       GUImenu::getname() __fastcall
+ 0001:00019940  Idle GUImenu::losechildfocus() __fastcall
+ 0001:000198D4  Idle GUImenu::losefocus() __fastcall
+ 0001:00019E6B       GUImenu::receivefocus() __fastcall
+ 0001:00019864  Idle GUImenu::release(mouse&) __fastcall
+ 0001:00019E64       GUImenu::sendtoback() __fastcall
+ 0002:0000604C       GUImenu::
+ 0001:00007ED0       GUImessage::~GUImessage() __fastcall
+ 0001:00007F43       GUImessage::draw(char*) __fastcall
+ 0001:00007F62       GUImessage::getname() __fastcall
+ 0001:000048BD       GUImessage::open() __fastcall
+ 0002:00008564  Idle GUImessage::pos
+ 0002:000024E0       GUImessage::
+ 0001:00007A76       GUImonitor::~GUImonitor() __fastcall
+ 0001:000061B2       GUImonitor::acceptfocus() __fastcall
+ 0001:000062EA       GUImonitor::draw(char*) __fastcall
+ 0001:00006029       GUImonitor::refresh(int,void*) __fastcall
+ 0001:00006382       GUImonitor::refreshbg() __fastcall
+ 0001:00006383       GUImonitor::refreshbgdef() __fastcall
+ 0001:00006275       GUImonitor::refreshframe() __fastcall
+ 0001:0000624F       GUImonitor::refreshobjdef() __fastcall
+ 0001:0000624E       GUImonitor::refreshobject() __fastcall
+ 0001:0000623E       GUImonitor::refreshobjspace() __fastcall
+ 0001:00006274       GUImonitor::refreshseries() __fastcall
+ 0001:00006276       GUImonitor::refreshstopped() __fastcall
+ 0002:000023A4       GUImonitor::
+ 0001:00017034  Idle GUInumberedit::GUInumberedit(GUIrect*,char*,int,int,int) __fastcall
+ 0001:00008ACD       GUInumberedit::~GUInumberedit() __fastcall
+ 0001:0001716C  Idle GUInumberedit::draw(char*) __fastcall
+ 0001:00017220  Idle GUInumberedit::keyhit(char,char) __fastcall
+ 0002:00005BDC       GUInumberedit::
+ 0001:00016F9C       GUInumbertextedit::GUInumbertextedit(GUIrect*,char*,int,int,int,int,int) __fastcall
+ 0001:0000833E       GUInumbertextedit::~GUInumbertextedit() __fastcall
+ 0001:0001965A       GUInumbertextedit::getname() __fastcall
+ 0001:00017020       GUInumbertextedit::getstate() __fastcall
+ 0001:00016FF4  Idle GUInumbertextedit::isvalidkey(char) __fastcall
+ 0002:00005C38       GUInumbertextedit::
+ 0001:00017CC4       GUIonebuttonbox::GUIonebuttonbox(GUIrect*,char*,GUIcontents*,char*,int,int) __fastcall
+ 0001:000081FC       GUIonebuttonbox::~GUIonebuttonbox() __fastcall
+ 0001:00019590       GUIonebuttonbox::getname() __fastcall
+ 0001:00017EA8  Idle GUIonebuttonbox::keyhit(char,char) __fastcall
+ 0001:00017E00  Idle GUIonebuttonbox::sendmessage(GUIrect*,int) __fastcall
+ 0002:00005A40       GUIonebuttonbox::
+ 0001:00015F64       GUIrect::GUIrect(GUIrect*,int,int,int,int) __fastcall
+ 0001:00015FDC       GUIrect::~GUIrect() __fastcall
+ 0001:00006454       GUIrect::acceptfocus() __fastcall
+ 0001:000161D8       GUIrect::bringtofront() __fastcall
+ 0001:000009FB       GUIrect::click(mouse&) __fastcall
+ 0001:00016328       GUIrect::cyclefocus(int) __fastcall
+ 0001:00000A04       GUIrect::drag(mouse&) __fastcall
+ 0001:00016220       GUIrect::draw(char*) __fastcall
+ 0001:00016394       GUIrect::fill(char) __fastcall
+ 0001:00007A1C       GUIrect::getname() __fastcall
+ 0001:00016120       GUIrect::hittest(int,int) __fastcall
+ 0001:00016240       GUIrect::keyhit(char,char) __fastcall
+ 0001:000160D8       GUIrect::link(GUIrect*) __fastcall
+ 0001:00016300       GUIrect::losechildfocus() __fastcall
+ 0001:0001628C       GUIrect::losefocus() __fastcall
+ 0002:00005050       GUIrect::modal
+ 0001:000161A8       GUIrect::moverel(int,int) __fastcall
+ 0001:0001619C       GUIrect::moveto(int,int) __fastcall
+ 0001:000163CC       GUIrect::outline(char) __fastcall
+ 0001:00016294       GUIrect::receivefocus() __fastcall
+ 0001:000063EE       GUIrect::refresh(int,void*) __fastcall
+ 0001:000009FE       GUIrect::release(mouse&) __fastcall
+ 0001:00015F24       GUIrect::reparent(GUIrect*) __fastcall
+ 0001:00000A2B       GUIrect::sendmessage(GUIrect*,int) __fastcall
+ 0001:000161FC       GUIrect::sendtoback() __fastcall
+ 0001:000162B0       GUIrect::setfocus(GUIrect*) __fastcall
+ 0001:00016098       GUIrect::unlink() __fastcall
+ 0002:000050E0       GUIrect::
+ 0001:000163EC       GUIroot::GUIroot(ROOT*) __fastcall
+ 0001:00016424       GUIroot::~GUIroot() __fastcall
+ 0001:000164B6       GUIroot::acceptfocus() __fastcall
+ 0001:000164BD       GUIroot::getname() __fastcall
+ 0001:00016460  Idle GUIroot::keyhit(char,char) __fastcall
+ 0001:000164BC       GUIroot::losefocus() __fastcall
+ 0001:00016488       GUIroot::refresh(int,void*) __fastcall
+ 0002:00005094       GUIroot::
+ 0001:000182E0  Idle GUIscrollbar::GUIscrollbar(GUIrect*,int,int,int,int) __fastcall
+ 0001:00008A71       GUIscrollbar::~GUIscrollbar() __fastcall
+ 0001:00019299       GUIscrollbar::acceptfocus() __fastcall
+ 0001:000182C8  Idle GUIscrollbar::clip() __fastcall
+ 0001:00018328  Idle GUIscrollbar::draw(char*) __fastcall
+ 0001:000194FB       GUIscrollbar::getname() __fastcall
+ 0001:000183E4  Idle GUIscrollbar::sendmessage(GUIrect*,int) __fastcall
+ 0001:00018498       GUIscrollbar::setpos(int) __fastcall
+ 0001:00018418  Idle GUIscrollbar::setposfromtrack(int,int) __fastcall
+ 0001:00018450       GUIscrollbar::setrange(int,int) __fastcall
+ 0002:0000595C       GUIscrollbar::
+ 0001:0000641C       GUIstaticcenteredtext::~GUIstaticcenteredtext() __fastcall
+ 0001:000165E8       GUIstaticcenteredtext::draw(char*) __fastcall
+ 0002:00002024       GUIstaticcenteredtext::
+ 0001:00016590       GUIstaticimage::GUIstaticimage(GUIrect*,IMG*,int,int) __fastcall
+ 0001:00008410       GUIstaticimage::~GUIstaticimage() __fastcall
+ 0001:000165CC  Idle GUIstaticimage::draw(char*) __fastcall
+ 0001:00019684       GUIstaticimage::getname() __fastcall
+ 0002:00005E60       GUIstaticimage::
+ 0001:00016528       GUIstatictext::GUIstatictext(GUIrect*,int,char*,int,int) __fastcall
+ 0001:00008066       GUIstatictext::~GUIstatictext() __fastcall
+ 0001:00016570  Idle GUIstatictext::draw(char*) __fastcall
+ 0001:00006457       GUIstatictext::getname() __fastcall
+ 0001:000164EC       GUIstatictext::settext(char*) __fastcall
+ 0002:00005EAC       GUIstatictext::
+ 0001:00007713       GUIstringlistbox::~GUIstringlistbox() __fastcall
+ 0001:00018F34       GUIstringlistbox::drawitems(char*,int,int) __fastcall
+ 0001:0000775E       GUIstringlistbox::getname() __fastcall
+ 0002:00002294       GUIstringlistbox::
+ 0001:00016850       GUItextbutton::GUItextbutton(GUIrect*,char*,int,int) __fastcall
+ 0001:00008BBA       GUItextbutton::~GUItextbutton() __fastcall
+ 0001:000168EC  Idle GUItextbutton::draw(char*) __fastcall
+ 0001:00019678       GUItextbutton::getname() __fastcall
+ 0002:00005DC8       GUItextbutton::
+ 0001:00016D8C       GUItextedit::GUItextedit(GUIrect*,char*,char*,int,int,int,int) __fastcall
+ 0001:000082B6       GUItextedit::~GUItextedit() __fastcall
+ 0001:00016EEC  Idle GUItextedit::addchar(char) __fastcall
+ 0001:00016F24  Idle GUItextedit::backspace() __fastcall
+ 0001:00016DD0  Idle GUItextedit::drawdata(char*,int,int,int) __fastcall
+ 0001:00016CF4  Idle GUItextedit::getinputw() __fastcall
+ 0001:00019660       GUItextedit::getname() __fastcall
+ 0001:00016F8C  Idle GUItextedit::isvalidkey(char) __fastcall
+ 0001:00016F48  Idle GUItextedit::keyhit(char,char) __fastcall
+ 0001:00016D24       GUItextedit::setinput(char*) __fastcall
+ 0002:00005C8C       GUItextedit::
+ 0001:00018584  Idle GUItrack::GUItrack(GUIscrollbar*,int,int,int,int) __fastcall
+ 0001:000193B3       GUItrack::~GUItrack() __fastcall
+ 0001:0001871C  Idle GUItrack::draw(char*) __fastcall
+ 0001:00018750  Idle GUItrack::movethumb(int) __fastcall
+ 0001:0001877C  Idle GUItrack::settrackfrompos(int,int,int) __fastcall
+ 0002:00005824       GUItrack::
+ 0001:000184C0  Idle GUItrackbutton::GUItrackbutton(GUItrack*,int) __fastcall
+ 0001:000194C3       GUItrackbutton::~GUItrackbutton() __fastcall
+ 0001:00019423       GUItrackbutton::getname() __fastcall
+ 0002:00005910       GUItrackbutton::
+ 0001:00017F4C       GUItwobuttonbox::GUItwobuttonbox(GUIrect*,char*,GUIcontents*,char*,char*,int,int) __fastcall
+ 0001:00008B82       GUItwobuttonbox::~GUItwobuttonbox() __fastcall
+ 0001:0001955C       GUItwobuttonbox::getname() __fastcall
+ 0001:00018224  Idle GUItwobuttonbox::keyhit(char,char) __fastcall
+ 0001:0001810C  Idle GUItwobuttonbox::sendmessage(GUIrect*,int) __fastcall
+ 0002:000059A8       GUItwobuttonbox::
+ 0001:00019BA4  Idle GUIvmenu::GUIvmenu(GUImenu*,menu*,int,int) __fastcall
+ 0001:00019E2C       GUIvmenu::~GUIvmenu() __fastcall
+ 0001:00019BF4  Idle GUIvmenu::draw(char*) __fastcall
+ 0001:00019E94       GUIvmenu::getmenuheight() __fastcall
+ 0001:00019E84       GUIvmenu::getmenuwidth() __fastcall
+ 0001:00019E7E       GUIvmenu::getname() __fastcall
+ 0001:00019CE8  Idle GUIvmenu::menuhittest(int,int,int&,int&) __fastcall
+ 0002:00005F9C       GUIvmenu::
+ 0001:00018874  Idle GUIvscrollbar::GUIvscrollbar(GUIrect*,int,int,int) __fastcall
+ 0001:000192A5       GUIvscrollbar::~GUIvscrollbar() __fastcall
+ 0001:000192DD       GUIvscrollbar::getname() __fastcall
+ 0001:0001836C  Idle GUIvscrollbar::keyhit(char,char) __fastcall
+ 0002:00005730       GUIvscrollbar::
+ 0001:000185CC  Idle GUIvtrack::GUIvtrack(GUIvscrollbar*) __fastcall
+ 0001:00019321       GUIvtrack::~GUIvtrack() __fastcall
+ 0001:00019359       GUIvtrack::getname() __fastcall
+ 0001:0001884C  Idle GUIvtrack::positionthumb() __fastcall
+ 0001:000187A8  Idle GUIvtrack::setthumbsize(int) __fastcall
+ 0002:000057D0       GUIvtrack::
+ 0001:000184EC  Idle GUIvtrackbutton::GUIvtrackbutton(GUIvtrack*,int) __fastcall
+ 0001:00019429       GUIvtrackbutton::~GUIvtrackbutton() __fastcall
+ 0001:0001850C  Idle GUIvtrackbutton::click(mouse&) __fastcall
+ 0001:0001851C  Idle GUIvtrackbutton::drag(mouse&) __fastcall
+ 0002:000058C4       GUIvtrackbutton::
+ 0001:00009B84       imagemove::imagemove(objectdefw*,image*,int,int) __fastcall
+ 0001:00009BFC  Idle imagemove::imagemove(object*,image*,int,int) __fastcall
+ 0001:00009C78       imagemove::~imagemove() __fastcall
+ 0001:0000BBF7       imagemove::acceptfocus() __fastcall
+ 0001:00009DA8  Idle imagemove::backward() __fastcall
+ 0001:00009ADC  Idle imagemove::bind(object*) __fastcall
+ 0001:00009D50  Idle imagemove::bringtofront() __fastcall
+ 0001:00009E64  Idle imagemove::deleteimage() __fastcall
+ 0001:00009F9C  Idle imagemove::drag(mouse&) __fastcall
+ 0001:0000A0F4  Idle imagemove::draw(char*) __fastcall
+ 0001:00009DFC  Idle imagemove::forward() __fastcall
+ 0001:0000BBFD       imagemove::getname() __fastcall
+ 0001:00009EEC  Idle imagemove::insertimage() __fastcall
+ 0001:0000A280  Idle imagemove::keyhit(char,char) __fastcall
+ 0001:0000A090  Idle imagemove::release(mouse&) __fastcall
+ 0001:00009D0C  Idle imagemove::sendtoback() __fastcall
+ 0002:00002E1C       imagemove::
+ 0001:00014464  Idle IMG::colormap(COLORMAP&) __fastcall
+ 0001:000143BC       IMG::convertcolor(char,char) __fastcall
+ 0001:0001430C  Idle IMG::drawmap(COLORMAP&,char*,int,int,int) __fastcall
+ 0001:00014440       IMG::duplicate() __fastcall
+ 0001:00014C90  Idle initddraw(void*) __fastcall
+ 0001:00002628       initdefaultgui() __fastcall
+ 0001:00015044  Idle initdsound(void*) __fastcall
+ 0001:0000008C       initgame() __fastcall
+ 0001:00015478  Idle initialize() __fastcall
+ 0001:0000D583       input::~input() __fastcall
+ 0001:00010FE0       input::bind(object*) __fastcall
+ 0001:0000D5AC       input::getjoythreshold() __fastcall
+ 0001:0000D5A9       input::getkeymap() __fastcall
+ 0001:00011030       input::getstat() __fastcall
+ 0001:0000D5A4       input::key(char) __fastcall
+ 0001:0000D5A8       input::main() __fastcall
+ 0001:00010F60       input::refreshkeyboard(char) __fastcall
+ 0001:00010FC0       input::refreshmain() __fastcall
+ 0001:00010FA0       input::refreshtimer() __fastcall
+ 0001:0000D5AF       input::savesettings() __fastcall
+ 0001:0000D5A7       input::timer() __fastcall
+ 0001:0001100C       input::unbind() __fastcall
+ 0002:000036DC       input::
+ 0001:00011C6A       inputnone::~inputnone() __fastcall
+ 0001:00011C99       inputnone::read() __fastcall
+ 0002:000045D0       inputnone::
+ 0001:0000C9A7       inputtestarea::~inputtestarea() __fastcall
+ 0001:0000C9D5       inputtestarea::draw(char*) __fastcall
+ 0001:0000CA75       inputtestarea::getname() __fastcall
+ 0002:00003598       inputtestarea::
+ 0001:0000C940       inputtestbutton::~inputtestbutton() __fastcall
+ 0001:0000C96E       inputtestbutton::draw(char*) __fastcall
+ 0001:0000C9A1       inputtestbutton::getname() __fastcall
+ 0002:0000354C       inputtestbutton::
+ 0001:00020F37       invokeHnd()
+ 0001:00011BB9       joystick::~joystick() __fastcall
+ 0001:00011ACB       joystick::getjoythreshold() __fastcall
+ 0001:00011A1F       joystick::read() __fastcall
+ 0001:00011ACF       joystick::savesettings() __fastcall
+ 0002:00004578       joystick::
+ 0001:00020F1C  Idle jump()
+ 0001:0001AA04       jumptrajectory::jumptrajectory(object*) __fastcall
+ 0001:0001AAD0       jumptrajectory::~jumptrajectory() __fastcall
+ 0001:0001ABF0  Idle jumptrajectory::move(int) __fastcall
+ 0001:0001AB48  Idle jumptrajectory::tick() __fastcall
+ 0002:00006514       jumptrajectory::
+ 0001:000003A4  Idle keyboard() __fastcall
+ 0001:000119AD       keyboard1::~keyboard1() __fastcall
+ 0002:000044F4       keyboard1::
+ 0001:00011863       keyboard2::~keyboard2() __fastcall
+ 0002:0000449C       keyboard2::
+ 0001:0001197E       keyboard::~keyboard() __fastcall
+ 0001:00011910       keyboard::getkeymap() __fastcall
+ 0001:000118ED       keyboard::key(char) __fastcall
+ 0001:0001189C       keyboard::read() __fastcall
+ 0001:00011914       keyboard::savesettings() __fastcall
+ 0002:000044C8       keyboard::
+ 0001:0000D336       keyedit::~keyedit() __fastcall
+ 0001:0000D374       keyedit::click(mouse&) __fastcall
+ 0001:0000D3FC       keyedit::drawdata(char*,int,int,int) __fastcall
+ 0001:0000D3F6       keyedit::getname() __fastcall
+ 0001:0000D38F       keyedit::keyhit(char,char) __fastcall
+ 0002:00003638       keyedit::
+ 0001:00015E68  Idle keyhit() __fastcall
+ 0001:00011058  Idle keymap::read(char,unsigned int&) __fastcall
+ 0001:00013590       line(char*,int,int,int,int,int) __fastcall
+ 0001:00006277       loadbgdlg::~loadbgdlg() __fastcall
+ 0001:00006305       loadbgdlg::getname() __fastcall
+ 0001:00004DC3       loadbgdlg::open() __fastcall
+ 0002:00008574  Idle loadbgdlg::pos
+ 0001:00006337       loadbgdlg::refreshobjspace() __fastcall
+ 0001:0000630B       loadbgdlg::sendmessage(GUIrect*,int) __fastcall
+ 0002:00001F5C       loadbgdlg::
+ 0001:00013D34  Idle loadfont(char*) __fastcall
+ 0001:00013E10       loadimage(char*) __fastcall
+ 0001:0001BC98  Idle loadobjdefthread(void*)
+ 0001:00007764       loadobjectdlg::~loadobjectdlg() __fastcall
+ 0001:00007813       loadobjectdlg::getname() __fastcall
+ 0001:000077D7       loadobjectdlg::keyhit(char,char) __fastcall
+ 0001:00003163       loadobjectdlg::open() __fastcall
+ 0002:00008584  Idle loadobjectdlg::pos
+ 0001:00007864       loadobjectdlg::refreshobjspace() __fastcall
+ 0001:00007819       loadobjectdlg::sendmessage(GUIrect*,int) __fastcall
+ 0002:000022E4       loadobjectdlg::
+ 0001:000159E0  Idle loadresource(char*) __fastcall
+ 0001:00013EF4       loadscreen(char*) __fastcall
+ 0001:000197B8  Idle menu::getmaxheight() __fastcall
+ 0001:00019738  Idle menu::getmaxwidth() __fastcall
+ 0001:00019728  Idle menu::getnumitems() __fastcall
+ 0001:0001979C  Idle menu::gettotalheight() __fastcall
+ 0001:0001976C  Idle menu::gettotalwidth() __fastcall
+ 0001:00019D94  Idle menu::keyhit(char,char) __fastcall
+ 0001:000196D4  Idle menuitem::draw(int,int,int,int) __fastcall
+ 0001:000196B0  Idle menuitem::height() __fastcall
+ 0001:000196B8  Idle menuitem::menufunc() __fastcall
+ 0001:0001968C  Idle menuitem::width() __fastcall
+ 0001:00015440  Idle mmtimer(unsigned int,unsigned int,unsigned long,unsigned long,unsigned long) __stdcall
+ 0001:00011CA4       mouse::mouse() __fastcall
+ 0001:00011DAC       mouse::draw(char*) __fastcall
+ 0001:00011CF8       mouse::updatebut(int) __fastcall
+ 0001:00011CCC       mouse::updatexy(int,int) __fastcall
+ 0001:00000AE8  Idle msgbuffer::add(char*,int) __fastcall
+ 0001:00000BF4       msgbuffer::draw(int,int) __fastcall
+ 0001:00000B88       msgbuffer::printf(int,char*,...)
+ 0001:00000BC4  Idle msgbuffer::update() __fastcall
+ 0001:00001EB4  Idle m_activate() __fastcall
+ 0001:00002260  Idle m_bgactivate() __fastcall
+ 0001:0000229C  Idle m_bgdeactivate() __fastcall
+ 0001:0000217C  Idle m_bgkill() __fastcall
+ 0001:00002244  Idle m_bgsave() __fastcall
+ 0001:000025D4  Idle m_bgvolumize() __fastcall
+ 0001:0000261C  Idle m_cleanup() __fastcall
+ 0001:000025A4  Idle m_copyeffect() __fastcall
+ 0001:00002524  Idle m_copyframe() __fastcall
+ 0001:000024AC  Idle m_copyimages() __fastcall
+ 0001:000022D8  Idle m_ddrawinfo() __fastcall
+ 0001:00001ED8  Idle m_deleteframe() __fastcall
+ 0001:0000E91C       m_editeffects() __fastcall
+ 0001:0000209C  Idle m_filleddesktop() __fastcall
+ 0001:00002064  Idle m_filleddialogs() __fastcall
+ 0001:00001EC0  Idle m_flipx() __fastcall
+ 0001:000025F0  Idle m_getcwd() __fastcall
+ 0001:0000200C  Idle m_heapcheck() __fastcall
+ 0001:00001ECC  Idle m_insertframe() __fastcall
+ 0001:00001EE4  Idle m_insertframeafter() __fastcall
+ 0001:00002170  Idle m_kill() __fastcall
+ 0001:000025A8  Idle m_paste() __fastcall
+ 0001:00001E90  Idle m_play() __fastcall
+ 0001:00001E9C  Idle m_playlooped() __fastcall
+ 0001:00000400       m_quit() __fastcall
+ 0001:00001FB4  Idle m_redrawbg() __fastcall
+ 0001:00002154  Idle m_save() __fastcall
+ 0001:00002144  Idle m_saveconfig() __fastcall
+ 0001:00001FE0  Idle m_showbglines() __fastcall
+ 0001:000020D4  Idle m_showfps() __fastcall
+ 0001:00001EA8  Idle m_stop() __fastcall
+ 0001:0000210C  Idle m_viewguitree() __fastcall
+ 0001:000025B8  Idle m_volumize() __fastcall
+ 0001:0000E5C4  Idle neweffect(int) __fastcall
+ 0001:00010C92       neweffectdlg::neweffectdlg(objectspace*) __fastcall
+ 0001:00010E20       neweffectdlg::~neweffectdlg() __fastcall
+ 0001:00010E8A       neweffectdlg::draw(char*) __fastcall
+ 0001:00010EA5       neweffectdlg::getname() __fastcall
+ 0002:00008794  Idle neweffectdlg::pos
+ 0001:00010EAB       neweffectdlg::sendmessage(GUIrect*,int) __fastcall
+ 0002:00004324       neweffectdlg::
+ 0001:000110B0       newinputdevice(int) __fastcall
+ 0001:0000764A       newobjectspace::~newobjectspace() __fastcall
+ 0001:000076B4       newobjectspace::acceptfocus() __fastcall
+ 0001:000076BA       newobjectspace::draw(char*) __fastcall
+ 0001:000076D5       newobjectspace::getname() __fastcall
+ 0001:00003462       newobjectspace::open() __fastcall
+ 0002:00008614  Idle newobjectspace::pos
+ 0001:000076DB       newobjectspace::sendmessage(GUIrect*,int) __fastcall
+ 0002:00002240       newobjectspace::
+ 0001:00015F14       nextGUIdef() __fastcall
+ 0001:0001B028       object::object(objectdef*,int,int,int,int,int,object*) __fastcall
+ 0001:0001B0F4       object::~object() __fastcall
+ 0001:0001AD84       object::activate(int) __fastcall
+ 0001:0001B478  Idle object::advanceframe() __fastcall
+ 0001:0001E134       object::bullet(int) __fastcall
+ 0002:00006304  Idle object::cfunclist
+ 0001:00008D20       object::deleteeffect(effect*) __fastcall
+ 0001:00008CB4  Idle object::deleteframe() __fastcall
+ 0001:00008BF4  Idle object::dirty() __fastcall
+ 0001:0001B5F8       object::draw(char*) __fastcall
+ 0001:0001B778       object::drawshadow(char*) __fastcall
+ 0001:0001B7E0  Idle object::effect() __fastcall
+ 0001:0001E48C       object::enemy_boomer(int) __fastcall
+ 0001:0001E3E8       object::enemy_jet(int) __fastcall
+ 0001:0001DAE8       object::enemy_pig(int) __fastcall
+ 0001:0001E528       object::enemy_sniper(int) __fastcall
+ 0001:0001B264       object::falldown() __fastcall
+ 0001:0001AFC8  Idle object::findseries(char*) __fastcall
+ 0001:0001B2AC       object::flip() __fastcall
+ 0001:00008E24       object::framebackward() __fastcall
+ 0001:00008DD8       object::frameforeward() __fastcall
+ 0001:0001D058       object::getbasey() __fastcall
+ 0001:0001B844  Idle object::hiteffect(int,int,int) __fastcall
+ 0001:0001B19C  Idle object::hitground(int) __fastcall
+ 0001:00009314  Idle object::hittest(int,int) __fastcall
+ 0001:00008C00  Idle object::insertframe() __fastcall
+ 0001:00008C58  Idle object::insertframeafter() __fastcall
+ 0001:0001AED4       object::kill() __fastcall
+ 0001:0001B5AC  Idle object::loseenergy(int) __fastcall
+ 0001:0001E15C       object::main_climb(int) __fastcall
+ 0001:0001DD14       object::main_duck(int) __fastcall
+ 0001:0001E2DC       object::main_hang(int) __fastcall
+ 0001:0001DF48       object::main_jump(int) __fastcall
+ 0001:0001DBD8       object::main_stance(int) __fastcall
+ 0001:0001DD84       object::main_walk(int) __fastcall
+ 0001:0001DE64       object::main_walkfire(int) __fastcall
+ 0001:0001B2C8       object::move(int,int,int) __fastcall
+ 0001:0001B3C4  Idle object::moveabs(int,int,int) __fastcall
+ 0001:0001AC20       object::none(int) __fastcall
+ 0001:0001AD44       object::play(int) __fastcall
+ 0001:0001AD64       object::playlooped(int) __fastcall
+ 0001:0001ACD0  Idle object::print() __fastcall
+ 0001:0001E150       object::randomdur(int) __fastcall
+ 0001:0001ACF8       object::resetfptr() __fastcall
+ 0001:0001B428       object::resort() __fastcall
+ 0001:00008EA8  Idle object::seriesdown() __fastcall
+ 0001:00008E68  Idle object::seriesup() __fastcall
+ 0001:0001B84C       object::sound(int) __fastcall
+ 0001:0001AC3C  Idle object::spawn(int,int,int,int,int,int) __fastcall
+ 0001:0001AF00  Idle object::startseries(int) __fastcall
+ 0001:0001B008  Idle object::startseries(char*) __fastcall
+ 0001:0001AE60       object::stop() __fastcall
+ 0001:0001B50C  Idle object::tick() __fastcall
+ 0002:000064F0       object::
+ 0001:0001B9B8       objectdef::objectdef(objectspace*,int,char*,char*) __fastcall
+ 0001:0001BAF0       objectdef::~objectdef() __fastcall
+ 0001:000153F8       objectdef::convertdsounds() __fastcall
+ 0001:0001BB28  Idle objectdef::freeimages() __fastcall
+ 0001:0001BC54       objectdef::freeodf() __fastcall
+ 0001:0001BBEC  Idle objectdef::freeseries() __fastcall
+ 0001:0001BB70  Idle objectdef::freesounds() __fastcall
+ 0001:0001BCD4       objectdef::kill() __fastcall
+ 0001:0001BCA8       objectdef::load() __fastcall
+ 0001:0001BCF4  Idle objectdef::read() __fastcall
+ 0001:0001BEFC       objectdef::refreshload() __fastcall
+ 0002:000065D4       objectdef::
+ 0001:0000D750       objectdefw::objectdefw(objectspace*,int,char*,char*,char*,char*) __fastcall
+ 0001:0000BC0F       objectdefw::~objectdefw() __fastcall
+ 0001:0000D7D8       objectdefw::freeodf() __fastcall
+ 0001:0000D88C  Idle objectdefw::read() __fastcall
+ 0001:0000DE50       objectdefw::readimages(char*) __fastcall
+ 0001:0000DEE0  Idle objectdefw::readsdf(char*) __fastcall
+ 0001:0000E034       objectdefw::readseries(char*) __fastcall
+ 0001:0000DBE8       objectdefw::readsounds(char*) __fastcall
+ 0001:0000D80C  Idle objectdefw::save() __fastcall
+ 0001:0000E3E4       objectdefw::volumize() __fastcall
+ 0001:0000DFE8  Idle objectdefw::writesdf(char*) __fastcall
+ 0001:0000E308  Idle objectdefw::writeseries(char*) __fastcall
+ 0001:0000E3D8  Idle objectdefw::writevol(volumefile&) __fastcall
+ 0002:00003934       objectdefw::
+ 0001:00007AAE       objectedit::~objectedit() __fastcall
+ 0001:00007B21       objectedit::draw(char*) __fastcall
+ 0001:00007B92       objectedit::getname() __fastcall
+ 0001:00003BCF       objectedit::open() __fastcall
+ 0002:000085E4  Idle objectedit::pos
+ 0001:00007D06       objectedit::refreshframe() __fastcall
+ 0001:00007CA0       objectedit::refreshobject() __fastcall
+ 0001:00007CD0       objectedit::refreshseries() __fastcall
+ 0001:00007B98       objectedit::sendmessage(GUIrect*,int) __fastcall
+ 0002:00002418       objectedit::
+ 0001:0000B579       objectmove::~objectmove() __fastcall
+ 0001:0000B616       objectmove::drag(mouse&) __fastcall
+ 0001:0000B61C       objectmove::draw(char*) __fastcall
+ 0001:0000B7B3       objectmove::getname() __fastcall
+ 0001:0000B5B5       objectmove::release(mouse&) __fastcall
+ 0002:00002CEC       objectmove::
+ 0001:00019EBC  Idle objectspace::objectspace(char*,char*,int,int) __fastcall
+ 0001:00019F98  Idle objectspace::~objectspace() __fastcall
+ 0001:0001A9F5       objectspace::acceptfocus() __fastcall
+ 0001:00009244       objectspace::activate() __fastcall
+ 0001:0001A484       objectspace::addobject(object*) __fastcall
+ 0001:00009150       objectspace::cleanup() __fastcall
+ 0001:0000A410       objectspace::click(mouse&) __fastcall
+ 0001:000092EC       objectspace::deleteframe() __fastcall
+ 0001:0000ABBC       objectspace::drag(mouse&) __fastcall
+ 0001:0001A2E4  Idle objectspace::draw(char*) __fastcall
+ 0001:0000902C       objectspace::flipx() __fastcall
+ 0001:0001A9FC       objectspace::getname() __fastcall
+ 0001:000092D8       objectspace::insertframe() __fastcall
+ 0001:00009300       objectspace::insertframeafter() __fastcall
+ 0001:00008EEC       objectspace::keyhit(char,char) __fastcall
+ 0001:00009040       objectspace::kill() __fastcall
+ 0001:0001A9FB       objectspace::losefocus() __fastcall
+ 0001:0001A6B4  Idle objectspace::maximize() __fastcall
+ 0001:0001A6F8  Idle objectspace::moveobjectsrel(int,int) __fastcall
+ 0001:0001A890  Idle objectspace::newbgobject(int) __fastcall
+ 0001:0001A91C  Idle objectspace::newbgobject(char*) __fastcall
+ 0001:0000ABC8       objectspace::neweditablebg(int) __fastcall
+ 0001:0000ACA4       objectspace::neweditableobject(int,int) __fastcall
+ 0001:0001A788  Idle objectspace::newobject(int,int,int,int,int) __fastcall
+ 0001:0001A828  Idle objectspace::newobject(char*,int,int,int,int) __fastcall
+ 0001:0001A55C       objectspace::open(char*,char*,int,int) __fastcall
+ 0001:0000900C       objectspace::play() __fastcall
+ 0001:00009208       objectspace::playlooped() __fastcall
+ 0001:0000AFB8       objectspace::readbgdefs(char*) __fastcall
+ 0001:0000ADD4       objectspace::readobjectdefs(char*) __fastcall
+ 0001:00009288       objectspace::receivefocus() __fastcall
+ 0001:0001A22C  Idle objectspace::refreshneeddelete() __fastcall
+ 0001:0001A200  Idle objectspace::refreshneedload() __fastcall
+ 0001:0001A2AC  Idle objectspace::refreshobj() __fastcall
+ 0001:0000ABC0       objectspace::release(mouse&) __fastcall
+ 0001:0001A4DC       objectspace::removeobject(object*) __fastcall
+ 0001:00008D9C       objectspace::resetodf(int) __fastcall
+ 0001:0001A63C  Idle objectspace::resize(int,int) __fastcall
+ 0001:0001A67C  Idle objectspace::restore() __fastcall
+ 0001:00009228       objectspace::stop() __fastcall
+ 0001:0001A524       objectspace::swap(object*,object*) __fastcall
+ 0001:0001A1A4       objectspace::tick() __fastcall
+ 0001:0000B19C  Idle objectspace::writeobjbin(char*,int,objectdef**) __fastcall
+ 0002:000062B0       objectspace::
+ 0001:000144D8  Idle PALETTE::duplicate(int) __fastcall
+ 0001:00014500  Idle PALETTE::fade(PALETTE&,int,int) __fastcall
+ 0001:0001457C  Idle PALETTE::findclosestmatch(COLOR&,int) __fastcall
+ 0001:00015C5C  Idle playMIDIFile(void*,char*) __fastcall
+ 0001:000152E0       playsound(IDirectSoundBuffer*,int) __fastcall
+ 0001:00015E20  Idle pushkey(char) __fastcall
+ 0001:000158D0       quitgame() __fastcall
+ 0001:0000075C  Idle readcfuncnames(char*,char[][16]*&) __fastcall
+ 0001:00014868       ReadLBMFile(char*) __fastcall
+ 0001:0000D9AC       readlistfile(char*,int&) __fastcall
+ 0001:00012F88       ReadWavFile(char*) __fastcall
+ 0001:0000D131       redefinekeys::redefinekeys(keymap&) __fastcall
+ 0001:0000D4A7       redefinekeys::~redefinekeys() __fastcall
+ 0001:0000D518       redefinekeys::acceptfocus() __fastcall
+ 0001:0000D51E       redefinekeys::draw(char*) __fastcall
+ 0001:0000D539       redefinekeys::getname() __fastcall
+ 0002:00008730  Idle redefinekeys::pos
+ 0002:00003688       redefinekeys::
+ 0001:00014C60  Idle releasesurfaces() __fastcall
+ 0001:00001FA4  Idle res1024x768() __fastcall
+ 0001:00001F54  Idle res320x200() __fastcall
+ 0001:00001F64  Idle res320x240() __fastcall
+ 0001:00001F74  Idle res640x400() __fastcall
+ 0001:00001F84  Idle res640x480() __fastcall
+ 0001:00001F94  Idle res800x600() __fastcall
+ 0001:00015EEC       resetGUIdef() __fastcall
+ 0001:0000074C  Idle resizeroot(int,int) __fastcall
+ 0001:000146EC  Idle reverseword(unsigned short) __fastcall
+ 0001:00000638  Idle ROOT::ROOT() __fastcall
+ 0001:0000066C  Idle ROOT::~ROOT() __fastcall
+ 0001:000009F4       ROOT::acceptfocus() __fastcall
+ 0001:000009F2       ROOT::bringtofront() __fastcall
+ 0001:00000A25       ROOT::getname() __fastcall
+ 0001:000009D2       ROOT::hittest(int,int) __fastcall
+ 0001:00000A07       ROOT::keyhit(char,char) __fastcall
+ 0001:000009FA       ROOT::losefocus() __fastcall
+ 0001:0000071C  Idle ROOT::refresh(int,void*) __fastcall
+ 0001:000006A0       ROOT::resize(int,int) __fastcall
+ 0001:000009F3       ROOT::sendtoback() __fastcall
+ 0002:00000290       root::
+ 0001:00015EA8       scan2ascii(char) __fastcall
+ 0001:00000408  Idle scanguitree(GUIrect*,lpoint&,GUIrect*) __fastcall
+ 0001:000141B4       SCR::compress(char) __fastcall
+ 0001:00014010       SCR::draw(char*,int,int) __fastcall
+ 0001:00013FD8  Idle SCR::newSCR(int,int) __fastcall
+ 0001:0000843E       selectcfunc::selectcfunc(objectspace*) __fastcall
+ 0001:00008652       selectcfunc::~selectcfunc() __fastcall
+ 0001:000086C5       selectcfunc::acceptfocus() __fastcall
+ 0001:000086CB       selectcfunc::getname() __fastcall
+ 0001:000086C8       selectcfunc::keyhit(char,char) __fastcall
+ 0002:00008594  Idle selectcfunc::pos
+ 0001:0000876A       selectcfunc::refreshseries() __fastcall
+ 0001:000086D1       selectcfunc::sendmessage(GUIrect*,int) __fastcall
+ 0002:00002534       selectcfunc::
+ 0001:00006B0E       selectimagedlg::~selectimagedlg() __fastcall
+ 0001:00001BB4  Idle selectimagedlg::click(mouse&) __fastcall
+ 0001:00001E68  Idle selectimagedlg::drag(mouse&) __fastcall
+ 0001:00001A40  Idle selectimagedlg::draw(char*) __fastcall
+ 0001:00006B81       selectimagedlg::getname() __fastcall
+ 0001:00001BB0  Idle selectimagedlg::keyhit(char,char) __fastcall
+ 0001:000042C1       selectimagedlg::open() __fastcall
+ 0002:000085D4  Idle selectimagedlg::pos
+ 0001:00006BE1       selectimagedlg::refreshbgdef() __fastcall
+ 0001:00006B8D       selectimagedlg::refreshobjdef() __fastcall
+ 0001:00001E84  Idle selectimagedlg::release(mouse&) __fastcall
+ 0001:00006B87       selectimagedlg::sendmessage(GUIrect*,int) __fastcall
+ 0002:00002158       selectimagedlg::
+ 0001:000064B5       selectseries::~selectseries() __fastcall
+ 0001:000064FA       selectseries::getname() __fastcall
+ 0001:000064F7       selectseries::keyhit(char,char) __fastcall
+ 0001:00006564       selectseries::refreshobjdef() __fastcall
+ 0001:00006500       selectseries::sendmessage(GUIrect*,int) __fastcall
+ 0002:00002070       selectseries::
+ 0001:0000D668       series::deletebytes(void*,int) __fastcall
+ 0001:0000D738       series::deleteframe(frame*) __fastcall
+ 0001:0000D5B0       series::insertbytes(void*,int) __fastcall
+ 0001:0000D714       series::insertframe(frame*) __fastcall
+ 0001:00006BED       seriesproperties::~seriesproperties() __fastcall
+ 0001:00006C60       seriesproperties::getname() __fastcall
+ 0001:000037D6       seriesproperties::open() __fastcall
+ 0002:000085B4  Idle seriesproperties::pos
+ 0001:0000725A       seriesproperties::refreshseries() __fastcall
+ 0001:00006C66       seriesproperties::sendmessage(GUIrect*,int) __fastcall
+ 0002:000021CC       seriesproperties::
+ 0001:00014B64  Idle setddrawmode(int,int) __fastcall
+ 0001:00014DB4       setpalette(PALETTE*) __fastcall
+ 0001:00001EF0  Idle setres(int,int) __fastcall
+ 0001:00015EA0       set_keyboard_func(int(*)() __fastcall) __fastcall
+ 0001:00026864       set_new_handler(void(*)())
+ 0001:00020AFA  Idle set_terminate(void(*)())
+ 0001:00020BDE  Idle set_unexpected(void(*)())
+ 0001:0001DA27       shaketrajectory::~shaketrajectory() __fastcall
+ 0001:0001DAD0       shaketrajectory::move(int) __fastcall
+ 0002:0000639C       shaketrajectory::oshake
+ 0001:0001DA6B       shaketrajectory::tick() __fastcall
+ 0002:00006798       shaketrajectory::
+ 0001:000278B8       string::string(const char*)
+ 0001:0002787C       string::string(const string&)
+ 0001:00027A6C       string::~string()
+ 0001:00027AD0       string::assert_element(unsigned int) const
+ 0001:00027B68       string::assert_index(unsigned int) const
+ 0002:00007F38       string::case_sensitive
+ 0002:00007F4C  Idle string::freeboard
+ 0002:00007F44       string::initial_capac
+ 0001:00028008  Idle string::initial_capacity(unsigned int)
+ 0001:00028040  Idle string::max_waste(unsigned int)
+ 0002:00007F3C       string::paranoid_check
+ 0002:00007F48       string::resize_inc
+ 0001:0002801C  Idle string::resize_increment(unsigned int)
+ 0001:00027FCC  Idle string::set_case_sensitive(int)
+ 0001:00027FE0  Idle string::set_paranoid_check(int)
+ 0002:00007F40       string::skip_white
+ 0001:00027FF4  Idle string::skip_whitespace(int)
+ 0001:00015A48       surface::surface(int,int) __fastcall
+ 0001:00015AF8       surface::~surface() __fastcall
+ 0001:00015BEC       surface::blt(char*,int,int) __fastcall
+ 0001:00015B40       surface::lock() __fastcall
+ 0001:00015BBC       surface::unlock() __fastcall
+ 0001:00009CDC  Idle swap(image*,image*) __fastcall
+ 0001:00020AF4  Idle terminate()
+ 0001:00014D54  Idle terminateddraw() __fastcall
+ 0001:000151F4  Idle terminatedsound() __fastcall
+ 0001:00000308       terminategame() __fastcall
+ 0001:0001B988       trajectory::~trajectory() __fastcall
+ 0002:0000652C       trajectory::
+ 0001:00027C98       TStringRef::TStringRef(const char*,unsigned int,const char*,unsigned int,unsigned int)
+ 0001:00027D24       TStringRef::~TStringRef()
+ 0001:00027DC4       TStringRef::check_freeboard()
+ 0001:00027E18       TStringRef::grow_to(unsigned int)
+ 0001:00027D6C       TStringRef::reserve(unsigned int)
+ 0001:00027E68       TStringRef::round_capacity(unsigned int)
+ 0001:00027EA4       TStringRef::splice(unsigned int,unsigned int,const char*,unsigned int)
+ 0001:00027C00       TSubString::assert_element(unsigned int) const
+ 0001:000206DC  Idle typeinfo::operator =(const typeinfo&)
+ 0001:000206A6  Idle typeinfo::typeinfo(const typeinfo&)
+ 0001:000206E4  Idle typeinfo::~typeinfo()
+ 0001:00020703  Idle typeinfo::operator ==(const typeinfo&) const
+ 0001:00020726  Idle typeinfo::operator !=(const typeinfo&) const
+ 0002:00006A08       typeinfo::
+ 0001:00020746  Idle typeinfo::before(const typeinfo&) const
+ 0001:0002078F  Idle typeinfo::name() const
+ 0001:00020BD8  Idle unexpected()
+ 0001:0000054C       updatescreen() __fastcall
+ 0001:00012A34       volbatch::free() __fastcall
+ 0001:00012A6C  Idle volbatch::print() __fastcall
+ 0001:0001291C       volbatch::read(char*) __fastcall
+ 0001:0000E58C       volumefile::~volumefile() __fastcall
+ 0001:00012644       volumefile::close() __fastcall
+ 0001:00012AF4       volumefile::create(char*) __fastcall
+ 0001:00012558       volumefile::open(char*) __fastcall
+ 0001:000126E4       volumefile::read(void*) __fastcall
+ 0001:0001266C       volumefile::read() __fastcall
+ 0001:0001275C       volumefile::readblock(int&) __fastcall
+ 0001:000124EC  Idle volumefile::readheader() __fastcall
+ 0001:0001262C  Idle volumefile::reset() __fastcall
+ 0001:0001280C  Idle volumefile::skip() __fastcall
+ 0001:00012BA4       volumefile::write(void*,unsigned int,char,char*) __fastcall
+ 0001:00012C00       volumefile::writefile(char*) __fastcall
+ 0001:00012A78  Idle volumefile::writeheader(int,int,char*) __fastcall
+ 0001:00013288  Idle volumefile::writeimage(char*) __fastcall
+ 0001:000132EC       volumefile::writelistblock(char*,char) __fastcall
+ 0001:00012CF0  Idle volumefile::writemidi(char*) __fastcall
+ 0001:00012E60  Idle volumefile::writepalette(char*) __fastcall
+ 0001:00012DFC  Idle volumefile::writescreen(char*) __fastcall
+ 0001:00013248  Idle volumefile::writesound(char*) __fastcall
+ 0001:00015E7C  Idle waitkey() __fastcall
+ 0001:00014B14  Idle winprintf(char*,...)
+ 0001:00015D0C       wm_keydown(char) __fastcall
+ 0001:00015D68       wm_keyup(char) __fastcall
+ 0001:000158E4  Idle WndProc(void*,unsigned int,unsigned int,long) __stdcall
+ 0001:0000DA98       writelistfile(char*,char[9]*,int) __fastcall
+ 0001:0001E8E0       xalloc::xalloc(const string&,unsigned int)
+ 0001:0001E9BB       xalloc::xalloc(const xalloc&)
+ 0001:0001E9EA       xalloc::~xalloc()
+ 0001:0001E90C       xalloc::raise()
+ 0001:0001EBC0  Idle xmsg::operator =(const xmsg&)
+ 0001:0001EACC       xmsg::xmsg(const xmsg&)
+ 0001:0001EA60       xmsg::xmsg(const string&)
+ 0001:0001EB3C       xmsg::~xmsg()
+ 0001:0001EB78  Idle xmsg::raise()
+ 0001:0001F7FF       _CatchCleanup()
+ 0001:0001542C       _disable() __fastcall
+ 0001:00015438       _enable() __fastcall
+ 0001:00024784  Idle _ftol()
+ 0001:0001F68F  Idle _ReThrowException(unsigned int,unsigned char*)
+ 0001:0001F662       _ThrowException(void*,void*,void*,void*,unsigned int,unsigned int,unsigned int,unsigned char*)
+ 0001:0001ECBC  Idle __debuggerExcListChange()
+ 0001:00020957  Idle __DynamicCast(void*,void*,void*,void*,int)
+ 0001:00020C77       __GetPolymorphicDTC(void*,unsigned int)
+ 0001:000207A0  Idle __GetTypeInfo(void*,void*,void*,void*)
+ 0001:00020AB4       @__InitExceptBlock
+ 0001:00020DB4       __lockDebuggerData()
+ 0001:00020699  Idle __ThrowExceptionName()
+ 0001:0002067F  Idle __ThrowFileName()
+ 0001:0002068C  Idle __ThrowLineNumber()
+ 0001:00020DDC       __unlockDebuggerData()
+ 0001:000155E8       WinMain
+ 0002:000000B4       _a95vol
+ 0001:00026F6C       _abort
+ 0002:000087DC  Idle _ActiveApp
+ 0002:00000674       _alwaysredrawbg
+ 0002:000000A0       _appname
+ 0001:000248C8  Idle _atoi
+ 0001:0002486C       _atol
+ 0002:00006618  Idle _bgimagesdrawn
+ 0002:00000A28  Idle _bgmenu
+ 0002:000001E0  Idle _blah
+ 0002:00000089       _buildcompiler
+ 0002:00000098       _buildcompilerversionhigh
+ 0002:0000009C       _buildcompilerversionlow
+ 0002:0000007D       _builddate
+ 0002:00000074       _buildtime
+ 0001:00025778       _calloc
+ 0002:00008274       _cfg
+ 0002:00008288       _cfuncnames
+ 0002:00008284       _cfuncnum
+ 0001:00023584       _chdir
+ 0002:0000872C       _clipboard
+ 0002:00004A00  Idle _CLSID_DirectDraw
+ 0002:00004A10  Idle _CLSID_DirectDrawClipper
+ 0002:00004A80  Idle _CLSID_DirectSound
+ 0002:000000A4       _configfile
+ 0002:00004AE0  Idle _ddbackbuffer
+ 0002:00004AD8  Idle _DDO
+ 0002:00004AD4  Idle _DDO1
+ 0002:00004AE4  Idle _ddoff
+ 0002:00004AE8  Idle _ddpalette
+ 0002:00004ADC  Idle _ddprimary
+ 0002:00004378       _defkeymap
+ 0001:0001219D       _drawhline
+ 0001:00011DEA       _drawimager2
+ 0001:000122AF  Idle _drawrect
+ 0001:0001239C  Idle _drawrectmap
+ 0001:000124A5       _drawscr
+ 0001:00012234       _drawvline
+ 0002:000045FC       _dsl
+ 0002:00004AEC  Idle _DSOUND
+ 0002:000087C8  Idle _dsprimary
+ 0002:00000AAB  Idle _editmenu
+ 0002:00006648  Idle _effectgetsizeptrs
+ 0002:00006690       _effectnames
+ 0002:00009090       _envsize
+ 0002:00004600  Idle _erroraction
+ 0002:00008C0A       _errstr
+ 0001:00026FF4       _exit
+ 0002:0000666C  Idle _e_triggerptrs
+ 0001:00021020       _fclose
+ 0001:000210C4       _fflush
+ 0001:0002355C       _fgetc
+ 0001:00021158       _fgets
+ 0001:00023A8C       _filelength
+ 0001:00021290       _findfirst
+ 0001:000212B4       _findnext
+ 0001:00020F88       _flushall
+ 0001:00020F90       _fnsplit
+ 0002:0000828C       _font
+ 0001:000214E4       _fopen
+ 0001:00021518       _fprintf
+ 0002:000001F0  Idle _fps
+ 0002:000001E8  Idle _fpstimer
+ 0001:00021620       _fputs
+ 0001:00025E20       _free
+ 0001:00021674       _fscanf
+ 0001:0002170C       _fseek
+ 0001:00021780       _ftell
+ 0001:0002180C       _getcwd
+ 0001:000289A0       _getdate
+ 0001:00027044       _getenv
+ 0001:000289CC       _gettime
+ 0002:00005048       _GUIdefx
+ 0002:0000504C       _GUIdefy
+ 0002:00000100       _guiroot
+ 0002:00008FCC  Idle _hdir_lock
+ 0001:0002663C       _heapcheck
+ 0002:00000A0D  Idle _helpmenu
+ 0002:000087B4  Idle _hInst
+ 0002:000087CC  Idle _hwnd
+ 0002:00008280       _ids
+ 0002:00004A20  Idle _IID_IDirectDraw
+ 0002:00004A30  Idle _IID_IDirectDraw2
+ 0002:00004A70  Idle _IID_IDirectDrawClipper
+ 0002:00004A60  Idle _IID_IDirectDrawPalette
+ 0002:00004A40  Idle _IID_IDirectDrawSurface
+ 0002:00004A50  Idle _IID_IDirectDrawSurface2
+ 0002:00004A90  Idle _IID_IDirectSound
+ 0002:00004AC0  Idle _IID_IDirectSound3DBuffer
+ 0002:00004AB0  Idle _IID_IDirectSound3DListener
+ 0002:00004AA0  Idle _IID_IDirectSoundBuffer
+ 0002:00008278       _inputdevice
+ 0002:00002FEC  Idle _inputnames
+ 0001:00024A78       _itoa
+ 0002:00004DA0  Idle _kbhead
+ 0002:00004D9C       _kbscan
+ 0002:00008CDC  Idle _kbscanbuf
+ 0002:00004D9D       _kbstat
+ 0002:00004DA4  Idle _kbtail
+ 0002:00004D94  Idle _keyboardhandler
+ 0002:00008C5C  Idle _keydown
+ 0002:00004E76  Idle _keynames
+ 0002:00004D98  Idle _keyqueue
+ 0001:00011DCC  Idle _loadpalette
+ 0001:000246E4       _localeconv
+ 0001:00020F98       _lseek
+ 0001:00024AC8  Idle _ltoa
+ 0002:00008BE8       _m
+ 0002:00000AFA  Idle _mainmenu
+ 0001:00025F30       _malloc
+ 0002:0000300C  Idle _mapnames
+ 0001:0001E5B4       _memchr
+ 0001:0001E720       _memcmp
+ 0001:0001E5D4       _memcpy
+ 0001:0001E5F8       _memmove
+ 0001:0001E644       _memset
+ 0002:00000963  Idle _miscmenu
+ 0002:000082B4       _msg
+ 0001:00028344  Idle _new_thread
+ 0002:00000770  Idle _objectmenu
+ 0002:00000104       _objspace
+ 0002:000064AC  Idle _oshake
+ 0002:000087E8  Idle _palentries
+ 0002:000087B8  Idle _pcmwf
+ 0001:00021B30  Idle _perror
+ 0002:00004AD0       _PITCH
+ 0001:00021BB4       _printf
+ 0001:00026CB8       _qsort
+ 0001:00027518       _raise
+ 0001:00026794       _realloc
+ 0002:0000093B  Idle _redefineinputmenu
+ 0002:000008EC  Idle _resmenu
+ 0002:000000FC       _root
+ 0002:00004DA8  Idle _s2a
+ 0002:00004E0F  Idle _s2ashift
+ 0002:000087E4       _screen
+ 0002:000000AC       _SCREENX
+ 0002:000000B0       _SCREENY
+ 0002:0000080D  Idle _seriesmenu
+ 0002:000001E4  Idle _seriesstarts
+ 0001:00022340       _setvbuf
+ 0002:000082B0       _shadow
+ 0002:000082AC  Idle _shadowmap
+ 0002:00000670       _showbglines
+ 0001:0002746C  Idle _signal
+ 0002:000001F4  Idle _spf
+ 0001:0002261C       _sprintf
+ 0001:000226C8       _sscanf
+ 0001:000240F4       _stat
+ 0001:0001E674       _strcat
+ 0001:0001E6B0       _strchr
+ 0001:0001E6D8       _strcmp
+ 0001:0001E764       _stricmp
+ 0001:0001E704       _strlen
+ 0001:0001E7AC       _strncpy
+ 0001:0001E7FC       _strnicmp
+ 0001:0001E85C       _strpbrk
+ 0001:0001E888       _strrchr
+ 0002:000000F8  Idle _su
+ 0001:00022640  Idle _swprintf
+ 0002:000087D8       _timeperframe
+ 0002:00004B14       _timerbusy
+ 0002:00004B18  Idle _timerdisabled
+ 0002:00004AF0  Idle _timerid
+ 0001:000246F0       _toupper
+ 0001:00028584  Idle _tzset
+ 0001:00024AA8  Idle _ultoa
+ 0001:00022948       _ungetc
+ 0002:000000F4       _uu
+ 0002:00004608       _vdiagnose
+ 0002:000087E0  Idle _video
+ 0002:00000890  Idle _viewmenu
+ 0002:0000460C       _voltype
+ 0001:00022678       _vsprintf
+ 0001:000226EC  Idle _vsscanf
+ 0002:00004604       _vwerror
+ 0001:00026F58       __abort
+ 0001:00000000  Idle __acrtused
+ 0001:00020FA0       __allocbuf
+ 0002:00008074  Idle __AmPm
+ 0002:00007CD4       __atexitcnt
+ 0002:00009008       __atexittbl
+ 0001:00028454       __beginthread
+ 0001:000283D4  Idle __beginthreadNT
+ 0002:000090B0       __C0argc
+ 0002:000090B4       __C0argv
+ 0002:000090B8       __C0environ
+ 0001:00027024  Idle __cexit
+ 0002:000076EC       __cfinfo_get
+ 0001:000277C0       __cleanup
+ 0001:00023CC4       __cleanup_handle_locks
+ 0001:000228F0       __cleanup_stream_locks
+ 0001:00024718       __clear87
+ 0001:0002472C       __control87
+ 0001:000284A8       __create_lock
+ 0001:000275A4       __create_shmem
+ 0002:000078D0       __ctype
+ 0001:0002062B       __CurrExcContext
+ 0001:00024E34       __cvt_init
+ 0001:00027034  Idle __c_exit
+ 0002:000081AC       __daylight
+ 0002:0000807C       __Days
+ 0002:00006B00  Idle __DebuggerHookData
+ 0002:00007A40       __default87
+ 0002:00008CFC       __DestructorCountPtr
+ 0002:00009098  Idle __dll_table
+ 0002:00007764  Idle __dosErrorToSV
+ 0001:0002360C       __dos_close
+ 0001:000236DC       __dos_creat
+ 0001:000236F8       __dos_creatnew
+ 0001:000237B4       __dos_findfirst
+ 0001:00023874       __dos_findnext
+ 0001:000239AC       __dos_open
+ 0001:000239E4       __dos_read
+ 0001:00023A38       __dos_write
+ 0001:00023DF4       __dup_handle
+ 0001:00028474  Idle __endthread
+ 0002:00009088       __environ
+ 0002:00009094  Idle __env_lock
+ 0001:00026E30       __ErrorExit
+ 0001:00026D40       __ErrorMessage
+ 0001:00026EA8       __ErrorMessageHelper
+ 0001:00020C96       __ExceptInit
+ 0001:0001FCA3       __ExceptionHandler
+ 0002:00006AFC       __ExceptVarsSize
+ 0002:000090A0       __ExcRegPtr
+ 0001:0002700C       __exit
+ 0002:00007CD8       __exitbuf
+ 0002:00007CDC       __exitfopen
+ 0002:00007CE0  Idle __exitopen
+ 0001:00020EF4  Idle __exit_except
+ 0001:000227D4  Idle __exit_streams
+ 0001:0002816C  Idle __exit_tls
+ 0001:00026658  Idle __expand
+ 0001:0002714C       __expandblock
+ 0001:000218BC       __fgetc
+ 0002:00007B90       __firstHeap
+ 0002:00007A6C  Idle __floatconvert
+ 0001:00023104       __flushall
+ 0001:000212D0       __flushout
+ 0002:0000711C       __fmode
+ 0002:00007120       __fmodeptr
+ 0001:00022434       __fnsplit
+ 0001:0002476C       __fpreset
+ 0002:00007B9C       __freeStart
+ 0001:00023E5C  Idle __free_handle
+ 0001:00026240  Idle __free_heaps
+ 0001:00024784       __ftol
+ 0001:000247AC       __fuildq
+ 0001:000247DC       __fuistq
+ 0001:00023AD8       __fullpath
+ 0001:00024800       __fxam
+ 0001:00023B74       __getdcwd
+ 0001:00000074  Idle __GetExceptDLLinfo
+ 0001:00020D78       __GetExceptDLLinfoInternal
+ 0001:00023DB4       __get_handle
+ 0001:0001F6E0  Idle __Global_unwind
+ 0002:00008D1C       __HandlerPtr
+ 0002:00008DEC       __handles
+ 0001:000262EC       __heapchk
+ 0001:00026588       __heapset
+ 0002:00008FDC  Idle __heap_lock
+ 0002:00000062       __hInstance
+ 0002:00007A48       __huge_dble
+ 0002:00007A44       __huge_flt
+ 0002:00007A50       __huge_ldble
+ 0002:00007A5A  Idle __indefinite
+ 0001:00020F08       __InitDefaultHander
+ 0001:00021334       __initfmode
+ 0001:00024B4C       __initmatherr
+ 0001:000270A0       __initwild
+ 0001:00020EDC  Idle __init_except
+ 0001:000275AC       __init_exit_proc
+ 0001:00023F14       __init_handles
+ 0001:000257A4  Idle __init_lock
+ 0001:00022710       __init_streams
+ 0001:00028104  Idle __init_tls
+ 0001:00028714       __isDST
+ 0002:000090C8  Idle __isWindows
+ 0002:00007B94  Idle __lastHeap
+ 0001:000218D0       __lgetc
+ 0002:00007B98       __linktable
+ 0002:00008044  Idle __LMonth
+ 0002:00007894       __localeconvention
+ 0001:0001FC26       __Local_unwind
+ 0001:00023CB4       __lock_all_handles
+ 0001:0002282C       __lock_all_streams
+ 0001:000270A4       __lock_env
+ 0001:0002852C       __lock_error
+ 0001:00027848       __lock_exit
+ 0001:00023CF8       __lock_handle
+ 0001:000257B8       __lock_heap
+ 0001:0002850C       __lock_nt
+ 0001:0002284C       __lock_stream
+ 0001:000219A0       __lputc
+ 0002:00007FF8  Idle __LWeekday
+ 0001:00024AF0       __matherr
+ 0001:00024B1C       __matherrl
+ 0002:00007C5C  Idle __messagefile
+ 0001:0002681C  Idle __msize
+ 0002:00008FE0       __new_handler
+ 0002:000079DC       __nextrealptr
+ 0002:00007050       __nfile
+ 0002:000076F0       __notUmask
+ 0002:00007B80  Idle __nv_heap_size
+ 0002:00007054       __openfd
+ 0002:000090A8       __oscmd
+ 0002:000090A4       __osenv
+ 0002:00009004       __ostype
+ 0001:00026228  Idle __phys_avail
+ 0002:00008D24       __pidtab
+ 0002:00007A70       __pmatherr
+ 0002:00007A74       __pmatherrl
+ 0001:00025600       __pow10
+ 0001:00026AA0       __pure_error_
+ 0001:00024814       __qdiv10
+ 0001:0002483C       __qmul10
+ 0001:000242DC  Idle __read
+ 0002:000079D8       __realcvtptr
+ 0001:0001FC39  Idle __Return_unwind
+ 0002:00007BA8       __rover
+ 0001:00024294       __rtl_read
+ 0001:000242F8       __rtl_write
+ 0001:00021BF0       __scanner
+ 0001:00024766       __scanrslt
+ 0002:000079E4       __scanrsltptr
+ 0001:00024760       __scantod
+ 0002:000079E0       __scantodptr
+ 0001:00022188       __scantol
+ 0001:00025314       __scan_init
+ 0002:00007CE4  Idle __setenvp__
+ 0001:00020E90       __setexc
+ 0001:00020F40       __SetExceptionHandler
+ 0001:00020EBC  Idle __SetUserHandler
+ 0002:00007B84       __smalloc_threshold
+ 0002:00008014       __SMonth
+ 0001:000225D0  Idle __splitpath
+ 0001:00027658       __startup
+ 0001:00028A64       __statcvt
+ 0002:000090C4  Idle __stkbase
+ 0002:00006B8C       __stkchk
+ 0002:000090CC       __stkindex
+ 0001:0001E8B4       __stpcpy
+ 0002:00006BA0       __streams
+ 0002:00007FDC       __SWeekday
+ 0002:00007130       __sys_errlist
+ 0002:000071F4       __sys_nerr
+ 0001:00027838       __terminate
+ 0001:00028AD0       __thread_buf
+ 0001:00028184       __thread_data
+ 0001:00028248       __thread_data_del
+ 0001:000281B0       __thread_data_new
+ 0002:000081A8       __timezone
+ 0002:00007A5E       __tiny_ldble
+ 0002:000090D0       __tlsindex
+ 0002:0000005A  Idle __TLS_index
+ 0002:0000005E  Idle __TLS_index4
+ 0002:00008EBC       __tmpnum
+ 0001:00028828       __totalsec
+ 0002:00007A68       __turboFloat
+ 0002:000081A0       __tzname
+ 0001:00023148       __umask
+ 0001:00023CE8       __unlock_all_handles
+ 0001:0002283C       __unlock_all_streams
+ 0001:000270B4       __unlock_env
+ 0001:00027858       __unlock_exit
+ 0001:00023D8C       __unlock_handle
+ 0001:000257C8       __unlock_heap
+ 0001:0002851C       __unlock_nt
+ 0001:00022914       __unlock_stream
+ 0001:00020EAC       __unsetexc
+ 0001:00020F55       __UnsetExceptionHandler
+ 0001:00020ED0  Idle __unsetuserhandler
+ 0001:00020F81  Idle __UnwindException
+ 0002:00008D20  Idle __UserHandlerPtr
+ 0002:00007B88  Idle __virt_chunk_free
+ 0002:00007B8C  Idle __virt_chunk_free2
+ 0002:00007B78  Idle __virt_chunk_size
+ 0002:00007B7C  Idle __virt_chunk_size2
+ 0001:000269F8       __virt_commit
+ 0001:00026A4C       __virt_decommit
+ 0002:00007B74  Idle __virt_heap_size
+ 0001:00026A70       __virt_release
+ 0001:0002698C       __virt_reserve
+ 0001:00024340  Idle __write
+ 0001:00023084       __xfclose
+ 0001:000230BC       __xfflush
+ 0002:00008088       __YDays
+ 0001:0002435C       ___access
+ 0002:00007BB0       ___allocated
+ 0001:00020B1F       ___call_terminate
+ 0001:00020C03       ___call_unexpected
+ 0001:0002439C       ___close
+ 0002:00006A18  Idle ___CPPexceptionList
+ 0002:000068FC       ___debuggerDisableTerminateCallback
+ 0002:00006A28  Idle ___debuggerHookDataP
+ 0002:00006A20  Idle ___debuggerHookFN
+ 0002:00006A24  Idle ___debuggerWatchingP
+ 0001:00020DE8       ___DefHandler
+ 0001:00020F22       ___doGlobalUnwind
+ 0001:00024068       ___doserrno
+ 0001:000240C0       ___DOSerror
+ 0001:00023160       ___eof
+ 0001:00026A94       ___errno
+ 0001:00026E20  Idle ___ErrorMessage
+ 0002:00006A1C  Idle ___exceptFlags
+ 0002:00006A44  Idle ___exceptMemAllocVars
+ 0002:00006A40  Idle ___exceptStaticBuffP
+ 0002:00006A48  Idle ___ExceptStaticXbuff
+ 0002:000090AC  Idle ___exit_lock
+ 0001:0002154C       ___fputn
+ 0001:000214B8       ___getfp
+ 0001:00024074       ___IOerror
+ 0001:000243FC       ___isatty
+ 0001:0002442C       ___isatty_osfhandle
+ 0002:00000058       ___isDLL
+ 0002:00000059       ___isGUI
+ 0001:0001EC9C  Idle ___JumpToCatch__
+ 0001:000248F0       ___ldtrunc
+ 0001:000249E8       ___longtoa
+ 0001:00024444       ___lseek
+ 0001:000262B8       ___memBogusAddr
+ 0001:00021A94       ___mkname
+ 0001:0002475A       ___nextreal
+ 0001:000240E0       ___NTerror
+ 0001:000244C8       ___open
+ 0001:00021410       ___openfp
+ 0001:000248C8  Idle ___org_atoi
+ 0001:0002486C  Idle ___org_atol
+ 0001:00025778  Idle ___org_calloc
+ 0001:00023584  Idle ___org_chdir
+ 0001:00026844  Idle ___org_delete
+ 0001:00026854  Idle ___org_deletea
+ 0001:00021020  Idle ___org_fclose
+ 0001:000210C4  Idle ___org_fflush
+ 0001:0002355C  Idle ___org_fgetc
+ 0001:00021158  Idle ___org_fgets
+ 0001:00023A8C  Idle ___org_filelength
+ 0001:00021290  Idle ___org_findfirst
+ 0001:000212B4  Idle ___org_findnext
+ 0001:00020F90  Idle ___org_fnsplit
+ 0001:000214E4  Idle ___org_fopen
+ 0001:00021518  Idle ___org_fprintf
+ 0001:00021620  Idle ___org_fputs
+ 0001:00025E20  Idle ___org_free
+ 0001:00021674  Idle ___org_fscanf
+ 0001:0002170C  Idle ___org_fseek
+ 0001:00021780  Idle ___org_ftell
+ 0001:0002180C  Idle ___org_getcwd
+ 0001:000289A0  Idle ___org_getdate
+ 0001:00027044  Idle ___org_getenv
+ 0001:000289CC  Idle ___org_gettime
+ 0001:0002663C  Idle ___org_heapcheck
+ 0001:00024A78  Idle ___org_itoa
+ 0001:00020F98  Idle ___org_lseek
+ 0001:00024AC8  Idle ___org_ltoa
+ 0001:00025F30       ___org_malloc
+ 0001:0001E5B4  Idle ___org_memchr
+ 0001:0001E720  Idle ___org_memcmp
+ 0001:0001E5D4  Idle ___org_memcpy
+ 0001:0001E5F8  Idle ___org_memmove
+ 0001:0001E644  Idle ___org_memset
+ 0001:00026878  Idle ___org_new
+ 0001:00021B30  Idle ___org_perror
+ 0001:00021BB4  Idle ___org_printf
+ 0001:00026CB8  Idle ___org_qsort
+ 0001:00027518  Idle ___org_raise
+ 0001:00026794  Idle ___org_realloc
+ 0001:00022340  Idle ___org_setvbuf
+ 0001:0002261C  Idle ___org_sprintf
+ 0001:000226C8  Idle ___org_sscanf
+ 0001:000240F4  Idle ___org_stat
+ 0001:0001E674  Idle ___org_strcat
+ 0001:0001E6B0  Idle ___org_strchr
+ 0001:0001E6D8  Idle ___org_strcmp
+ 0001:0001E764  Idle ___org_stricmp
+ 0001:0001E704  Idle ___org_strlen
+ 0001:0001E7AC  Idle ___org_strncpy
+ 0001:0001E7FC  Idle ___org_strnicmp
+ 0001:0001E85C  Idle ___org_strpbrk
+ 0001:0001E888  Idle ___org_strrchr
+ 0001:00024AA8  Idle ___org_ultoa
+ 0001:00022948  Idle ___org_ungetc
+ 0001:00022678  Idle ___org_vsprintf
+ 0001:000226EC  Idle ___org_vsscanf
+ 0001:0002360C  Idle ___org__dos_close
+ 0001:000236DC  Idle ___org__dos_creat
+ 0001:000236F8  Idle ___org__dos_creatnew
+ 0001:000237B4  Idle ___org__dos_findfirst
+ 0001:00023874  Idle ___org__dos_findnext
+ 0001:000239AC  Idle ___org__dos_open
+ 0001:000239E4  Idle ___org__dos_read
+ 0001:00023A38  Idle ___org__dos_write
+ 0001:00026658  Idle ___org__expand
+ 0001:000218BC  Idle ___org__fgetc
+ 0001:00023AD8  Idle ___org__fullpath
+ 0001:00023B74  Idle ___org__getdcwd
+ 0001:00024AF0  Idle ___org__matherr
+ 0001:00024B1C  Idle ___org__matherrl
+ 0001:0002681C  Idle ___org__msize
+ 0001:000242DC  Idle ___org__read
+ 0001:00024294  Idle ___org__rtl_read
+ 0001:000242F8  Idle ___org__rtl_write
+ 0001:000225D0  Idle ___org__splitpath
+ 0001:00024340  Idle ___org__write
+ 0001:00023264       ___read
+ 0001:00024754       ___realcvt
+ 0002:00006A2C  Idle ___terminatePTR
+ 0002:00006A3C  Idle ___throwExceptionName
+ 0002:00006A34  Idle ___throwFileName
+ 0002:00006A38  Idle ___throwLineNumber
+ 0001:00021AEC       ___tmpnam
+ 0002:00006A30  Idle ___unexpectdPTR
+ 0001:000246C8       ___unlink
+ 0001:00024A5C       ___utoa
+ 0001:00022A24       ___vprinter
+ 0001:00023464       ___write
+ 0002:00007BCC       ___xalloc
+ 0001:0002532C       ___xcvt
+
+  Address         Publics by Value
+
+ 0001:00000000  Idle __acrtused
+ 0001:00000074  Idle __GetExceptDLLinfo
+ 0001:00000080       enablegui() __fastcall
+ 0001:00000084  Idle A95VOL::size() __fastcall
+ 0001:0000008C       initgame() __fastcall
+ 0001:00000308       terminategame() __fastcall
+ 0001:00000380       gametimer() __fastcall
+ 0001:000003A4  Idle keyboard() __fastcall
+ 0001:00000400       m_quit() __fastcall
+ 0001:00000408  Idle scanguitree(GUIrect*,lpoint&,GUIrect*) __fastcall
+ 0001:000004DC  Idle calcfps() __fastcall
+ 0001:0000054C       updatescreen() __fastcall
+ 0001:00000638  Idle ROOT::ROOT() __fastcall
+ 0001:0000066C  Idle ROOT::~ROOT() __fastcall
+ 0001:000006A0       ROOT::resize(int,int) __fastcall
+ 0001:0000071C  Idle ROOT::refresh(int,void*) __fastcall
+ 0001:0000074C  Idle resizeroot(int,int) __fastcall
+ 0001:0000075C  Idle readcfuncnames(char*,char[][16]*&) __fastcall
+ 0001:00000879       __tpdsc__[config*]
+ 0001:0000088E       __tpdsc__[COLORMAP*]
+ 0001:000008A5       __tpdsc__[ROOT*]
+ 0001:000008B8       __tpdsc__[GUIroot*]
+ 0001:000008CE       __tpdsc__[GUIroot]
+ 0001:0000091E       __tpdsc__[ROOT]
+ 0001:0000096E       __tpdsc__[COLORMAP]
+ 0001:000009A2       __tpdsc__[config]
+ 0001:000009D2       ROOT::hittest(int,int) __fastcall
+ 0001:000009F2       ROOT::bringtofront() __fastcall
+ 0001:000009F3       ROOT::sendtoback() __fastcall
+ 0001:000009F4       ROOT::acceptfocus() __fastcall
+ 0001:000009FA       ROOT::losefocus() __fastcall
+ 0001:000009FB       GUIrect::click(mouse&) __fastcall
+ 0001:000009FE       GUIrect::release(mouse&) __fastcall
+ 0001:00000A04       GUIrect::drag(mouse&) __fastcall
+ 0001:00000A07       ROOT::keyhit(char,char) __fastcall
+ 0001:00000A25       ROOT::getname() __fastcall
+ 0001:00000A2B       GUIrect::sendmessage(GUIrect*,int) __fastcall
+ 0001:00000A31       __tpdsc__[A95VOL]
+ 0001:00000A6D       __tpdsc__[volbatch]
+ 0001:00000AA1       __tpdsc__[GUIrect]
+ 0001:00000AE8  Idle msgbuffer::add(char*,int) __fastcall
+ 0001:00000B88       msgbuffer::printf(int,char*,...)
+ 0001:00000BC4  Idle msgbuffer::update() __fastcall
+ 0001:00000BF4       msgbuffer::draw(int,int) __fastcall
+ 0001:00000C5C       config::config() __fastcall
+ 0001:00000CBC       config::load(char*) __fastcall
+ 0001:00000D70       config::save(char*) __fastcall
+ 0001:00000DF7       __tpdsc__[FILEIO]
+ 0001:00000E3B       FILEIO::~FILEIO() __fastcall
+ 0001:00000E68  Idle bgdef::loadscrmap(char*) __fastcall
+ 0001:00000EFC  Idle bgdef::savescrmap(char*) __fastcall
+ 0001:00000F9C  Idle bgdef::loadbglines(char*) __fastcall
+ 0001:00001030  Idle bgdef::savebglines(char*) __fastcall
+ 0001:000010DC  Idle bgdef::loadbgimages(char*) __fastcall
+ 0001:00001178  Idle bgdef::savebgimages(char*) __fastcall
+ 0001:00001224       bgdef::read() __fastcall
+ 0001:000014A0       bgdef::save() __fastcall
+ 0001:00001540       bgdef::writevol(volumefile&) __fastcall
+ 0001:00001578  Idle bgimgcmp(bgimage*,bgimage*)
+ 0001:000015C4  Idle bgdef::resortbgimages() __fastcall
+ 0001:00001608       bgdef::deletebgline(bgline*) __fastcall
+ 0001:00001680       bgdef::insertbgline(bgline*) __fastcall
+ 0001:00001704       bgline::set(int,int,int,int) __fastcall
+ 0001:0000173C       bgdef::deleteimage(bgimage*) __fastcall
+ 0001:000017B4       bgdef::insertimage(bgimage*) __fastcall
+ 0001:0000198C  Idle bgdef::readscreens(char*) __fastcall
+ 0001:00001A40  Idle selectimagedlg::draw(char*) __fastcall
+ 0001:00001BB0  Idle selectimagedlg::keyhit(char,char) __fastcall
+ 0001:00001BB4  Idle selectimagedlg::click(mouse&) __fastcall
+ 0001:00001E68  Idle selectimagedlg::drag(mouse&) __fastcall
+ 0001:00001E84  Idle selectimagedlg::release(mouse&) __fastcall
+ 0001:00001E90  Idle m_play() __fastcall
+ 0001:00001E9C  Idle m_playlooped() __fastcall
+ 0001:00001EA8  Idle m_stop() __fastcall
+ 0001:00001EB4  Idle m_activate() __fastcall
+ 0001:00001EC0  Idle m_flipx() __fastcall
+ 0001:00001ECC  Idle m_insertframe() __fastcall
+ 0001:00001ED8  Idle m_deleteframe() __fastcall
+ 0001:00001EE4  Idle m_insertframeafter() __fastcall
+ 0001:00001EF0  Idle setres(int,int) __fastcall
+ 0001:00001F54  Idle res320x200() __fastcall
+ 0001:00001F64  Idle res320x240() __fastcall
+ 0001:00001F74  Idle res640x400() __fastcall
+ 0001:00001F84  Idle res640x480() __fastcall
+ 0001:00001F94  Idle res800x600() __fastcall
+ 0001:00001FA4  Idle res1024x768() __fastcall
+ 0001:00001FB4  Idle m_redrawbg() __fastcall
+ 0001:00001FE0  Idle m_showbglines() __fastcall
+ 0001:0000200C  Idle m_heapcheck() __fastcall
+ 0001:00002064  Idle m_filleddialogs() __fastcall
+ 0001:0000209C  Idle m_filleddesktop() __fastcall
+ 0001:000020D4  Idle m_showfps() __fastcall
+ 0001:0000210C  Idle m_viewguitree() __fastcall
+ 0001:00002144  Idle m_saveconfig() __fastcall
+ 0001:00002154  Idle m_save() __fastcall
+ 0001:00002170  Idle m_kill() __fastcall
+ 0001:0000217C  Idle m_bgkill() __fastcall
+ 0001:00002244  Idle m_bgsave() __fastcall
+ 0001:00002260  Idle m_bgactivate() __fastcall
+ 0001:0000229C  Idle m_bgdeactivate() __fastcall
+ 0001:000022D8  Idle m_ddrawinfo() __fastcall
+ 0001:000024AC  Idle m_copyimages() __fastcall
+ 0001:00002524  Idle m_copyframe() __fastcall
+ 0001:000025A4  Idle m_copyeffect() __fastcall
+ 0001:000025A8  Idle m_paste() __fastcall
+ 0001:000025B8  Idle m_volumize() __fastcall
+ 0001:000025D4  Idle m_bgvolumize() __fastcall
+ 0001:000025F0  Idle m_getcwd() __fastcall
+ 0001:0000261C  Idle m_cleanup() __fastcall
+ 0001:00002628       initdefaultgui() __fastcall
+ 0001:00003075       __tpdsc__[CLIP]
+ 0001:000030B9       __tpdsc__[imagemove*]
+ 0001:000030D1       __tpdsc__[bgimagemove*]
+ 0001:000030EB       __tpdsc__[bgobject*]
+ 0001:00003102       __tpdsc__[GUIbox*]
+ 0001:00003117       __tpdsc__[GUImessage*]
+ 0001:00003130       __tpdsc__[clip_images*]
+ 0001:0000314A       __tpdsc__[clip_frame*]
+ 0001:00003163       loadobjectdlg::open() __fastcall
+ 0001:00003462       newobjectspace::open() __fastcall
+ 0001:000037D6       seriesproperties::open() __fastcall
+ 0001:00003BCF       objectedit::open() __fastcall
+ 0001:000042C1       selectimagedlg::open() __fastcall
+ 0001:0000455D       changeseries::open() __fastcall
+ 0001:000048BD       GUImessage::open() __fastcall
+ 0001:00004A8A       aboutdlg::open() __fastcall
+ 0001:00004DC3       loadbgdlg::open() __fastcall
+ 0001:0000505B       bgedit::open() __fastcall
+ 0001:00005304       __tpdsc__[GUIhmenu*]
+ 0001:0000531B       __tpdsc__[objectedit*]
+ 0001:00005334       __tpdsc__[GUIstatictext*]
+ 0001:00005350       __tpdsc__[GUIimagebutton*]
+ 0001:0000536D       __tpdsc__[framebar*]
+ 0001:00005384       __tpdsc__[GUIintedit*]
+ 0001:0000539D       __tpdsc__[GUIfloatedit*]
+ 0001:000053B8       __tpdsc__[GUIonebuttonbox*]
+ 0001:000053D6       __tpdsc__[loadobjectdlg*]
+ 0001:000053F2       __tpdsc__[GUIstringlistbox*]
+ 0001:00005411       __tpdsc__[GUIcheckbox*]
+ 0001:0000542B       __tpdsc__[newobjectspace*]
+ 0001:00005448       __tpdsc__[GUItextedit*]
+ 0001:00005462       __tpdsc__[GUInumbertextedit*]
+ 0001:00005482       __tpdsc__[seriesproperties*]
+ 0001:000054A1       __tpdsc__[selectimagedlg*]
+ 0001:000054BE       __tpdsc__[GUIhscrollbar*]
+ 0001:000054DA       __tpdsc__[changeseries*]
+ 0001:000054F5       __tpdsc__[GUIstaticcenteredtext*]
+ 0001:00005519       __tpdsc__[aboutdlg*]
+ 0001:00005530       __tpdsc__[GUIstaticimage*]
+ 0001:0000554D       __tpdsc__[loadbgdlg*]
+ 0001:00005565       __tpdsc__[bgedit*]
+ 0001:0000557A       __tpdsc__[bgedit]
+ 0001:000055CA       __tpdsc__[loadbgdlg]
+ 0001:0000561E       __tpdsc__[GUIstaticimage]
+ 0001:00005676       __tpdsc__[aboutdlg]
+ 0001:000056CA       __tpdsc__[GUIstaticcenteredtext]
+ 0001:0000572A       __tpdsc__[changeseries]
+ 0001:00005782       __tpdsc__[GUIhscrollbar]
+ 0001:000057DA       __tpdsc__[selectimagedlg]
+ 0001:00005832       __tpdsc__[seriesproperties]
+ 0001:0000588E       __tpdsc__[GUInumbertextedit]
+ 0001:000058EA       __tpdsc__[GUItextedit]
+ 0001:0000593E       __tpdsc__[newobjectspace]
+ 0001:00005996       __tpdsc__[GUIcheckbox]
+ 0001:000059EA       __tpdsc__[GUIstringlistbox]
+ 0001:00005A46       __tpdsc__[loadobjectdlg]
+ 0001:00005A9E       __tpdsc__[GUIonebuttonbox]
+ 0001:00005AF6       __tpdsc__[GUIfloatedit]
+ 0001:00005B4E       __tpdsc__[GUIintedit]
+ 0001:00005BA2       __tpdsc__[framebar]
+ 0001:00005BF6       __tpdsc__[GUIimagebutton]
+ 0001:00005C4E       __tpdsc__[GUIstatictext]
+ 0001:00005CA6       __tpdsc__[objectedit]
+ 0001:00005CFA       __tpdsc__[GUIhmenu]
+ 0001:00005D4E       __tpdsc__[clip_frame]
+ 0001:00005DA2       __tpdsc__[clip_images]
+ 0001:00005DF6       __tpdsc__[GUImessage]
+ 0001:00005E4A       __tpdsc__[GUIbox]
+ 0001:00005E9A       __tpdsc__[bgobject]
+ 0001:00005EE2       __tpdsc__[bgimagemove]
+ 0001:00005F36       __tpdsc__[imagemove]
+ 0001:00005F8A       CLIP::~CLIP() __fastcall
+ 0001:00005FB6       bgedit::~bgedit() __fastcall
+ 0001:00006029       GUImonitor::refresh(int,void*) __fastcall
+ 0001:000061B2       GUImonitor::acceptfocus() __fastcall
+ 0001:000061B8       bgedit::draw(char*) __fastcall
+ 0001:000061D8       bgedit::getname() __fastcall
+ 0001:000061DE       bgedit::sendmessage(GUIrect*,int) __fastcall
+ 0001:0000623C       GUIcontents::maximize() __fastcall
+ 0001:0000623D       GUIcontents::restore() __fastcall
+ 0001:0000623E       GUImonitor::refreshobjspace() __fastcall
+ 0001:0000623F       bgedit::refreshbg() __fastcall
+ 0001:0000624E       GUImonitor::refreshobject() __fastcall
+ 0001:0000624F       GUImonitor::refreshobjdef() __fastcall
+ 0001:00006250       bgedit::refreshbgdef() __fastcall
+ 0001:00006274       GUImonitor::refreshseries() __fastcall
+ 0001:00006275       GUImonitor::refreshframe() __fastcall
+ 0001:00006276       GUImonitor::refreshstopped() __fastcall
+ 0001:00006277       loadbgdlg::~loadbgdlg() __fastcall
+ 0001:000062EA       GUImonitor::draw(char*) __fastcall
+ 0001:00006305       loadbgdlg::getname() __fastcall
+ 0001:0000630B       loadbgdlg::sendmessage(GUIrect*,int) __fastcall
+ 0001:00006337       loadbgdlg::refreshobjspace() __fastcall
+ 0001:00006382       GUImonitor::refreshbg() __fastcall
+ 0001:00006383       GUImonitor::refreshbgdef() __fastcall
+ 0001:00006384       aboutdlg::~aboutdlg() __fastcall
+ 0001:000063EE       GUIrect::refresh(int,void*) __fastcall
+ 0001:000063EF       aboutdlg::acceptfocus() __fastcall
+ 0001:000063F5       aboutdlg::draw(char*) __fastcall
+ 0001:00006410       aboutdlg::getname() __fastcall
+ 0001:00006416       aboutdlg::sendmessage(GUIrect*,int) __fastcall
+ 0001:0000641C       GUIstaticcenteredtext::~GUIstaticcenteredtext() __fastcall
+ 0001:00006454       GUIrect::acceptfocus() __fastcall
+ 0001:00006457       GUIstatictext::getname() __fastcall
+ 0001:0000645D       __tpdsc__[selectseries]
+ 0001:000064B5       selectseries::~selectseries() __fastcall
+ 0001:000064F7       selectseries::keyhit(char,char) __fastcall
+ 0001:000064FA       selectseries::getname() __fastcall
+ 0001:00006500       selectseries::sendmessage(GUIrect*,int) __fastcall
+ 0001:00006564       selectseries::refreshobjdef() __fastcall
+ 0001:000065B5       changeseries::~changeseries() __fastcall
+ 0001:00006632       changeseries::losefocus() __fastcall
+ 0001:00006633       changeseries::keyhit(char,char) __fastcall
+ 0001:0000663E       changeseries::getname() __fastcall
+ 0001:00006644       changeseries::sendmessage(GUIrect*,int) __fastcall
+ 0001:00006AC5       changeseries::refreshseries() __fastcall
+ 0001:00006AE2       changeseries::refreshstopped() __fastcall
+ 0001:00006B0E       selectimagedlg::~selectimagedlg() __fastcall
+ 0001:00006B81       selectimagedlg::getname() __fastcall
+ 0001:00006B87       selectimagedlg::sendmessage(GUIrect*,int) __fastcall
+ 0001:00006B8D       selectimagedlg::refreshobjdef() __fastcall
+ 0001:00006BE1       selectimagedlg::refreshbgdef() __fastcall
+ 0001:00006BED       seriesproperties::~seriesproperties() __fastcall
+ 0001:00006C60       seriesproperties::getname() __fastcall
+ 0001:00006C66       seriesproperties::sendmessage(GUIrect*,int) __fastcall
+ 0001:0000725A       seriesproperties::refreshseries() __fastcall
+ 0001:0000764A       newobjectspace::~newobjectspace() __fastcall
+ 0001:000076B4       newobjectspace::acceptfocus() __fastcall
+ 0001:000076BA       newobjectspace::draw(char*) __fastcall
+ 0001:000076D5       newobjectspace::getname() __fastcall
+ 0001:000076DB       newobjectspace::sendmessage(GUIrect*,int) __fastcall
+ 0001:00007713       GUIstringlistbox::~GUIstringlistbox() __fastcall
+ 0001:00007758       GUIlistbox::acceptfocus() __fastcall
+ 0001:0000775E       GUIstringlistbox::getname() __fastcall
+ 0001:00007764       loadobjectdlg::~loadobjectdlg() __fastcall
+ 0001:000077D7       loadobjectdlg::keyhit(char,char) __fastcall
+ 0001:00007813       loadobjectdlg::getname() __fastcall
+ 0001:00007819       loadobjectdlg::sendmessage(GUIrect*,int) __fastcall
+ 0001:00007864       loadobjectdlg::refreshobjspace() __fastcall
+ 0001:000078AF       framebar::~framebar() __fastcall
+ 0001:000078DD       framebar::click(mouse&) __fastcall
+ 0001:000078DE       framebar::release(mouse&) __fastcall
+ 0001:000078E4       framebar::drag(mouse&) __fastcall
+ 0001:0000795F       framebar::draw(char*) __fastcall
+ 0001:00007A1C       GUIrect::getname() __fastcall
+ 0001:00007A22       __tpdsc__[GUImonitor]
+ 0001:00007A76       GUImonitor::~GUImonitor() __fastcall
+ 0001:00007AAE       objectedit::~objectedit() __fastcall
+ 0001:00007B21       objectedit::draw(char*) __fastcall
+ 0001:00007B92       objectedit::getname() __fastcall
+ 0001:00007B98       objectedit::sendmessage(GUIrect*,int) __fastcall
+ 0001:00007CA0       objectedit::refreshobject() __fastcall
+ 0001:00007CD0       objectedit::refreshseries() __fastcall
+ 0001:00007D06       objectedit::refreshframe() __fastcall
+ 0001:00007E4E       __tpdsc__[GUIcontents]
+ 0001:00007EA2       GUIcontents::~GUIcontents() __fastcall
+ 0001:00007ED0       GUImessage::~GUImessage() __fastcall
+ 0001:00007F43       GUImessage::draw(char*) __fastcall
+ 0001:00007F62       GUImessage::getname() __fastcall
+ 0001:00007F68       GUIbox::~GUIbox() __fastcall
+ 0001:00007F96       __tpdsc__[clipdata]
+ 0001:00007FDE       GUIhmenu::~GUIhmenu() __fastcall
+ 0001:00008016       __tpdsc__[GUImenu]
+ 0001:00008066       GUIstatictext::~GUIstatictext() __fastcall
+ 0001:00008094       GUIimagebutton::~GUIimagebutton() __fastcall
+ 0001:000080CC       __tpdsc__[GUIbutton]
+ 0001:00008120       GUIintedit::~GUIintedit() __fastcall
+ 0001:00008162       __tpdsc__[GUInumberedit]
+ 0001:000081BA       GUIfloatedit::~GUIfloatedit() __fastcall
+ 0001:000081FC       GUIonebuttonbox::~GUIonebuttonbox() __fastcall
+ 0001:00008234       __tpdsc__[GUIlistbox]
+ 0001:00008288       GUIcheckbox::~GUIcheckbox() __fastcall
+ 0001:000082B6       GUItextedit::~GUItextedit() __fastcall
+ 0001:000082EE       __tpdsc__[GUIedit]
+ 0001:0000833E       GUInumbertextedit::~GUInumbertextedit() __fastcall
+ 0001:00008380       GUIhscrollbar::~GUIhscrollbar() __fastcall
+ 0001:000083B8       __tpdsc__[GUIscrollbar]
+ 0001:00008410       GUIstaticimage::~GUIstaticimage() __fastcall
+ 0001:0000843E       selectcfunc::selectcfunc(objectspace*) __fastcall
+ 0001:00008590       __tpdsc__[GUItwobuttonbox*]
+ 0001:000085AE       __tpdsc__[afterseries*]
+ 0001:000085C8       __tpdsc__[selectcfunc*]
+ 0001:000085E2       __tpdsc__[GUItextbutton*]
+ 0001:000085FE       __tpdsc__[selectcfunc]
+ 0001:00008652       selectcfunc::~selectcfunc() __fastcall
+ 0001:000086C5       selectcfunc::acceptfocus() __fastcall
+ 0001:000086C8       selectcfunc::keyhit(char,char) __fastcall
+ 0001:000086CB       selectcfunc::getname() __fastcall
+ 0001:000086D1       selectcfunc::sendmessage(GUIrect*,int) __fastcall
+ 0001:0000876A       selectcfunc::refreshseries() __fastcall
+ 0001:00008781       GUIlistbox::~GUIlistbox() __fastcall
+ 0001:000087BC       GUIlistbox::getname() __fastcall
+ 0001:000087C2       GUIlistbox::drawitems(char*,int,int) __fastcall
+ 0001:000087C9       __tpdsc__[afterseries]
+ 0001:0000881D       afterseries::~afterseries() __fastcall
+ 0001:0000889A       afterseries::keyhit(char,char) __fastcall
+ 0001:0000889D       afterseries::getname() __fastcall
+ 0001:000088A3       afterseries::sendmessage(GUIrect*,int) __fastcall
+ 0001:00008935       afterseries::refreshobjdef() __fastcall
+ 0001:00008977       afterseries::refreshseries() __fastcall
+ 0001:000089C1       __tpdsc__[GUItextbutton]
+ 0001:00008A19       __tpdsc__[GUItwobuttonbox]
+ 0001:00008A71       GUIscrollbar::~GUIscrollbar() __fastcall
+ 0001:00008A9F       GUIedit::~GUIedit() __fastcall
+ 0001:00008ACD       GUInumberedit::~GUInumberedit() __fastcall
+ 0001:00008B05       GUIbutton::~GUIbutton() __fastcall
+ 0001:00008B33       GUImenu::~GUImenu() __fastcall
+ 0001:00008B61       clipdata::~clipdata() __fastcall
+ 0001:00008B82       GUItwobuttonbox::~GUItwobuttonbox() __fastcall
+ 0001:00008BBA       GUItextbutton::~GUItextbutton() __fastcall
+ 0001:00008BF4  Idle object::dirty() __fastcall
+ 0001:00008C00  Idle object::insertframe() __fastcall
+ 0001:00008C58  Idle object::insertframeafter() __fastcall
+ 0001:00008CB4  Idle object::deleteframe() __fastcall
+ 0001:00008D20       object::deleteeffect(effect*) __fastcall
+ 0001:00008D9C       objectspace::resetodf(int) __fastcall
+ 0001:00008DD8       object::frameforeward() __fastcall
+ 0001:00008E24       object::framebackward() __fastcall
+ 0001:00008E68  Idle object::seriesup() __fastcall
+ 0001:00008EA8  Idle object::seriesdown() __fastcall
+ 0001:00008EEC       objectspace::keyhit(char,char) __fastcall
+ 0001:0000900C       objectspace::play() __fastcall
+ 0001:0000902C       objectspace::flipx() __fastcall
+ 0001:00009040       objectspace::kill() __fastcall
+ 0001:00009150       objectspace::cleanup() __fastcall
+ 0001:00009208       objectspace::playlooped() __fastcall
+ 0001:00009228       objectspace::stop() __fastcall
+ 0001:00009244       objectspace::activate() __fastcall
+ 0001:00009288       objectspace::receivefocus() __fastcall
+ 0001:000092D8       objectspace::insertframe() __fastcall
+ 0001:000092EC       objectspace::deleteframe() __fastcall
+ 0001:00009300       objectspace::insertframeafter() __fastcall
+ 0001:00009314  Idle object::hittest(int,int) __fastcall
+ 0001:0000941C  Idle bgimagemove::bind(bgobject*) __fastcall
+ 0001:000094B4       bgimagemove::bgimagemove(bgdef*,bgimage*,int,int) __fastcall
+ 0001:0000952C  Idle bgimagemove::bgimagemove(bgobject*,bgimage*,int,int) __fastcall
+ 0001:000095A0       bgimagemove::~bgimagemove() __fastcall
+ 0001:00009604  Idle bgimagemove::deleteimage() __fastcall
+ 0001:0000965C  Idle bgimagemove::insertimage() __fastcall
+ 0001:000096A8  Idle bgimagemove::drag(mouse&) __fastcall
+ 0001:000097AC  Idle bgimagemove::release(mouse&) __fastcall
+ 0001:0000981C  Idle bgimagemove::draw(char*) __fastcall
+ 0001:000099D4  Idle bgimagemove::keyhit(char,char) __fastcall
+ 0001:00009ADC  Idle imagemove::bind(object*) __fastcall
+ 0001:00009B84       imagemove::imagemove(objectdefw*,image*,int,int) __fastcall
+ 0001:00009BFC  Idle imagemove::imagemove(object*,image*,int,int) __fastcall
+ 0001:00009C78       imagemove::~imagemove() __fastcall
+ 0001:00009CDC  Idle swap(image*,image*) __fastcall
+ 0001:00009D0C  Idle imagemove::sendtoback() __fastcall
+ 0001:00009D50  Idle imagemove::bringtofront() __fastcall
+ 0001:00009DA8  Idle imagemove::backward() __fastcall
+ 0001:00009DFC  Idle imagemove::forward() __fastcall
+ 0001:00009E64  Idle imagemove::deleteimage() __fastcall
+ 0001:00009EEC  Idle imagemove::insertimage() __fastcall
+ 0001:00009F9C  Idle imagemove::drag(mouse&) __fastcall
+ 0001:0000A090  Idle imagemove::release(mouse&) __fastcall
+ 0001:0000A0F4  Idle imagemove::draw(char*) __fastcall
+ 0001:0000A280  Idle imagemove::keyhit(char,char) __fastcall
+ 0001:0000A410       objectspace::click(mouse&) __fastcall
+ 0001:0000ABBC       objectspace::drag(mouse&) __fastcall
+ 0001:0000ABC0       objectspace::release(mouse&) __fastcall
+ 0001:0000ABC8       objectspace::neweditablebg(int) __fastcall
+ 0001:0000ACA4       objectspace::neweditableobject(int,int) __fastcall
+ 0001:0000ADD4       objectspace::readobjectdefs(char*) __fastcall
+ 0001:0000AFB8       objectspace::readbgdefs(char*) __fastcall
+ 0001:0000B19C  Idle objectspace::writeobjbin(char*,int,objectdef**) __fastcall
+ 0001:0000B2A3       __tpdsc__[object*]
+ 0001:0000B2B8       __tpdsc__[bglinemove*]
+ 0001:0000B2D1       __tpdsc__[bglinedraw*]
+ 0001:0000B2EA       __tpdsc__[bgmove*]
+ 0001:0000B2FF       __tpdsc__[objectmove*]
+ 0001:0000B318       __tpdsc__[objectdefw*]
+ 0001:0000B331       __tpdsc__[bgdef*]
+ 0001:0000B345       __tpdsc__[bgdef]
+ 0001:0000B395       __tpdsc__[objectdefw]
+ 0001:0000B3E9       __tpdsc__[objectmove]
+ 0001:0000B43D       __tpdsc__[bgmove]
+ 0001:0000B48D       __tpdsc__[bglinedraw]
+ 0001:0000B4E1       __tpdsc__[bglinemove]
+ 0001:0000B535       __tpdsc__[object]
+ 0001:0000B579       objectmove::~objectmove() __fastcall
+ 0001:0000B5B5       objectmove::release(mouse&) __fastcall
+ 0001:0000B616       objectmove::drag(mouse&) __fastcall
+ 0001:0000B61C       objectmove::draw(char*) __fastcall
+ 0001:0000B7B3       objectmove::getname() __fastcall
+ 0001:0000B7B9       bgmove::~bgmove() __fastcall
+ 0001:0000B7F5       bgmove::release(mouse&) __fastcall
+ 0001:0000B856       bgmove::drag(mouse&) __fastcall
+ 0001:0000B87D       bgmove::draw(char*) __fastcall
+ 0001:0000B8F3       bgmove::getname() __fastcall
+ 0001:0000B8F9       bglinedraw::~bglinedraw() __fastcall
+ 0001:0000B944       bglinedraw::acceptfocus() __fastcall
+ 0001:0000B94A       bglinedraw::release(mouse&) __fastcall
+ 0001:0000B9AB       bglinedraw::drag(mouse&) __fastcall
+ 0001:0000B9E7       bglinedraw::draw(char*) __fastcall
+ 0001:0000B9E8       bglinedraw::keyhit(char,char) __fastcall
+ 0001:0000BA7A       bglinedraw::getname() __fastcall
+ 0001:0000BA80       bglinemove::~bglinemove() __fastcall
+ 0001:0000BACB       bglinemove::acceptfocus() __fastcall
+ 0001:0000BAD1       bglinemove::release(mouse&) __fastcall
+ 0001:0000BB32       bglinemove::drag(mouse&) __fastcall
+ 0001:0000BB5E       bglinemove::draw(char*) __fastcall
+ 0001:0000BB5F       bglinemove::keyhit(char,char) __fastcall
+ 0001:0000BBF1       bglinemove::getname() __fastcall
+ 0001:0000BBF7       imagemove::acceptfocus() __fastcall
+ 0001:0000BBFD       imagemove::getname() __fastcall
+ 0001:0000BC03       bgimagemove::acceptfocus() __fastcall
+ 0001:0000BC09       bgimagemove::getname() __fastcall
+ 0001:0000BC0F       objectdefw::~objectdefw() __fastcall
+ 0001:0000BC3D       __tpdsc__[objectdef]
+ 0001:0000BC85       bgdef::~bgdef() __fastcall
+ 0001:0000BCC0  Idle clipdata::clipdata() __fastcall
+ 0001:0000BD44       clip_images::clip_images(frame*,objectdef*) __fastcall
+ 0001:0000BDC0       clip_images::~clip_images() __fastcall
+ 0001:0000BE04  Idle clip_images::paste() __fastcall
+ 0001:0000BEE0       clip_frame::clip_frame(frame*,int,objectdef*) __fastcall
+ 0001:0000BF74       clip_frame::~clip_frame() __fastcall
+ 0001:0000BFB8  Idle clip_frame::paste() __fastcall
+ 0001:0000C0CD       __tpdsc__[clipdata*]
+ 0001:0000C0E4       __tpdsc__[CLIPBOARD]
+ 0001:0000C12C       CLIPBOARD::~CLIPBOARD() __fastcall
+ 0001:0000C1B0       editinputdevice0() __fastcall
+ 0001:0000C358       editinputdevice1() __fastcall
+ 0001:0000C528       changeinputdevice::changeinputdevice(int,input*&) __fastcall
+ 0001:0000C7DA       __tpdsc__[changeinputdevice*]
+ 0001:0000C7FA       __tpdsc__[inputtestarea*]
+ 0001:0000C816       __tpdsc__[inputtestbutton*]
+ 0001:0000C834       __tpdsc__[inputtestbutton]
+ 0001:0000C88C       __tpdsc__[inputtestarea]
+ 0001:0000C8E4       __tpdsc__[changeinputdevice]
+ 0001:0000C940       inputtestbutton::~inputtestbutton() __fastcall
+ 0001:0000C96E       inputtestbutton::draw(char*) __fastcall
+ 0001:0000C9A1       inputtestbutton::getname() __fastcall
+ 0001:0000C9A7       inputtestarea::~inputtestarea() __fastcall
+ 0001:0000C9D5       inputtestarea::draw(char*) __fastcall
+ 0001:0000CA75       inputtestarea::getname() __fastcall
+ 0001:0000CA7B       changeinputdevice::~changeinputdevice() __fastcall
+ 0001:0000CB7B       changeinputdevice::acceptfocus() __fastcall
+ 0001:0000CB81       changeinputdevice::receivefocus() __fastcall
+ 0001:0000CB97       changeinputdevice::losefocus() __fastcall
+ 0001:0000CB9D       changeinputdevice::draw(char*) __fastcall
+ 0001:0000CC2B       changeinputdevice::getname() __fastcall
+ 0001:0000CC31       changeinputdevice::sendmessage(GUIrect*,int) __fastcall
+ 0001:0000D11D       __tpdsc__[input*]
+ 0001:0000D131       redefinekeys::redefinekeys(keymap&) __fastcall
+ 0001:0000D29F       __tpdsc__[redefinekeys*]
+ 0001:0000D2BA       __tpdsc__[GUIrect*]
+ 0001:0000D2D0       __tpdsc__[keyedit*]
+ 0001:0000D2E6       __tpdsc__[keyedit]
+ 0001:0000D336       keyedit::~keyedit() __fastcall
+ 0001:0000D36E       GUIedit::acceptfocus() __fastcall
+ 0001:0000D374       keyedit::click(mouse&) __fastcall
+ 0001:0000D38F       keyedit::keyhit(char,char) __fastcall
+ 0001:0000D3F6       keyedit::getname() __fastcall
+ 0001:0000D3FC       keyedit::drawdata(char*,int,int,int) __fastcall
+ 0001:0000D44F       __tpdsc__[redefinekeys]
+ 0001:0000D4A7       redefinekeys::~redefinekeys() __fastcall
+ 0001:0000D518       redefinekeys::acceptfocus() __fastcall
+ 0001:0000D51E       redefinekeys::draw(char*) __fastcall
+ 0001:0000D539       redefinekeys::getname() __fastcall
+ 0001:0000D53F       __tpdsc__[input]
+ 0001:0000D583       input::~input() __fastcall
+ 0001:0000D5A4       input::key(char) __fastcall
+ 0001:0000D5A7       input::timer() __fastcall
+ 0001:0000D5A8       input::main() __fastcall
+ 0001:0000D5A9       input::getkeymap() __fastcall
+ 0001:0000D5AC       input::getjoythreshold() __fastcall
+ 0001:0000D5AF       input::savesettings() __fastcall
+ 0001:0000D5B0       series::insertbytes(void*,int) __fastcall
+ 0001:0000D668       series::deletebytes(void*,int) __fastcall
+ 0001:0000D714       series::insertframe(frame*) __fastcall
+ 0001:0000D738       series::deleteframe(frame*) __fastcall
+ 0001:0000D750       objectdefw::objectdefw(objectspace*,int,char*,char*,char*,char*) __fastcall
+ 0001:0000D7D8       objectdefw::freeodf() __fastcall
+ 0001:0000D80C  Idle objectdefw::save() __fastcall
+ 0001:0000D88C  Idle objectdefw::read() __fastcall
+ 0001:0000D9AC       readlistfile(char*,int&) __fastcall
+ 0001:0000DA98       writelistfile(char*,char[9]*,int) __fastcall
+ 0001:0000DBE8       objectdefw::readsounds(char*) __fastcall
+ 0001:0000DC7C  Idle gettime(char*) __fastcall
+ 0001:0000DE50       objectdefw::readimages(char*) __fastcall
+ 0001:0000DEE0  Idle objectdefw::readsdf(char*) __fastcall
+ 0001:0000DFE8  Idle objectdefw::writesdf(char*) __fastcall
+ 0001:0000E034       objectdefw::readseries(char*) __fastcall
+ 0001:0000E308  Idle objectdefw::writeseries(char*) __fastcall
+ 0001:0000E3D8  Idle objectdefw::writevol(volumefile&) __fastcall
+ 0001:0000E3E4       objectdefw::volumize() __fastcall
+ 0001:0000E53C       __tpdsc__[volumefile]
+ 0001:0000E58C       volumefile::~volumefile() __fastcall
+ 0001:0000E5C4  Idle neweffect(int) __fastcall
+ 0001:0000E7A8  Idle e_newobject::draw(char*,object*) __fastcall
+ 0001:0000E8A8  Idle e_blood::draw(char*,object*) __fastcall
+ 0001:0000E91C       m_editeffects() __fastcall
+ 0001:0000EC20  Idle effect::neweffectpane(int,int,editeffects*) __fastcall
+ 0001:0000F418       __tpdsc__[e_sound*]
+ 0001:0000F42E       __tpdsc__[e_objectshake*]
+ 0001:0000F44A       __tpdsc__[e_groundshake*]
+ 0001:0000F466       __tpdsc__[e_goto*]
+ 0001:0000F47B       __tpdsc__[e_dir*]
+ 0001:0000F48F       __tpdsc__[e_newobject*]
+ 0001:0000F4A9       __tpdsc__[e_blood*]
+ 0001:0000F4BF       __tpdsc__[editeffects*]
+ 0001:0000F4D9       e_sound_edit::e_sound_edit(int,int,e_sound*,objectdefw*) __fastcall
+ 0001:0000F70D       e_goto_edit::e_goto_edit(int,int,e_goto*,objectdefw*) __fastcall
+ 0001:0000F84E       e_newobject_edit::e_newobject_edit(int,int,e_newobject*,object*) __fastcall
+ 0001:0000FACC       __tpdsc__[e_sound_edit*]
+ 0001:0000FAE7       __tpdsc__[e_shake_edit*]
+ 0001:0000FB02       __tpdsc__[e_goto_edit*]
+ 0001:0000FB1C       __tpdsc__[e_dir_edit*]
+ 0001:0000FB35       __tpdsc__[e_newobject_edit*]
+ 0001:0000FB54       __tpdsc__[e_blood_edit*]
+ 0001:0000FB6F       __tpdsc__[e_blood_edit]
+ 0001:0000FBC7       __tpdsc__[e_newobject_edit]
+ 0001:0000FC23       __tpdsc__[e_dir_edit]
+ 0001:0000FC77       __tpdsc__[e_goto_edit]
+ 0001:0000FCCB       __tpdsc__[e_shake_edit]
+ 0001:0000FD23       __tpdsc__[e_sound_edit]
+ 0001:0000FD7B       __tpdsc__[editeffects]
+ 0001:0000FDCF       __tpdsc__[e_blood]
+ 0001:0000FE0B       __tpdsc__[e_newobject]
+ 0001:0000FE4B       __tpdsc__[e_dir]
+ 0001:0000FE87       __tpdsc__[e_goto]
+ 0001:0000FEC3       __tpdsc__[e_groundshake]
+ 0001:0000FF07       __tpdsc__[e_objectshake]
+ 0001:0000FF4B       __tpdsc__[e_sound]
+ 0001:0000FF87       e_newobject_edit::~e_newobject_edit() __fastcall
+ 0001:0000FFC9       effectpane::acceptfocus() __fastcall
+ 0001:0000FFCF       e_newobject_edit::click(mouse&) __fastcall
+ 0001:0001008B       e_newobject_edit::release(mouse&) __fastcall
+ 0001:00010091       e_newobject_edit::drag(mouse&) __fastcall
+ 0001:00010109       e_newobject_edit::getname() __fastcall
+ 0001:0001010F       e_newobject_edit::sendmessage(GUIrect*,int) __fastcall
+ 0001:000101B2       e_newobject_edit::draweffect(char*) __fastcall
+ 0001:000101C3       e_goto_edit::~e_goto_edit() __fastcall
+ 0001:00010205       e_goto_edit::getname() __fastcall
+ 0001:0001020B       e_goto_edit::sendmessage(GUIrect*,int) __fastcall
+ 0001:0001022C       effectpane::draweffect(char*) __fastcall
+ 0001:0001022D       e_sound_edit::~e_sound_edit() __fastcall
+ 0001:0001026F       e_sound_edit::getname() __fastcall
+ 0001:00010275       e_sound_edit::sendmessage(GUIrect*,int) __fastcall
+ 0001:00010361       e_blood_edit::~e_blood_edit() __fastcall
+ 0001:000103A3       e_blood_edit::click(mouse&) __fastcall
+ 0001:0001045F       e_blood_edit::release(mouse&) __fastcall
+ 0001:00010465       e_blood_edit::drag(mouse&) __fastcall
+ 0001:000104DD       e_blood_edit::getname() __fastcall
+ 0001:000104E3       e_blood_edit::sendmessage(GUIrect*,int) __fastcall
+ 0001:00010504       e_blood_edit::draweffect(char*) __fastcall
+ 0001:00010515       e_dir_edit::~e_dir_edit() __fastcall
+ 0001:00010557       e_dir_edit::getname() __fastcall
+ 0001:0001055D       e_dir_edit::sendmessage(GUIrect*,int) __fastcall
+ 0001:0001057E       __tpdsc__[effectpane]
+ 0001:000105D2       effectpane::~effectpane() __fastcall
+ 0001:0001060A       e_shake_edit::~e_shake_edit() __fastcall
+ 0001:0001064C       e_shake_edit::getname() __fastcall
+ 0001:00010652       e_shake_edit::sendmessage(GUIrect*,int) __fastcall
+ 0001:00010673       editeffects::~editeffects() __fastcall
+ 0001:000106DD       editeffects::refresh(int,void*) __fastcall
+ 0001:000107AE       editeffects::acceptfocus() __fastcall
+ 0001:000107B4       editeffects::draw(char*) __fastcall
+ 0001:000107F2       editeffects::keyhit(char,char) __fastcall
+ 0001:000107F5       editeffects::getname() __fastcall
+ 0001:000107FB       editeffects::sendmessage(GUIrect*,int) __fastcall
+ 0001:00010A08       __tpdsc__[effect]
+ 0001:00010A38       __tpdsc__[e_shake]
+ 0001:00010A74       editeffects::refreshepane() __fastcall
+ 0001:00010C28       editeffects::geteffectptr() __fastcall
+ 0001:00010C92       neweffectdlg::neweffectdlg(objectspace*) __fastcall
+ 0001:00010D94       __tpdsc__[neweffectdlg*]
+ 0001:00010DAF       __tpdsc__[effectpane*]
+ 0001:00010DC8       __tpdsc__[neweffectdlg]
+ 0001:00010E20       neweffectdlg::~neweffectdlg() __fastcall
+ 0001:00010E8A       neweffectdlg::draw(char*) __fastcall
+ 0001:00010EA5       neweffectdlg::getname() __fastcall
+ 0001:00010EAB       neweffectdlg::sendmessage(GUIrect*,int) __fastcall
+ 0001:00010F60       input::refreshkeyboard(char) __fastcall
+ 0001:00010FA0       input::refreshtimer() __fastcall
+ 0001:00010FC0       input::refreshmain() __fastcall
+ 0001:00010FE0       input::bind(object*) __fastcall
+ 0001:0001100C       input::unbind() __fastcall
+ 0001:00011030       input::getstat() __fastcall
+ 0001:00011058  Idle keymap::read(char,unsigned int&) __fastcall
+ 0001:000110B0       newinputdevice(int) __fastcall
+ 0001:000115E0       __tpdsc__[inputnone*]
+ 0001:000115F8       __tpdsc__[analogjoy1*]
+ 0001:00011611       __tpdsc__[analogjoy2*]
+ 0001:0001162A       __tpdsc__[gravis*]
+ 0001:0001163F       __tpdsc__[keyboard1*]
+ 0001:00011657       __tpdsc__[keyboard2*]
+ 0001:0001166F       __tpdsc__[keyboard2]
+ 0001:000116C3       __tpdsc__[keyboard1]
+ 0001:00011717       __tpdsc__[gravis]
+ 0001:00011767       __tpdsc__[analogjoy2]
+ 0001:000117BB       __tpdsc__[analogjoy1]
+ 0001:0001180F       __tpdsc__[inputnone]
+ 0001:00011863       keyboard2::~keyboard2() __fastcall
+ 0001:0001189C       keyboard::read() __fastcall
+ 0001:000118ED       keyboard::key(char) __fastcall
+ 0001:00011910       keyboard::getkeymap() __fastcall
+ 0001:00011914       keyboard::savesettings() __fastcall
+ 0001:0001192A       __tpdsc__[keyboard]
+ 0001:0001197E       keyboard::~keyboard() __fastcall
+ 0001:000119AD       keyboard1::~keyboard1() __fastcall
+ 0001:000119E6       gravis::~gravis() __fastcall
+ 0001:00011A1F       joystick::read() __fastcall
+ 0001:00011A77       gravis::timer() __fastcall
+ 0001:00011A7D       gravis::main() __fastcall
+ 0001:00011ACB       joystick::getjoythreshold() __fastcall
+ 0001:00011ACF       joystick::savesettings() __fastcall
+ 0001:00011AE3       analogjoy2::~analogjoy2() __fastcall
+ 0001:00011B1C       analogjoy2::timer() __fastcall
+ 0001:00011B22       analogjoy2::main() __fastcall
+ 0001:00011B65       __tpdsc__[joystick]
+ 0001:00011BB9       joystick::~joystick() __fastcall
+ 0001:00011BE8       analogjoy1::~analogjoy1() __fastcall
+ 0001:00011C21       analogjoy1::timer() __fastcall
+ 0001:00011C27       analogjoy1::main() __fastcall
+ 0001:00011C6A       inputnone::~inputnone() __fastcall
+ 0001:00011C99       inputnone::read() __fastcall
+ 0001:00011CA4       mouse::mouse() __fastcall
+ 0001:00011CCC       mouse::updatexy(int,int) __fastcall
+ 0001:00011CF8       mouse::updatebut(int) __fastcall
+ 0001:00011DAC       mouse::draw(char*) __fastcall
+ 0001:00011DCC  Idle _loadpalette
+ 0001:00011DEA       _drawimager2
+ 0001:0001219D       _drawhline
+ 0001:00012234       _drawvline
+ 0001:000122AF  Idle _drawrect
+ 0001:0001239C  Idle _drawrectmap
+ 0001:000124A5       _drawscr
+ 0001:000124EC  Idle volumefile::readheader() __fastcall
+ 0001:00012558       volumefile::open(char*) __fastcall
+ 0001:0001262C  Idle volumefile::reset() __fastcall
+ 0001:00012644       volumefile::close() __fastcall
+ 0001:0001266C       volumefile::read() __fastcall
+ 0001:000126E4       volumefile::read(void*) __fastcall
+ 0001:0001275C       volumefile::readblock(int&) __fastcall
+ 0001:0001280C  Idle volumefile::skip() __fastcall
+ 0001:0001285C       GetFileName(char*,char*) __fastcall
+ 0001:000128D8  Idle GetFileExtension(char*,char*) __fastcall
+ 0001:0001291C       volbatch::read(char*) __fastcall
+ 0001:00012A34       volbatch::free() __fastcall
+ 0001:00012A6C  Idle volbatch::print() __fastcall
+ 0001:00012A78  Idle volumefile::writeheader(int,int,char*) __fastcall
+ 0001:00012AF4       volumefile::create(char*) __fastcall
+ 0001:00012BA4       volumefile::write(void*,unsigned int,char,char*) __fastcall
+ 0001:00012C00       volumefile::writefile(char*) __fastcall
+ 0001:00012CF0  Idle volumefile::writemidi(char*) __fastcall
+ 0001:00012DFC  Idle volumefile::writescreen(char*) __fastcall
+ 0001:00012E60  Idle volumefile::writepalette(char*) __fastcall
+ 0001:00012F88       ReadWavFile(char*) __fastcall
+ 0001:00013248  Idle volumefile::writesound(char*) __fastcall
+ 0001:00013288  Idle volumefile::writeimage(char*) __fastcall
+ 0001:000132EC       volumefile::writelistblock(char*,char) __fastcall
+ 0001:0001352C  Idle DrawHorizontalRun(char**,int,int,int) __fastcall
+ 0001:00013560  Idle DrawVerticalRun(char**,int,int,int) __fastcall
+ 0001:00013590       line(char*,int,int,int,int,int) __fastcall
+ 0001:00013908       enumdir(char*,int(*)(char*,void*) __fastcall,void*) __fastcall
+ 0001:00013948       FILEIO::open(char*) __fastcall
+ 0001:00013974       FILEIO::create(char*) __fastcall
+ 0001:000139A0       FILEIO::close() __fastcall
+ 0001:000139C0       FILEIO::read(void*,unsigned int) __fastcall
+ 0001:00013A04       FILEIO::write(void*,unsigned int) __fastcall
+ 0001:00013A40       FILEIO::readalloc(unsigned int) __fastcall
+ 0001:00013A84       FILEIO::readint() __fastcall
+ 0001:00013A9C       FILEIO::writeint(int) __fastcall
+ 0001:00013AB0       FILEIO::size() __fastcall
+ 0001:00013AC8       FILEIO::getpos() __fastcall
+ 0001:00013AE8       FILEIO::setpos(unsigned int) __fastcall
+ 0001:00013B00  Idle FONT::FONT() __fastcall
+ 0001:00013B20       FONT::draw(char,char*,int,int) __fastcall
+ 0001:00013B6C       FONT::draw(char*,char*,int,int) __fastcall
+ 0001:00013BDC       FONT::getwidth(char*) __fastcall
+ 0001:00013C20       FONT::printf(int,int,char*,...)
+ 0001:00013C64  Idle FONT::write(char*) __fastcall
+ 0001:00013CD4  Idle FONT::addsymbol(FONT*,IMG*,char) __fastcall
+ 0001:00013D34  Idle loadfont(char*) __fastcall
+ 0001:00013DA4       FONT::duplicate() __fastcall
+ 0001:00013DC8       FONT::convertcolor(char,char) __fastcall
+ 0001:00013E10       loadimage(char*) __fastcall
+ 0001:00013EF4       loadscreen(char*) __fastcall
+ 0001:00013FD8  Idle SCR::newSCR(int,int) __fastcall
+ 0001:00014010       SCR::draw(char*,int,int) __fastcall
+ 0001:000140B4  Idle BMAP::draw(char*,int,int,int) __fastcall
+ 0001:0001410C       BMAP::write(char*) __fastcall
+ 0001:000141B4       SCR::compress(char) __fastcall
+ 0001:0001430C  Idle IMG::drawmap(COLORMAP&,char*,int,int,int) __fastcall
+ 0001:000143BC       IMG::convertcolor(char,char) __fastcall
+ 0001:00014440       IMG::duplicate() __fastcall
+ 0001:00014464  Idle IMG::colormap(COLORMAP&) __fastcall
+ 0001:000144C8  Idle COLORMAP::clear() __fastcall
+ 0001:000144D8  Idle PALETTE::duplicate(int) __fastcall
+ 0001:00014500  Idle PALETTE::fade(PALETTE&,int,int) __fastcall
+ 0001:0001457C  Idle PALETTE::findclosestmatch(COLOR&,int) __fastcall
+ 0001:00014618       COLORMAP::createshademap(PALETTE&,int,int,int) __fastcall
+ 0001:000146A0  Idle expandword(unsigned short,char*,int) __fastcall
+ 0001:000146C4  Idle expandbyte(unsigned char,char*,int) __fastcall
+ 0001:000146EC  Idle reverseword(unsigned short) __fastcall
+ 0001:000146FC  Idle DecodeIFF(char*,char*,int,int,int) __fastcall
+ 0001:0001482C  Idle FindChunk(char*,unsigned int,char,char,char,char) __fastcall
+ 0001:00014868       ReadLBMFile(char*) __fastcall
+ 0001:00014AB0       drawbox(char*,int,int,int,int,int) __fastcall
+ 0001:00014B14  Idle winprintf(char*,...)
+ 0001:00014B58       cleanexit(int) __fastcall
+ 0001:00014B64  Idle setddrawmode(int,int) __fastcall
+ 0001:00014BC8  Idle createsurfaces() __fastcall
+ 0001:00014C60  Idle releasesurfaces() __fastcall
+ 0001:00014C90  Idle initddraw(void*) __fastcall
+ 0001:00014D54  Idle terminateddraw() __fastcall
+ 0001:00014DB4       setpalette(PALETTE*) __fastcall
+ 0001:00014E18       ddrawinfo() __fastcall
+ 0001:00015008       changeresolution(int,int) __fastcall
+ 0001:00015044  Idle initdsound(void*) __fastcall
+ 0001:000151F4  Idle terminatedsound() __fastcall
+ 0001:00015220  Idle @createdsoundbuffer
+ 0001:000152E0       playsound(IDirectSoundBuffer*,int) __fastcall
+ 0001:000153B8       freesound(IDirectSoundBuffer*) __fastcall
+ 0001:000153C0       getsoundsize(IDirectSoundBuffer*) __fastcall
+ 0001:000153F8       objectdef::convertdsounds() __fastcall
+ 0001:0001542C       _disable() __fastcall
+ 0001:00015438       _enable() __fastcall
+ 0001:00015440  Idle mmtimer(unsigned int,unsigned int,unsigned long,unsigned long,unsigned long) __stdcall
+ 0001:00015478  Idle initialize() __fastcall
+ 0001:000154DC  Idle cleanup() __fastcall
+ 0001:0001550C       drawrect(char*,int,int,int,int,int) __fastcall
+ 0001:000155E8       WinMain
+ 0001:000158D0       quitgame() __fastcall
+ 0001:000158E4  Idle WndProc(void*,unsigned int,unsigned int,long) __stdcall
+ 0001:000159E0  Idle loadresource(char*) __fastcall
+ 0001:00015A48       surface::surface(int,int) __fastcall
+ 0001:00015AF8       surface::~surface() __fastcall
+ 0001:00015B40       surface::lock() __fastcall
+ 0001:00015BBC       surface::unlock() __fastcall
+ 0001:00015BEC       surface::blt(char*,int,int) __fastcall
+ 0001:00015C5C  Idle playMIDIFile(void*,char*) __fastcall
+ 0001:00015D0C       wm_keydown(char) __fastcall
+ 0001:00015D68       wm_keyup(char) __fastcall
+ 0001:00015D98  Idle checkkbstatdown(char) __fastcall
+ 0001:00015DDC  Idle checkkbstatup(char) __fastcall
+ 0001:00015E20  Idle pushkey(char) __fastcall
+ 0001:00015E3C  Idle getkey() __fastcall
+ 0001:00015E68  Idle keyhit() __fastcall
+ 0001:00015E7C  Idle waitkey() __fastcall
+ 0001:00015EA0       set_keyboard_func(int(*)() __fastcall) __fastcall
+ 0001:00015EA8       scan2ascii(char) __fastcall
+ 0001:00015EC8       getkeyname(char) __fastcall
+ 0001:00015EEC       resetGUIdef() __fastcall
+ 0001:00015F14       nextGUIdef() __fastcall
+ 0001:00015F24       GUIrect::reparent(GUIrect*) __fastcall
+ 0001:00015F64       GUIrect::GUIrect(GUIrect*,int,int,int,int) __fastcall
+ 0001:00015FDC       GUIrect::~GUIrect() __fastcall
+ 0001:00016098       GUIrect::unlink() __fastcall
+ 0001:000160D8       GUIrect::link(GUIrect*) __fastcall
+ 0001:00016120       GUIrect::hittest(int,int) __fastcall
+ 0001:0001619C       GUIrect::moveto(int,int) __fastcall
+ 0001:000161A8       GUIrect::moverel(int,int) __fastcall
+ 0001:000161D8       GUIrect::bringtofront() __fastcall
+ 0001:000161FC       GUIrect::sendtoback() __fastcall
+ 0001:00016220       GUIrect::draw(char*) __fastcall
+ 0001:00016240       GUIrect::keyhit(char,char) __fastcall
+ 0001:0001628C       GUIrect::losefocus() __fastcall
+ 0001:00016294       GUIrect::receivefocus() __fastcall
+ 0001:000162B0       GUIrect::setfocus(GUIrect*) __fastcall
+ 0001:00016300       GUIrect::losechildfocus() __fastcall
+ 0001:00016328       GUIrect::cyclefocus(int) __fastcall
+ 0001:00016394       GUIrect::fill(char) __fastcall
+ 0001:000163CC       GUIrect::outline(char) __fastcall
+ 0001:000163EC       GUIroot::GUIroot(ROOT*) __fastcall
+ 0001:00016424       GUIroot::~GUIroot() __fastcall
+ 0001:00016460  Idle GUIroot::keyhit(char,char) __fastcall
+ 0001:00016488       GUIroot::refresh(int,void*) __fastcall
+ 0001:000164B6       GUIroot::acceptfocus() __fastcall
+ 0001:000164BC       GUIroot::losefocus() __fastcall
+ 0001:000164BD       GUIroot::getname() __fastcall
+ 0001:000164C4  Idle GUIbar::draw(char*) __fastcall
+ 0001:000164EC       GUIstatictext::settext(char*) __fastcall
+ 0001:00016528       GUIstatictext::GUIstatictext(GUIrect*,int,char*,int,int) __fastcall
+ 0001:00016570  Idle GUIstatictext::draw(char*) __fastcall
+ 0001:00016590       GUIstaticimage::GUIstaticimage(GUIrect*,IMG*,int,int) __fastcall
+ 0001:000165CC  Idle GUIstaticimage::draw(char*) __fastcall
+ 0001:000165E8       GUIstaticcenteredtext::draw(char*) __fastcall
+ 0001:0001663C  Idle GUIbutton::GUIbutton(GUIrect*,int,int,int,int) __fastcall
+ 0001:0001668C  Idle GUIbutton::draw(char*) __fastcall
+ 0001:000167CC  Idle GUIbutton::click(mouse&) __fastcall
+ 0001:0001680C  Idle GUIbutton::release(mouse&) __fastcall
+ 0001:00016850       GUItextbutton::GUItextbutton(GUIrect*,char*,int,int) __fastcall
+ 0001:000168EC  Idle GUItextbutton::draw(char*) __fastcall
+ 0001:0001692C       GUIimagebutton::GUIimagebutton(GUIrect*,IMG*,int,int) __fastcall
+ 0001:00016994  Idle GUIimagebutton::draw(char*) __fastcall
+ 0001:000169C4       GUIcheckbox::GUIcheckbox(GUIrect*,char*,int,int,int) __fastcall
+ 0001:00016A4C  Idle GUIcheckbox::draw(char*) __fastcall
+ 0001:00016AF8  Idle GUIcheckbox::click(mouse&) __fastcall
+ 0001:00016B0C  Idle GUIcheckbox::release(mouse&) __fastcall
+ 0001:00016B6C  Idle GUIcheckbox::keyhit(char,char) __fastcall
+ 0001:00016B84       GUIedit::GUIedit(GUIrect*,char*,int,int,int) __fastcall
+ 0001:00016C30       GUIedit::hittest(int,int) __fastcall
+ 0001:00016C44  Idle GUIedit::click(mouse&) __fastcall
+ 0001:00016C48       GUIedit::draw(char*) __fastcall
+ 0001:00016CF4  Idle GUItextedit::getinputw() __fastcall
+ 0001:00016D24       GUItextedit::setinput(char*) __fastcall
+ 0001:00016D8C       GUItextedit::GUItextedit(GUIrect*,char*,char*,int,int,int,int) __fastcall
+ 0001:00016DD0  Idle GUItextedit::drawdata(char*,int,int,int) __fastcall
+ 0001:00016EEC  Idle GUItextedit::addchar(char) __fastcall
+ 0001:00016F24  Idle GUItextedit::backspace() __fastcall
+ 0001:00016F48  Idle GUItextedit::keyhit(char,char) __fastcall
+ 0001:00016F8C  Idle GUItextedit::isvalidkey(char) __fastcall
+ 0001:00016F9C       GUInumbertextedit::GUInumbertextedit(GUIrect*,char*,int,int,int,int,int) __fastcall
+ 0001:00016FF4  Idle GUInumbertextedit::isvalidkey(char) __fastcall
+ 0001:00017020       GUInumbertextedit::getstate() __fastcall
+ 0001:00017034  Idle GUInumberedit::GUInumberedit(GUIrect*,char*,int,int,int) __fastcall
+ 0001:0001716C  Idle GUInumberedit::draw(char*) __fastcall
+ 0001:00017220  Idle GUInumberedit::keyhit(char,char) __fastcall
+ 0001:000172C8       GUIintedit::GUIintedit(GUIrect*,char*,int,int,int,int,int,int) __fastcall
+ 0001:00017340  Idle GUIintedit::clear() __fastcall
+ 0001:00017368  Idle GUIintedit::setmax() __fastcall
+ 0001:00017394  Idle GUIintedit::clip() __fastcall
+ 0001:000173C0  Idle GUIintedit::add(int) __fastcall
+ 0001:000173F0  Idle GUIintedit::minus(int) __fastcall
+ 0001:00017424  Idle GUIintedit::drawdata(char*,int,int,int) __fastcall
+ 0001:0001744C  Idle GUIintedit::sendmessage(GUIrect*,int) __fastcall
+ 0001:000174C0       GUIfloatedit::GUIfloatedit(GUIrect*,char*,int,int,int,float,float,float) __fastcall
+ 0001:00017538  Idle GUIfloatedit::clear() __fastcall
+ 0001:00017560  Idle GUIfloatedit::setmax() __fastcall
+ 0001:00017594  Idle GUIfloatedit::clip() __fastcall
+ 0001:000175D4  Idle GUIfloatedit::add(float) __fastcall
+ 0001:00017610  Idle GUIfloatedit::minus(float) __fastcall
+ 0001:0001764C  Idle GUIfloatedit::drawdata(char*,int,int,int) __fastcall
+ 0001:00017678  Idle GUIfloatedit::sendmessage(GUIrect*,int) __fastcall
+ 0001:000176EC       GUIcontents::keyhit(char,char) __fastcall
+ 0001:000177A4       GUIbox::settitle(char*) __fastcall
+ 0001:000177DC       GUIbox::GUIbox(GUIrect*,char*,GUIcontents*,int,int) __fastcall
+ 0001:000178E4  Idle GUIbox::click(mouse&) __fastcall
+ 0001:000178FC  Idle GUIbox::release(mouse&) __fastcall
+ 0001:00017904  Idle GUIbox::drag(mouse&) __fastcall
+ 0001:00017924  Idle GUIbox::draw(char*) __fastcall
+ 0001:000179CC  Idle GUIbox::sendmessage(GUIrect*,int) __fastcall
+ 0001:00017A5C  Idle GUIbox::keyhit(char,char) __fastcall
+ 0001:00017A70       GUImaximizebox::GUImaximizebox(GUIrect*,char*,GUIcontents*,int,int) __fastcall
+ 0001:00017B24  Idle GUImaximizebox::draw(char*) __fastcall
+ 0001:00017B5C       GUImaximizebox::maximize() __fastcall
+ 0001:00017BB4       GUImaximizebox::restore() __fastcall
+ 0001:00017C04       GUImaximizebox::reposmaxbutton() __fastcall
+ 0001:00017C44  Idle GUImaximizebox::hittest(int,int) __fastcall
+ 0001:00017C94  Idle GUImaximizebox::sendmessage(GUIrect*,int) __fastcall
+ 0001:00017CC4       GUIonebuttonbox::GUIonebuttonbox(GUIrect*,char*,GUIcontents*,char*,int,int) __fastcall
+ 0001:00017E00  Idle GUIonebuttonbox::sendmessage(GUIrect*,int) __fastcall
+ 0001:00017EA8  Idle GUIonebuttonbox::keyhit(char,char) __fastcall
+ 0001:00017F4C       GUItwobuttonbox::GUItwobuttonbox(GUIrect*,char*,GUIcontents*,char*,char*,int,int) __fastcall
+ 0001:0001810C  Idle GUItwobuttonbox::sendmessage(GUIrect*,int) __fastcall
+ 0001:00018224  Idle GUItwobuttonbox::keyhit(char,char) __fastcall
+ 0001:000182C8  Idle GUIscrollbar::clip() __fastcall
+ 0001:000182E0  Idle GUIscrollbar::GUIscrollbar(GUIrect*,int,int,int,int) __fastcall
+ 0001:00018328  Idle GUIscrollbar::draw(char*) __fastcall
+ 0001:0001836C  Idle GUIvscrollbar::keyhit(char,char) __fastcall
+ 0001:000183A8  Idle GUIhscrollbar::keyhit(char,char) __fastcall
+ 0001:000183E4  Idle GUIscrollbar::sendmessage(GUIrect*,int) __fastcall
+ 0001:00018418  Idle GUIscrollbar::setposfromtrack(int,int) __fastcall
+ 0001:00018450       GUIscrollbar::setrange(int,int) __fastcall
+ 0001:00018498       GUIscrollbar::setpos(int) __fastcall
+ 0001:000184C0  Idle GUItrackbutton::GUItrackbutton(GUItrack*,int) __fastcall
+ 0001:000184EC  Idle GUIvtrackbutton::GUIvtrackbutton(GUIvtrack*,int) __fastcall
+ 0001:0001850C  Idle GUIvtrackbutton::click(mouse&) __fastcall
+ 0001:0001851C  Idle GUIvtrackbutton::drag(mouse&) __fastcall
+ 0001:00018538  Idle GUIhtrackbutton::GUIhtrackbutton(GUIhtrack*,int) __fastcall
+ 0001:00018558  Idle GUIhtrackbutton::click(mouse&) __fastcall
+ 0001:00018568  Idle GUIhtrackbutton::drag(mouse&) __fastcall
+ 0001:00018584  Idle GUItrack::GUItrack(GUIscrollbar*,int,int,int,int) __fastcall
+ 0001:000185CC  Idle GUIvtrack::GUIvtrack(GUIvscrollbar*) __fastcall
+ 0001:00018678  Idle GUIhtrack::GUIhtrack(GUIhscrollbar*) __fastcall
+ 0001:0001871C  Idle GUItrack::draw(char*) __fastcall
+ 0001:00018750  Idle GUItrack::movethumb(int) __fastcall
+ 0001:0001877C  Idle GUItrack::settrackfrompos(int,int,int) __fastcall
+ 0001:000187A8  Idle GUIvtrack::setthumbsize(int) __fastcall
+ 0001:000187FC  Idle GUIhtrack::setthumbsize(int) __fastcall
+ 0001:0001884C  Idle GUIvtrack::positionthumb() __fastcall
+ 0001:00018860  Idle GUIhtrack::positionthumb() __fastcall
+ 0001:00018874  Idle GUIvscrollbar::GUIvscrollbar(GUIrect*,int,int,int) __fastcall
+ 0001:000189CC       GUIhscrollbar::GUIhscrollbar(GUIrect*,int,int,int) __fastcall
+ 0001:00018B24       GUIlistbox::clearsel() __fastcall
+ 0001:00018B2C       GUIlistbox::setsel(int) __fastcall
+ 0001:00018B8C       GUIlistbox::GUIlistbox(GUIrect*,int,int,int,int,int) __fastcall
+ 0001:00018C9C       GUIlistbox::freeitems() __fastcall
+ 0001:00018CC0       GUIlistbox::resizeitems(int) __fastcall
+ 0001:00018D20       GUIlistbox::draw(char*) __fastcall
+ 0001:00018E24       GUIlistbox::keyhit(char,char) __fastcall
+ 0001:00018EB8       GUIlistbox::click(mouse&) __fastcall
+ 0001:00018F20       GUIlistbox::release(mouse&) __fastcall
+ 0001:00018F2C       GUIlistbox::drag(mouse&) __fastcall
+ 0001:00018F34       GUIstringlistbox::drawitems(char*,int,int) __fastcall
+ 0001:00018FE4       __tpdsc__[GUIbutton*]
+ 0001:00018FFC       __tpdsc__[GUIbar*]
+ 0001:00019011       __tpdsc__[GUIvtrackbutton*]
+ 0001:0001902F       __tpdsc__[GUIhtrackbutton*]
+ 0001:0001904D       __tpdsc__[GUIvtrack*]
+ 0001:00019065       __tpdsc__[GUIhtrack*]
+ 0001:0001907D       __tpdsc__[GUIvscrollbar*]
+ 0001:00019099       __tpdsc__[GUIvscrollbar]
+ 0001:000190F1       __tpdsc__[GUIhtrack]
+ 0001:00019145       __tpdsc__[GUIvtrack]
+ 0001:00019199       __tpdsc__[GUIhtrackbutton]
+ 0001:000191F1       __tpdsc__[GUIvtrackbutton]
+ 0001:00019249       __tpdsc__[GUIbar]
+ 0001:00019299       GUIscrollbar::acceptfocus() __fastcall
+ 0001:0001929F       GUIhscrollbar::getname() __fastcall
+ 0001:000192A5       GUIvscrollbar::~GUIvscrollbar() __fastcall
+ 0001:000192DD       GUIvscrollbar::getname() __fastcall
+ 0001:000192E3       GUIhtrack::~GUIhtrack() __fastcall
+ 0001:0001931B       GUIhtrack::getname() __fastcall
+ 0001:00019321       GUIvtrack::~GUIvtrack() __fastcall
+ 0001:00019359       GUIvtrack::getname() __fastcall
+ 0001:0001935F       __tpdsc__[GUItrack]
+ 0001:000193B3       GUItrack::~GUItrack() __fastcall
+ 0001:000193E1       GUIhtrackbutton::~GUIhtrackbutton() __fastcall
+ 0001:00019423       GUItrackbutton::getname() __fastcall
+ 0001:00019429       GUIvtrackbutton::~GUIvtrackbutton() __fastcall
+ 0001:0001946B       __tpdsc__[GUItrackbutton]
+ 0001:000194C3       GUItrackbutton::~GUItrackbutton() __fastcall
+ 0001:000194FB       GUIscrollbar::getname() __fastcall
+ 0001:00019501       GUIbox::refresh(int,void*) __fastcall
+ 0001:00019517       GUIbox::acceptfocus() __fastcall
+ 0001:0001951D       GUIbox::receivefocus() __fastcall
+ 0001:0001953F       GUIbox::losechildfocus() __fastcall
+ 0001:0001955C       GUItwobuttonbox::getname() __fastcall
+ 0001:00019562       GUIbar::~GUIbar() __fastcall
+ 0001:00019590       GUIonebuttonbox::getname() __fastcall
+ 0001:00019596       __tpdsc__[GUImaximizebox]
+ 0001:000195EE       GUImaximizebox::~GUImaximizebox() __fastcall
+ 0001:00019626       GUImaximizebox::bringtofront() __fastcall
+ 0001:00019635       GUImaximizebox::getname() __fastcall
+ 0001:0001963B       GUIbox::getname() __fastcall
+ 0001:00019641       GUIfloatedit::getname() __fastcall
+ 0001:00019647       GUIintedit::getname() __fastcall
+ 0001:0001964D       GUIedit::getname() __fastcall
+ 0001:00019653       GUIedit::drawdata(char*,int,int,int) __fastcall
+ 0001:0001965A       GUInumbertextedit::getname() __fastcall
+ 0001:00019660       GUItextedit::getname() __fastcall
+ 0001:00019666       GUIcheckbox::acceptfocus() __fastcall
+ 0001:0001966C       GUIcheckbox::getname() __fastcall
+ 0001:00019672       GUIimagebutton::getname() __fastcall
+ 0001:00019678       GUItextbutton::getname() __fastcall
+ 0001:0001967E       GUIbutton::getname() __fastcall
+ 0001:00019684       GUIstaticimage::getname() __fastcall
+ 0001:0001968C  Idle menuitem::width() __fastcall
+ 0001:000196B0  Idle menuitem::height() __fastcall
+ 0001:000196B8  Idle menuitem::menufunc() __fastcall
+ 0001:000196D4  Idle menuitem::draw(int,int,int,int) __fastcall
+ 0001:00019728  Idle menu::getnumitems() __fastcall
+ 0001:00019738  Idle menu::getmaxwidth() __fastcall
+ 0001:0001976C  Idle menu::gettotalwidth() __fastcall
+ 0001:0001979C  Idle menu::gettotalheight() __fastcall
+ 0001:000197B8  Idle menu::getmaxheight() __fastcall
+ 0001:000197C0  Idle GUImenu::GUImenu(GUIrect*,menu*,int,int) __fastcall
+ 0001:00019804  Idle GUImenu::click(mouse&) __fastcall
+ 0001:00019864  Idle GUImenu::release(mouse&) __fastcall
+ 0001:000198D4  Idle GUImenu::losefocus() __fastcall
+ 0001:00019940  Idle GUImenu::losechildfocus() __fastcall
+ 0001:00019944       GUIhmenu::GUIhmenu(GUIrect*,menu*,int,int) __fastcall
+ 0001:0001999C  Idle GUIhmenu::draw(char*) __fastcall
+ 0001:00019A38  Idle GUIhmenu::menuhittest(int,int,int&,int&) __fastcall
+ 0001:00019A88  Idle GUImenu::drag(mouse&) __fastcall
+ 0001:00019BA4  Idle GUIvmenu::GUIvmenu(GUImenu*,menu*,int,int) __fastcall
+ 0001:00019BF4  Idle GUIvmenu::draw(char*) __fastcall
+ 0001:00019CE8  Idle GUIvmenu::menuhittest(int,int,int&,int&) __fastcall
+ 0001:00019D4C  Idle GUIhmenu::keyhit(char,char) __fastcall
+ 0001:00019D94  Idle menu::keyhit(char,char) __fastcall
+ 0001:00019DC1       __tpdsc__[GUIvmenu*]
+ 0001:00019DD8       __tpdsc__[GUIvmenu]
+ 0001:00019E2C       GUIvmenu::~GUIvmenu() __fastcall
+ 0001:00019E64       GUImenu::sendtoback() __fastcall
+ 0001:00019E65       GUImenu::acceptfocus() __fastcall
+ 0001:00019E6B       GUImenu::receivefocus() __fastcall
+ 0001:00019E7E       GUIvmenu::getname() __fastcall
+ 0001:00019E84       GUIvmenu::getmenuwidth() __fastcall
+ 0001:00019E94       GUIvmenu::getmenuheight() __fastcall
+ 0001:00019E9D       GUIhmenu::getname() __fastcall
+ 0001:00019EA3       GUIhmenu::getmenuwidth() __fastcall
+ 0001:00019EAC       GUIhmenu::getmenuheight() __fastcall
+ 0001:00019EB5       GUImenu::getname() __fastcall
+ 0001:00019EBC  Idle objectspace::objectspace(char*,char*,int,int) __fastcall
+ 0001:00019F98  Idle objectspace::~objectspace() __fastcall
+ 0001:0001A1A4       objectspace::tick() __fastcall
+ 0001:0001A200  Idle objectspace::refreshneedload() __fastcall
+ 0001:0001A22C  Idle objectspace::refreshneeddelete() __fastcall
+ 0001:0001A2AC  Idle objectspace::refreshobj() __fastcall
+ 0001:0001A2E4  Idle objectspace::draw(char*) __fastcall
+ 0001:0001A484       objectspace::addobject(object*) __fastcall
+ 0001:0001A4DC       objectspace::removeobject(object*) __fastcall
+ 0001:0001A524       objectspace::swap(object*,object*) __fastcall
+ 0001:0001A55C       objectspace::open(char*,char*,int,int) __fastcall
+ 0001:0001A63C  Idle objectspace::resize(int,int) __fastcall
+ 0001:0001A67C  Idle objectspace::restore() __fastcall
+ 0001:0001A6B4  Idle objectspace::maximize() __fastcall
+ 0001:0001A6F8  Idle objectspace::moveobjectsrel(int,int) __fastcall
+ 0001:0001A788  Idle objectspace::newobject(int,int,int,int,int) __fastcall
+ 0001:0001A828  Idle objectspace::newobject(char*,int,int,int,int) __fastcall
+ 0001:0001A890  Idle objectspace::newbgobject(int) __fastcall
+ 0001:0001A91C  Idle objectspace::newbgobject(char*) __fastcall
+ 0001:0001A96A       __tpdsc__[GUImaximizebox*]
+ 0001:0001A987       __tpdsc__[objectspace*]
+ 0001:0001A9A1       __tpdsc__[objectspace]
+ 0001:0001A9F5       objectspace::acceptfocus() __fastcall
+ 0001:0001A9FB       objectspace::losefocus() __fastcall
+ 0001:0001A9FC       objectspace::getname() __fastcall
+ 0001:0001AA04       jumptrajectory::jumptrajectory(object*) __fastcall
+ 0001:0001AAD0       jumptrajectory::~jumptrajectory() __fastcall
+ 0001:0001AB48  Idle jumptrajectory::tick() __fastcall
+ 0001:0001ABF0  Idle jumptrajectory::move(int) __fastcall
+ 0001:0001AC20       object::none(int) __fastcall
+ 0001:0001AC3C  Idle object::spawn(int,int,int,int,int,int) __fastcall
+ 0001:0001ACD0  Idle object::print() __fastcall
+ 0001:0001ACF8       object::resetfptr() __fastcall
+ 0001:0001AD44       object::play(int) __fastcall
+ 0001:0001AD64       object::playlooped(int) __fastcall
+ 0001:0001AD84       object::activate(int) __fastcall
+ 0001:0001AE60       object::stop() __fastcall
+ 0001:0001AED4       object::kill() __fastcall
+ 0001:0001AF00  Idle object::startseries(int) __fastcall
+ 0001:0001AFC8  Idle object::findseries(char*) __fastcall
+ 0001:0001B008  Idle object::startseries(char*) __fastcall
+ 0001:0001B028       object::object(objectdef*,int,int,int,int,int,object*) __fastcall
+ 0001:0001B0F4       object::~object() __fastcall
+ 0001:0001B19C  Idle object::hitground(int) __fastcall
+ 0001:0001B264       object::falldown() __fastcall
+ 0001:0001B2AC       object::flip() __fastcall
+ 0001:0001B2C8       object::move(int,int,int) __fastcall
+ 0001:0001B3C4  Idle object::moveabs(int,int,int) __fastcall
+ 0001:0001B428       object::resort() __fastcall
+ 0001:0001B478  Idle object::advanceframe() __fastcall
+ 0001:0001B50C  Idle object::tick() __fastcall
+ 0001:0001B5AC  Idle object::loseenergy(int) __fastcall
+ 0001:0001B5F8       object::draw(char*) __fastcall
+ 0001:0001B778       object::drawshadow(char*) __fastcall
+ 0001:0001B7E0  Idle object::effect() __fastcall
+ 0001:0001B844  Idle object::hiteffect(int,int,int) __fastcall
+ 0001:0001B84C       object::sound(int) __fastcall
+ 0001:0001B8B2       __tpdsc__[trajectory*]
+ 0001:0001B8CB       __tpdsc__[jumptrajectory*]
+ 0001:0001B8E8       __tpdsc__[jumptrajectory]
+ 0001:0001B940       __tpdsc__[trajectory]
+ 0001:0001B988       trajectory::~trajectory() __fastcall
+ 0001:0001B9B8       objectdef::objectdef(objectspace*,int,char*,char*) __fastcall
+ 0001:0001BAF0       objectdef::~objectdef() __fastcall
+ 0001:0001BB28  Idle objectdef::freeimages() __fastcall
+ 0001:0001BB70  Idle objectdef::freesounds() __fastcall
+ 0001:0001BBEC  Idle objectdef::freeseries() __fastcall
+ 0001:0001BC54       objectdef::freeodf() __fastcall
+ 0001:0001BC98  Idle loadobjdefthread(void*)
+ 0001:0001BCA8       objectdef::load() __fastcall
+ 0001:0001BCD4       objectdef::kill() __fastcall
+ 0001:0001BCF4  Idle objectdef::read() __fastcall
+ 0001:0001BEFC       objectdef::refreshload() __fastcall
+ 0001:0001BFA8       frame::draw(char*,int,int,objectdef*) __fastcall
+ 0001:0001C020       frame::drawflipx(char*,int,int,objectdef*) __fastcall
+ 0001:0001C0A4       bgobject::bgobject(bgdef*,int,int) __fastcall
+ 0001:0001C148       bgobject::~bgobject() __fastcall
+ 0001:0001C18C       bgobject::activate() __fastcall
+ 0001:0001C23C       bgobject::deactivate() __fastcall
+ 0001:0001C2C4  Idle bgchunk::hittest(bgobject*,int,int,int,int) __fastcall
+ 0001:0001C3E8       bgobject::hittest(int,int) __fastcall
+ 0001:0001C5B0       bgobject::linehittest(int,int) __fastcall
+ 0001:0001C67C  Idle bgimage::calcextent(lrect&,bgobject*) __fastcall
+ 0001:0001C718  Idle bgobject::calcextent() __fastcall
+ 0001:0001C824  Idle bgchunk::create(bgobject*,int,int,int,int) __fastcall
+ 0001:0001C8E8  Idle bgchunk::destroy() __fastcall
+ 0001:0001C8F8  Idle bgobject::createchunks() __fastcall
+ 0001:0001C994  Idle bgobject::scroll() __fastcall
+ 0001:0001CA10       bgobject::tick() __fastcall
+ 0001:0001CB08  Idle bgobject::drawbgscr(char*) __fastcall
+ 0001:0001CC04  Idle bgobject::drawbg(char*) __fastcall
+ 0001:0001CD90       bgobject::drawfg(char*) __fastcall
+ 0001:0001CDC0  Idle bgobject::drawbglines(char*) __fastcall
+ 0001:0001CE90       bgobject::refreshbg(char*) __fastcall
+ 0001:0001CF6C  Idle bgobject::getbasey(int,int,int&) __fastcall
+ 0001:0001D058       object::getbasey() __fastcall
+ 0001:0001D173       __tpdsc__[surface*]
+ 0001:0001D189       bgobject::drawchunkbg(char*,int,int) __fastcall
+ 0001:0001D20E       bgobject::drawchunkfg(char*,int,int) __fastcall
+ 0001:0001D293       bgchunk::drawbg(bgobject*,char*,int,int) __fastcall
+ 0001:0001D3CE       bgchunk::drawfg(bgobject*,char*,int,int) __fastcall
+ 0001:0001D509       __tpdsc__[surface]
+ 0001:0001D550       bgdef::bgdef(objectspace*,int,char*,char*,char*,char*) __fastcall
+ 0001:0001D5C4  Idle bgdef::freeodf() __fastcall
+ 0001:0001D69C       effect::size() __fastcall
+ 0001:0001D6B0       effect::trigger(object*) __fastcall
+ 0001:0001D6C8       effect::getname() __fastcall
+ 0001:0001D6DC       e_sound::e_sound() __fastcall
+ 0001:0001D6E8       e_sound::trigger(object*) __fastcall
+ 0001:0001D6F8  Idle e_shake::e_shake(unsigned char) __fastcall
+ 0001:0001D714       e_objectshake::e_objectshake() __fastcall
+ 0001:0001D724  Idle e_objectshake::trigger(object*) __fastcall
+ 0001:0001D81C       e_groundshake::e_groundshake() __fastcall
+ 0001:0001D82C  Idle e_groundshake::trigger(object*) __fastcall
+ 0001:0001D830       e_goto::e_goto() __fastcall
+ 0001:0001D844  Idle e_goto::trigger(object*) __fastcall
+ 0001:0001D854       e_dir::e_dir() __fastcall
+ 0001:0001D868  Idle e_dir::trigger(object*) __fastcall
+ 0001:0001D890       e_newobject::e_newobject() __fastcall
+ 0001:0001D8C0  Idle e_newobject::trigger(object*) __fastcall
+ 0001:0001D940       e_blood::e_blood() __fastcall
+ 0001:0001D96C  Idle e_blood::trigger(object*) __fastcall
+ 0001:0001D970  Idle e_oldregion::e_oldregion() __fastcall
+ 0001:0001D980  Idle e_oldregion::trigger(object*) __fastcall
+ 0001:0001D981       e_sound::size() __fastcall
+ 0001:0001D987       e_groundshake::size() __fastcall
+ 0001:0001D98D       e_objectshake::size() __fastcall
+ 0001:0001D993       e_newobject::size() __fastcall
+ 0001:0001D999       e_goto::size() __fastcall
+ 0001:0001D99F       e_blood::size() __fastcall
+ 0001:0001D9A5       e_oldregion::size() __fastcall
+ 0001:0001D9AB       e_dir::size() __fastcall
+ 0001:0001D9B1       __tpdsc__[shaketrajectory*]
+ 0001:0001D9CF       __tpdsc__[shaketrajectory]
+ 0001:0001DA27       shaketrajectory::~shaketrajectory() __fastcall
+ 0001:0001DA6B       shaketrajectory::tick() __fastcall
+ 0001:0001DAD0       shaketrajectory::move(int) __fastcall
+ 0001:0001DAE8       object::enemy_pig(int) __fastcall
+ 0001:0001DBD8       object::main_stance(int) __fastcall
+ 0001:0001DD14       object::main_duck(int) __fastcall
+ 0001:0001DD84       object::main_walk(int) __fastcall
+ 0001:0001DE64       object::main_walkfire(int) __fastcall
+ 0001:0001DF48       object::main_jump(int) __fastcall
+ 0001:0001E134       object::bullet(int) __fastcall
+ 0001:0001E150       object::randomdur(int) __fastcall
+ 0001:0001E15C       object::main_climb(int) __fastcall
+ 0001:0001E2DC       object::main_hang(int) __fastcall
+ 0001:0001E3E8       object::enemy_jet(int) __fastcall
+ 0001:0001E48C       object::enemy_boomer(int) __fastcall
+ 0001:0001E528       object::enemy_sniper(int) __fastcall
+ 0001:0001E5B4  Idle ___org_memchr
+ 0001:0001E5B4       _memchr
+ 0001:0001E5D4  Idle ___org_memcpy
+ 0001:0001E5D4       _memcpy
+ 0001:0001E5F8       _memmove
+ 0001:0001E5F8  Idle ___org_memmove
+ 0001:0001E644  Idle ___org_memset
+ 0001:0001E644       _memset
+ 0001:0001E674       _strcat
+ 0001:0001E674  Idle ___org_strcat
+ 0001:0001E6B0  Idle ___org_strchr
+ 0001:0001E6B0       _strchr
+ 0001:0001E6D8  Idle ___org_strcmp
+ 0001:0001E6D8       _strcmp
+ 0001:0001E704       _strlen
+ 0001:0001E704  Idle ___org_strlen
+ 0001:0001E720  Idle ___org_memcmp
+ 0001:0001E720       _memcmp
+ 0001:0001E764  Idle ___org_stricmp
+ 0001:0001E764       _stricmp
+ 0001:0001E7AC  Idle ___org_strncpy
+ 0001:0001E7AC       _strncpy
+ 0001:0001E7FC  Idle ___org_strnicmp
+ 0001:0001E7FC       _strnicmp
+ 0001:0001E85C  Idle ___org_strpbrk
+ 0001:0001E85C       _strpbrk
+ 0001:0001E888  Idle ___org_strrchr
+ 0001:0001E888       _strrchr
+ 0001:0001E8B4       __stpcpy
+ 0001:0001E8E0       xalloc::xalloc(const string&,unsigned int)
+ 0001:0001E90C       xalloc::raise()
+ 0001:0001E96B       __tpdsc__[xalloc] const
+ 0001:0001E9BB       xalloc::xalloc(const xalloc&)
+ 0001:0001E9EA       xalloc::~xalloc()
+ 0001:0001EA19       __tpdsc__[xmsg] const
+ 0001:0001EA60       xmsg::xmsg(const string&)
+ 0001:0001EACC       xmsg::xmsg(const xmsg&)
+ 0001:0001EB3C       xmsg::~xmsg()
+ 0001:0001EB78  Idle xmsg::raise()
+ 0001:0001EBC0  Idle xmsg::operator =(const xmsg&)
+ 0001:0001EC42       __tpdsc__[string*]
+ 0001:0001EC57       __tpdsc__[string]
+ 0001:0001EC9C  Idle ___JumpToCatch__
+ 0001:0001ECBC  Idle __debuggerExcListChange()
+ 0001:0001F662       _ThrowException(void*,void*,void*,void*,unsigned int,unsigned int,unsigned int,unsigned char*)
+ 0001:0001F68F  Idle _ReThrowException(unsigned int,unsigned char*)
+ 0001:0001F6E0  Idle __Global_unwind
+ 0001:0001F7FF       _CatchCleanup()
+ 0001:0001FC26       __Local_unwind
+ 0001:0001FC39  Idle __Return_unwind
+ 0001:0001FCA3       __ExceptionHandler
+ 0001:0002062B       __CurrExcContext
+ 0001:0002067F  Idle __ThrowFileName()
+ 0001:0002068C  Idle __ThrowLineNumber()
+ 0001:00020699  Idle __ThrowExceptionName()
+ 0001:000206A6  Idle typeinfo::typeinfo(const typeinfo&)
+ 0001:000206DC  Idle typeinfo::operator =(const typeinfo&)
+ 0001:000206E4  Idle typeinfo::~typeinfo()
+ 0001:00020703  Idle typeinfo::operator ==(const typeinfo&) const
+ 0001:00020726  Idle typeinfo::operator !=(const typeinfo&) const
+ 0001:00020746  Idle typeinfo::before(const typeinfo&) const
+ 0001:0002078F  Idle typeinfo::name() const
+ 0001:000207A0  Idle __GetTypeInfo(void*,void*,void*,void*)
+ 0001:00020957  Idle __DynamicCast(void*,void*,void*,void*,int)
+ 0001:00020A1C       __tpdsc__[typeinfo*]
+ 0001:00020A33       __tpdsc__[Bad_typeid]
+ 0001:00020A4F       __tpdsc__[Bad_cast]
+ 0001:00020A6B       __tpdsc__[typeinfo]
+ 0001:00020AB4       @__InitExceptBlock
+ 0001:00020AF4  Idle terminate()
+ 0001:00020AFA  Idle set_terminate(void(*)())
+ 0001:00020B1F       ___call_terminate
+ 0001:00020BD8  Idle unexpected()
+ 0001:00020BDE  Idle set_unexpected(void(*)())
+ 0001:00020C03       ___call_unexpected
+ 0001:00020C77       __GetPolymorphicDTC(void*,unsigned int)
+ 0001:00020C96       __ExceptInit
+ 0001:00020D78       __GetExceptDLLinfoInternal
+ 0001:00020DB4       __lockDebuggerData()
+ 0001:00020DDC       __unlockDebuggerData()
+ 0001:00020DE8       ___DefHandler
+ 0001:00020E90       __setexc
+ 0001:00020EAC       __unsetexc
+ 0001:00020EBC  Idle __SetUserHandler
+ 0001:00020ED0  Idle __unsetuserhandler
+ 0001:00020EDC  Idle __init_except
+ 0001:00020EF4  Idle __exit_except
+ 0001:00020F08       __InitDefaultHander
+ 0001:00020F1C  Idle jump()
+ 0001:00020F22       ___doGlobalUnwind
+ 0001:00020F37       invokeHnd()
+ 0001:00020F40       __SetExceptionHandler
+ 0001:00020F55       __UnsetExceptionHandler
+ 0001:00020F81  Idle __UnwindException
+ 0001:00020F88       _flushall
+ 0001:00020F90       _fnsplit
+ 0001:00020F90  Idle ___org_fnsplit
+ 0001:00020F98  Idle ___org_lseek
+ 0001:00020F98       _lseek
+ 0001:00020FA0       __allocbuf
+ 0001:00021020  Idle ___org_fclose
+ 0001:00021020       _fclose
+ 0001:000210C4  Idle ___org_fflush
+ 0001:000210C4       _fflush
+ 0001:00021158  Idle ___org_fgets
+ 0001:00021158       _fgets
+ 0001:00021290  Idle ___org_findfirst
+ 0001:00021290       _findfirst
+ 0001:000212B4  Idle ___org_findnext
+ 0001:000212B4       _findnext
+ 0001:000212D0       __flushout
+ 0001:00021334       __initfmode
+ 0001:00021410       ___openfp
+ 0001:000214B8       ___getfp
+ 0001:000214E4  Idle ___org_fopen
+ 0001:000214E4       _fopen
+ 0001:00021518  Idle ___org_fprintf
+ 0001:00021518       _fprintf
+ 0001:0002154C       ___fputn
+ 0001:00021620  Idle ___org_fputs
+ 0001:00021620       _fputs
+ 0001:00021674  Idle ___org_fscanf
+ 0001:00021674       _fscanf
+ 0001:0002170C  Idle ___org_fseek
+ 0001:0002170C       _fseek
+ 0001:00021780  Idle ___org_ftell
+ 0001:00021780       _ftell
+ 0001:0002180C  Idle ___org_getcwd
+ 0001:0002180C       _getcwd
+ 0001:000218BC       __fgetc
+ 0001:000218BC  Idle ___org__fgetc
+ 0001:000218D0       __lgetc
+ 0001:000219A0       __lputc
+ 0001:00021A94       ___mkname
+ 0001:00021AEC       ___tmpnam
+ 0001:00021B30  Idle ___org_perror
+ 0001:00021B30  Idle _perror
+ 0001:00021BB4  Idle ___org_printf
+ 0001:00021BB4       _printf
+ 0001:00021BF0       __scanner
+ 0001:00022188       __scantol
+ 0001:00022340  Idle ___org_setvbuf
+ 0001:00022340       _setvbuf
+ 0001:00022434       __fnsplit
+ 0001:000225D0  Idle ___org__splitpath
+ 0001:000225D0  Idle __splitpath
+ 0001:0002261C  Idle ___org_sprintf
+ 0001:0002261C       _sprintf
+ 0001:00022640  Idle _swprintf
+ 0001:00022678  Idle ___org_vsprintf
+ 0001:00022678       _vsprintf
+ 0001:000226C8  Idle ___org_sscanf
+ 0001:000226C8       _sscanf
+ 0001:000226EC  Idle _vsscanf
+ 0001:000226EC  Idle ___org_vsscanf
+ 0001:00022710       __init_streams
+ 0001:000227D4  Idle __exit_streams
+ 0001:0002282C       __lock_all_streams
+ 0001:0002283C       __unlock_all_streams
+ 0001:0002284C       __lock_stream
+ 0001:000228F0       __cleanup_stream_locks
+ 0001:00022914       __unlock_stream
+ 0001:00022948  Idle ___org_ungetc
+ 0001:00022948       _ungetc
+ 0001:00022A24       ___vprinter
+ 0001:00023084       __xfclose
+ 0001:000230BC       __xfflush
+ 0001:00023104       __flushall
+ 0001:00023148       __umask
+ 0001:00023160       ___eof
+ 0001:00023264       ___read
+ 0001:00023464       ___write
+ 0001:0002355C  Idle ___org_fgetc
+ 0001:0002355C       _fgetc
+ 0001:00023584  Idle ___org_chdir
+ 0001:00023584       _chdir
+ 0001:0002360C  Idle ___org__dos_close
+ 0001:0002360C       __dos_close
+ 0001:000236DC  Idle ___org__dos_creat
+ 0001:000236DC       __dos_creat
+ 0001:000236F8  Idle ___org__dos_creatnew
+ 0001:000236F8       __dos_creatnew
+ 0001:000237B4       __dos_findfirst
+ 0001:000237B4  Idle ___org__dos_findfirst
+ 0001:00023874  Idle ___org__dos_findnext
+ 0001:00023874       __dos_findnext
+ 0001:000239AC  Idle ___org__dos_open
+ 0001:000239AC       __dos_open
+ 0001:000239E4  Idle ___org__dos_read
+ 0001:000239E4       __dos_read
+ 0001:00023A38  Idle ___org__dos_write
+ 0001:00023A38       __dos_write
+ 0001:00023A8C  Idle ___org_filelength
+ 0001:00023A8C       _filelength
+ 0001:00023AD8  Idle ___org__fullpath
+ 0001:00023AD8       __fullpath
+ 0001:00023B74       __getdcwd
+ 0001:00023B74  Idle ___org__getdcwd
+ 0001:00023CB4       __lock_all_handles
+ 0001:00023CC4       __cleanup_handle_locks
+ 0001:00023CE8       __unlock_all_handles
+ 0001:00023CF8       __lock_handle
+ 0001:00023D8C       __unlock_handle
+ 0001:00023DB4       __get_handle
+ 0001:00023DF4       __dup_handle
+ 0001:00023E5C  Idle __free_handle
+ 0001:00023F14       __init_handles
+ 0001:00024068       ___doserrno
+ 0001:00024074       ___IOerror
+ 0001:000240C0       ___DOSerror
+ 0001:000240E0       ___NTerror
+ 0001:000240F4  Idle ___org_stat
+ 0001:000240F4       _stat
+ 0001:00024294  Idle ___org__rtl_read
+ 0001:00024294       __rtl_read
+ 0001:000242DC  Idle ___org__read
+ 0001:000242DC  Idle __read
+ 0001:000242F8  Idle ___org__rtl_write
+ 0001:000242F8       __rtl_write
+ 0001:00024340  Idle ___org__write
+ 0001:00024340  Idle __write
+ 0001:0002435C       ___access
+ 0001:0002439C       ___close
+ 0001:000243FC       ___isatty
+ 0001:0002442C       ___isatty_osfhandle
+ 0001:00024444       ___lseek
+ 0001:000244C8       ___open
+ 0001:000246C8       ___unlink
+ 0001:000246E4       _localeconv
+ 0001:000246F0       _toupper
+ 0001:00024718       __clear87
+ 0001:0002472C       __control87
+ 0001:00024754       ___realcvt
+ 0001:0002475A       ___nextreal
+ 0001:00024760       __scantod
+ 0001:00024766       __scanrslt
+ 0001:0002476C       __fpreset
+ 0001:00024784       __ftol
+ 0001:00024784  Idle _ftol()
+ 0001:000247AC       __fuildq
+ 0001:000247DC       __fuistq
+ 0001:00024800       __fxam
+ 0001:00024814       __qdiv10
+ 0001:0002483C       __qmul10
+ 0001:0002486C  Idle ___org_atol
+ 0001:0002486C       _atol
+ 0001:000248C8  Idle ___org_atoi
+ 0001:000248C8  Idle _atoi
+ 0001:000248F0       ___ldtrunc
+ 0001:000249E8       ___longtoa
+ 0001:00024A5C       ___utoa
+ 0001:00024A78  Idle ___org_itoa
+ 0001:00024A78       _itoa
+ 0001:00024AA8  Idle ___org_ultoa
+ 0001:00024AA8  Idle _ultoa
+ 0001:00024AC8  Idle ___org_ltoa
+ 0001:00024AC8  Idle _ltoa
+ 0001:00024AF0  Idle ___org__matherr
+ 0001:00024AF0       __matherr
+ 0001:00024B1C  Idle ___org__matherrl
+ 0001:00024B1C       __matherrl
+ 0001:00024B4C       __initmatherr
+ 0001:00024E34       __cvt_init
+ 0001:00025314       __scan_init
+ 0001:0002532C       ___xcvt
+ 0001:00025600       __pow10
+ 0001:00025778  Idle ___org_calloc
+ 0001:00025778       _calloc
+ 0001:000257A4  Idle __init_lock
+ 0001:000257B8       __lock_heap
+ 0001:000257C8       __unlock_heap
+ 0001:00025E20  Idle ___org_free
+ 0001:00025E20       _free
+ 0001:00025F30       ___org_malloc
+ 0001:00025F30       _malloc
+ 0001:00026228  Idle __phys_avail
+ 0001:00026240  Idle __free_heaps
+ 0001:000262B8       ___memBogusAddr
+ 0001:000262EC       __heapchk
+ 0001:00026588       __heapset
+ 0001:0002663C  Idle ___org_heapcheck
+ 0001:0002663C       _heapcheck
+ 0001:00026658  Idle ___org__expand
+ 0001:00026658  Idle __expand
+ 0001:00026794  Idle ___org_realloc
+ 0001:00026794       _realloc
+ 0001:0002681C  Idle ___org__msize
+ 0001:0002681C  Idle __msize
+ 0001:00026844  Idle ___org_delete
+ 0001:00026844       operator delete(void*)
+ 0001:00026854  Idle ___org_deletea
+ 0001:00026854       operator delete[](void*)
+ 0001:00026864       set_new_handler(void(*)())
+ 0001:00026878  Idle ___org_new
+ 0001:00026878       operator new(unsigned int)
+ 0001:0002698C       __virt_reserve
+ 0001:000269F8       __virt_commit
+ 0001:00026A4C       __virt_decommit
+ 0001:00026A70       __virt_release
+ 0001:00026A94       ___errno
+ 0001:00026AA0       __pure_error_
+ 0001:00026CB8  Idle ___org_qsort
+ 0001:00026CB8       _qsort
+ 0001:00026D40       __ErrorMessage
+ 0001:00026E20  Idle ___ErrorMessage
+ 0001:00026E30       __ErrorExit
+ 0001:00026EA8       __ErrorMessageHelper
+ 0001:00026F58       __abort
+ 0001:00026F6C       _abort
+ 0001:00026FF4       _exit
+ 0001:0002700C       __exit
+ 0001:00027024  Idle __cexit
+ 0001:00027034  Idle __c_exit
+ 0001:00027044  Idle ___org_getenv
+ 0001:00027044       _getenv
+ 0001:000270A0       __initwild
+ 0001:000270A4       __lock_env
+ 0001:000270B4       __unlock_env
+ 0001:0002714C       __expandblock
+ 0001:0002746C  Idle _signal
+ 0001:00027518  Idle ___org_raise
+ 0001:00027518       _raise
+ 0001:000275A4       __create_shmem
+ 0001:000275AC       __init_exit_proc
+ 0001:00027658       __startup
+ 0001:000277C0       __cleanup
+ 0001:00027838       __terminate
+ 0001:00027848       __lock_exit
+ 0001:00027858       __unlock_exit
+ 0001:0002787C       string::string(const string&)
+ 0001:000278B8       string::string(const char*)
+ 0001:00027A6C       string::~string()
+ 0001:00027AD0       string::assert_element(unsigned int) const
+ 0001:00027B68       string::assert_index(unsigned int) const
+ 0001:00027C00       TSubString::assert_element(unsigned int) const
+ 0001:00027C98       TStringRef::TStringRef(const char*,unsigned int,const char*,unsigned int,unsigned int)
+ 0001:00027D24       TStringRef::~TStringRef()
+ 0001:00027D6C       TStringRef::reserve(unsigned int)
+ 0001:00027DC4       TStringRef::check_freeboard()
+ 0001:00027E18       TStringRef::grow_to(unsigned int)
+ 0001:00027E68       TStringRef::round_capacity(unsigned int)
+ 0001:00027EA4       TStringRef::splice(unsigned int,unsigned int,const char*,unsigned int)
+ 0001:00027FCC  Idle string::set_case_sensitive(int)
+ 0001:00027FE0  Idle string::set_paranoid_check(int)
+ 0001:00027FF4  Idle string::skip_whitespace(int)
+ 0001:00028008  Idle string::initial_capacity(unsigned int)
+ 0001:0002801C  Idle string::resize_increment(unsigned int)
+ 0001:00028040  Idle string::max_waste(unsigned int)
+ 0001:00028104  Idle __init_tls
+ 0001:0002816C  Idle __exit_tls
+ 0001:00028184       __thread_data
+ 0001:000281B0       __thread_data_new
+ 0001:00028248       __thread_data_del
+ 0001:00028344  Idle _new_thread
+ 0001:000283D4  Idle __beginthreadNT
+ 0001:00028454       __beginthread
+ 0001:00028474  Idle __endthread
+ 0001:000284A8       __create_lock
+ 0001:0002850C       __lock_nt
+ 0001:0002851C       __unlock_nt
+ 0001:0002852C       __lock_error
+ 0001:00028584  Idle _tzset
+ 0001:00028714       __isDST
+ 0001:00028828       __totalsec
+ 0001:000289A0  Idle ___org_getdate
+ 0001:000289A0       _getdate
+ 0001:000289CC  Idle ___org_gettime
+ 0001:000289CC       _gettime
+ 0001:00028A64       __statcvt
+ 0001:00028AD0       __thread_buf
+ 0002:00000058       ___isDLL
+ 0002:00000059       ___isGUI
+ 0002:0000005A  Idle __TLS_index
+ 0002:0000005E  Idle __TLS_index4
+ 0002:00000062       __hInstance
+ 0002:00000074       _buildtime
+ 0002:0000007D       _builddate
+ 0002:00000089       _buildcompiler
+ 0002:00000098       _buildcompilerversionhigh
+ 0002:0000009C       _buildcompilerversionlow
+ 0002:000000A0       _appname
+ 0002:000000A4       _configfile
+ 0002:000000AC       _SCREENX
+ 0002:000000B0       _SCREENY
+ 0002:000000B4       _a95vol
+ 0002:000000F4       _uu
+ 0002:000000F8  Idle _su
+ 0002:000000FC       _root
+ 0002:00000100       _guiroot
+ 0002:00000104       _objspace
+ 0002:000001E0  Idle _blah
+ 0002:000001E4  Idle _seriesstarts
+ 0002:000001E8  Idle _fpstimer
+ 0002:000001F0  Idle _fps
+ 0002:000001F4  Idle _spf
+ 0002:00000290       root::
+ 0002:000002DC       a95vol::
+ 0002:00000670       _showbglines
+ 0002:00000674       _alwaysredrawbg
+ 0002:00000770  Idle _objectmenu
+ 0002:0000080D  Idle _seriesmenu
+ 0002:00000890  Idle _viewmenu
+ 0002:000008EC  Idle _resmenu
+ 0002:0000093B  Idle _redefineinputmenu
+ 0002:00000963  Idle _miscmenu
+ 0002:00000A0D  Idle _helpmenu
+ 0002:00000A28  Idle _bgmenu
+ 0002:00000AAB  Idle _editmenu
+ 0002:00000AFA  Idle _mainmenu
+ 0002:00001EE8       bgedit::
+ 0002:00001F5C       loadbgdlg::
+ 0002:00001FD0       aboutdlg::
+ 0002:00002024       GUIstaticcenteredtext::
+ 0002:00002070       selectseries::
+ 0002:000020E4       changeseries::
+ 0002:00002158       selectimagedlg::
+ 0002:000021CC       seriesproperties::
+ 0002:00002240       newobjectspace::
+ 0002:00002294       GUIstringlistbox::
+ 0002:000022E4       loadobjectdlg::
+ 0002:00002358       framebar::
+ 0002:000023A4       GUImonitor::
+ 0002:00002418       objectedit::
+ 0002:0000248C       GUIcontents::
+ 0002:000024E0       GUImessage::
+ 0002:00002534       selectcfunc::
+ 0002:000025A8       GUIlistbox::
+ 0002:000025F8       afterseries::
+ 0002:0000266C       clipdata::
+ 0002:00002CEC       objectmove::
+ 0002:00002D38       bgmove::
+ 0002:00002D84       bglinedraw::
+ 0002:00002DD0       bglinemove::
+ 0002:00002E1C       imagemove::
+ 0002:00002E68       bgimagemove::
+ 0002:00002FC4       clip_frame::
+ 0002:00002FD8       clip_images::
+ 0002:00002FEC  Idle _inputnames
+ 0002:0000300C  Idle _mapnames
+ 0002:0000354C       inputtestbutton::
+ 0002:00003598       inputtestarea::
+ 0002:000035E4       changeinputdevice::
+ 0002:00003638       keyedit::
+ 0002:00003688       redefinekeys::
+ 0002:000036DC       input::
+ 0002:00003934       objectdefw::
+ 0002:00004068       e_newobject_edit::
+ 0002:000040C0       e_goto_edit::
+ 0002:00004118       e_sound_edit::
+ 0002:00004170       e_blood_edit::
+ 0002:000041C8       e_dir_edit::
+ 0002:00004220       effectpane::
+ 0002:00004278       e_shake_edit::
+ 0002:000042D0       editeffects::
+ 0002:00004324       neweffectdlg::
+ 0002:00004378       _defkeymap
+ 0002:00004394  Idle gravis::gravtable
+ 0002:0000449C       keyboard2::
+ 0002:000044C8       keyboard::
+ 0002:000044F4       keyboard1::
+ 0002:00004520       gravis::
+ 0002:0000454C       analogjoy2::
+ 0002:00004578       joystick::
+ 0002:000045A4       analogjoy1::
+ 0002:000045D0       inputnone::
+ 0002:000045FC       _dsl
+ 0002:00004600  Idle _erroraction
+ 0002:00004604       _vwerror
+ 0002:00004608       _vdiagnose
+ 0002:0000460C       _voltype
+ 0002:00004A00  Idle _CLSID_DirectDraw
+ 0002:00004A10  Idle _CLSID_DirectDrawClipper
+ 0002:00004A20  Idle _IID_IDirectDraw
+ 0002:00004A30  Idle _IID_IDirectDraw2
+ 0002:00004A40  Idle _IID_IDirectDrawSurface
+ 0002:00004A50  Idle _IID_IDirectDrawSurface2
+ 0002:00004A60  Idle _IID_IDirectDrawPalette
+ 0002:00004A70  Idle _IID_IDirectDrawClipper
+ 0002:00004A80  Idle _CLSID_DirectSound
+ 0002:00004A90  Idle _IID_IDirectSound
+ 0002:00004AA0  Idle _IID_IDirectSoundBuffer
+ 0002:00004AB0  Idle _IID_IDirectSound3DListener
+ 0002:00004AC0  Idle _IID_IDirectSound3DBuffer
+ 0002:00004AD0       _PITCH
+ 0002:00004AD4  Idle _DDO1
+ 0002:00004AD8  Idle _DDO
+ 0002:00004ADC  Idle _ddprimary
+ 0002:00004AE0  Idle _ddbackbuffer
+ 0002:00004AE4  Idle _ddoff
+ 0002:00004AE8  Idle _ddpalette
+ 0002:00004AEC  Idle _DSOUND
+ 0002:00004AF0  Idle _timerid
+ 0002:00004B14       _timerbusy
+ 0002:00004B18  Idle _timerdisabled
+ 0002:00004D94  Idle _keyboardhandler
+ 0002:00004D98  Idle _keyqueue
+ 0002:00004D9C       _kbscan
+ 0002:00004D9D       _kbstat
+ 0002:00004DA0  Idle _kbhead
+ 0002:00004DA4  Idle _kbtail
+ 0002:00004DA8  Idle _s2a
+ 0002:00004E0F  Idle _s2ashift
+ 0002:00004E76  Idle _keynames
+ 0002:00005048       _GUIdefx
+ 0002:0000504C       _GUIdefy
+ 0002:00005050       GUIrect::modal
+ 0002:00005094       GUIroot::
+ 0002:000050E0       GUIrect::
+ 0002:000056E4       GUIhscrollbar::
+ 0002:00005730       GUIvscrollbar::
+ 0002:0000577C       GUIhtrack::
+ 0002:000057D0       GUIvtrack::
+ 0002:00005824       GUItrack::
+ 0002:00005878       GUIhtrackbutton::
+ 0002:000058C4       GUIvtrackbutton::
+ 0002:00005910       GUItrackbutton::
+ 0002:0000595C       GUIscrollbar::
+ 0002:000059A8       GUItwobuttonbox::
+ 0002:000059F4       GUIbar::
+ 0002:00005A40       GUIonebuttonbox::
+ 0002:00005A8C       GUImaximizebox::
+ 0002:00005AD8       GUIbox::
+ 0002:00005B24       GUIfloatedit::
+ 0002:00005B80       GUIintedit::
+ 0002:00005BDC       GUInumberedit::
+ 0002:00005C38       GUInumbertextedit::
+ 0002:00005C8C       GUItextedit::
+ 0002:00005CE0       GUIedit::
+ 0002:00005D30       GUIcheckbox::
+ 0002:00005D7C       GUIimagebutton::
+ 0002:00005DC8       GUItextbutton::
+ 0002:00005E14       GUIbutton::
+ 0002:00005E60       GUIstaticimage::
+ 0002:00005EAC       GUIstatictext::
+ 0002:00005F9C       GUIvmenu::
+ 0002:00005FF4       GUIhmenu::
+ 0002:0000604C       GUImenu::
+ 0002:000062B0       objectspace::
+ 0002:00006304  Idle object::cfunclist
+ 0002:0000639C       shaketrajectory::oshake
+ 0002:000064AC  Idle _oshake
+ 0002:000064F0       object::
+ 0002:00006514       jumptrajectory::
+ 0002:0000652C       trajectory::
+ 0002:000065D4       objectdef::
+ 0002:00006618  Idle _bgimagesdrawn
+ 0002:0000661C       bgobject::
+ 0002:0000662C       bgdef::
+ 0002:00006648  Idle _effectgetsizeptrs
+ 0002:0000666C  Idle _e_triggerptrs
+ 0002:00006690       _effectnames
+ 0002:00006798       shaketrajectory::
+ 0002:000068FC       ___debuggerDisableTerminateCallback
+ 0002:00006A08       typeinfo::
+ 0002:00006A18  Idle ___CPPexceptionList
+ 0002:00006A1C  Idle ___exceptFlags
+ 0002:00006A20  Idle ___debuggerHookFN
+ 0002:00006A24  Idle ___debuggerWatchingP
+ 0002:00006A28  Idle ___debuggerHookDataP
+ 0002:00006A2C  Idle ___terminatePTR
+ 0002:00006A30  Idle ___unexpectdPTR
+ 0002:00006A34  Idle ___throwFileName
+ 0002:00006A38  Idle ___throwLineNumber
+ 0002:00006A3C  Idle ___throwExceptionName
+ 0002:00006A40  Idle ___exceptStaticBuffP
+ 0002:00006A44  Idle ___exceptMemAllocVars
+ 0002:00006A48  Idle ___ExceptStaticXbuff
+ 0002:00006AFC       __ExceptVarsSize
+ 0002:00006B00  Idle __DebuggerHookData
+ 0002:00006B8C       __stkchk
+ 0002:00006BA0       __streams
+ 0002:00007050       __nfile
+ 0002:00007054       __openfd
+ 0002:0000711C       __fmode
+ 0002:00007120       __fmodeptr
+ 0002:00007130       __sys_errlist
+ 0002:000071F4       __sys_nerr
+ 0002:000076EC       __cfinfo_get
+ 0002:000076F0       __notUmask
+ 0002:00007764  Idle __dosErrorToSV
+ 0002:00007894       __localeconvention
+ 0002:000078D0       __ctype
+ 0002:000079D8       __realcvtptr
+ 0002:000079DC       __nextrealptr
+ 0002:000079E0       __scantodptr
+ 0002:000079E4       __scanrsltptr
+ 0002:00007A40       __default87
+ 0002:00007A44       __huge_flt
+ 0002:00007A48       __huge_dble
+ 0002:00007A50       __huge_ldble
+ 0002:00007A5A  Idle __indefinite
+ 0002:00007A5E       __tiny_ldble
+ 0002:00007A68       __turboFloat
+ 0002:00007A6C  Idle __floatconvert
+ 0002:00007A70       __pmatherr
+ 0002:00007A74       __pmatherrl
+ 0002:00007B74  Idle __virt_heap_size
+ 0002:00007B78  Idle __virt_chunk_size
+ 0002:00007B7C  Idle __virt_chunk_size2
+ 0002:00007B80  Idle __nv_heap_size
+ 0002:00007B84       __smalloc_threshold
+ 0002:00007B88  Idle __virt_chunk_free
+ 0002:00007B8C  Idle __virt_chunk_free2
+ 0002:00007B90       __firstHeap
+ 0002:00007B94  Idle __lastHeap
+ 0002:00007B98       __linktable
+ 0002:00007B9C       __freeStart
+ 0002:00007BA8       __rover
+ 0002:00007BB0       ___allocated
+ 0002:00007BCC       ___xalloc
+ 0002:00007C5C  Idle __messagefile
+ 0002:00007CD4       __atexitcnt
+ 0002:00007CD8       __exitbuf
+ 0002:00007CDC       __exitfopen
+ 0002:00007CE0  Idle __exitopen
+ 0002:00007CE4  Idle __setenvp__
+ 0002:00007F38       string::case_sensitive
+ 0002:00007F3C       string::paranoid_check
+ 0002:00007F40       string::skip_white
+ 0002:00007F44       string::initial_capac
+ 0002:00007F48       string::resize_inc
+ 0002:00007F4C  Idle string::freeboard
+ 0002:00007FDC       __SWeekday
+ 0002:00007FF8  Idle __LWeekday
+ 0002:00008014       __SMonth
+ 0002:00008044  Idle __LMonth
+ 0002:00008074  Idle __AmPm
+ 0002:0000807C       __Days
+ 0002:00008088       __YDays
+ 0002:000081A0       __tzname
+ 0002:000081A8       __timezone
+ 0002:000081AC       __daylight
+ 0002:00008274       _cfg
+ 0002:00008278       _inputdevice
+ 0002:00008280       _ids
+ 0002:00008284       _cfuncnum
+ 0002:00008288       _cfuncnames
+ 0002:0000828C       _font
+ 0002:000082AC  Idle _shadowmap
+ 0002:000082B0       _shadow
+ 0002:000082B4       _msg
+ 0002:00008564  Idle GUImessage::pos
+ 0002:00008574  Idle loadbgdlg::pos
+ 0002:00008584  Idle loadobjectdlg::pos
+ 0002:00008594  Idle selectcfunc::pos
+ 0002:000085A4  Idle afterseries::pos
+ 0002:000085B4  Idle seriesproperties::pos
+ 0002:000085C4  Idle changeseries::pos
+ 0002:000085D4  Idle selectimagedlg::pos
+ 0002:000085E4  Idle objectedit::pos
+ 0002:000085F4  Idle bgedit::pos
+ 0002:00008604  Idle aboutdlg::pos
+ 0002:00008614  Idle newobjectspace::pos
+ 0002:0000872C       _clipboard
+ 0002:00008730  Idle redefinekeys::pos
+ 0002:00008740  Idle changeinputdevice::pos
+ 0002:00008794  Idle neweffectdlg::pos
+ 0002:000087A4  Idle editeffects::pos
+ 0002:000087B4  Idle _hInst
+ 0002:000087B8  Idle _pcmwf
+ 0002:000087C8  Idle _dsprimary
+ 0002:000087CC  Idle _hwnd
+ 0002:000087D8       _timeperframe
+ 0002:000087DC  Idle _ActiveApp
+ 0002:000087E0  Idle _video
+ 0002:000087E4       _screen
+ 0002:000087E8  Idle _palentries
+ 0002:00008BE8       _m
+ 0002:00008C0A       _errstr
+ 0002:00008C5C  Idle _keydown
+ 0002:00008CDC  Idle _kbscanbuf
+ 0002:00008CFC       __DestructorCountPtr
+ 0002:00008D1C       __HandlerPtr
+ 0002:00008D20  Idle __UserHandlerPtr
+ 0002:00008D24       __pidtab
+ 0002:00008DEC       __handles
+ 0002:00008EBC       __tmpnum
+ 0002:00008FCC  Idle _hdir_lock
+ 0002:00008FDC  Idle __heap_lock
+ 0002:00008FE0       __new_handler
+ 0002:00009004       __ostype
+ 0002:00009008       __atexittbl
+ 0002:00009088       __environ
+ 0002:00009090       _envsize
+ 0002:00009094  Idle __env_lock
+ 0002:00009098  Idle __dll_table
+ 0002:000090A0       __ExcRegPtr
+ 0002:000090A4       __osenv
+ 0002:000090A8       __oscmd
+ 0002:000090AC  Idle ___exit_lock
+ 0002:000090B0       __C0argc
+ 0002:000090B4       __C0argv
+ 0002:000090B8       __C0environ
+ 0002:000090C4  Idle __stkbase
+ 0002:000090C8  Idle __isWindows
+ 0002:000090CC       __stkindex
+ 0002:000090D0       __tlsindex

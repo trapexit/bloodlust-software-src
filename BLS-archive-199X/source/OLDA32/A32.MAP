@@ -1,0 +1,1276 @@
+WATCOM Linker Version 10.5
+Copyright by WATCOM International Corp. 1985, 1995. All rights reserved.
+Created on:       96/11/22 21:01:46
+Executable Image: a32.exe
+creating a DOS/4G executable
+
+
+                        +------------+
+                        |   Groups   |
+                        +------------+
+
+Group                           Address              Size
+=====                           =======              ====
+
+DGROUP                          0002:00000000        00018d40
+
+
+
+                        +--------------+
+                        |   Segments   |
+                        +--------------+
+
+Segment                Class          Group          Address         Size
+=======                =====          =====          =======         ====
+
+BEGTEXT                CODE                          0001:00000000   00000010
+_TEXT                  CODE                          0001:00000010   00025846
+_NULL                  BEGDATA        DGROUP         0002:00000000   00000004
+_AFTERNULL             BEGDATA        DGROUP         0002:00000004   00000000
+_DATA                  DATA           DGROUP         0002:00000004   0001109c
+CONST                  DATA           DGROUP         0002:000110a0   0000174c
+CONST2                 DATA           DGROUP         0002:000127ec   000001e8
+XIB                    DATA           DGROUP         0002:000129d4   00000000
+XI                     DATA           DGROUP         0002:000129d4   0000004e
+XIE                    DATA           DGROUP         0002:00012a22   00000000
+YIB                    DATA           DGROUP         0002:00012a22   00000000
+YI                     DATA           DGROUP         0002:00012a22   0000000c
+YIE                    DATA           DGROUP         0002:00012a2e   00000000
+TIB                    DATA           DGROUP         0002:00012a2e   00000000
+TI                     DATA           DGROUP         0002:00012a2e   00000000
+TIE                    DATA           DGROUP         0002:00012a2e   00000000
+DATA                   DATA           DGROUP         0002:00012a2e   00000000
+DATA32                 DATA           DGROUP         0002:00012a30   0000011c
+CONST32                CONST          DGROUP         0002:00012b4c   00000000
+_BSS                   BSS            DGROUP         0002:00012b50   000051ec
+BSS32                  BSS            DGROUP         0002:00017d3c   00000000
+STACK                  STACK          DGROUP         0002:00017d40   00001000
+
+
+                        +----------------+
+                        |   Memory Map   |
+                        +----------------+
+
+* = unreferenced symbol
++ = symbol only referenced locally
+
+Address        Symbol
+=======        ======
+
+Module: joy.obj(JOY.ASM)
+0001:00000052  _ReadAnalogJoyButtons
+0001:00000010  _ReadAnalogJoyPos
+Module: mouse.obj(MOUSE.ASM)
+0001:00000090  _readmouse
+0001:00000064  _initmouse
+Module: smixasm.obj(SMIXASM.ASM)
+0001:00000140  _loades
+0001:000000e7  _MIXASM
+0001:0000011f  _COPYASM
+0001:00000143  _SILENCEASM
+0001:000000c0  _COPYSOUND8
+Module: stack.obj(stack.ASM)
+0001:00000176  SwitchBack_
+0001:0000015c  SwitchStack_
+Module: timg256.obj(timg256.ASM)
+0001:0000053b* _PutStatusBar
+0001:000002a9* _PutImageFlipClip256
+0001:00000705  _DrawBar
+0001:00000446  _DrawImage
+0001:0000068e* _Solid
+0001:000006a4* _PutImageSolid
+0001:000001a2  _ModeText
+0001:000005e4* _WaitVSync
+0001:00000188  _Mode256
+0001:000005bf  _LoadPalette
+0001:000001bc  _MemoryCopy
+0001:000005ee* _PutImageD2
+0001:00000572* _ColorMapImage
+0001:000001dc* _PutImageFlip256
+Module: timgmap.obj(timgmap.ASM)
+0002:0001001c  _SHADOWMAP
+0001:00000b0b  _DrawBarMap
+0001:00000a16  _DrawImageMap
+Module: detect.obj(c:\source\a32\detect.c)
+0001:00000bc0+ get_setting_
+0001:00000c9c* _detect_settings
+Module: grip.obj(c:\source\a32\grip.c)
+0002:00012b50  _GRIP_Thunk
+0002:0001011c+ _GrLibName
+0002:00010125+ _GrLibEnv
+0002:0001012a+ _GrLibDir
+0001:00000da0  GrLink_
+0001:00001134  GrUnlink_
+Module: lowmem.obj(c:\source\a32\lowmem.c)
+0001:000011c0  low_malloc_
+0001:00001208+ _low_free
+Module: smix.obj(c:\source\a32\smix.c)
+0002:00013030+ _sr
+0002:00013050+ _r
+0002:000130c8+ _sixteenbit
+0002:000130cc+ _dspversion
+0002:000130d0+ _autoinit
+0002:000130d4+ _voicecount
+0002:000130d8+ _intcount
+0001:0000131c  init_sb_
+0001:000016c0  shutdown_sb_
+0001:00001734+ _start_dac
+0001:00001d48  set_sound_volume_
+0001:00001e30  init_mixing_
+0001:000020a0  shutdown_mixing_
+0001:000021a8  start_sound_
+0001:00002270* stop_sound_
+0001:000022c8* sound_playing_
+0002:0001014c+ _smixbusy
+0002:00010150+ _timerbusy
+Module: vol.obj(c:\source\vol\vol.cpp)
+0001:00002be8  int near volumefile::create( char near * )
+0001:00002cf0  void near volumefile::write( void near *, int unsigned, char, char near * )
+0001:00002dd4  void near volumefile::writefile( char near * )
+0001:00002eac  void near volumefile::writemidi( char near * )
+0001:00002f88  void near volumefile::writescreen( char near * )
+0001:00003080  void near volumefile::writepalette( char near * )
+0001:000031c8  __26jc7kSOUND near * near ReadWavFile( char near * )
+0001:000034e0  void near volumefile::writesound( char near * )
+0001:00003558+ int near ReadImageFile( char near * near *, char near * )
+0001:00003708  void near volumefile::writeimage( char near * )
+0001:000037ac  void near volumefile::writelistblock( char near *, char )
+0001:00003bd0  void near volumefile::writerangeblock( char near *, int, char )
+0001:00003f18  int near volumefile::open( char near * )
+0001:0000403c  void near volumefile::reset()
+0001:000040dc  void near volumefile::close()
+0001:00004124  void near * near volumefile::read()
+0001:000042b8  void near volumefile::read( void near * )
+0001:000043f0  void near * near * near volumefile::readblock( int near * )
+0001:000045f0  void near volumefile::skip()
+0001:000046d0+ void near GetFileName( char near *, char near * )
+0001:0000478c* void near GetFileExtension( char near *, char near * )
+0002:00010154+ char near dsl[]
+0002:00010158+ int near vwerror
+0002:0001015c+ char near * near voltype[]
+0002:000130f4+ int near erroraction
+0002:000130f8+ int near vdiagnose
+Module: a32.obj(c:\source\a32\a32.cpp)
+0001:0000482c  void near cleanexit( int )
+0001:0000489c* void near hline( int, int, int, char )
+0001:000048e4+ void near drawpixel( int, int, char )
+0001:00004920  int near random( int )
+0001:00004964+ int near DrawButton( int, int, char, int, int, int, char near * )
+0001:00004a98  image near * near object::CheckImageBound()
+0001:00004ce0  bgactiveimage near * near bgobject::CheckImageBound()
+0001:00004ddc  void near resetshadow()
+0001:00004e40  void near timer()
+0001:00004f14+ int near keyboard()
+0001:00005028* void near resetallobjects()
+0001:0000506c* void near modetext()
+0001:00005094  void near refreshmouse()
+0001:00005104+ void near getmeminfo()
+0001:00005170+ void near createcolormap( color near *, char unsigned near *, int, int, int )
+0001:000052c4  void near bgobject::tick()
+0001:000054b8* void near bgtest()
+0001:00005504  main_
+0001:000061dc+ void near drawobjects()
+0001:00006490  void near object::mainedit()
+0001:00006858  void near object::drawbuttons()
+0001:00006ab8  void near bgobject::mainedit()
+0001:00006f4c  void near bgobject::drawbuttons()
+0001:00007044+ void near drawverbose()
+0001:000071c4+ void near CheckKeys()
+0001:0000794c  void near objectdef::volumize()
+0001:00007a4c  void near objectdef::Save()
+0001:00007af8  void near objectdef::Kill()
+0001:00007d7c  void near objectdef::Read()
+0001:00007ef4  void near objectdef::ReadVol()
+0001:0000808c  void near object::resetfptr()
+0001:00008150  char near * near series::insertbytes( char near *, int )
+0001:00008318  void near series::deletebytes( char near *, int )
+0001:0000843c  void near object::drawmap()
+0001:000085b0+ int near E_SOUND_draw( object near *, e_sound near *, int, int, int )
+0001:000086b8+ int near E_SOUND_edit( object near *, e_sound near * )
+0001:00008710+ int near E_SHAKE_draw( object near *, e_shake near *, int, int, int )
+0001:000087a8+ int near E_SHAKE_edit( object near *, e_shake near * )
+0001:000087e8+ int near E_DIR_draw( object near *, e_dir near *, int, int, int )
+0001:00008854+ int near E_DIR_edit( object near *, e_dir near * )
+0001:000088b0+ int near E_NEWOBJECT_draw( object near *, e_newobject near *, int, int, int )
+0001:00008a08+ void near dlg_e_newobjectseries( series near *, int, e_newobject near * )
+0001:00008a40+ void near dlg_e_newobject( objectdef near *, int, e_newobject near * )
+0001:00008a78+ int near E_NEWOBJECT_edit( object near *, e_newobject near * )
+0001:00008cb8+ int near E_GOTO_draw( object near *, e_goto near *, int, int, int )
+0001:00008d34+ void near dlg_e_gotoseries( series near *, int, e_goto near * )
+0001:00008d68+ int near E_GOTO_edit( object near *, e_goto near * )
+0001:00008dec+ int near E_BLOOD_draw( object near *, e_blood near *, int, int, int )
+0001:00008e80+ int near E_BLOOD_edit( object near *, e_blood near * )
+0001:00008fa8+ void near dlg_pickrfunc( char near *, int, e_region near * )
+0001:00008fd8+ void near copyrect( zrect near *, zrect near * )
+0001:000090e0+ void near dlg_e_regionseries( series near *, int, e_region near * )
+0001:00009114+ int near E_REGION_draw( object near *, e_region near *, int, int, int )
+0001:00009240+ int near E_REGION_edit( object near *, e_region near * )
+0001:000095d0  void near object::DrawRegions()
+0001:0000978c  void near object::DrawExtraX()
+0001:00009a44  void near object::DrawExtraXShadow()
+0001:00009cc8  void near drawarrow( int, int, int )
+0001:00009e14+ void near drawintersect( int, int, int )
+0001:00009ee8+ void near dlg_pickcfunc( char near *, int, object near * )
+0001:00009f60+ void near dlg_afterseries( char near *, int, object near * )
+0001:00009f98+ void near dlg_fallseries( char near *, int, object near * )
+0001:00009fcc  void near object::DrawSeries()
+0001:0000a3ac  void near object::DrawExtra()
+0001:0000a6e4  void near object::AddExtra( int )
+0001:0000b4b0+ .PREFIX_DATA.W?$aa:object$n(rnx$0$)rn$0$
+0001:0000b2c0+ object near & near object::operator =( object const near & )
+0002:00013124  char near errstr[]
+0002:00013174+ volumefile near v
+0002:00013198  _sbstat
+0002:0001319c+ int near i
+0002:000131a0+ int near j
+0002:000131a4+ int near k
+0002:000131a8+ color near * near pal
+0002:000131ac  char near * near screen
+0002:000131b0  char near * near bg
+0002:000131b4  img near * near cursor
+0002:000131b8+ img near * near shadow
+0002:000131bc+ img near * near X
+0002:000131c0+ img near * near Xshadow
+0002:000131c4  FONT near * near font[]
+0002:000131dc  int near mx
+0002:000131e0  int near my
+0002:000131e4  int near mb
+0002:000131e8  int near mstat
+0002:000131ec  int near mrelstat
+0002:000131f0  char near key
+0002:000131f1+ char near kscan
+0002:000131f4+ img near * near arrow[]
+0002:00013228  int near drawregions
+0002:0001322c  dialog near dlg
+0002:00013298+ int near editmotion
+0002:0001329c+ int near forcemotionedit
+0002:000132a0  int near verbose
+0002:000132a4  int near gshakedur
+0002:000132a8+ char near msg[]
+0002:0001330c+ int near msgdur
+0002:00013310  int near drawfps
+0002:00013314+ config near * near cfg
+0002:00013318  input near inputdevice[]
+0002:00013364+ char near cfuncnames[][32]
+0002:00015364+ int near cfuncnum
+0002:00015368+ char near rfuncnames[][32]
+0002:00017368+ int near rfuncnum
+0002:0001736c  int near numodf
+0002:00017370  objectdef near * near odf
+0002:00017374+ int volatile near needload
+0002:00017378  int volatile near needdelete
+0002:0001737c  int near numbgdf
+0002:00017380  backgrounddef near * near bgdf
+0002:00017384  object near * near o
+0002:00017388  bgobject near * near bgobj
+0002:0001738c  object near * near p
+0002:00017390+ char near pshit[]
+0002:000173f8  __anonymous_enum near emode
+0002:00017400  series near * near seriesedit
+0002:00017404  image near * near dragimg
+0002:00017408  lpoint near dragrel
+0002:00017410  __anonymous_enum near cliptype
+0002:00017414  int near clipsize
+0002:00017418  int near clipnum
+0002:0001741c  char near clipboard[]
+0002:00017610  objectdef near * near clipobj
+0002:0001018c+ int near oldmb
+0002:00010190  int near basex
+0002:00010194  int near basey
+0002:00010198+ int near gshake[]
+0002:000101b8  int near drawstat
+0002:000101bc+ object near * near pshadow
+0002:000101c0+ int unsigned volatile near su
+0002:000101c4  char near * near extraname[]
+0002:000101e8  int near extrasize[]
+0002:00017614  int unsigned volatile near uu
+0002:00017618+ meminfo near MemInfo
+0002:00017648  int near donea32
+0002:0001764c+ bgmap near testmap
+0002:00010280+ int (near * near extradraw[])( object near *, char unsigned near *, int, int, int )
+0002:000102a0+ int (near * near extraedit[])( object near *, char unsigned near * )
+0002:000102c4+ char near rcolor[]
+0001:0000a7cc  void near mprintf( char near *, ... )
+0001:0000a810+ int near dselprintf( int, int, char near *, ... )
+0001:0000a91c+ int near query( char near *, ... )
+0001:0000aaec  void near wait()
+0001:0000ab48  void near bgobject::DrawStatus()
+0001:0000ac3c  void near object::DrawStatus()
+Module: adialog.obj(c:\source\a32\adialog.cpp)
+0001:0000b4c8  void near dialog::init( rect near *, char near *, void near *, int, int, int, void near *, void near *, void near * )
+0001:0000b5cc  void near dialog::draw()
+0001:0000bd94  void near dlg_objectdef( char near *, objectdef near * )
+0001:0000bde0  void near dlg_series( char near *, series near * )
+0001:0000be2c+ void near dlg_extra( char near *, char near * near * )
+0001:0000be60  void near dlg_cfunc( char near *, char near * )
+Module: amenu.obj(c:\source\a32\amenu.cpp)
+0001:0000be9c+ int near findimage( objectdef near *, objectdef near *, int )
+0001:0000bf38+ void near convertimage( image near *, image near *, objectdef near *, objectdef near *, int )
+0001:0000bfc0+ void near convertframe( frame near *, frame near *, objectdef near *, objectdef near * )
+0001:0000c034+ void near convertframes( frame near *, frame near *, objectdef near *, objectdef near *, int )
+0001:0000c0a0  int near menuitem::width()
+0001:0000c0e8  void near menuitem::draw( int, int, int )
+0001:0000c138  void near menu::getwidthheight()
+0001:0000c21c  void near menu::draw( int, int )
+0001:0000c3b0  void near menu::drawhoriz( int, int )
+0001:0000c598  menuitem near * near menu::checkkey( char )
+0001:0000c62c+ void near dlg_loadobject( objectdef near *, int, void near * )
+0001:0000c754+ void near M_LOADOBJECT()
+0001:0000c7bc+ void near dlg_loadbackground( backgrounddef near *, int, void near * )
+0001:0000c870+ void near M_EDITBG()
+0001:0000c8b0+ void near M_LOADBG()
+0001:0000c914* void near M_VOLUMIZEBG()
+0001:0000c938+ void near dlg_listseries( series near *, int, object near * )
+0001:0000c96c+ void near M_SERIESLIST()
+0001:0000ca18+ void near M_SAVESDF()
+0001:0000ca6c+ void near M_KILLOBJECT()
+0001:0000cb94  void near M_NEWIMAGE()
+0001:0000ccd4  void near M_DELETEIMAGE()
+0001:0000cde0+ void near dlg_addextra( char near * near *, int, object near * )
+0001:0000ce14+ int near ExtraCount()
+0001:0000ce60  void near M_NEWEFFECT()
+0001:0000cefc+ void near M_INSERTFRAME()
+0001:0000cfa0+ void near M_INSERTAFTER()
+0001:0000d038+ void near M_SAVEOBJECT()
+0001:0000d074  void near M_QUIT()
+0001:0000d158+ void near M_ACTIVATEOBJECT()
+0001:0000d248+ void near M_ACTIVATEALL()
+0001:0000d328+ void near M_RESETALL()
+0001:0000d3a0+ void near M_PASTE()
+0001:0000d65c+ void near M_FLIPXOBJECT()
+0001:0000d68c+ void near M_STOP()
+0001:0000d6e8+ void near M_PLAY()
+0001:0000d73c+ void near M_PLAYLOOPED()
+0001:0000d790+ void near M_DELETEFRAME()
+0001:0000d870+ void near M_COPYEFFECTS()
+0001:0000d940+ void near M_COPYIMAGES()
+0001:0000da00+ void near M_COPYFRAME()
+0001:0000da98+ void near M_COPYSERIES()
+0001:0000db48+ void near M_VERBOSE()
+0001:0000db70+ void near M_DRAWSTAT()
+0001:0000db94+ void near M_FPS()
+0001:0000dbbc+ void near M_200SPEED()
+0001:0000dbf4+ void near M_150SPEED()
+0001:0000dc2c+ void near M_100SPEED()
+0001:0000dc64+ void near M_50SPEED()
+0001:0000dc9c+ void near M_25SPEED()
+0001:0000dcd8+ void near M_OBJECTINFO()
+0001:0000dd5c+ void near M_VOLUMIZE()
+0001:0000dda4  void near M_RENAMESERIES()
+0001:0000ddec+ void near M_DRAWREGIONS()
+0001:0000de34+ void near M_ADDNEWSERIES()
+0001:0000de8c+ void near M_DELETELASTSERIES()
+0001:0000def4  void near objectdef::addnewseries()
+0002:00010300+ menu near objectmenu
+0002:000103ac+ menu near bgmenu
+0002:000103e0+ menu near editmenu
+0002:00010448+ menu near seriesmenu
+0002:000104e4+ menu near framemenu
+0002:0001054c+ menu near miscmenu
+0002:00010610  menu near mainmenu
+0002:00017658+ char unsigned near * near doedit
+0002:0001765c  int near onmenu
+Module: aread.obj(c:\source\a32\aread.cpp)
+0001:0000f730  .PREFIX_DATA.W?$ct:FILEIO$n()_
+0001:0000f6f0  near FILEIO::FILEIO()
+0001:0000df90  void near ReadObjectNames( char near * )
+0001:0000e1e4  void near ReadBackgroundNames( char near * )
+0001:0000e434  int near ReadControlFuncs( char near *, char (near *)[32])
+0001:0000e518+ int near ReadRawFile( char near * near *, int )
+0001:0000e69c  int near ReadImageList( char near *, img near * near * near *, char (near * near *)[9])
+0001:0000e9fc  int near ReadSoundList( char near *, __26jc7kSOUND near * near * near *, char (near * near *)[9])
+0001:0000ed24+ char (near * near ReadScreen( char near * ))[64000]
+0001:0000ed84  int near ReadScreenList( char near *, char (near * near * near *)[64000], char (near * near *)[9])
+0001:0000f0a4  void near objectdef::SaveSeriesList()
+0001:0000f198  int near objectdef::LoadSeriesList()
+0001:0000f670  void near objectdef::SaveSDF()
+0002:00017768  int near memused
+Module: areq.obj(c:\source\a32\areq.cpp)
+0001:0000f750  int near objectdef::RequestImage()
+0001:0000fb90  int near objectdef::RequestSound()
+0001:0000fdd8  int near backgrounddef::RequestScreen()
+Module: bg.obj(c:\source\a32\bg.cpp)
+0001:0001001c  int near object::getbasey()
+0001:00010144  bgline near * near bgobject::getbasey( int, int, int near * )
+0001:00010218  int near bgline::calcy( int )
+0001:00010290  int near bgline::getbasey( int, int )
+0001:000102fc  void near drawscreen( char near *, char near *, int, int )
+0001:000103d8+ void near swap( bgactiveimage near *, bgactiveimage near * )
+0001:00010464  void near bgactiveimage::resort()
+0001:000104f4  near bgactiveimage::bgactiveimage( int, bgobject near * )
+0001:00010624  void near bgobject::addactiveimage( bgactiveimage near * )
+0001:000106bc  near bgactiveimage::~bgactiveimage()
+0001:00010750  void near bgimage::update( bgactiveimage near * )
+0001:000107fc  void near bgactiveimage::draw( char near * )
+0001:0001088c  void near bgactiveimage::scroll( int, int )
+0001:00010918  near bgobject::bgobject( backgrounddef near * )
+0001:000109e0+ near bgobject::~bgobject()
+0001:00010a68  void near bgobject::free()
+0001:00010b04  void near bgobject::moveto( int, int )
+0001:00010c58  void near bgobject::reset()
+0001:00010ccc  void near bgobject::drawall( char near * )
+0001:00010dd0  void near bgobject::drawbackground( char near * )
+0001:00010fe4  void near bgobject::drawlines()
+0001:000110a0  void near bgobject::refreshbackground( char near * )
+0001:00011154  void near bgobject::drawforeground( char near * )
+0001:000111b4  void near bgobject::activate()
+0001:000111dc  void near bgobject::stop()
+0001:0001120c  void near bgobject::activateitem( bgitem )
+0001:00011304  void near bgobject::deactivateitem( bgitem )
+0001:000113c8  void near bgobject::processleft( bgitem )
+0001:00011454  int near bgobject::scroll( int, int )
+0001:00011600  void near bgpos::start( bgscanline near * )
+0001:00011668  int near bgpos::scroll( int, bgobject near * )
+0001:0001177c  void near bgpos::moveto( int )
+0001:0001184c  bgpos near * near bgmap::createbgpos( int )
+0001:000118e0  bgscanline near * near bgmap::findscanline( int )
+0001:00011958  bgscanline near * near bgmap::addscanline( int )
+0001:00011a5c  void near bgmap::deletescanline( int )
+0001:00011b00  void near bgmap::free()
+0001:00011b70  void near bgmap::addpoint( int, int, bgitem )
+0001:00011bc8  void near bgmap::addimage( img near *, int, int, int, int )
+0001:00011d28  void near bgmap::deleteitem( bgitem )
+0001:00011e40  void near bgscanline::addpoint( int, bgitem )
+0001:00011f80  void near bgscanline::deletepoint( int )
+0001:0001205c  void near bgscanline::free()
+0001:000120a0  void near bgline::set( int, int, int, int )
+0001:00012174  void near bgline::draw( int )
+0001:000121f8  void near backgrounddef::generatemap()
+0001:00012310  void near backgrounddef::clearmap()
+0001:00012354  void near backgrounddef::add( bgline near * )
+0001:000123f8  bgactiveimage near * near backgrounddef::add( bgimage near * )
+0001:00012530  void near backgrounddef::update( bgactiveimage near * )
+0001:000125ec  void near backgrounddef::remove( bgactiveimage near * )
+0001:00012648  void near backgrounddef::Read()
+0001:000127ac  void near backgrounddef::Save()
+0001:000128e0  void near backgrounddef::Kill()
+0001:000129f4  void near backgrounddef::volumize()
+0001:00012a18+ void near drawhline( char near *, int, char )
+0001:00012a68+ void near drawvline( char near *, int, char )
+0001:00012ad0  void near bgmap::drawgrid( char near *, int, int )
+0001:00012bb0  void near bgscanline::print()
+0001:00012c54  void near bgmap::print()
+0002:0001777c+ int near bgy1
+0002:00017780+ int near bgy2
+0002:00017784+ int near b1
+0002:00017788+ int near b2
+0002:0001778c+ int near b3
+Module: cfboomer.obj(c:\source\a32\cfboomer.cpp)
+0001:00012cb0  int near object::enemy_boomer( int )
+Module: cfjet.obj(c:\source\a32\cfjet.cpp)
+0001:00012dac  int near object::enemy_jet( int )
+Module: cfmain.obj(c:\source\a32\cfmain.cpp)
+0001:00013b50  .PREFIX_DATA.W?$Wmp0anone$n(i)i$:object$n()pn(i)i
+0001:00012ecc  int near object::main_stance( int )
+0001:00013114  int near object::main_duck( int )
+0001:000131d8  int near object::main_walk( int )
+0001:00013338  int near object::main_walkfire( int )
+0001:00013494  int near object::main_jump( int )
+0001:000136a0  int near object::bullet( int )
+0001:000136fc  int near object::randomdur( int )
+0001:00013788  int near object::main_climb( int )
+0001:000139a0  int near object::main_hang( int )
+Module: cfpig.obj(c:\source\a32\cfpig.cpp)
+0001:00013b6c  int near object::enemy_pig( int )
+Module: cfsniper.obj(c:\source\a32\cfsniper.cpp)
+0001:00013d00  int near object::enemy_sniper( int )
+Module: config.obj(c:\source\a32\config.cpp)
+0001:00013dfc* config near * near new_config()
+0001:00013e50  config near * near load_config( char near * )
+0001:00013eec* void near save_config( char near *, config near * )
+Module: file.obj(c:\source\a32\file.cpp)
+0001:00013f48  int near FILEIO::open( char near * )
+0001:00013fb8  int near FILEIO::create( char near * )
+0001:00014024  void near FILEIO::close()
+0001:00014068  int near FILEIO::read( void near *, int unsigned )
+0001:000140ec  int near FILEIO::write( void near *, int unsigned )
+0001:00014174  void near * near FILEIO::readalloc( int unsigned )
+0001:000141f0  int near FILEIO::readint()
+0001:00014234  void near FILEIO::writeint( int )
+0001:00014264  int unsigned near FILEIO::size()
+0001:000142a8  int unsigned near FILEIO::getpos()
+0001:000142f4  void near FILEIO::setpos( int unsigned )
+Module: glib.obj(c:\source\a32\glib.cpp)
+0001:00014340* int near GetLetterWidth( char near *, char )
+0001:000143a0  int near DrawLetter( FONT near *, char near *, char, int, int )
+0001:00014434  int near GetStringWidth( FONT near *, char near * )
+0001:000144c0  void near DrawString( FONT near *, char near *, char near *, int, int )
+0001:00014534  void near DrawCenteredString( FONT near *, char near *, char near *, int, int )
+0001:000145b4  void near dprintf( FONT near *, int, int, char near *, ... )
+0001:0001460c  void near FuckWithImage( char near *, char unsigned, char unsigned )
+0001:000146d8  void near FunkyFont( FONT near *, char unsigned, char unsigned )
+Module: input.obj(c:\source\a32\input.cpp)
+0001:000148f8  int near refreshinputkeyboard()
+0001:00014978  void near refreshinputtimer()
+0001:000149c8  void near refreshinputmain()
+0001:00014a08  void near input::bind( object near * )
+0001:00014a58  void near input::unbind()
+0001:00014aa8  void near input::init( char )
+0001:00014ce8  void near input::reset()
+0001:000155d0+ .PREFIX_DATA.W?$Wmp09none$n()v$:input$n()pn()v
+0001:00015590+ .PREFIX_DATA.W?$Wmp0bgravis$n()v$:input$n()pn()v
+0001:00015550+ .PREFIX_DATA.W?$Wmp08key$n()v$:input$n()pn()v
+0001:00015510+ .PREFIX_DATA.W?$Wmp0canalog1$n()v$:input$n()pn()v
+0001:000154d0+ .PREFIX_DATA.W?$Wmp0canalog2$n()v$:input$n()pn()v
+0001:00015490+ .PREFIX_DATA.W?$Wmp09grip$n()v$:input$n()pn()v
+0001:00014d24  int unsigned near input::getstat()
+0001:00014d60  void near input::read()
+0001:00014dc0  void near input::none()
+0001:00014de4  void near input::analog1()
+0001:00014ebc  void near input::analog2()
+0001:00014f94  void near input::gravis()
+0001:00015074  int near keymap::read( int unsigned near * )
+0001:0001510c  void near input::key()
+0001:00015200  void near input::grip()
+0001:000152dc+ int near InstallGrip( char unsigned )
+0001:00015424  void near TerminateGrip()
+0002:00010680+ char unsigned near gravtable[]
+0002:00017790  inputdevicesettings near * near ids
+0002:00017794+ int near joypos[]
+0002:000177a4+ int near joybuttons
+0002:000177a8+ char near analoginstalled
+0002:000177a9+ char near gripinstalled
+0002:000177ac+ int unsigned near kstat[]
+0002:000177b4+ keymap near * near keymapptr[]
+0002:000177bc  void (near input::* near input::idfunc[])()
+Module: keyb.obj(c:\source\a32\keyb.cpp)
+0001:000155ec+ void near KEYBOARDIRQ()
+0001:00015708+ int near checkkbstat()
+0001:000157cc+ void near pushkey( char )
+0001:00015818  char near getkey()
+0001:00015874  int near keyhit()
+0001:000158bc* char near waitkey()
+0001:00015914  void near init_keyboard()
+0001:000159a0  void near terminate_keyboard()
+0001:00015a00  void near set_keyboard_func( int (near *)())
+0002:0001781c+ char volatile near kbint
+0002:0001781d  char volatile near kbscan
+0002:0001781e  char volatile near kbstat
+0002:0001781f+ char near oldkbscan
+0002:00017820+ int near keyboardinstalled
+0002:00017824+ void (far * near oldkeybintvector)()
+0002:0001782c+ int (near * near keyboardhandler)()
+0002:00017830  char volatile near keydown[]
+0002:000178b0+ char volatile near kbscanbuf[]
+0001:00015a30  char near scan2ascii( char )
+0002:00010690  int near keyqueue
+0002:00010694  int near keybios
+0002:00010698  int near keyrepeat
+0002:0001069c+ char near s2a[]
+0002:00010704+ char near s2ashift[]
+0002:000178c0+ int volatile near kbhead
+0002:000178c4+ int volatile near kbtail
+Module: line.obj(c:\source\a32\line.cpp)
+0001:00015a88  void near line( int, int, int, int, int )
+0001:00015f2c+ void near DrawHorizontalRun( char near * near *, int, int, int )
+0001:00015f98+ void near DrawVerticalRun( char near * near *, int, int, int )
+Module: object.obj(c:\source\a32\object.cpp)
+0001:000189a0+ .PREFIX_DATA.W?$Wmp0hmain_stance$n(i)i$:object$n()pn(i)i
+0001:00018960+ .PREFIX_DATA.W?$Wmp0fmain_walk$n(i)i$:object$n()pn(i)i
+0001:00018920+ .PREFIX_DATA.W?$Wmp0fmain_jump$n(i)i$:object$n()pn(i)i
+0001:000188e0+ .PREFIX_DATA.W?$Wmp0fmain_duck$n(i)i$:object$n()pn(i)i
+0001:000188a0+ .PREFIX_DATA.W?$Wmp0jmain_walkfire$n(i)i$:object$n()pn(i)i
+0001:00018860+ .PREFIX_DATA.W?$Wmp0cbullet$n(i)i$:object$n()pn(i)i
+0001:00018820+ .PREFIX_DATA.W?$Wmp0fmain_hang$n(i)i$:object$n()pn(i)i
+0001:000187e0+ .PREFIX_DATA.W?$Wmp0frandomdur$n(i)i$:object$n()pn(i)i
+0001:000187a0+ .PREFIX_DATA.W?$Wmp0gmain_climb$n(i)i$:object$n()pn(i)i
+0001:00018760+ .PREFIX_DATA.W?$Wmp0fenemy_pig$n(i)i$:object$n()pn(i)i
+0001:00018720+ .PREFIX_DATA.W?$Wmp0ienemy_sniper$n(i)i$:object$n()pn(i)i
+0001:000186e0+ .PREFIX_DATA.W?$Wmp0ienemy_boomer$n(i)i$:object$n()pn(i)i
+0001:000186a0+ .PREFIX_DATA.W?$Wmp0fenemy_jet$n(i)i$:object$n()pn(i)i
+0001:0001655c  int near object::none( int )
+0001:000165b8  void near addobject( object near * )
+0001:00016644  void near object::play( int )
+0001:000166b8  void near object::playlooped( int )
+0001:00016728  void near object::activate( int )
+0001:00016884  void near object::stop()
+0001:000169a4  void near object::kill()
+0001:00016a04  int near object::startseries( int )
+0001:00016bc8  int near object::findseries( char near * )
+0001:00016c48  int near object::startseries( char near * )
+0001:00016ca4  int near object::startjumpseries( int )
+0001:00016d3c  void near object::resumejump()
+0001:00016db4  near object::object( objectdef near *, int, int, int, int, int, object near * )
+0001:00016f08  near object::~object()
+0001:00017098  image near * near frame::getimgptr()
+0001:000170dc  char unsigned near * near frame::getextraptr()
+0001:0001712c  int near object::hitground( int )
+0001:000171e4  void near object::falldown()
+0001:00017270  void near object::move( int, int, int )
+0001:00017424  void near object::moveabs( int, int, int )
+0001:00017588+ void near swap( object near *, object near * )
+0001:00017618  void near object::resort()
+0001:000176a4  int near object::advanceframe()
+0001:000177c0  void near object::tick()
+0001:00017984  int near object::loseenergy( int )
+0001:00017a18  void near object::draw()
+0001:00017c34  void near object::sound( int )
+0001:00017cb4  int near object::E_SOUND_do( e_sound near * )
+0001:00017d00  int near object::E_GROUNDSHAKE_do( e_shake near * )
+0001:00017d50  int near object::E_OBJECTSHAKE_do( e_shake near * )
+0001:00017d9c  int near object::E_GOTO_do( e_goto near * )
+0001:00017de0  int near object::E_DIR_do( e_dir near * )
+0001:00018660+ .PREFIX_DATA.W?$Wmp0rE_SOUND_do$n(pn$e_sound$$)i$:object$n()pn(pn$e_sound$$)i
+0001:00018620+ .PREFIX_DATA.W?$Wmp0xE_GROUNDSHAKE_do$n(pn$e_shake$$)i$:object$n()pn(pn$e_shake$$)i
+0001:000185e0+ .PREFIX_DATA.W?$Wmp0xE_OBJECTSHAKE_do$n(pn$e_shake$$)i$:object$n()pn(pn$e_shake$$)i
+0001:000185a0+ .PREFIX_DATA.W?$Wmp0zE_NEWOBJECT_do$n(pn$e_newobject$$)i$:object$n()pn(pn$e_newobject$$)i
+0001:00018560+ .PREFIX_DATA.W?$Wmp0pE_GOTO_do$n(pn$e_goto$$)i$:object$n()pn(pn$e_goto$$)i
+0001:00018520+ .PREFIX_DATA.W?$Wmp0rE_BLOOD_do$n(pn$e_blood$$)i$:object$n()pn(pn$e_blood$$)i
+0001:000184e0+ .PREFIX_DATA.W?$Wmp0tE_REGION_do$n(pn$e_region$$)i$:object$n()pn(pn$e_region$$)i
+0001:000184a0+ .PREFIX_DATA.W?$Wmp0nE_DIR_do$n(pn$e_dir$$)i$:object$n()pn(pn$e_dir$$)i
+0001:00017e38  int near object::E_BLOOD_do( e_blood near * )
+0001:00018058  int near object::E_NEWOBJECT_do( e_newobject near * )
+0001:000181bc  int near object::E_REGION_do( e_region near * )
+0001:00018224  void near object::effect()
+0001:000182ec  void near object::hiteffect( int, int, int )
+0002:0001076c+ int near oshake[]
+0002:0001078c+ int near shakelength[]
+0002:000178f0  int (near object::* near object::cfunclist[])( int )
+0002:00017998  int near regionchecks
+0002:0001799c  int near regionintersects
+0002:000179a0  int near seriesstarts
+0002:000179a4+ int near swapcount
+0002:000179a8  int (near object::* near object::extrado[])( char unsigned near * )
+Module: rfmain.obj(c:\source\a32\rfmain.cpp)
+0001:00018bf4  near region::region( object near *, e_region near * )
+0001:00018ca8  near region::~region()
+0001:00018d68  region near * near region::update( e_region near *, object near * )
+0001:00018ec8  int near region::getabsregion( zrect near & )
+0001:00018fa8+ int near intersectregion( zrect near *, zrect near * )
+0001:0001a470+ .PREFIX_DATA.W?$Wmp0br_none$n()i$:intersection$n()pn()i
+0001:0001a430+ .PREFIX_DATA.W?$Wmp0br_push$n()i$:intersection$n()pn()i
+0001:0001a3f0+ .PREFIX_DATA.W?$Wmp0cr_solid$n()i$:intersection$n()pn()i
+0001:0001a3b0+ .PREFIX_DATA.W?$Wmp0cr_fixed$n()i$:intersection$n()pn()i
+0001:0001a370+ .PREFIX_DATA.W?$Wmp0hr_mainattack$n()i$:intersection$n()pn()i
+0001:0001a330+ .PREFIX_DATA.W?$Wmp0fr_mainvuln$n()i$:intersection$n()pn()i
+0001:0001a2f0+ .PREFIX_DATA.W?$Wmp0ir_enemyattack$n()i$:intersection$n()pn()i
+0001:0001a2b0+ .PREFIX_DATA.W?$Wmp0gr_enemyvuln$n()i$:intersection$n()pn()i
+0001:0001a270+ .PREFIX_DATA.W?$Wmp0gr_allattack$n()i$:intersection$n()pn()i
+0001:0001a230+ .PREFIX_DATA.W?$Wmp0er_allvuln$n()i$:intersection$n()pn()i
+0001:0001a1f0+ .PREFIX_DATA.W?$Wmp0dr_bounce$n()i$:intersection$n()pn()i
+0001:0001906c+ int near edgeregion( zrect near *, zrect near *, lpoint near * )
+0001:0001919c+ int near centerregion( zrect near *, zrect near *, lpoint near * )
+0001:0001935c  void near region::checkattack()
+0001:00019530  void near region::checkimperm()
+0001:000196d0  void near region::moveaboveobjects( int, int, int )
+0001:00019748  int near intersection::r_none()
+0001:00019778  void near region::setplatform( region near *, intersection near * )
+0001:00019828  int near intersection::r_push()
+0001:000199c4  int near intersection::r_solid()
+0001:00019bd4  int near intersection::r_fixed()
+0001:00019c98  int near intersection::r_bounce()
+0001:00019d48  int near intersection::r_mainattack()
+0001:00019dec  int near intersection::r_mainvuln()
+0001:00019ee8  int near intersection::r_enemyattack()
+0001:00019f8c  int near intersection::r_enemyvuln()
+0001:0001a088  int near intersection::r_allattack()
+0001:0001a138  int near intersection::r_allvuln()
+0002:00017a70  region near * near rlist[]
+0002:00017a7c  int (near intersection::* near intersection::rfunclist[])()
+0002:00017b00  lpoint near regionpoint
+0002:00017b08  int near regiontest
+0002:00017b0c  int near rpush
+0002:00017b10  int near rsolid
+Module: ttimer.obj(c:\source\a32\ttimer.cpp)
+0001:0001a48c+ void near TimerSpeed( int )
+0001:0001a4ec+ void near AdjustTimer()
+0001:0001a5c8+ void near TIMERIRQ()
+0001:0001a6e8  void near SetTimerSpeed( int unsigned )
+0001:0001a714* void near SetMusicSpeed( int unsigned )
+0001:0001a740* void near SetMusicFunc( void (near *)())
+0001:0001a768  void near SetTimerFunc( void (near *)())
+0001:0001a794  void near InitializeTimers()
+0002:00017b14  void (near * near timerhandler)()
+0002:00017b18+ void (near * near musichandler)()
+0002:00017b1c  int volatile near timerbusy
+0002:00017b28+ int unsigned near mspeed
+0002:00017b2c+ int unsigned near difcnt
+0002:00017b30+ int unsigned near cnt
+0002:00017b34+ int unsigned near olddifcnt
+0002:00017b38+ int unsigned near oldcnt
+0002:00017b3c+ int unsigned near itu
+0002:00017b40+ int unsigned near imu
+0002:00017b44+ int unsigned near iuu
+0001:0001a818  void near TerminateTimers()
+0001:0001a874  void near _enter( int )
+0001:0001a898  void near _leave()
+0001:0001a8b8* void near _proftimer()
+0002:0001079c  int unsigned near speed
+0002:00017b4c+ int near areastack[]
+0002:00017b8c+ int near areacnt
+0002:00017b90  int near area[]
+0002:00017bd0  int near profticks
+Module: C:\WATCOM\lib386\dos\clib3r.lib(strcpy)
+0001:0001a8cd  strcpy_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(strchr)
+0001:0001a8ec  strchr_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(strcat)
+0001:0001a900  strcat_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(strtol)
+0001:0001aa96  strtoul_
+0001:0001aaa0* strtol_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(getenv)
+0001:0001ab06  getenv_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(strupr)
+0001:0001ab67  strupr_
+0001:0001ab67* _strupr_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(inp)
+0001:0001ab8c  inp_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(outp)
+0001:0001ab94  outp_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(delay386)
+0001:0001ab9e  delay_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(disable)
+0001:0001aba3  _disable_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(enable)
+0001:0001aba5  _enable_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(cprintf)
+0001:0001abb8* vcprintf_
+0001:0001abcd  cprintf_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(atexit)
+0001:0001abf3+ _Full_at_exit_rtn_
+0001:0001ac2a  atexit_
+0002:00017bd4+ __ExitList
+0002:00017c54+ __ExitCount
+Module: C:\WATCOM\lib386\dos\clib3r.lib(d_setvec)
+0001:0001ac66  _dos_setvect_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(nmalloc)
+0001:0001ac93  _nmalloc_
+0001:0001ac93  malloc_
+0002:0001082c  ___nheapbeg
+0002:00010830  ___MiniHeapRover
+0002:00010834  ___LargestSizeB4MiniHeapRover
+Module: C:\WATCOM\lib386\dos\clib3r.lib(set386)
+0001:0001ad80  memset_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(nfree)
+0001:0001ad98  _nfree_
+0001:0001ad98  free_
+0002:00017c58+ ___MiniHeapFreeRover
+Module: C:\WATCOM\lib386\dos\clib3r.lib(cstrt386)
+0001:00000003* ___begtext
+0002:00000000* __nullarea
+0002:00012a2e* __start_TI
+0002:00012a2e* __end_TI
+0002:00010838  __GDAptr
+0002:0001083c  __D16Infoseg
+0002:0001083e  __x386_zero_base_selector
+0001:0001ae1c  _cstart_
+0001:0001b0ab  __exit_
+0001:0001b0ad  __do_exit_with_msg__
+0001:0001b0e8  __GETDS
+Module: C:\WATCOM\lib386\dos\clib3r.lib(d_getvec)
+0001:0001b0f3  _dos_getvect_
+Module: C:\WATCOM\lib386\plib3r.lib(undefmbr)
+0001:0001b128  __wcpp_2_undefined_member_function__
+Module: C:\WATCOM\lib386\dos\clib3r.lib(creat386)
+0001:0001b13a  _dos_creat_
+0001:0001b14e* _dos_creatnew_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(sprintf)
+0001:0001b175  sprintf_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(io386)
+0001:0001b1a6  _dos_read_
+0001:0001b1d0  _dos_write_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(printf)
+0001:0001b1d7  printf_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(file386)
+0001:0001b1fa  _dos_close_
+0001:0001b209* _dos_commit_
+0001:0001b219  _dos_open_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(filelen)
+0001:0001b228  filelength_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(lseek)
+0001:0001b265  lseek_
+0001:0001b265* _lseek_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fopen)
+0001:0001b2a8+ __open_flags_
+0001:0001b43d+ _fsopen_
+0001:0001b476  fopen_
+0001:0001b4e8* freopen_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fgets)
+0001:0001b52a  fgets_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(sscanf)
+0001:0001b5c0+ vsscanf_
+0001:0001b5e7  sscanf_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fclose)
+0001:0001b608  fclose_
+0001:0001b635  __shutdown_stream_
+0001:0001b656+ __MkTmpFile_
+0001:0001b6bb  __doclose_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(cmp386)
+0001:0001b750  strcmp_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(stricmp)
+0001:0001b7f1  stricmp_
+0001:0001b7f1* _stricmp_
+0001:0001b7f1* strcmpi_
+Module: C:\WATCOM\lib386\plib3r.lib(undefed)
+0001:0001b838  __wcpp_2_undefed_cdtor__
+Module: C:\WATCOM\lib386\plib3r.lib(undefdta)
+0000:00000000  ____wcpp_2_data_undefined_member_data_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(exit)
+0001:0001b84a+ __null_int23_exit_
+0001:0001b84b  exit_
+0001:0001b863+ _exit_
+0002:00010840  ___atexit
+0002:00010844+ ___int23_exit
+0002:00010848+ ___FPE_handler_exit
+Module: C:\WATCOM\lib386\dos\clib3r.lib(rand)
+0001:0001b87f  rand_
+0001:0001b8a3* srand_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(memmove)
+0001:0001b8b3  memmove_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(intx386)
+0001:0001b900  int386x_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(abs)
+0001:0001b919  abs_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(scanf)
+0001:0001b986+ vscanf_
+0001:0001b9ad  scanf_
+Module: C:\WATCOM\lib386\plib3r.lib(vfun_err)
+0001:0001b9c8  __wcpp_2_undef_vfun__
+Module: C:\WATCOM\lib386\dos\clib3r.lib(memcpy)
+0001:0001b9ed  memcpy_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(atoi)
+0001:0001ba12  atoi_
+Module: C:\WATCOM\lib386\plib3r.lib(opnew)
+0001:0001ba80  void near * near operator new( int unsigned )
+Module: C:\WATCOM\lib386\dos\clib3r.lib(strlen)
+0001:0001bacb  strlen_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(istable)
+0002:00012834  __IsTable
+Module: C:\WATCOM\lib386\dos\clib3r.lib(toupper)
+0001:0001bae4  toupper_
+0001:0001bae4* _toupper_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(gtcwd)
+0001:0001baf2  getcwd_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(chdir)
+0001:0001bb7a  chdir_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(nrealloc)
+0001:0001bb9b* _nrealloc_
+0001:0001bb9b  realloc_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(vsprintf)
+0001:0001bc4c  vsprintf_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fltused)
+0000:00000000  _fltused_
+Module: C:\WATCOM\lib386\dos\emu387.lib(386inite)
+0001:0001bc67* __fini_387_emulator
+0001:0001bc62  __init_387_emulator
+Module: C:\WATCOM\lib386\dos\clib3r.lib(_8087386)
+0002:00010850  __8087
+0002:00010851  __real87
+Module: C:\WATCOM\lib386\dos\clib3r.lib(argcv386)
+0002:00010854  __argc
+0002:00010858  __argv
+Module: C:\WATCOM\lib386\plib3r.lib(opdel)
+0001:0001bc6c  void near operator delete( void near * )
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fscanf)
+0001:0001bcd1+ vfscanf_
+0001:0001bcf8  fscanf_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(find386)
+0001:0001bd1a  _dos_findfirst_
+0001:0001bd37  _dos_findnext_
+0001:0001bd53* _dos_findclose_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fprintf)
+0001:0001bd9c  fprintf_
+Module: C:\WATCOM\lib386\plib3r.lib(dtorarst)
+0001:0001bdc0  __wcpp_2_dtor_array_store__
+Module: C:\WATCOM\lib386\plib3r.lib(opdelarr)
+0001:0001bde0  void near operator delete []( void near * )
+Module: C:\WATCOM\lib386\dos\clib3r.lib(errno)
+0001:0001bde5  __get_errno_ptr_
+0001:0001bdeb+ __get_doserrno_ptr_
+0002:00017c5c+ _errno
+0002:00017c60+ __doserrno
+Module: C:\WATCOM\lib386\dos\clib3r.lib(seterrno)
+0001:0001bdf1  __set_EDOM_
+0001:0001bdf6  __set_errno_
+0001:0001be02  __set_ERANGE_
+0001:0001be09* __set_EINVAL_
+0001:0001be19  __set_doserrno_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(tolower)
+0001:0001be25  tolower_
+0001:0001be25* _tolower_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(environ)
+0002:0001085c  _environ
+0002:00010860  ___env_mask
+Module: C:\WATCOM\lib386\dos\clib3r.lib(strnicmp)
+0001:0001be34  strnicmp_
+0001:0001be34* _strnicmp_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(delay)
+0001:0001be87  __delay_init_
+0001:0001beb9  __delay_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(putch)
+0001:0001beef  putch_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(prtf)
+0001:0001befe  __prtf_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(crwd386)
+0002:00010874  __psp
+0002:0001089f  __osmajor
+0002:000108a0  __osminor
+0002:00010896  __Extender
+0002:00010897  __ExtenderSubtype
+0002:00010898  __X32VM
+0002:00010878* __x386_stacklow
+0002:0001086c  __LpCmdLine
+0002:00010870  __LpPgmName
+0002:00010864  __dynend
+0002:00010868  __curbrk
+0002:00010878  __STACKLOW
+0002:0001087c  __STACKTOP
+0002:00010880  __ASTACKSIZ
+0002:00010884  __ASTACKPTR
+0002:00010888  __cbyte
+0002:0001088c* __cbyte2
+0002:00010890  __child
+0002:00010899  __Envptr
+0002:0001089d  __Envseg
+0002:00010894  __no87
+0002:000108a1  __FPE_handler
+0002:000108a1  ___FPE_handler
+Module: C:\WATCOM\lib386\dos\clib3r.lib(memalloc)
+0001:0001ca18  __MemAllocator
+0001:0001cac0  __MemFree
+Module: C:\WATCOM\lib386\dos\clib3r.lib(grownear)
+0001:0001cc0a+ __FreeDPMIBlocks_
+0001:0001cc66  __ReAllocDPMIBlock_
+0001:0001cdd9+ __LastFree_
+0001:0001cfaa  __ExpandDGROUP_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(nmemneed)
+0001:0001d173  __nmemneed_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(heapmod)
+0002:00017c68  ___nheap_clean
+0002:00017c69  ___fheap_clean
+Module: C:\WATCOM\lib386\dos\clib3r.lib(__stos)
+0001:0001d180  __STOSB
+0001:0001d1b7* __STOSD
+Module: C:\WATCOM\lib386\dos\clib3r.lib(cmain386)
+0001:0001d223  __CMain
+Module: C:\WATCOM\lib386\dos\clib3r.lib(inirt386)
+0001:0001d272  __InitRtns
+0001:0001d2bd  __FiniRtns
+Module: C:\WATCOM\lib386\dos\clib3r.lib(seg386)
+0000:00001234  __DOSseg__
+Module: C:\WATCOM\lib386\plib3r.lib(fatalerr)
+0001:0001d30c  __wcpp_2_fatal_runtime_error__
+Module: C:\WATCOM\lib386\dos\clib3r.lib(error386)
+0001:0001d32a  __doserror_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(iob)
+0002:000108a8  ___iob
+0002:00010ab0* ___tmpfnext
+0002:00010ab1  __fmode
+0002:00017c6c  ___ClosedStreams
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fprtf)
+0001:0001d34e  __fprtf_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(dosret)
+0001:0001d3cd* _dosret0_
+0001:0001d3d4* _dosretax_
+0001:0001d3d8  __set_errno_dos_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(open)
+0001:0001d449* open_
+0001:0001d46d  sopen_
+0001:0001d656* __set_binary_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(allocfp)
+0001:0001d6bb  __allocfp_
+0001:0001d761  __freefp_
+0001:0001d79a  __purgefp_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fseek)
+0001:0001d7fa  fseek_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(chktty)
+0001:0001d8f6  __chktty_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(stinit)
+0002:00017c70  ___OpenStreams
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fgetc)
+0001:0001d928  fgetc_
+0001:0001d9b1+ __filbuf_
+0001:0001d9e0+ __fill_buffer_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(scnf)
+0001:0001da9b  __scnf_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(gtpid)
+0001:0001e6bd  getpid_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(flush)
+0001:0001e6c3  __flush_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(ftell)
+0001:0001e79c  ftell_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(_clse)
+0001:0001e7cc  __close_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(remove)
+0001:0001e801  remove_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(intxa386)
+0001:0001e806  __int386x_
+0001:0001e863* _DoINTR_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(ungetc)
+0001:0001ebe4  ungetc_
+Module: C:\WATCOM\lib386\plib3r.lib(prwdata)
+0002:00010ad0* __wint_pure_error_flag
+0002:00010ad2  __wint_undef_vfun_flag
+0002:00010ad4* __wint_module_init
+Module: C:\WATCOM\lib386\plib3r.lib(cppdata)
+0002:00017c74  __wint_thread_data
+0002:00017c94* ___wcpp_2_data_catch_completed_
+0002:00017c98  ___wcpp_2_data_dtreg_vfptrs_
+0002:00017cac* __compiled_under_generic
+Module: C:\WATCOM\lib386\dos\clib3r.lib(strncpy)
+0001:0001ec68  strncpy_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(nmsize)
+0001:0001ec8d  _nmsize_
+0001:0001ec8d* _msize_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(nexpand)
+0001:0001ec96  _nexpand_
+0001:0001ec96* _expand_
+0001:0001ecce+ __HeapManager_expand_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(setefg)
+0001:0001eec6  __setEFGfmt_
+Module: C:\WATCOM\lib386\math387r.lib(dosinite)
+0001:0001eee2  __sys_init_387_emulator
+0001:0001f067  __sys_fini_387_emulator
+Module: C:\WATCOM\lib386\dos\clib3r.lib(chk8087)
+0001:0001f146+ __init_8087_
+0001:0001f177* _fpreset_
+0001:0001f181  __chk8087_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(initargv)
+0001:0001f1c7  __Init_Argv_
+Module: C:\WATCOM\lib386\plib3r.lib(stabadt)
+0001:0001f37c  __wcpp_2_dtor_array__
+Module: C:\WATCOM\lib386\dos\clib3r.lib(setenvp)
+0001:0001f3a9  __setenvp_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(itoa)
+0001:0001f4a2+ utoa_
+0001:0001f4ec  itoa_
+0001:0001f4ec* _itoa_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(noefgfmt)
+0002:00010b24  ___EFG_printf
+0002:00010b28  ___EFG_scanf
+Module: C:\WATCOM\lib386\dos\clib3r.lib(ltoa)
+0001:0001f53e  ultoa_
+0001:0001f588  ltoa_
+0001:0001f588* _ltoa_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(minreal)
+0002:00017cb0  ___minreal
+Module: C:\WATCOM\lib386\dos\clib3r.lib(heapen)
+0001:0001f5a3* _heapenable_
+0002:00010b2c  ___heap_enabled
+Module: C:\WATCOM\lib386\dos\clib3r.lib(sbrk386)
+0001:0001f5b3* sbrk_
+0001:0001f67b  __brk_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(amblksiz)
+0002:00010b30  __amblksiz
+Module: C:\WATCOM\lib386\dos\clib3r.lib(stack386)
+0001:0001f746  stackavail_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(cinit)
+0001:0001f74f  __CommonInit_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(___argc)
+0002:00017cb4  ____Argc
+0002:00017cb8  ____Argv
+Module: C:\WATCOM\lib386\dos\clib3r.lib(enterdb)
+0001:0001f75a  __EnterWVIDEO_
+0002:00010b34+ ___WD_Present
+Module: C:\WATCOM\lib386\dos\clib3r.lib(xmsg)
+0001:0001f780  __exit_with_msg_
+0001:0001f785  __fatal_runtime_error_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fputc)
+0001:0001f7a2  fputc_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(ioalloc)
+0001:0001f846  __ioalloc_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(isatt)
+0001:0001f8bd  isatty_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(umaskval)
+0002:00010b38  ___umaskval
+Module: C:\WATCOM\lib386\dos\clib3r.lib(iomode)
+0001:0001f8e4  __IOMode_
+0001:0001f939  __SetIOMode_
+0002:00010b3c+ ___NFiles
+0002:00010b40+ ___init_mode
+0002:00010b90+ __iomode
+Module: C:\WATCOM\lib386\dos\clib3r.lib(tell)
+0001:0001f94e  tell_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(initfile)
+0001:0001f95f  __InitFiles_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(ioexit)
+0001:0001f9d6  __full_io_exit_
+0001:0001f9e2* fcloseall_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(flushall)
+0001:0001fa3f* flushall_
+0001:0001fa44  __flushall_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(gtche)
+0001:0001fa73  getche_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(qread)
+0001:0001fa90  __qread_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fdfs386)
+0001:0001fab0  __FDFS
+Module: C:\WATCOM\lib386\dos\clib3r.lib(qwrit)
+0001:0001fafc  __qwrite_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(unlnk)
+0001:0001fb70  unlink_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(efgfmt)
+0001:0001fb91  _EFG_Format_
+Module: C:\WATCOM\lib386\math387r.lib(cnvs2d)
+0001:0001fcf9  __cnvs2d_
+Module: C:\WATCOM\lib386\dos\emu387.lib(emu387)
+0001:000200a4* __int7_X32VM
+0001:000200f0  __int7
+0001:00020080  __int7_pl3
+Module: C:\WATCOM\lib386\dos\clib3r.lib(hook387)
+0001:00022f2e  __hook387
+0001:00023002  __unhook387
+Module: C:\WATCOM\lib386\dos\clib3r.lib(8087cw)
+0002:00010c14  __8087cw
+Module: C:\WATCOM\lib386\dos\clib3r.lib(save8087)
+0002:00010c18  ___Save8087
+0002:00010c1c  ___Rest8087
+Module: C:\WATCOM\lib386\dos\clib3r.lib(ini87386)
+0001:0002305c  __init_80x87
+Module: C:\WATCOM\lib386\plib3r.lib(stabarr)
+0001:000230b1  __wcpp_2_arr_register__
+0002:00012a10* rt_init __based("XI") __wcpp_2_data_stab_init_arr_
+Module: C:\WATCOM\lib386\plib3r.lib(stabdtor)
+0001:000232a8  __wcpp_2_destruct_internal__
+0001:000232b2* __wcpp_2_destruct_all__
+0001:000232b4* __wcpp_2_destruct__
+0001:000232c6* __wcpp_2_destruct_after_all__
+0001:000232c8* __wcpp_2_destruct_after__
+Module: C:\WATCOM\lib386\math387r.lib(leadzero)
+0001:000232d7  __HasLeadingZero_
+Module: C:\WATCOM\lib386\math387r.lib(ftos)
+0001:00023310* _SetMaxPrec_
+0001:0002348d  _FtoS_
+Module: C:\WATCOM\lib386\math387r.lib(strtod)
+0001:000236d8  strtod_
+Module: C:\WATCOM\lib386\plib3r.lib(tssize)
+0001:000238f0  __wcpp_2_ts_size__
+Module: C:\WATCOM\lib386\plib3r.lib(stabreg)
+0001:00023934  __wcpp_2_base_register__
+0001:0002394d* __wcpp_2_base_deregister__
+Module: C:\WATCOM\lib386\plib3r.lib(stabtrav)
+0001:0002395c  __wcpp_2_stab_entry__
+0001:0002398a  __wcpp_2_stab_trav_init__
+0001:000239ab  __wcpp_2_stab_trav_comp__
+0001:000239b0  __wcpp_2_stab_trav_next__
+0001:00023a35  __wcpp_2_stab_trav_move__
+Module: C:\WATCOM\lib386\plib3r.lib(stabthrw)
+0001:00023adf  __wcpp_2_corrupted_stack__
+0001:00023e1b* __wcpp_2_catch_done__
+0001:00024075+ __wcpp_2_dispatchable__
+0001:000240ce+ __wcpp_2_save_exc__
+0001:0002414c+ __wcpp_2_dispatch__
+0001:00024244* __wcpp_2_rethrow__
+0001:00024254* __wcpp_2_throw__
+0001:0002425e* __wcpp_2_throw_zero__
+0002:00012a16+ ___wcpp_2_data_init_longjmp_
+Module: C:\WATCOM\lib386\math387r.lib(nan_inf)
+0001:0002435c  __Nan_Inf_
+Module: C:\WATCOM\lib386\math387r.lib(log387)
+0001:00024439* log_
+0001:00024451* log2_
+0001:00024445* log10_
+0001:000243ee* IF@LOG
+0001:000243ee* IF@DLOG
+0001:00024431* IF@LOG2
+0001:00024431* IF@DLOG2
+0001:00024435* IF@LOG10
+0001:00024435  IF@DLOG10
+Module: C:\WATCOM\lib386\math387r.lib(floor)
+0001:0002445d  floor_
+Module: C:\WATCOM\lib386\math387r.lib(fchop)
+0001:0002449a  __CHP
+Module: C:\WATCOM\lib386\math387r.lib(scale)
+0001:000244b7+ _Scale_
+0001:000244f8  _Scale10V_
+Module: C:\WATCOM\lib386\math387r.lib(cvt)
+0001:00024615  __cvt_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(amodf386)
+0001:000247f2* __ModF
+0001:00024882  __ZBuf2F
+Module: C:\WATCOM\lib386\dos\clib3r.lib(hugeval)
+0002:00012960  __HugeValue
+Module: C:\WATCOM\lib386\plib3r.lib(bittest)
+0001:00024920  __wcpp_2_bit_test__
+Module: C:\WATCOM\lib386\plib3r.lib(callterm)
+0001:00024940  __wcpp_2_call_terminate__
+Module: C:\WATCOM\lib386\plib3r.lib(tsequiv)
+0001:00024951  __wcpp_2_ts_equiv__
+Module: C:\WATCOM\lib386\plib3r.lib(callunex)
+0001:00024990  __wcpp_2_call_unexpected__
+Module: C:\WATCOM\lib386\dos\clib3r.lib(stjmp386)
+0001:00024996* _setjmp_
+0001:000249cb  longjmp_
+Module: C:\WATCOM\lib386\plib3r.lib(allocexc)
+0001:00024a4c  __wcpp_2_alloc_exc__
+0001:00024b87  __wcpp_2_free_exc__
+0001:00024bb4  __wcpp_2_pop_exc__
+0001:00024bc3  __wcpp_2_push_exc__
+Module: C:\WATCOM\lib386\dos\clib3r.lib(ljmphdl)
+0002:00010c38  ___longjmp_handler
+Module: C:\WATCOM\lib386\math387r.lib(log87e)
+0001:00024bd1  __log87_err_
+Module: C:\WATCOM\lib386\math387r.lib(modf387)
+0001:00024c0e  modf_
+Module: C:\WATCOM\lib386\math387r.lib(i64ts386)
+0001:00024c28  __CmpBigInt
+0001:00024c62  __Rnd2Int
+0001:00024ccd  __Bin2String
+Module: C:\WATCOM\lib386\math387r.lib(fpow10)
+0002:00012968  __BigPow10Table
+Module: C:\WATCOM\lib386\dos\clib3r.lib(chipvar)
+0002:00010c3c  ___chipbug
+0002:00010c3c  __chipbug
+Module: C:\WATCOM\lib386\dos\clib3r.lib(chipd32)
+0001:00024f07* __fdiv_fpr
+0001:000253c9* __fdiv_chk
+0001:000253dc* __fdiv_m32
+0001:00025428  __fdiv_m64
+0001:00025474* __fdiv_m32r
+0001:000254c0* __fdiv_m64r
+Module: C:\WATCOM\lib386\math387r.lib(frexp)
+0001:0002550c  frexp_
+Module: C:\WATCOM\lib386\plib3r.lib(termnate)
+0001:0002557c  void near terminate()
+Module: C:\WATCOM\lib386\plib3r.lib(unexpect)
+0001:000255c8  void near unexpected()
+Module: C:\WATCOM\lib386\plib3r.lib(areaexc)
+0002:00010c40  ___EXC_AREA
+Module: C:\WATCOM\lib386\math387r.lib(math2err)
+0001:000255fc  __math1err_
+0001:00025606+ __math2err_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(chipbug)
+0001:000256e1  verify_pentium_fdiv_bug_
+Module: C:\WATCOM\lib386\math387r.lib(_matherr)
+0001:00025736* _set_matherr_
+0001:0002573c+ __rterrmsg_
+0001:00025784  _matherr_
+0002:0001109c+ __RWD_matherr
+Module: C:\WATCOM\lib386\math387r.lib(__mtherr)
+0001:000257b4  __matherr
+Module: C:\WATCOM\lib386\dos\clib3r.lib(iobaddr)
+0001:000257b9  __get_std_stream_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fputs)
+0001:000257d8  fputs_
+Module: C:\WATCOM\lib386\math387r.lib(matherr)
+0001:00025853+ matherr_
+
+
+                        +----------------------+
+                        |   Imported Symbols   |
+                        +----------------------+
+
+Symbol                              Module
+======                              ======
+
+
+
+                        +--------------------+
+                        |   Libraries Used   |
+                        +--------------------+
+
+C:\WATCOM\lib386\math387r.lib
+C:\WATCOM\lib386\dos\emu387.lib
+C:\WATCOM\lib386\dos\clib3r.lib
+C:\WATCOM\lib386\plib3r.lib
+
+
+                        +-----------------------+
+                        |   Linker Statistics   |
+                        +-----------------------+
+
+Stack size:  1000 (4096.)
+Memory size:  0003e596 (255382.)
+Entry point address: 0001:0001ae1c
+Link time: 00:00.86

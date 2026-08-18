@@ -1,0 +1,9 @@
+SCC = This is a Source Code Control file
+
+[a32.DSW]
+SCC_Aux_Path = "C:\vss"
+SCC_Project_Name = "$/a32", HPAAAAAA
+
+[grunt.DSW]
+SCC_Aux_Path = "C:\vss"
+SCC_Project_Name = "$/a32", HPAAAAAA

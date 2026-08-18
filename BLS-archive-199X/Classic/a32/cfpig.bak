@@ -1,0 +1,71 @@
+//Copyright(c) 1996 Bloodlust Software All rights reserved
+//Enemy Control functions
+#include <stdlib.h>
+#include <string.h>
+
+#include "object.h"
+
+//get series
+#include "\a32\pig.sdf"
+
+int object::enemy_pig(int instat)
+{
+ move(fptr->dx,fptr->dy,fptr->dz);
+
+ //we are bound to an input device....
+ if (in)
+ {
+  if (instat&ID_LEFT) flip() ;
+  if (instat&ID_BUT1) return pose1;
+  if (instat&ID_BUT0)
+   {
+    if (csnum==duck) return duck_F;
+    if (instat&ID_UP)
+     if (instat&ID_RIGHT) return stance_FUR;
+         else return stance_FU;
+    if (instat&ID_DOWN) return stance_FD;
+    return stance_FR;
+   }
+  if (instat&ID_DOWN)
+   if (csnum==duck || csnum==duck_F) return -1;
+      else return stancetoduck;
+  else if (csnum==duck) return ducktostance;
+  if (instat&ID_RIGHT) return walk_R;
+  if (csnum==walk_R) return stance;
+  return -1;
+ }
+
+ //AI SHIT
+ findnewtarget();
+
+ switch (strategy)
+ {
+  case 1: //attack target!
+  {
+   if (!target) {strategy=0; return stance;}
+   if ((getdistx()<0)==(!d)) flip();
+   return stance_FR;
+  }
+
+  default: // walk around aimlessly
+   if (target) {strategy=1; return -1;}
+   if (!floor) return -1;
+
+   if (d) {if ((x>>16)<floor->x1+15) flip();} //walking left
+     else {if ((x>>16)>floor->x2-15) flip();} //walking right
+   return walk_R;
+ }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+

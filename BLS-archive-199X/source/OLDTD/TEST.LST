@@ -1,0 +1,315 @@
+
+Module: c:\test\ttimer.cpp
+Group: 'DGROUP' CONST,CONST2,_DATA,_BSS
+
+Segment: _TEXT  PARA USE32  000001ce bytes  
+ 0000                    void near AdjustTimer():
+ 0000  53                                push    ebx
+ 0001  51                                push    ecx
+ 0002  52                                push    edx
+ 0003  56                                push    esi
+ 0004  57                                push    edi
+ 0005  55                                push    ebp
+ 0006  89 e5                             mov     ebp,esp
+ 0008  81 ec 00 00 00 00                 sub     esp,00000000H
+ 000e  a1 00 00 00 00                    mov     eax,int unsigned near mspeed
+ 0013  3b 05 00 00 00 00                 cmp     eax,int unsigned near speed
+ 0019  72 39                             jb      L1
+ 001b  a1 00 00 00 00                    mov     eax,int unsigned near speed
+ 0020  c1 e0 10                          shl     eax,10H
+ 0023  8b 1d 00 00 00 00                 mov     ebx,int unsigned near mspeed
+ 0029  31 d2                             xor     edx,edx
+ 002b  f7 f3                             div     ebx
+ 002d  a3 00 00 00 00                    mov     int unsigned near difcnt,eax
+ 0032  c7 05 00 00 00 00 
+       00 00 00 00                       mov     dword ptr int unsigned near cnt,00000000H
+ 003c  31 d2                             xor     edx,edx
+ 003e  b8 dc 34 12 00                    mov     eax,001234dcH
+ 0043  f7 35 00 00 00 00                 div     dword ptr int unsigned near mspeed
+ 0049  50                                push    eax
+ 004a  e8 00 00 00 00                    call    _TimerSpeed
+ 004f  83 c4 04                          add     esp,00000004H
+ 0052  eb 37                             jmp     L2
+ 0054  a1 00 00 00 00    L1              mov     eax,int unsigned near mspeed
+ 0059  c1 e0 10                          shl     eax,10H
+ 005c  8b 1d 00 00 00 00                 mov     ebx,int unsigned near speed
+ 0062  31 d2                             xor     edx,edx
+ 0064  f7 f3                             div     ebx
+ 0066  a3 00 00 00 00                    mov     int unsigned near difcnt,eax
+ 006b  c7 05 00 00 00 00 
+       00 00 00 00                       mov     dword ptr int unsigned near cnt,00000000H
+ 0075  31 d2                             xor     edx,edx
+ 0077  b8 dc 34 12 00                    mov     eax,001234dcH
+ 007c  f7 35 00 00 00 00                 div     dword ptr int unsigned near speed
+ 0082  50                                push    eax
+ 0083  e8 00 00 00 00                    call    _TimerSpeed
+ 0088  83 c4 04                          add     esp,00000004H
+ 008b  5d                L2              pop     ebp
+ 008c  5f                                pop     edi
+ 008d  5e                                pop     esi
+ 008e  5a                                pop     edx
+ 008f  59                                pop     ecx
+ 0090  5b                                pop     ebx
+ 0091  c3                                ret     
+ 0092  8b c0                             mov     eax,eax
+ 0094                    void near TFunc():
+ 0094  53                                push    ebx
+ 0095  51                                push    ecx
+ 0096  52                                push    edx
+ 0097  56                                push    esi
+ 0098  57                                push    edi
+ 0099  55                                push    ebp
+ 009a  89 e5                             mov     ebp,esp
+ 009c  81 ec 00 00 00 00                 sub     esp,00000000H
+ 00a2  a1 00 00 00 00                    mov     eax,int unsigned near mspeed
+ 00a7  3b 05 00 00 00 00                 cmp     eax,int unsigned near speed
+ 00ad  72 3f                             jb      L5
+ 00af  83 3d 00 00 00 00 
+       00                                cmp     dword ptr void (near * near musichandler)(),00000000H
+ 00b6  74 06                             je      L3
+ 00b8  ff 15 00 00 00 00                 call    dword ptr void (near * near musichandler)()
+ 00be  a1 00 00 00 00    L3              mov     eax,int unsigned near difcnt
+ 00c3  01 05 00 00 00 00                 add     int unsigned near cnt,eax
+ 00c9  66 f7 05 02 00 00 
+       00 ff ff                          test    word ptr int unsigned near cnt+2H,0ffffH
+ 00d2  74 18                             je      L4
+ 00d4  66 c7 05 02 00 00 
+       00 00 00                          mov     word ptr int unsigned near cnt+2H,0000H
+ 00dd  83 3d 00 00 00 00 
+       00                                cmp     dword ptr void (near * near timerhandler)(),00000000H
+ 00e4  74 06                             je      L4
+ 00e6  ff 15 00 00 00 00                 call    dword ptr void (near * near timerhandler)()
+ 00ec  eb 3d             L4              jmp     L7
+ 00ee  83 3d 00 00 00 00 
+       00                L5              cmp     dword ptr void (near * near timerhandler)(),00000000H
+ 00f5  74 06                             je      L6
+ 00f7  ff 15 00 00 00 00                 call    dword ptr void (near * near timerhandler)()
+ 00fd  a1 00 00 00 00    L6              mov     eax,int unsigned near difcnt
+ 0102  01 05 00 00 00 00                 add     int unsigned near cnt,eax
+ 0108  66 f7 05 02 00 00 
+       00 ff ff                          test    word ptr int unsigned near cnt+2H,0ffffH
+ 0111  74 18                             je      L7
+ 0113  66 c7 05 02 00 00 
+       00 00 00                          mov     word ptr int unsigned near cnt+2H,0000H
+ 011c  83 3d 00 00 00 00 
+       00                                cmp     dword ptr void (near * near musichandler)(),00000000H
+ 0123  74 06                             je      L7
+ 0125  ff 15 00 00 00 00                 call    dword ptr void (near * near musichandler)()
+ 012b  5d                L7              pop     ebp
+ 012c  5f                                pop     edi
+ 012d  5e                                pop     esi
+ 012e  5a                                pop     edx
+ 012f  59                                pop     ecx
+ 0130  5b                                pop     ebx
+ 0131  c3                                ret     
+ 0132  8b c0                             mov     eax,eax
+ 0134                    void near SetTimerSpeed( int unsigned ):
+ 0134  53                                push    ebx
+ 0135  51                                push    ecx
+ 0136  52                                push    edx
+ 0137  56                                push    esi
+ 0138  57                                push    edi
+ 0139  55                                push    ebp
+ 013a  89 e5                             mov     ebp,esp
+ 013c  81 ec 04 00 00 00                 sub     esp,00000004H
+ 0142  89 45 fc                          mov     -4H[ebp],eax
+ 0145  8b 45 fc                          mov     eax,-4H[ebp]
+ 0148  a3 00 00 00 00                    mov     int unsigned near speed,eax
+ 014d  e8 00 00 00 00                    call    void near AdjustTimer()
+ 0152  89 ec                             mov     esp,ebp
+ 0154  5d                                pop     ebp
+ 0155  5f                                pop     edi
+ 0156  5e                                pop     esi
+ 0157  5a                                pop     edx
+ 0158  59                                pop     ecx
+ 0159  5b                                pop     ebx
+ 015a  c3                                ret     
+ 015b  90                                nop     
+ 015c                    void near SetMusicSpeed( int unsigned ):
+ 015c  53                                push    ebx
+ 015d  51                                push    ecx
+ 015e  52                                push    edx
+ 015f  56                                push    esi
+ 0160  57                                push    edi
+ 0161  55                                push    ebp
+ 0162  89 e5                             mov     ebp,esp
+ 0164  81 ec 04 00 00 00                 sub     esp,00000004H
+ 016a  89 45 fc                          mov     -4H[ebp],eax
+ 016d  8b 45 fc                          mov     eax,-4H[ebp]
+ 0170  a3 00 00 00 00                    mov     int unsigned near mspeed,eax
+ 0175  e8 00 00 00 00                    call    void near AdjustTimer()
+ 017a  89 ec                             mov     esp,ebp
+ 017c  5d                                pop     ebp
+ 017d  5f                                pop     edi
+ 017e  5e                                pop     esi
+ 017f  5a                                pop     edx
+ 0180  59                                pop     ecx
+ 0181  5b                                pop     ebx
+ 0182  c3                                ret     
+ 0183  90                                nop     
+ 0184                    void near InitializeTimers():
+ 0184  53                                push    ebx
+ 0185  51                                push    ecx
+ 0186  52                                push    edx
+ 0187  56                                push    esi
+ 0188  57                                push    edi
+ 0189  55                                push    ebp
+ 018a  89 e5                             mov     ebp,esp
+ 018c  81 ec 00 00 00 00                 sub     esp,00000000H
+ 0192  e8 00 00 00 00                    call    _InitTimer
+ 0197  b8 00 00 00 00                    mov     eax,offset void near TFunc()
+ 019c  50                                push    eax
+ 019d  e8 00 00 00 00                    call    _SetTimerFunc
+ 01a2  83 c4 04                          add     esp,00000004H
+ 01a5  e8 00 00 00 00                    call    void near AdjustTimer()
+ 01aa  5d                                pop     ebp
+ 01ab  5f                                pop     edi
+ 01ac  5e                                pop     esi
+ 01ad  5a                                pop     edx
+ 01ae  59                                pop     ecx
+ 01af  5b                                pop     ebx
+ 01b0  c3                                ret     
+ 01b1  8d 40 00                          lea     eax,+0H[eax]
+ 01b4                    void near TerminateTimers():
+ 01b4  53                                push    ebx
+ 01b5  51                                push    ecx
+ 01b6  52                                push    edx
+ 01b7  56                                push    esi
+ 01b8  57                                push    edi
+ 01b9  55                                push    ebp
+ 01ba  89 e5                             mov     ebp,esp
+ 01bc  81 ec 00 00 00 00                 sub     esp,00000000H
+ 01c2  e8 00 00 00 00                    call    _TerminateTimer
+ 01c7  5d                                pop     ebp
+ 01c8  5f                                pop     edi
+ 01c9  5e                                pop     esi
+ 01ca  5a                                pop     edx
+ 01cb  59                                pop     ecx
+ 01cc  5b                                pop     ebx
+ 01cd  c3                                ret     
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: _DATA  DWORD USE32  00000004 bytes  
+ 0000                          int unsigned near speed LABEL BYTE
+ 0000  64 00 00 00                             - d...
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: _BSS  DWORD USE32  00000014 bytes  
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: $$SYMBOLS  BYTE USE16  000001a1 bytes  
+ 0000  15 12                                   - ..
+ 0002  00 00 00 00 00 00                       DP      void (near * near timerhandler)()
+ 0008  1e 74 69 6d 65 72 68 61                 - .timerha
+ 0010  6e 64 6c 65 72 15 12                    - ndler..
+ 0017  00 00 00 00 00 00                       DP      void (near * near musichandler)()
+ 001d  1e 6d 75 73 69 63 68 61                 - .musicha
+ 0025  6e 64 6c 65 72 0e 12                    - ndler..
+ 002c  00 00 00 00 00 00                       DP      int unsigned near speed
+ 0032  0d 73 70 65 65 64 0f 12                 - .speed..
+ 003a  00 00 00 00 00 00                       DP      int unsigned near mspeed
+ 0040  0d 6d 73 70 65 65 64 0f                 - .mspeed.
+ 0048  12                                      - .
+ 0049  00 00 00 00 00 00                       DP      int unsigned near difcnt
+ 004f  0d 64 69 66 63 6e 74 0c                 - .difcnt.
+ 0057  12                                      - .
+ 0058  00 00 00 00 00 00                       DP      int unsigned near cnt
+ 005e  0d 63 6e 74 08 32                       - .cnt.2
+ 0064  00 00 00 00 00 00                       DP      void near AdjustTimer()
+ 006a  20 24 00 00 00 00 92 00                 -  $......
+ 0072  00 00 00 00 0e 07 18 00                 - ........
+ 007a  00 00 1d 00 00 41 64 6a                 - .....Adj
+ 0082  75 73 74 54 69 6d 65 72                 - ustTimer
+ 008a  0c 23 d4 00 00 00 18 00                 - .#......
+ 0092  00 00 96 00 0c 23 d4 00                 - .....#..
+ 009a  00 00 18 00 00 00 a2 00                 - ........
+ 00a2  0c 23 af 00 00 00 3d 00                 - .#....=.
+ 00aa  00 00 ae 00 0c 23 af 00                 - .....#..
+ 00b2  00 00 3d 00 00 00 ea 00                 - ..=.....
+ 00ba  0c 23 13 01 00 00 18 00                 - .#......
+ 00c2  00 00 c6 00 0c 23 13 01                 - .....#..
+ 00ca  00 00 18 00 00 00 d2 00                 - ........
+ 00d2  0c 23 ee 00 00 00 3d 00                 - .#....=.
+ 00da  00 00 de 00 0c 23 ee 00                 - .....#..
+ 00e2  00 00 3d 00 00 00 ea 00                 - ..=.....
+ 00ea  1a 24 94 00 00 00 9e 00                 - .$......
+ 00f2  00 00 00 00 0e 07 18 00                 - ........
+ 00fa  00 00 1d 00 00 54 46 75                 - .....TFu
+ 0102  6e 63 24 24 34 01 00 00                 - nc$$4...
+ 010a  27 00 00 00 00 00 0e 09                 - '.......
+ 0112  18 00 00 00 1f 00 01 30                 - .......0
+ 011a  1c 53 65 74 54 69 6d 65                 - .SetTime
+ 0122  72 53 70 65 65 64 06 11                 - rSpeed..
+ 012a  10 fc 0d 78 24 24 5c 01                 - ...x$$\.
+ 0132  00 00 27 00 00 00 00 00                 - ..'.....
+ 013a  0e 09 18 00 00 00 1f 00                 - ........
+ 0142  01 30 1c 53 65 74 4d 75                 - .0.SetMu
+ 014a  73 69 63 53 70 65 65 64                 - sicSpeed
+ 0152  06 11 10 fc 0d 78 25 24                 - .....x%$
+ 015a  84 01 00 00 2d 00 00 00                 - ....-...
+ 0162  00 00 0e 07 18 00 00 00                 - ........
+ 016a  1d 00 00 49 6e 69 74 69                 - ...Initi
+ 0172  61 6c 69 7a 65 54 69 6d                 - alizeTim
+ 017a  65 72 73 24 24 b4 01 00                 - ers$$...
+ 0182  00 1a 00 00 00 00 00 0e                 - ........
+ 018a  07 18 00 00 00 1d 00 00                 - ........
+ 0192  54 65 72 6d 69 6e 61 74                 - Terminat
+ 019a  65 54 69 6d 65 72 73                    - eTimers
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: $$TYPES  BYTE USE16  000000e2 bytes  
+ 0000  06 13 e2 00 00 00 06 11                 - ........
+ 0008  65 6e 75 6d 07 11 75 6e                 - enum..un
+ 0010  69 6f 6e 08 11 73 74 72                 - ion..str
+ 0018  75 63 74 07 11 63 6c 61                 - uct..cla
+ 0020  73 73 0c 10 11 5f 5f 73                 - ss...__s
+ 0028  65 67 6d 65 6e 74 07 10                 - egment..
+ 0030  10 63 68 61 72 03 10 00                 - .char...
+ 0038  03 10 10 03 10 11 03 10                 - ........
+ 0040  01 03 10 11 06 10 03 69                 - .......i
+ 0048  6e 74 0f 10 13 75 6e 73                 - nt...uns
+ 0050  69 67 6e 65 64 20 69 6e                 - igned in
+ 0058  74 03 10 03 03 10 13 03                 - t.......
+ 0060  10 23 03 10 27 03 10 30                 - .#..'..0
+ 0068  03 46 12 04 72 13 00 03                 - .F..r...
+ 0070  46 14 08 60 03 00 0c 00                 - F..`....
+ 0078  00 00 0f 67 01 84 22 08                 - ...g..".
+ 0080  69 0d 5f 5f 69 6e 64 65                 - i.__inde
+ 0088  78 0f 67 01 84 22 04 69                 - x.g..".i
+ 0090  0d 5f 5f 64 65 6c 74 61                 - .__delta
+ 0098  09 67 01 6b 15 5f 5f 66                 - .g.k.__f
+ 00a0  6e 0a 12 00 0e 66 70 6f                 - n....fpo
+ 00a8  73 5f 74 03 46 06 04 20                 - s_t.F.. 
+ 00b0  00 18 0d 12 00 19 5f 5f                 - ......__
+ 00b8  76 61 5f 6c 69 73 74 0a                 - va_list.
+ 00c0  12 00 0d 73 69 7a 65 5f                 - ...size_
+ 00c8  74 0b 12 00 09 77 63 68                 - t....wch
+ 00d0  61 72 5f 74 04 72 12 00                 - ar_t.r..
+ 00d8  03 46 1d 05 72 12 01 0d                 - .F..r...
+ 00e0  02 14                                   - ..
+
+No disassembly errors
+
+------------------------------------------------------------
+
+Segment: $$TYPES  BYTE USE16  00000019 bytes  
+ 0000  00 00 01 00 00 00 63 3a                 - ......c:
+ 0008  5c 74 65 73 74 5c 74 74                 - \test\tt
+ 0010  69 6d 65 72 2e 63 70 70                 - imer.cpp
+ 0018  00                                      - .
+
+No disassembly errors
+
+------------------------------------------------------------

@@ -1,0 +1,22 @@
+!define BLANK ""
+c:\source\tkv\filew.obj : c:\source\tkv\filew.cpp .AUTODEPEND
+ @c:
+ cd c:\source\tkv
+ *wpp386 filew.cpp -i=C:\WATCOM\h -w0 -e25 -dWIN95 -zq -otexan -5r -bt=dos -&
+mf
+
+c:\source\tkv\view.obj : c:\source\tkv\view.cpp .AUTODEPEND
+ @c:
+ cd c:\source\tkv
+ *wpp386 view.cpp -i=C:\WATCOM\h -w0 -e25 -dWIN95 -zq -otexan -5r -bt=dos -m&
+f
+
+c:\source\tkv\view.exe : c:\source\tkv\filew.obj c:\source\tkv\view.obj .AUT&
+ODEPEND
+ @c:
+ cd c:\source\tkv
+ @%write view.lk1 NAME view
+ @%append view.lk1 FIL filew.obj,view.obj
+ @%append view.lk1 
+ *wlink d all SYS dos4g op m op maxe=25 op q op symf @view.lk1
+

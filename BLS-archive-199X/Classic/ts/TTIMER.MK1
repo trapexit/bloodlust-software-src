@@ -1,0 +1,30 @@
+!define BLANK ""
+c:\test\smixasm.obj : c:\test\smixasm.asm .AUTODEPEND
+ @c:
+ cd c:\test
+ *wasm smixasm.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\test\tdpmi.obj : c:\test\tdpmi.asm .AUTODEPEND
+ @c:
+ cd c:\test
+ *wasm tdpmi.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\test\ttest.obj : c:\test\ttest.cpp .AUTODEPEND
+ @c:
+ cd c:\test
+ *wpp386 ttest.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\ttimer.obj : c:\test\ttimer.cpp .AUTODEPEND
+ @c:
+ cd c:\test
+ *wpp386 ttimer.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\ttimer.exe : c:\test\smixasm.obj c:\test\tdpmi.obj c:\test\ttest.obj&
+ c:\test\ttimer.obj .AUTODEPEND
+ @c:
+ cd c:\test
+ @%write ttimer.lk1 NAME ttimer
+ @%append ttimer.lk1 FIL smixasm.obj,tdpmi.obj,ttest.obj,ttimer.obj
+ @%append ttimer.lk1 
+ *wlink d all SYS dos4g op m op maxe=25 op q op symf @ttimer.lk1
+

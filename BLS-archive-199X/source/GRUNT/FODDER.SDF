@@ -1,0 +1,10 @@
+#define stance       0
+#define falldown     1
+#define apart     2
+#define bpart     3
+#define cpart      4
+#define die       5
+
+
+
+

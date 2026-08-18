@@ -1,0 +1,20 @@
+#define stance       0
+#define stance_FR    1
+#define stance_FU    2
+#define stance_FD    3
+#define stance_FUR   4
+#define stance_FDR   5
+
+#define falldown     6
+#define pickedup     7
+#define painhigh     8
+#define carried      9
+#define die          10
+#define pose1        11
+#define bullet1      12
+#define bullet2      13
+#define bullet3      14
+#define bullet4      15
+#define bullet5      16
+
+

@@ -1,0 +1,13 @@
+#define bullet_R       0
+#define bullet_U       1
+#define bullet_D       2
+#define bullet_UR      3
+#define bullet_DR      4
+#define shell         5
+#define aftershell    6
+#define bullet_L      7
+#define bullet_UL     8
+#define bullet_DL     9
+#define shellflip     10
+#define bullethit     11
+

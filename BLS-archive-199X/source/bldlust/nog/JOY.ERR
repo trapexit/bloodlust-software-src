@@ -1,0 +1,7 @@
+joy.asm(4): Error! E051: Syntax error
+joy.asm(8): Error! E051: Syntax error
+joy.asm(31): Warning! W150: size not specified -- BYTE PTR is assumed
+joy.asm(85): Warning! W150: size not specified -- BYTE PTR is assumed
+joy.asm(109): Error! E051: Syntax error
+joy.asm(118): Warning! W150: size not specified -- BYTE PTR is assumed
+joy.asm(121): Error! E757: '@@NOBJOY1' is already defined

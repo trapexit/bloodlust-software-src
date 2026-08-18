@@ -1,0 +1,33 @@
+!define BLANK ""
+c:\nog\cdasm.obj : c:\nog\cdasm.asm .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wasm cdasm.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\nog\doserr.obj : c:\nog\doserr.asm .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wasm doserr.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\nog\cdrom.obj : c:\nog\cdrom.cpp .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wpp386 cdrom.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\nog\install.obj : c:\nog\install.cpp .AUTODEPEND
+ @c:
+ cd c:\nog
+ *wpp386 install.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\nog\noginst.exe : c:\nog\cdasm.obj c:\nog\doserr.obj c:\nog\cdrom.obj c:\&
+nog\install.obj .AUTODEPEND
+ @c:
+ cd c:\nog
+ @%write noginst.lk1 NAME noginst
+ @%append noginst.lk1 FIL cdasm.obj,doserr.obj,cdrom.obj,install.obj
+ @%append noginst.lk1 
+ *wlink SYS dos4g op m op maxe=25 op q op symf @noginst.lk1
+ copy noginst.exe c:\
+ 
+ 
+

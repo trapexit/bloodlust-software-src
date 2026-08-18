@@ -1,0 +1,55 @@
+!define BLANK ""
+c:\nogdemo\cdasm.obj : c:\nogdemo\cdasm.asm .AUTODEPEND
+ @c:
+ cd c:\nogdemo
+ *wasm cdasm.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\nogdemo\doserr.obj : c:\nogdemo\doserr.asm .AUTODEPEND
+ @c:
+ cd c:\nogdemo
+ *wasm doserr.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\nogdemo\joy.obj : c:\nogdemo\joy.asm .AUTODEPEND
+ @c:
+ cd c:\nogdemo
+ *wasm joy.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\nogdemo\detect.obj : c:\nogdemo\detect.c .AUTODEPEND
+ @c:
+ cd c:\nogdemo
+ *wcc386 detect.c -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\nogdemo\grip.obj : c:\nogdemo\grip.c .AUTODEPEND
+ @c:
+ cd c:\nogdemo
+ *wcc386 grip.c -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\nogdemo\cdrom.obj : c:\nogdemo\cdrom.cpp .AUTODEPEND
+ @c:
+ cd c:\nogdemo
+ *wpp386 cdrom.cpp -i=C:\WATCOM\h -w2 -e25 -zq -od -d2 -5r -bt=dos -mf
+
+c:\nogdemo\setup.obj : c:\nogdemo\setup.cpp .AUTODEPEND
+ @c:
+ cd c:\nogdemo
+ *wpp386 setup.cpp -i=C:\WATCOM\h -w2 -e25 -zq -od -d2 -5r -bt=dos -mf
+
+c:\nogdemo\tinput.obj : c:\nogdemo\tinput.cpp .AUTODEPEND
+ @c:
+ cd c:\nogdemo
+ *wpp386 tinput.cpp -i=C:\WATCOM\h -w2 -e25 -zq -od -d2 -5r -bt=dos -mf
+
+c:\nogdemo\setup.exe : c:\nogdemo\cdasm.obj c:\nogdemo\doserr.obj c:\nogdemo&
+\joy.obj c:\nogdemo\detect.obj c:\nogdemo\grip.obj c:\nogdemo\cdrom.obj c:\n&
+ogdemo\setup.obj c:\nogdemo\tinput.obj .AUTODEPEND
+ @c:
+ cd c:\nogdemo
+ @%write setup.lk1 NAME setup
+ @%append setup.lk1 FIL cdasm.obj,doserr.obj,joy.obj,detect.obj,grip.obj,cdr&
+om.obj,setup.obj,tinput.obj
+ @%append setup.lk1 
+ *wlink SYS dos4g op m op maxe=25 op q op symf @setup.lk1
+ copy c:\nogdemo\setup.exe c:\nd\n2setup.exe
+ 
+ 
+

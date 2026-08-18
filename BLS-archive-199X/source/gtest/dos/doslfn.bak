@@ -1,0 +1,50 @@
+#ifndef _LFN_
+#define _LFN_
+//dos long file name wrapper functions
+
+#include <dos.h>
+
+//initialized
+void lfn_init();
+
+//returns handle of file opened, -1 if error
+int lfn_open(char *filename);
+int lfn_openrdwr(char *filename);
+int lfn_create(char *filename);
+void lfn_close(int h);
+
+//dir stuff
+void lfn_chdir(char *dir);
+
+void lfn_getshortname(char *path,char *shortpath);
+
+//find file stuff
+struct QWORD {unsigned low,high;};
+struct lfn_find
+{
+DWORD attrib;
+QWORD createtime;
+QWORD accesstime;
+QWORD modifytime;
+DWORD sizehigh,sizelow;
+char reserved[8];
+char filename[260];
+
+//lfn to normal DOS
+ void operator =(find_t &t)
+ {
+  attrib=t.attrib;
+  sizehigh=0; sizelow=t.size;
+  strcpy(filename,t.name);
+ }
+};
+unsigned lfn_findfirst(char *path,int attrib,lfn_find *ff);
+unsigned lfn_findnext(unsigned handle,lfn_find *ff);
+void     lfn_findclose(unsigned handle);
+
+
+
+#endif
+
+
+

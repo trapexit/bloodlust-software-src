@@ -1,0 +1,33 @@
+!define BLANK ""
+c:\source\prof\timg.obj : c:\source\prof\timg.asm .AUTODEPEND
+ @c:
+ cd c:\source\prof
+ *wasm timg.asm -i=C:\WATCOM\h -mf -5r -w4 -e25 -zq
+
+c:\source\prof\vol.obj : c:\source\vol\vol.cpp .AUTODEPEND
+ @c:
+ cd c:\source\prof
+ *wpp386 ..\vol\vol.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -ol -ol+ -om -oc&
+ -oi -oa -or -oe20 -5r -bt=dos -mf
+
+c:\source\prof\file.obj : c:\source\prof\file.cpp .AUTODEPEND
+ @c:
+ cd c:\source\prof
+ *wpp386 file.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -ol -ol+ -om -oc -oi -&
+oa -or -oe20 -5r -bt=dos -mf
+
+c:\source\prof\prof.obj : c:\source\prof\prof.cpp .AUTODEPEND
+ @c:
+ cd c:\source\prof
+ *wpp386 prof.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -ol -ol+ -om -oc -oi -&
+oa -or -oe20 -5r -bt=dos -mf
+
+c:\source\prof\prof.exe : c:\source\prof\timg.obj c:\source\prof\vol.obj c:\&
+source\prof\file.obj c:\source\prof\prof.obj .AUTODEPEND
+ @c:
+ cd c:\source\prof
+ @%write prof.lk1 NAME prof
+ @%append prof.lk1 FIL timg.obj,vol.obj,file.obj,prof.obj
+ @%append prof.lk1 
+ *wlink d all SYS dos4g op m op maxe=25 op q op symf @prof.lk1
+

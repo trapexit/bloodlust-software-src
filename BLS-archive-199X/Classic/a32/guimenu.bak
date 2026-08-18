@@ -1,0 +1,341 @@
+#include <string.h>
+
+#include "types.h"
+
+#include "r2img.h"
+#include "font.h"
+#include "dd.h"
+
+#include "mouse.h"
+#include "message.h"
+
+#include "guirect.h"
+#include "guimenu.h"
+#include "guicolor.h"
+#include "guiroot.h"
+
+#include "keyb.h"
+//*************************************
+//         basic menu functions
+//*************************************
+
+//finds width of menuitem
+int menuitem::width()
+{
+ if (!text) return 5;
+ return font[0]->getwidth(text)+10;
+}
+
+int menuitem::height()
+{
+ return 10;
+}
+
+int menuitem::menufunc()
+{
+ if (!this) return 0;
+// msg.printf(1,"%s selected",text);
+ if (func)
+  {func(); return 1;}
+  else return 0;
+}
+
+//draws menu item
+void menuitem::draw(int x, int y, int xw, int sel)
+{
+ if (text[0]!='-') font[sel]->draw(text,screen,x+3,y);
+  else //it's a bar
+   drawrect(screen,CLR_MENU-3,x+3,y+4,xw-3*2,2);
+}
+
+int menu::getnumitems()
+{
+ for (int i=0; m[i].text; i++);
+ return i;
+}
+
+int menu::getmaxwidth()
+{
+ for (int i=0,mw=0; m[i].text; i++)
+  {
+   int w=m[i].width();
+   if (w>mw) mw=w;
+  }
+ return mw; //maxwidth
+}
+
+int menu::gettotalwidth()
+{
+ for (int i=0,tw=0; m[i].text; i++) tw+=m[i].width();
+ return tw; //totalwidth
+}
+
+int menu::gettotalheight()
+{
+ return getnumitems()*m[0].height(); //totalheight
+}
+
+int menu::getmaxheight()
+{
+ return m[0].height();
+}
+
+
+//*************************************
+//          GUImenu functions
+//*************************************
+
+
+GUImenu::GUImenu(GUIrect *p,class menu *tm,int x,int y)
+ :GUIrect(p,x,y,x,y)
+{
+ tmenu=tm;   //menu represented by this gui object
+ selmi=0; //no item selected
+}
+
+GUIrect *GUImenu::click(class mouse &m)
+{
+// if (!(m.click&MBLEFT)) return 0;
+ //if clicked on us...
+ if (hittest(m.x,m.y)==this)
+  {
+   if (child) {losefocus(); return 0;} //if we have child, kill it
+    else return this; //have submenu made.
+  }
+   else //not clicked on us
+  {
+   if (child)
+    {
+     if (child->click(m))  return this;
+      else {losefocus(); return 0;} //kill
+    } else return 0; //fuck
+  }
+};
+
+int GUImenu::release(class mouse &m)
+ {
+  if (child)
+  {
+   if (child->release(m)) {losefocus(); return 1;}
+   return 0;
+  }
+  //if menu item selected, and mouse is over the menu
+  if (selmi && hittest(m.x,m.y)==this)
+  {
+    //selmi->menufunc();//call menu function
+    domenuitem(selmi);
+    if (!selmi->submenu)
+     {selmi=0; return 1;} //if menu func, clean up menu
+   losefocus();
+  }
+  return 0;
+}
+
+
+void GUImenu::losefocus()
+{
+ //if we lose focus, kill our children
+ while (child) delete child;
+ selmi=0;
+}
+
+void GUImenu::losechildfocus() {return; };
+
+//call menu function
+int GUImenu::domenuitem(menuitem *i)
+{
+ if (i) i->menufunc();
+ return 1;
+}
+
+
+//----------------------------------------------------
+//horizontal top menu
+GUIhmenu::GUIhmenu(GUIrect *p,class menu *tm,int x,int y)
+ :GUImenu(p,tm,x,y)
+{
+ resize(getmenuwidth(),getmenuheight());
+ setfocus(this);
+}
+
+void GUIhmenu::draw(char *dest)
+{
+ int tx=x1;
+// drawrectmap(dest,shadowmap,x1,y1,x2-x1,y2-y1);
+
+ drawrect(dest,CLR_MENU,x1,y1,x2-x1,y2-y1);
+
+ //go through all menu items
+ for (menuitem *t=tmenu->m; t->text; tx+=t->width(), t++)
+   {
+    if (t==selmi)
+     {
+      drawrect(dest,CLR_MENUSEL,tx,y1,t->width(),t->height());
+      t->draw(tx,y1,20,FNT_MENUSEL);
+     } else t->draw(tx,y1,20,FNT_MENU);
+   }
+ GUIrect::draw(dest);
+}
+
+
+//sx,sy is coord of place where submenu should go
+menuitem *GUIhmenu::menuhittest(int tx,int ty, int &sx,int &sy)
+{
+ int x=0;
+ for (menuitem *t=tmenu->m; t->text; t++)
+  {
+   x+=t->width();
+   if (tx<x) {sx=x-t->width(); sy=y2; return t;}
+  }
+ return 0;
+}
+
+
+
+int GUImenu::drag(mouse &m)
+{
+ if (!hittest(m.x,m.y)) //if mouse not over us..
+  {
+   if (child) child->drag(m);
+     //else selmi=0;
+   return 1;
+  }
+
+ int subx,suby;
+ menuitem *t=menuhittest(m.x-x1,m.y-y1,subx,suby);
+ if (t!=selmi)
+  {
+   selmi=t;
+   while (child) delete child; //delete submenus
+   if (selmi && selmi->submenu) //if submenu exists...
+     new GUIvmenu(this,selmi->submenu,subx,suby); //create submenu
+  }
+ return 1;
+}
+
+//-----------------------------------------------------------
+//vertical dropdown menu
+GUIvmenu::GUIvmenu(GUImenu *p,class menu *tm,int x,int y)
+ :GUImenu(p,tm,x,y)
+{
+ resize(getmenuwidth(),getmenuheight());
+}
+
+void GUIvmenu::draw(char *dest)
+{
+// drawrectmap(dest,shadowmap,x1,y1,x2-x1,y2-y1);
+ drawrect(dest,CLR_MENU,x1,y1,x2-x1,y2-y1);
+
+ int ty=y1;
+  //go through all menu items
+ for (menuitem *t=tmenu->m; t->text; ty+=t->height(), t++)
+   {
+    if (t==selmi)
+     {
+      drawrect(dest,CLR_MENUSEL,x1,ty,x2-x1,t->height());
+      t->draw(x1,ty,width(),FNT_MENUSEL);
+     } else t->draw(x1,ty,width(),FNT_MENU);
+
+    if (t->key&0x80)
+          font[FNT_MENUKEY]->draw(getkeyname(t->key&0x7F),screen,x2-12,ty);
+     else font[FNT_MENUKEY]->draw(t->key,screen,x2-8,ty); //it's ascii
+    if (t->submenu) //draw > for submenus
+     font[FNT_MENU]->draw('>',screen,x2-8,ty);
+   }
+ GUIrect::draw(dest);
+}
+
+
+
+//sx,sy is coord of place where submenu should go
+menuitem *GUIvmenu::menuhittest(int tx,int ty, int &sx,int &sy)
+{
+ int y=0;
+ for (menuitem *t=tmenu->m; t->text; t++)
+  {
+   y+=t->height();
+   if (ty<y) {if (t->text[0]=='-') return 0; sx=x2-x1; sy=y-t->height(); return t;}
+  }
+ return 0;
+}
+
+
+/*
+int GUIhmenu::keyhit(char kbscan, char key)
+{
+ if (!key) return 0;
+ for (menuitem *t=tmenu->m; t->text; t++)
+  if (t->submenu)
+   if (t->submenu->keyhit(kbscan,key)) return 1;
+ return 0;
+}
+
+int menu::keyhit(char kbscan, char key)
+{
+ for (int i=0; m[i].text; i++)
+  if (((m[i].key&0x80) && (m[i].key&0x7f)==kbscan) ||
+      (!(m[i].key&0x80) && m[i].key==key))
+            {m[i].menufunc(); return 1;}
+ return 0;
+}
+*/
+
+int GUIhmenu::keyhit(char kbscan, char key)
+{
+ if (!key) return 0;
+ return tmenu->keyhit(kbscan,key);
+}
+
+int menu::keyhit(char kbscan, char key)
+{
+ for (int i=0; m[i].text; i++)
+  if (m[i].submenu && m[i].submenu->keyhit(kbscan,key)) return 1;
+   else
+  if (((m[i].key&0x80) && (m[i].key&0x7f)==kbscan) ||
+      (!(m[i].key&0x80) && m[i].key==key))
+            {m[i].menufunc(); return 1;}
+ return 0;
+}
+
+
+
+
+//-----------------
+GUIpopupmenu::GUIpopupmenu(GUIrect *treport,class menu *men,int x,int y)
+ : GUIvmenu((GUImenu *)guiroot,men,x,y),report(treport)
+ {
+  //make sure we on screen
+  if (x1<0) moverel(-x1,0);
+  if (y1<0) moverel(0,-y1);
+  if (x2>SCREENX) moverel(SCREENX-x2,0);
+  if (y2>SCREENY) moverel(0,SCREENY-y2);
+ // m.capture=this; //click(m);
+  setmodal(this);
+ }
+
+GUIpopupmenu::~GUIpopupmenu()
+ {
+  setmodal(0);
+ }
+int GUIpopupmenu::domenuitem(menuitem *t)
+{
+ report->sendmessage(this,t-tmenu->m); //send menu number
+ return 1;
+}
+
+int GUIpopupmenu::release(mouse &m)
+{
+
+ if (GUIvmenu::release(m)) ;
+ delete this;
+ return 1;
+}
+
+void GUIpopupmenu::draw(char *dest)
+{
+ GUIvmenu::draw(dest);
+ outline(0);
+}
+
+
+

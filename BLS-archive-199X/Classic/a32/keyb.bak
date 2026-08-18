@@ -1,0 +1,99 @@
+
+
+
+//flags for keyboard state
+#define KB_SHIFT 1
+#define KB_CTRL  2
+#define KB_ALT   4
+
+//scan code defines
+#define KB_UP    0x48
+#define KB_DOWN  0x50
+#define KB_LEFT  0x4B
+#define KB_RIGHT 0x4D
+#define KB_HOME  0x47
+#define KB_END   0x4F
+#define KB_PGUP  0x49
+#define KB_PGDN  0x51
+
+#define KB_INS   0x52
+#define KB_DEL   0x53
+#define KB_ESC   0x01
+#define KB_TAB   0x0F
+
+#define KB_BKSP  0x0E
+#define KB_ENTER 0x1C
+#define KB_SPACE 0x39
+
+#define KB_F1    0x3B
+#define KB_F2    0x3C
+#define KB_F3    0x3D
+#define KB_F4    0x3E
+#define KB_F5    0x3F
+#define KB_F6    0x40
+#define KB_F7    0x41
+#define KB_F8    0x42
+#define KB_F9    0x43
+#define KB_F10   0x44
+#define KB_F11   0x85
+#define KB_F12   0x86
+
+
+typedef int (*KEYBOARDFUNCPTR)(char kbscan,char key);
+
+//basic keyboard class
+class keyboard
+{
+ //keyboard queue
+ char kbscanbuf[16];
+ int  kbhead,kbtail;
+
+ //user keyboard function that is called on keypresses
+ KEYBOARDFUNCPTR kbfunc;
+
+ public:
+
+ //functions called when there's a scancode received from keyboard
+ void keydown(char kbscan);
+ void keyup(char kbscan);
+
+ //state of ctrl/alt/shift
+ char kbstat;
+
+ //table of all keys and their states
+ char keydown[128];
+
+ void pushkey(char kbscan); //store key in queue
+ char getkey();             //get next key in queue
+ int keyhit();              //is key waiting ?
+
+ void setkbfunc(KEYBOARDFUNCPTR kf) {kbfunc=kf;}
+
+ keyboard();
+ virtual ~keyboard();
+};
+
+char scan2ascii(char s); //convert scancode to ascii
+char *getkeyname(char key); //gets string name of a key
+
+
+#ifdef DOS
+class keyboard_DOS:public keyboard
+{
+ void (interrupt far *oldkeybintvector)(void); //pointer to old bios vector
+
+ static void interrupt __loadds KEYBOARDIRQ()
+
+ public:
+ keyboard_DOS();
+ ~keyboard_DOS();
+
+};
+#endif
+
+extern keyboard *kb; //system keyboard
+
+
+
+
+

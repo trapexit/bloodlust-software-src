@@ -1,0 +1,400 @@
+WATCOM Linker Version 10.6
+Copyright by WATCOM International Corp. 1985, 1996. All rights reserved.
+Created on:       96/05/03 18:22:09
+Executable Image: ivol.exe
+creating a DOS/4G executable
+
+
+                        +------------+
+                        |   Groups   |
+                        +------------+
+
+Group                           Address              Size
+=====                           =======              ====
+
+DGROUP                          0002:00000000        00001c50
+
+
+
+                        +--------------+
+                        |   Segments   |
+                        +--------------+
+
+Segment                Class          Group          Address         Size
+=======                =====          =====          =======         ====
+
+BEGTEXT                CODE                          0001:00000000   00000010
+_TEXT                  CODE                          0001:00000010   0000478b
+_NULL                  BEGDATA        DGROUP         0002:00000000   00000004
+_AFTERNULL             BEGDATA        DGROUP         0002:00000004   00000000
+CONST                  DATA           DGROUP         0002:00000004   0000011c
+CONST2                 DATA           DGROUP         0002:00000120   0000010c
+_DATA                  DATA           DGROUP         0002:0000022c   0000059a
+TIB                    DATA           DGROUP         0002:000007c6   00000000
+TI                     DATA           DGROUP         0002:000007c6   00000000
+TIE                    DATA           DGROUP         0002:000007c6   00000000
+XIB                    DATA           DGROUP         0002:000007c6   00000000
+XI                     DATA           DGROUP         0002:000007c6   0000000c
+XIE                    DATA           DGROUP         0002:000007d2   00000000
+YIB                    DATA           DGROUP         0002:000007d2   00000000
+YI                     DATA           DGROUP         0002:000007d2   00000006
+YIE                    DATA           DGROUP         0002:000007d8   00000000
+DATA                   DATA           DGROUP         0002:000007d8   00000000
+_BSS                   BSS            DGROUP         0002:000007d8   00000478
+STACK                  STACK          DGROUP         0002:00000c50   00001000
+
+
+                        +----------------+
+                        |   Memory Map   |
+                        +----------------+
+
+* = unreferenced symbol
++ = symbol only referenced locally
+
+Address        Symbol
+=======        ======
+
+Module: ivol.obj(c:\source\test\ivol.cpp)
+0001:00000010  main_
+0002:000007d8+ int unsigned near total
+0002:000007dc+ int unsigned near filesnumber
+0002:000007e0+ find_t near ff
+0002:0000080c+ char near s[]
+Module: C:\WATCOM\lib386\dos\clib3r.lib(printf)
+0001:0000025d  printf_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(scanf)
+0001:000002e5+ vscanf_
+0001:0000030c  scanf_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(creat386)
+0001:00000328  _dos_creat_
+0001:0000033c* _dos_creatnew_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(chdir)
+0001:00000350  chdir_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(find386)
+0001:00000372  _dos_findfirst_
+0001:0000038f  _dos_findnext_
+0001:000003ab* _dos_findclose_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(exit)
+0001:000003f4  __null_int23_exit_
+0001:000003f5  exit_
+0001:0000040d+ _exit_
+0002:0000023c+ ___atexit
+0002:00000240  ___int23_exit
+0002:00000244  ___FPE_handler_exit
+Module: C:\WATCOM\lib386\dos\clib3r.lib(memcpy)
+0001:00000423  memcpy_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(file386)
+0001:00000448  _dos_close_
+0001:00000457* _dos_commit_
+0001:00000467  _dos_open_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(filelen)
+0001:00000476  filelength_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(nmalloc)
+0001:000004b3  _nmalloc_
+0001:000004b3  malloc_
+0002:00000248  ___nheapbeg
+0002:0000024c  ___MiniHeapRover
+0002:00000250  ___LargestSizeB4MiniHeapRover
+Module: C:\WATCOM\lib386\dos\clib3r.lib(cprintf)
+0001:000005a5* vcprintf_
+0001:000005ba  cprintf_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(io386)
+0001:000005e0  _dos_read_
+0001:0000060a  _dos_write_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(nfree)
+0001:00000611  _nfree_
+0001:00000611  free_
+0002:0000082c  ___MiniHeapFreeRover
+Module: C:\WATCOM\lib386\dos\clib3r.lib(cstrt386)
+0001:00000003* ___begtext
+0002:00000000* __nullarea
+0002:00000254* __GDAptr
+0002:00000258* __D16Infoseg
+0002:0000025a* __x386_zero_base_selector
+0001:00000694  _cstart_
+0001:00000923  __exit_
+0001:00000925  __do_exit_with_msg__
+0001:00000960  __GETDS
+0001:00000960  ___GETDSStart_
+0001:0000096b  ___GETDSEnd_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(iob)
+0002:0000025c  ___iob
+0002:00000464* ___tmpfnext
+0002:00000465* __fmode
+0002:00000830  ___ClosedStreams
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fprtf)
+0001:0000097c  __fprtf_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fgetc)
+0001:000009fb  fgetc_
+0001:00000a84+ __filbuf_
+0001:00000ab3+ __fill_buffer_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(ungetc)
+0001:00000b5f  ungetc_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(scnf)
+0001:00000bf0  __scnf_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(error386)
+0001:00001812  __doserror_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(dosret)
+0001:00001825* _dosret0_
+0001:0000182c* _dosretax_
+0001:00001830  __set_errno_dos_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(crwd386)
+0002:00000494  __psp
+0002:000004bf  __osmajor
+0002:000004c0  __osminor
+0002:000004b6  __Extender
+0002:000004b7  __ExtenderSubtype
+0002:000004b8  __X32VM
+0002:00000498* __x386_stacklow
+0002:0000048c  __LpCmdLine
+0002:00000490  __LpPgmName
+0002:00000484  __dynend
+0002:00000488  __curbrk
+0002:00000498  __STACKLOW
+0002:0000049c  __STACKTOP
+0002:000004a0  __ASTACKSIZ
+0002:000004a4  __ASTACKPTR
+0002:000004a8  __cbyte
+0002:000004ac* __cbyte2
+0002:000004b0  __child
+0002:000004b9  __Envptr
+0002:000004bd  __Envseg
+0002:000004b4  __no87
+0002:000004c1  __FPE_handler
+0002:000004c1  ___FPE_handler
+Module: C:\WATCOM\lib386\dos\clib3r.lib(lseek)
+0001:000018a2  lseek_
+0001:000018a2* _lseek_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(memalloc)
+0001:000018e6  __MemAllocator
+0001:0000198e  __MemFree
+Module: C:\WATCOM\lib386\dos\clib3r.lib(grownear)
+0001:00001aea+ __FreeDPMIBlocks_
+0001:00001b46* __ReAllocDPMIBlock_
+0001:00001cb9+ __LastFree_
+0001:00001e8a  __ExpandDGROUP_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(nmemneed)
+0001:00002053  __nmemneed_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(heapmod)
+0002:00000834  ___nheap_clean
+0002:00000835* ___fheap_clean
+Module: C:\WATCOM\lib386\dos\clib3r.lib(putch)
+0001:00002056  putch_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(prtf)
+0001:00002065  __prtf_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(cmain386)
+0001:00002c43  __CMain
+Module: C:\WATCOM\lib386\dos\clib3r.lib(inirt386)
+0001:00002c92  __InitRtns
+0001:00002cdd  __FiniRtns
+Module: C:\WATCOM\lib386\dos\clib3r.lib(seg386)
+0000:00001234  __DOSseg__
+Module: C:\WATCOM\lib386\dos\clib3r.lib(stinit)
+0002:00000838  ___OpenStreams
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fputc)
+0001:00002d2c  fputc_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(ioalloc)
+0001:00002dd0  __ioalloc_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(flush)
+0001:00002e47  __flush_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(seterrno)
+0001:00002f20* __set_EDOM_
+0001:00002f25  __set_errno_
+0001:00002f31* __set_ERANGE_
+0001:00002f38* __set_EINVAL_
+0001:00002f48  __set_doserrno_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(flushall)
+0001:00002f54  flushall_
+0001:00002f59  __flushall_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(gtche)
+0001:00002f88  getche_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(qread)
+0001:00002fa5  __qread_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(istable)
+0002:00000128  __IsTable
+Module: C:\WATCOM\lib386\dos\clib3r.lib(set386)
+0001:00002fd0  memset_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(noefgfmt)
+0002:000004c8  ___EFG_printf
+0002:000004cc  ___EFG_scanf
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fdfs386)
+0001:00002ffa  __FDFS
+Module: C:\WATCOM\lib386\dos\clib3r.lib(tolower)
+0001:00003046  tolower_
+0001:00003046* _tolower_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(minreal)
+0002:0000083c  ___minreal
+Module: C:\WATCOM\lib386\dos\clib3r.lib(heapen)
+0001:00003054* _heapenable_
+0002:000004d0  ___heap_enabled
+Module: C:\WATCOM\lib386\dos\clib3r.lib(sbrk386)
+0001:00003064* sbrk_
+0001:0000312c  __brk_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(amblksiz)
+0002:000004d4  __amblksiz
+Module: C:\WATCOM\lib386\dos\clib3r.lib(itoa)
+0001:0000321c+ utoa_
+0001:00003266  itoa_
+0001:00003266* _itoa_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(ltoa)
+0001:000032a6  ultoa_
+0001:000032f0  ltoa_
+0001:000032f0* _ltoa_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(toupper)
+0001:0000330b  toupper_
+0001:0000330b* _toupper_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(stack386)
+0001:00003319  stackavail_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(cinit)
+0001:00003322  __CommonInit_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(___argc)
+0002:00000840  ____Argc
+0002:00000844  ____Argv
+Module: C:\WATCOM\lib386\dos\clib3r.lib(initfile)
+0001:0000338b  __InitFiles_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(ioexit)
+0001:00003402  __full_io_exit_
+0001:0000340e* fcloseall_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(chktty)
+0001:0000346b  __chktty_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(qwrit)
+0001:0000349c  __qwrite_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(errno)
+0001:00003510  __get_errno_ptr_
+0001:00003516  __get_doserrno_ptr_
+0002:00000848+ _errno
+0002:0000084c+ __doserrno
+Module: C:\WATCOM\lib386\dos\clib3r.lib(__stos)
+0001:00003520  __STOSB
+0001:00003557* __STOSD
+Module: C:\WATCOM\lib386\dos\clib3r.lib(xmsg)
+0001:000035c3* __exit_with_msg_
+0001:000035c8  __fatal_runtime_error_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(sigsy)
+0001:000036f2  __DPMI_hosted_
+0001:00003786  __restore_int23_
+0001:0000393c  __restore_int_ctrl_break_
+0001:00003974  __grab_int23_
+0001:00003a8f  __grab_int_ctrl_break_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(allocfp)
+0001:00003baa* __allocfp_
+0001:00003c50+ __freefp_
+0001:00003c89  __purgefp_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fclose)
+0001:00003ca7* fclose_
+0001:00003cd4  __shutdown_stream_
+0001:00003cf5+ __MkTmpFile_
+0001:00003d5a+ __doclose_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(isatt)
+0001:00003dea  isatty_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(iomode)
+0001:00003e11  __IOMode_
+0001:00003e66  __SetIOMode_
+0002:000004f4+ ___NFiles
+0002:000004f8+ ___init_mode
+0002:00000548+ __iomode
+Module: C:\WATCOM\lib386\dos\clib3r.lib(enterdb)
+0001:00003e7b  __EnterWVIDEO_
+0002:0000054c+ ___WD_Present
+Module: C:\WATCOM\lib386\dos\clib3r.lib(signl)
+0001:00003ea1+ __sigabort_
+0001:00003eab  __sigfpe_handler_
+0001:00003ee0* signal_
+0001:00003f95  raise_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(chint386)
+0001:00004058  _chain_intr_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(d_setvec)
+0001:00004071  _dos_setvect_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(d_getvec)
+0001:0000409e  _dos_getvect_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(gtpid)
+0001:000040d0  getpid_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(ftell)
+0001:000040d6  ftell_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(_clse)
+0001:00004118  __close_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(remove)
+0001:0000414d  remove_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(abort)
+0001:00004152* abort_
+0001:00004158  __terminate_
+0002:00000584  ___abort
+Module: C:\WATCOM\lib386\math387r.lib(grabfpe)
+0001:0000416a  __grab_fpe_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(tell)
+0001:0000416f  tell_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fflush)
+0001:00004180  fflush_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(unlnk)
+0001:00004190  unlink_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(grabfp87)
+0001:000041b1+ __GrabFP87_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fpe387)
+0002:00000588  ___PMSeg
+0002:0000058a  ___PMAddr
+0002:0000058e  ___RMAddr
+0001:000041e2  __Init_FPE_handler_
+0001:0000423f  __Fini_FPE_handler_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fpeinth)
+0001:0000429c  __Enable_FPE_
+0001:000042b1  __FPEHandler_
+0001:000042be  __FPE2Handler_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fpephar)
+0001:000044fc  __Phar_hook_init_
+0001:000045bf  __Phar_hook_fini_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fpedos4g)
+0001:000045ec  __DOS4G_hook_init_
+0001:00004619  __DOS4G_hook_fini_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fpeergo)
+0001:00004632  __Ergo_hook_init_
+0001:00004670  __Ergo_hook_fini_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fpeintel)
+0001:0000468a  __Intel_hook_init_
+0001:000046e2  __Intel_hook_fini_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(_8087386)
+0002:000007b0  __8087
+0002:000007b1  __real87
+Module: C:\WATCOM\lib386\dos\clib3r.lib(fpeint)
+0002:000007b4  ___FPE_int
+0002:000007b5  ___IRQ_num
+0002:000007b6  ___IRQ_int
+0002:000007b7  ___MST_pic
+0002:000007b8* ___SLV_pic
+Module: C:\WATCOM\lib386\dos\clib3r.lib(chk8087)
+0001:000046ed+ __init_8087_
+0001:0000471e* _fpreset_
+0001:00004728  __chk8087_
+Module: C:\WATCOM\lib386\dos\clib3r.lib(save8087)
+0002:000007bc  ___Save8087
+0002:000007c0  ___Rest8087
+Module: C:\WATCOM\lib386\dos\clib3r.lib(8087cw)
+0002:000007c4  __8087cw
+Module: C:\WATCOM\lib386\dos\clib3r.lib(ini87386)
+0001:00004774  __init_80x87
+
+
+                        +----------------------+
+                        |   Imported Symbols   |
+                        +----------------------+
+
+Symbol                              Module
+======                              ======
+
+
+
+                        +--------------------+
+                        |   Libraries Used   |
+                        +--------------------+
+
+C:\WATCOM\lib386\dos\clib3r.lib
+C:\WATCOM\lib386\math387r.lib
+
+
+                        +-----------------------+
+                        |   Linker Statistics   |
+                        +-----------------------+
+
+Stack size:  1000 (4096.)
+Memory size:  63eb (25579.)
+Entry point address: 0001:00000694
+Link time: 00:00.87

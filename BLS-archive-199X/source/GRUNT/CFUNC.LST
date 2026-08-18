@@ -1,0 +1,20 @@
+
+//list of all control functions, in order
+int (object::* object::cfunclist[])(int)= {
+  &object::none, 
+  &object::main_stance, 
+  &object::main_walk,   
+  &object::main_jump,   
+  &object::main_duck,   
+  &object::main_walkfire,   
+  &object::bullet,     
+  &object::main_hang,     
+  &object::randomdur,     
+  &object::main_climb,     
+  &object::enemy_pig,     
+  &object::enemy_sniper,     
+  &object::enemy_boomer,     
+  &object::enemy_jet,     
+ };
+
+

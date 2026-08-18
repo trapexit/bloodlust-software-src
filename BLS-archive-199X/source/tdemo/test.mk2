@@ -1,0 +1,119 @@
+!define BLANK ""
+c:\test\joy.obj : c:\test\joy.asm .AUTODEPEND
+ @c:
+ cd c:\test
+ *tasm joy.asm /ml /m9
+
+c:\test\smixasm.obj : c:\test\smixasm.asm .AUTODEPEND
+ @c:
+ cd c:\test
+ *tasm smixasm.asm /ml /m9
+
+c:\test\tdpmi.obj : c:\test\tdpmi.asm .AUTODEPEND
+ @c:
+ cd c:\test
+ *tasm tdpmi.asm /ml /m9
+
+c:\test\timeback.obj : c:\test\timeback.asm .AUTODEPEND
+ @c:
+ cd c:\test
+ *tasm timeback.asm /ml /m9
+
+c:\test\timg256.obj : c:\test\timg256.asm .AUTODEPEND
+ @c:
+ cd c:\test
+ *tasm timg256.asm /ml /m9
+
+c:\test\tsimg256.obj : c:\test\tsimg256.asm .AUTODEPEND
+ @c:
+ cd c:\test
+ *tasm tsimg256.asm /ml /m9
+
+c:\test\detect.obj : c:\test\detect.c .AUTODEPEND
+ @c:
+ cd c:\test
+ *wcc386 detect.c -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\lowmem.obj : c:\test\lowmem.c .AUTODEPEND
+ @c:
+ cd c:\test
+ *wcc386 lowmem.c -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\opl2fm.obj : c:\test\opl2fm.c .AUTODEPEND
+ @c:
+ cd c:\test
+ *wcc386 opl2fm.c -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\smix.obj : c:\test\smix.c .AUTODEPEND
+ @c:
+ cd c:\test
+ *wcc386 smix.c -i=C:\WATCOM\h -w4 -e25 -zq -otexan -d2 -zu -5r -bt=dos -mf
+
+c:\test\midilib.obj : c:\test\midilib.cpp .AUTODEPEND
+ @c:
+ cd c:\test
+ *wpp386 midilib.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\tcin.obj : c:\test\tcin.cpp .AUTODEPEND
+ @c:
+ cd c:\test
+ *wpp386 tcin.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\test32.obj : c:\test\test32.cpp .AUTODEPEND
+ @c:
+ cd c:\test
+ *wpp386 test32.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\tfunc.obj : c:\test\tfunc.cpp .AUTODEPEND
+ @c:
+ cd c:\test
+ *wpp386 tfunc.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\tgraph.obj : c:\test\tgraph.cpp .AUTODEPEND
+ @c:
+ cd c:\test
+ *wpp386 tgraph.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\tinput.obj : c:\test\tinput.cpp .AUTODEPEND
+ @c:
+ cd c:\test
+ *wpp386 tinput.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\tint.obj : c:\test\tint.cpp .AUTODEPEND
+ @c:
+ cd c:\test
+ *wpp386 tint.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\tkeyb.obj : c:\test\tkeyb.cpp .AUTODEPEND
+ @c:
+ cd c:\test
+ *wpp386 tkeyb.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\tselect.obj : c:\test\tselect.cpp .AUTODEPEND
+ @c:
+ cd c:\test
+ *wpp386 tselect.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\ttimer.obj : c:\test\ttimer.cpp .AUTODEPEND
+ @c:
+ cd c:\test
+ *wpp386 ttimer.cpp -i=C:\WATCOM\h -w2 -e25 -zq -otexan -d2 -5r -bt=dos -mf
+
+c:\test\test.exe : c:\test\joy.obj c:\test\smixasm.obj c:\test\tdpmi.obj c:\&
+test\timeback.obj c:\test\timg256.obj c:\test\tsimg256.obj c:\test\detect.ob&
+j c:\test\lowmem.obj c:\test\opl2fm.obj c:\test\smix.obj c:\test\midilib.obj&
+ c:\test\tcin.obj c:\test\test32.obj c:\test\tfunc.obj c:\test\tgraph.obj c:&
+\test\tinput.obj c:\test\tint.obj c:\test\tkeyb.obj c:\test\tselect.obj c:\t&
+est\ttimer.obj c:\test\pawe32.lib .AUTODEPEND
+ @c:
+ cd c:\test
+ @%write test.lk1 NAME test
+ @%append test.lk1 FIL joy.obj,smixasm.obj,tdpmi.obj,timeback.obj,timg256.ob&
+j,tsimg256.obj,detect.obj,lowmem.obj,opl2fm.obj,smix.obj,midilib.obj,tcin.ob&
+j,test32.obj,tfunc.obj,tgraph.obj,tinput.obj,tint.obj,tkeyb.obj,tselect.obj,&
+ttimer.obj
+ @%append test.lk1 LIBR pawe32.lib
+ *wlink SYS dos4g op m op st=16384 op maxe=25 op q op symf @test.lk1
+ copy c:\test\test.exe c:\tbeta\ts.exe
+ 
+

@@ -1,0 +1,1149 @@
+//Copyright(c) 1996 Bloodlust Software All rights reserved
+//animator 32-bit
+#include <stdio.h>
+#include <stdlib.h>
+#include <malloc.h>
+#include <dos.h>
+#include <fcntl.h>
+#include <io.h>
+#include <string.h>
+#include <conio.h>
+#include <ctype.h>
+#include <direct.h>
+
+#define ANIMATOR
+
+#include "misc.h"
+#include "ttimer.h"
+#include "mouse.h"
+#include "glib.h"
+//#include "input.h"
+extern "C"
+{
+#include "smix.h"
+}
+#include "vol.h"
+#include "object.h"
+#include "effect.h"
+
+
+#define KSTAT *((unsigned char *)0x417)
+
+char errstr[80];
+void cleanexit(int x)
+{
+TerminateTimers();    
+ModeText();    
+if (x<0) printf("ERROR: %s\n",errstr);
+exit(x);
+}
+
+
+volumefile v;
+
+//Sound stuff
+int sbstat;
+
+//standard stuff
+int i,j,k;
+color *pal;
+char *screen,*bg;
+img *cursor,*shadow;
+FONT *font[6];
+int mx,my,mb,oldmb=-1; //mouse x,y,buttons
+int basex=160,basey=160;
+char key=0;
+
+int verbose=0;
+
+int gshakedur=0;
+int gshake[8]={0,1*320,3*320,2*320,-1*320,-4*320,-2*320,0};
+
+char msg[100];
+int msgdur=0;
+int drawstat=1;
+
+//control function names
+char cfuncnames[256][32];
+int cfuncnum;
+
+//object definitions
+int numodf=0;
+objectdef *odf;
+
+//list of all objects
+object *o=0;
+
+//object that is being edited
+//objectdef *o=0; //not editing one yet
+object    *p=0; //current object being edited (none)
+object    pshadow(0,0,0,0,0); //shadow of p
+
+int emode=0;
+int playing=0; //if we are playing it
+int playrepeat=0;
+
+image *dragimg=0;
+lpoint dragrel;
+
+char clipboard[100];
+int clipsize=0;
+
+//menu stuff
+int menustat=0;
+char *menustr[]=
+ {
+  "LoadObject", //0
+  "SaveObject", //1
+  "KillObject", //2
+  "", //3
+  "ListSeries", //4
+  "NewFrame", //5
+  "NewImage", //6
+  "NewEffect", //7
+  "", //8
+  "Quit",       //9
+  0
+ };
+#define M_NEWOBJECT  0
+#define M_SAVEOBJECT 1
+#define M_KILLOBJECT 2
+
+#define M_SERIESLIST 4
+#define M_INSERTFRAME 5
+#define M_NEWIMAGE   6
+#define M_NEWEXTRA   7
+#define M_QUIT 9
+
+#define M_INSERTAFTER 100 
+
+
+int random(int x)
+{
+ return((x*rand())/32768);
+}
+
+//reads object names from the object definition file
+void ReadObjectNames(char *onf);
+int ReadImageList(char *dir,char *list,imagedef **imagedefs);
+int ReadSoundList(char *dir,char *list,sounddef **sounddefs);
+int RequestExtra();
+void ReadControlFuncs(char *cfile);
+int RequestControlFunc();
+
+//requests the user to select an object from a objectdeflist
+objectdef *RequestObject();
+int DoMenu();
+
+#define BW 16
+int DrawButton(int x,int y,int num, int c,int c2,int highlight)
+{
+char s[10];    
+DrawBar(screen,c,x,y,BW,12);
+if (highlight)
+{ DrawBar(screen,c2,x+1,y+1,BW-2,12-2);
+
+sprintf(s,"%02d",num);
+DrawCenteredString(font[highlight],screen,s,x+BW/2,y+2);}
+return(!dragimg && (mb&1) && mx>x && mx<x+BW && my>y && my<y+12);
+}
+
+image *object::CheckImageBound()
+{
+image *found=0;
+    
+register image *i=fptr->getimgptr();    
+for (j=fptr->numimages; j>0; j--) //
+ {
+  img *a=od->id[i->index].ptr; //get pointer to this image
+  if (mx>x+i->dispx && my>y+i->dispy && mx<x+i->dispx+a->xw && my<y+i->dispy+a->yw)
+   found=i; //we found an image baby
+  i++;
+ }
+i--;
+if (found) //hey, we found one
+ {
+  image timg=*found;
+  memmove(found,found+1, ((char *)i)-((char *)found) );
+  *i=timg;  //move selected image to the LAST image
+  found=i;
+
+  dragrel.x=p->x+((int)found->dispx)-mx;
+  dragrel.y=p->y+((int)found->dispy)-my;
+  
+ }
+
+return(found);     
+}    
+
+
+volatile unsigned uu=0;
+volatile unsigned su=1;
+
+void timer()
+{
+ uu++;
+ if (msgdur>0) msgdur--;
+ if (gshakedur>0) gshakedur--;
+ 
+ if (playing)
+ {
+  p->tick(); //tick the object
+
+  if (!playing && playrepeat)
+    {
+     p->cf=0;
+     p->resetfptr();
+     p->effect();
+     playing=1;
+    }
+
+  if (p->x<-20) p->x=320;
+  if (p->x>340) p->x=-20;
+ } 
+  
+
+}    
+
+//reset shadow to look like last frame of current char
+void resetshadow()
+{
+ if (p) pshadow=*p;
+}
+
+
+void main(int argc, char *arg[])
+{
+InitializeTimers();
+   
+//vdiagnose=1;    
+v.open("c:\\a32\\a32.vol");
+pal=(color *)v.read();
+bg=v.read();
+cursor=(img *)v.read();
+font[0]=(FONT *)v.read();
+FunkyFont(font[0],0xca,0xc6);
+FunkyFont(font[0],0xdb,0xd8);
+font[1]=(FONT *)v.read();
+FunkyFont(font[1],0xca,0xff);
+FunkyFont(font[1],0xdb,0x0);
+shadow=(img *)v.read();
+v.close();
+screen=(char *)malloc(70000)+2000;
+memset(screen-2000,0,70000);
+
+for (i=0; i<256; i++) //do shadow map
+ {
+  unsigned char tr,tg,tb;
+  tr=((unsigned)pal[i].r)*7/8;  tg=((unsigned)pal[i].g)*7/8;  tb=((unsigned)pal[i].b)*7/8;   
+
+  unsigned int closeness=9999,closecolor=0,k;
+  for (int j=0; j<256; j++)
+    {
+      k=abs(tr-pal[j].r)+abs(tg-pal[j].g)+abs(tb-pal[j].b);
+      if (k<closeness) {closeness=k; closecolor=j;}
+    }
+  SHADOWMAP[i]=closecolor;
+ }
+
+
+//read control functions
+ReadControlFuncs("c:\\a32\\cfunc.lst");
+
+//read object list
+ReadObjectNames("c:\\a32\\object.lst");
+mprintf("%d Objects Defined\n",numodf);
+
+
+
+initmouse();
+
+sbstat=0;
+if (!init_sb(0x220, 5, 1, 0))
+ {
+  printf("ERROR:  Error initializing sound card!\n");
+  sbstat=0;
+ } else
+ {
+  init_mixing();
+  set_sound_volume(255);
+  printf("soundblaster initialized successfully\n");
+  sbstat=2;
+ }
+//getch(); 
+
+
+Mode256();
+LoadPalette(pal,0,256);
+memcpy((char *)0xA0000,bg,64000);
+
+for (int i=1; i<argc; i++)
+ {
+  int x=atoi(arg[i]);
+  if (x)
+   {
+    for (int j=0; j<numodf; j++)
+      if (odf[j].otype==x) break;
+     if (j!=numodf)
+      { 
+       object *t=new object(&odf[j],0,basex,basey,0); //create an instance of the object
+       if (!t->od) {free(t); break;}
+       if (p) t->x=p->x+70;   
+
+       //add object to beginning of object list
+       o->prev=t; t->prev=0; t->next=o; p=o=t;   
+       resetshadow();
+      }
+   }
+ }
+
+SetTimerSpeed(100);
+SetTimerFunc(timer);
+
+int done=0;
+int choice=-1;
+
+do
+{
+
+oldmb=mb;
+mb=readmouse(&mx,&my);
+
+
+//if (playing)
+// { if (pshadow.cf!=p->cf) pshadow=p;}
+
+
+//clear screen
+memcpy(screen,bg,64000);
+
+
+//IF OBJECT BEING EDITED
+if (p)
+{
+
+//draw ellipse shadows
+for (object *t=o; t; t=t->next)
+{
+if (t->nf)
+if (t==p)    
+ DrawImage(shadow,screen,t->x-shadow->xw/2,t->y-shadow->yw/2,0); 
+else
+ DrawImageMap(shadow,screen,t->x-shadow->xw/2,t->y-shadow->yw/2,0);
+} 
+
+//draw shadow map character
+if (!playing)
+{//pshadow.x=p->x; pshadow.y=p->y;
+ pshadow.drawmap();
+}
+
+//draw character(s)
+for (t=o; t; t=t->next)
+   t->draw();
+
+
+if (p->nf) //IF THERE ARE FRAMES IN THIS SERIES
+{
+       //IF WE ARE EDITING IMAGES
+ if (emode==0) //image editing mode
+  {
+   if (!dragimg) //NOTHING being dragged
+    {if (mb&1 && !(oldmb&1))
+      {
+       for (object *t=o; t && !dragimg; t=t->next)
+        {
+         dragimg=t->CheckImageBound();
+         if (dragimg)
+          if (t!=p)
+           {
+            p=t; resetshadow(); dragimg=0;
+            break;
+           } else p->od->dirty++;
+
+        }
+           
+      }
+     }
+      else //we are dragging
+      if (mb&1)
+      {
+       dragimg->dispx=( short)(dragrel.x+mx-p->x); //move image
+       dragimg->dispy=(short)(dragrel.y+my-p->y);
+       dprintf(font[1],2,160,"%s %ddx %ddy",p->od->id[dragimg->index].name,dragimg->dispx,dragimg->dispy);
+      } else dragimg=0;
+      
+   if (mb&2) //new image!
+     choice=M_NEWIMAGE; 
+  }
+//someone wants to insert extra
+if (emode==3)
+ if (mb&2)
+ {
+  choice=M_NEWEXTRA;
+  while (readmouse(&mx,&my));
+ }
+  
+
+if (drawstat)
+{
+if (DrawButton(255,188,p->fptr->numimages,6*16+15,6*16+6,emode==0)) emode=0;
+if (DrawButton(255+BW,188,p->fptr->numvuln,8*16+15,8*16+6,emode==1)) emode=1;
+if (DrawButton(255+BW*2,188,p->fptr->numattack,2*16+15,2*16+6,emode==2)) emode=2;
+if (DrawButton(255+BW*3,188,p->fptr->numextra,1*16+15,1*16+6,emode==3)) emode=3;
+}
+
+} else if (mb&2) choice=M_SERIESLIST;
+
+}  else if (mb&2) choice=M_NEWOBJECT;  
+
+
+
+//check keys
+if (kbhit())
+ {
+   if (playing)
+    {
+      p->cf=p->cs->cf;
+      playing=0; p->resetfptr();
+      p->shakedur=0;
+    }
+    
+   key=(char)getch();
+   if (!key)
+    {
+     key=(char)getch();
+     if (p)
+     {
+      if (key==72 && p->csnum>0) {resetshadow(); p->startseries(p->csnum-1);}
+      if (key==80 && p->csnum<p->od->nums-1) {resetshadow(); p->startseries(p->csnum+1); }
+      if (key==0x4b && p->cf>0)
+          {resetshadow(); p->cs->cf--; p->cf--; p->resetfptr();}
+      if (key==0x4d && p->cf<p->nf-1)
+          {resetshadow(); p->cs->cf++; p->cf++; p->resetfptr();}
+      if (key==83 && dragimg) //delete key, 83
+          {
+           resetshadow();
+           p->cs->deletebytes((char *)dragimg,sizeof(image)); //free memory for image
+           p->fptr->numimages--;          //decrease image counter
+           dragimg=0;
+           p->fptr->size-=sizeof(image);
+
+          }
+
+     } 
+    } else
+   if (dragimg)  //do dragging key
+    {
+      if (key=='b')
+      if (dragimg>p->fptr->getimgptr())
+      {
+       image t=*dragimg;
+       memmove(dragimg,dragimg-1,sizeof(image) );
+       dragimg--; *dragimg=t;
+      }
+      if (key=='x') dragimg->orient^=2;
+      if (key=='y') dragimg->orient^=1;
+      
+    } else
+    {
+     if (p)
+     {
+      if (key=='I' && p->cs->nf>0) choice=M_INSERTAFTER;
+      if (key=='i') choice=M_INSERTFRAME;
+      if (key=='p') playrepeat=0;
+      if (key=='P') playrepeat=1;
+     }
+     key=(char)toupper(key);
+     if (key=='L') choice=M_NEWOBJECT;
+     if (key==27) choice=M_QUIT;
+     if (key=='H') drawstat^=1;
+
+     if (p)  //if object being edited
+     {
+     if (key=='M') choice=M_SERIESLIST;
+     if (key=='S') choice=M_SAVEOBJECT;
+     if (key=='K') choice=M_KILLOBJECT;
+     if (key=='E' && p->nf) choice=M_NEWEXTRA;
+     if (key=='U')   if (o) mprintf("%X:%X:%X",o->prev,o,o->next);
+      if (key=='V') {verbose^=1; mprintf("verbose %s",verbose ? "ON" : "OFF");}
+      
+     if (key==' ' && p->nf) p->effect(); 
+     if (key=='B') {basex=p->x=mx; basey=p->y=my;}// dprintf(font[1],2,160,"%dx %dy",p->x,p->y);}
+//     if (key=='J') p->sound(0);
+
+     if (key=='\t') //switch objects
+      {
+       if (o)
+        if (p->next) p=p->next;
+         else p=o;
+       else p=0;
+       resetshadow();
+      }  
+    
+      if (key=='P' && p->nf) //playing
+       if (!playing)
+        {
+        //p->x=basex; p->y=basey;   
+         //p->startseries(p->cs);    //start up animation
+         
+         //p->resetfptr();
+         p->cs->cf=0;
+         p->startseries(p->csnum);    //start up animation
+         p->effect();         
+         playing=1;              //play it
+        } else playing=0;
+        
+
+      if (key=='D' && p->nf>0) //delete frame
+      {
+        p->cs->deletebytes((char *)p->fptr,p->fptr->size);
+        p->cs->nf--; p->nf--; p->resetfptr();
+      }
+
+      if (p->nf)
+       {
+        if (key=='[')
+         { clipsize=p->fptr->size; memcpy(clipboard,(char *)p->fptr,clipsize); }
+        if (key==']' && clipsize)
+         {
+          p->cs->deletebytes((char *)p->fptr,p->fptr->size);
+          p->fptr=(frame *)p->cs->insertbytes((char *)p->fptr,clipsize);
+          memcpy((char *)p->fptr,clipboard,clipsize);
+         } 
+        
+        if (mx>210 && mx<280)
+         {
+          if (key=='.') p->fptr->dur+=1; if (key=='>') p->fptr->dur+=10;
+          if (key==',') p->fptr->dur-=1; if (key=='<') p->fptr->dur-=10;
+          if (key=='?') p->fptr->dur=1;
+          if (p->fptr->dur>65000 || p->fptr->dur<1) p->fptr->dur=1;
+         } else
+          //delta x,y           
+         {
+          int delta=0;
+          if (key=='.') delta=1;  if (key=='>') delta=8;
+          if (key==',') delta=-1; if (key=='<') delta=-8;
+          if (delta || key=='?')
+           {
+            if (mx>90 && mx<140) {p->fptr->dx+=delta*32; if (key=='?') p->fptr->dx=0;}
+            if (mx>145 && mx<205) {p->fptr->dy+=delta*32; if (key=='?') p->fptr->dy=0;}
+           }   
+         }
+       } 
+     }
+     
+    } 
+ }   else key=0; //no key hit
+
+
+
+//do menu choice
+if (choice!=-1)
+switch(choice)
+{
+case M_NEWOBJECT:
+   {
+    objectdef *tempo;
+    if (!(tempo=RequestObject())) break; //get requested object 
+
+    object *t=new object(tempo,0,basex,basey,0); //create an instance of the object
+    if (!t->od) //error creating object
+       {free(t); break;}
+
+    if (p) //if previous object there
+     t->x=p->x+85;   
+
+    //add object to beginning of object list
+    o->prev=t;
+    t->prev=0; t->next=o;
+    p=o=t;   
+
+    resetshadow();
+   }
+   break;
+
+case M_KILLOBJECT:
+  {
+   if (!p) break;
+   object *t=p;
+   if (p->next) {p=p->next; delete t;}
+    else
+   if (p->prev) {p=p->prev; delete t;}
+    else {delete t; p=o;}
+   resetshadow();
+  }
+ break;  
+case M_SERIESLIST:
+   if (!p) break;
+   resetshadow();
+   i=p->od->RequestSeries();
+   if (i!=-1) p->startseries(i);
+  break;
+case M_NEWIMAGE:
+      emode=0;
+      p->resetfptr();
+      i=p->od->RequestImage();
+      if (i!=-1)
+        {
+         image *im=p->fptr->getimgptr(); //get pointer to image locations
+         
+         im=(image *)p->cs->insertbytes((char *)im,sizeof(image)); //get memory for new image
+         p->resetfptr();
+         p->fptr->numimages++;          //increase image counter
+         im->index=(unsigned char)i;  //store image index
+         im->orient=0; im->dispx=(short)-p->x; im->dispy=(short)-p->y;
+         p->fptr->size+=sizeof(image);
+        }
+     break;
+
+case M_NEWEXTRA: //new extra
+    if (!p || !p->nf) break;
+     {
+     emode=3;
+     int i=RequestExtra();
+     if (i==-1) break;
+     p->AddExtra(i);
+     }
+    break;     
+
+case M_INSERTAFTER:
+        p->cs->cf++; p->cf++; p->resetfptr();
+case M_INSERTFRAME:
+        p->fptr=(frame *)p->cs->insertbytes((char *)p->fptr,sizeof(frame));
+        p->cs->nf++; p->nf++; //p->resetfptr();
+        p->fptr->size=sizeof(frame); //reset frame
+        p->fptr->dur=10;
+   break;
+case M_SAVEOBJECT:
+  if (!p) break;
+  p->od->SaveSeriesList();
+ break;   
+case M_QUIT:
+//kill all objects
+  while (o)
+  {
+   delete o;
+  }
+  done=1;
+  break; 
+}
+
+if (emode==3)
+ if (p) p->DrawExtra();
+
+
+choice=-1;
+if (!dragimg) choice=DoMenu();
+
+
+if (!dragimg)
+DrawImage(cursor,screen,mx,my,0);  //draw mouse
+
+
+if (drawstat)
+{
+//if we are editing
+
+if (p) //p is current player being edited
+{
+  
+ char s[80];
+ //draw object name
+ DrawString(font[0],screen,p->od->name,2,170);
+ //draw series name
+ DrawString(font[1],screen,p->cs->name,2,180);
+      
+ //draw frame
+ if (!p->nf)  DrawString(font[0],screen,"No frames",2,190);   
+  else
+   {
+    memset(screen+189*320+10,0xFF,p->nf);
+    screen[189*320+10+p->cf]=4;
+       
+    DrawString(font[0],screen,"frame:",2,190);
+    sprintf(s,"%2d/%2d",p->cf+1,p->nf);
+    DrawString(font[1],screen,s,42,190);
+
+    sprintf(s,"dX:%3.02f",((float)p->fptr->dx)/256);//p->fptr->dx/256,(p->fptr->dx&0xFF)*100/256);
+    DrawString(font[0],screen,s,90,190);
+    sprintf(s,"dY:%3.02f",((float)p->fptr->dy)/256); //p->fptr->dy/256,(p->fptr->dy&0xFF))*100/256);
+    DrawString(font[0],screen,s,145,190);
+    sprintf(s,"dur: %2d",p->fptr->dur);
+    DrawString(font[0],screen,s,210,190);
+    sprintf(s,"%db",p->fptr->size);
+    DrawString(font[0],screen,s,285,180);
+
+//    sprintf(s,"fptr%d",((char *)p->fptr)-((char *)o->sd[p->cs].first));
+//    DrawString(font[0],screen,s,160,180);
+   } 
+
+if (key=='B') dprintf(font[1],2,160,"%dx %dy",p->x,p->y); 
+} else  DrawString(font[0],screen,"No objects loaded",2,190);
+}
+
+if (msgdur)
+ DrawString(font[1],screen,msg,0,0);
+
+//dprintf(font[0],0,60,"%d %d",intcount,voicecount);
+
+//send to video
+if (!gshakedur) MemoryCopy((char *)0xA0000,screen,64000);
+           else MemoryCopy((char *)0xA0000,screen+gshake[uu&7],64000);
+
+
+
+} while (!done);    
+
+SetTimerFunc(0);
+
+
+ModeText();
+
+TerminateTimers();
+
+if (sbstat)
+{
+ shutdown_mixing();
+ shutdown_sb();
+ sbstat=0;
+}
+
+}
+
+
+
+unsigned menudur=0xFFFFFFFF;
+int DoMenu()
+{
+if (playing) return -1;    
+//if (!menustat) //if no menu shown yet
+ if (mx==0 && my<100) //left of screen
+ {
+   if (menudur==0xFFFFFFFF) menudur=uu+40;
+ } else menudur=0xFFFFFFFF;
+
+ if (menudur>uu) return(-1);
+
+//draw menu
+char *bg=(char *)malloc(64000);
+int done=0,choice=-1;
+memcpy(bg,screen,64000);
+
+DrawBarMap(bg,SHADOWMAP,0,0,60,100);
+//DrawBar(bg,0, 0,0,60, 170);
+//DrawBar(bg,8*16+7, 0,0,59, 169);
+do
+{
+mb=readmouse(&mx,&my);
+memcpy(screen,bg,64000);
+
+
+choice=-1;;
+for (int i=0,y=0; menustr[i]; i++,y+=10)
+ {
+  if (my>y && my<y+10)
+   {
+    DrawString(font[1],screen,menustr[i],0,y); choice=i;
+   } else   DrawString(font[0],screen,menustr[i],0,y);
+ }   
+
+
+//send to video
+DrawImage(cursor,screen,mx,my,0);  //draw mouse
+memcpy((char *)0xA0000,screen,64000);
+
+if (mb&1 && choice!=-1)  done=1;
+if ((mb&2) || mx>60 || my>100) {choice=-1; done=1;} //just quit
+}while (!done);
+while (readmouse(&mx,&my));
+
+menustat=0;
+free(bg);
+return(choice);
+}    
+
+
+
+
+//free memory used by object def
+void objectdef::Kill()
+{
+//return;
+if (!loaded) return;
+loaded--;
+if (!loaded) //free it then
+ {
+  if (dirty)
+  {
+   if (query("Changes were made to %s, save?",name)) SaveSeriesList(); 
+  }     
+  for (int j=0; j<nums; j++)
+   if (sd[j].first) free(sd[j].first);
+  if (sd) free(sd); //free series definitions
+  for (j=0; j<numi; j++)
+   if (id[j].ptr) free(id[j].ptr);
+  if (id) free(id); //free image definitions
+
+  sd=0; id=0; f=0;
+  nums=numi=0;
+  mprintf("%s killed",name); 
+ }  
+}
+    
+void objectdef::Read()
+{
+if (!loaded)
+{
+ sd=0; nums=0; //no series
+ id=0; numi=0; //no images
+
+ numi=ReadImageList(dir,"image.lst",&id); //read all images
+ if (numi==-1) return;
+
+ numsounds=ReadSoundList(dir,"sound.lst",&sounds); //read all images
+ 
+ int tread=LoadSeriesList();
+ if (tread==-1) return;
+
+ mprintf("%s loaded: %d series, %d sounds",name,tread,numsounds);
+ dirty=0;
+}
+
+loaded++; //increase inuse count
+}    
+
+
+
+void object::resetfptr()
+{
+fptr=cs->first;
+if (!fptr) {dur=0; return;}
+//char s[50];
+//sprintf(s,"cf%d first%X",cf,fptr);
+//DrawString(font[0],(char *)(0xA0000+150*320),s,0,0);
+//getch();
+
+for (int i=0; i<cf; i++)  //skip ahead to frameptr
+  fptr=(frame *) (((char *)fptr)+fptr->size);
+dur=fptr->dur;  
+}    
+
+
+//inserts num bytes at p
+char * series::insertbytes(char *p,int num)
+{
+if (!first) //if no memory has been allocated
+{
+ first=(frame *)malloc(num); ///allocate memory
+ memset(first,0,num); //clear memory
+ size=num;
+ ::p->od->dirty=1;
+
+if (verbose) mprintf("created series with %dbytes",size); 
+
+ return (char *)first;
+} 
+
+char *f=(char *)first;  //keep as char *
+int pos=p-f;             //find relative position within series list (int)
+if (pos<0 || pos>size+1)
+   {sprintf(errstr,"invalid insertion ssize:%d pos:%d num:%d fptrsize:%d",size,pos,num,::p->fptr->size); cleanexit(-1);}
+
+
+//get more memory
+f=(char *)realloc(f,size+num);
+memmove(f+pos+num,f+pos,size-pos);
+
+if (verbose)
+mprintf("inserted %d bytes at %d; size=%d",num,pos,size);
+
+first=(frame *)f;
+size+=num;
+memset(f+pos,0,num); //clear memory
+
+::p->od->dirty=1;
+return(f+pos);
+}
+
+
+//delete num bytes at p
+void series::deletebytes(char *p,int num)
+{
+
+char *f=(char *)first;  //keep as char *
+int pos=p-f;             //find relative position within series list (int)
+if (!first || num>size || pos<0 || pos>=size)
+   {sprintf(errstr,"invalid deletion %d %d",size,pos); cleanexit(-1);}
+
+//get more memory
+memmove(f+pos,f+pos+num,size-pos-num);
+
+if (verbose) mprintf("deleted %d bytes at %d; size=%d",num,pos,size);
+
+size-=num;
+if (size>0)
+ {
+  first=(frame *)realloc(f,size+num);
+ } else {first=0; free(f); size=0;}
+::p->od->dirty=1;
+}
+
+
+void object::drawmap()
+{
+if (!nf) return;
+register image *i=fptr->getimgptr();
+
+ for (int j=fptr->numimages; j>0; j--)
+ { 
+  DrawImageMap(od->id[i->index].ptr,screen,x+i->dispx,y+i->dispy,i->orient);
+  i++;
+ }
+}
+
+
+
+
+//-----------------------------------------
+//if high bit of etype set, extra only done on Hit
+// sound
+
+//size of each extra structure...
+int extrasize[]=
+{
+ sizeof(e_sound),
+ 1,
+ sizeof(e_shake),
+ 0
+};    
+
+int E_SOUND_draw(object *o,e_sound *t,int x,int y,int sel)
+{
+sounddef *s=&o->od->sounds[t->sound];    
+dprintf(font[sel],x,y,"Sound #%02d: %9s %d.%02dsec",t->sound,s->name,s->ptr->soundsize/16000,(s->ptr->soundsize/(16000/100))%100);
+return(sizeof(e_sound));
+}
+void E_SOUND_edit(object *o,e_sound *t)
+{
+byte i=(byte)o->od->RequestSound();
+if (i==-1) return;    
+t->sound=i;
+}
+
+int E_GROUNDSHAKE_draw(object *o,byte *t,int x,int y,int sel)
+{
+ t=t; o=o;
+ dprintf(font[sel],x,y,"GroundShake");
+ return(1);
+}
+
+int E_OBJECTSHAKE_draw(object *o,e_shake *t,int x,int y,int sel)
+{
+ o=o;
+ char *istr[]={"Weak","Violent","Orgasmic","Epileptic"};
+     
+ dprintf(font[sel],x,y,"ObjectShake  intensity: %d-%s",t->intensity+1,istr[t->intensity]);
+ return(sizeof(e_shake));
+}
+
+void E_OBJECTSHAKE_edit(object *o,e_shake *t)
+{
+ o=o;
+ t->intensity++;
+ t->intensity&=3;    
+}
+
+
+
+//pointer to functions that draw the specified extra
+//returns the size of the extra
+int (*extradraw[])(object *,byte *,int,int,int)=
+ {
+  (int (*)(object *,byte *,int,int,int)) E_SOUND_draw,  //0
+  (int (*)(object *,byte *,int,int,int)) E_GROUNDSHAKE_draw,  //1
+  (int (*)(object *,byte *,int,int,int)) E_OBJECTSHAKE_draw,  //2
+ };
+
+//pointer to functions that edit the specified extra
+void (*extraedit[])(object *,byte *)=
+ {
+  (void (*)(object *,byte *)) E_SOUND_edit,  //0
+  0,      //1
+  (void (*)(object *,byte *)) E_OBJECTSHAKE_edit,  //2
+ };
+
+
+char *extraname[]=
+{
+ "Sound effect",
+ "Ground Shake",
+ "Object Shake",
+ 0
+} ;
+
+
+static byte *doedit=0;    
+
+//Extra stuff
+void object::DrawExtra()
+{
+if (doedit)
+ {
+  while(readmouse(&mx,&my));
+  if (extraedit[*doedit]) extraedit[*doedit](this,doedit);
+  doedit=0;
+  return;
+ }
+
+if (dselprintf(2,150,"after: %s",od->sd[cs->next].name))
+ {
+  int t=od->RequestSeries();
+  if (t!=-1) cs->next=t;
+ }
+
+if (dselprintf(2,160,"cfunc: %s",cfuncnames[p->cs->cfunc]))
+ {
+  int t=RequestControlFunc();
+  if (t!=-1) cs->cfunc=t;
+ }
+
+
+memset(screen+10*320,7,320);
+
+if (!nf || !fptr) return;    
+
+if (!fptr->numextra) return; //dprintf(font[0],2,10,"No extra options");
+  else
+{
+byte *t=fptr->getextraptr();   //pointer to first option
+int n=fptr->numextra;          //number of bytes of options
+
+int x=2,y=10;
+while (n>0)  //cycle through all options
+ {
+  int sel=(my>=y && my<y+10);
+  if (sel)
+    {
+     if (mb&1) //they wanna edit this thing
+      {
+        doedit=t;
+      }
+
+     DrawBar(screen,1,0,y+1,320,9);
+     if (key==83) //delete key (they wanna delete this baby)
+     {
+      fptr->numextra--;
+      fptr->size-=extrasize[*t];
+      cs->deletebytes((char *)t,extrasize[*t]); //delete those bytes
+      n--;
+      break;
+     }
+    
+    }
+
+  t+=extradraw[*t](this,t,x,y+2,sel); //draw thingee;
+  n--; //one less extra
+
+  y+=10; //go down one line
+  memset(screen+y*320,7,320);    
+ }
+}
+
+
+
+ 
+}
+
+void object::AddExtra(int i)
+{
+if (!nf || !fptr) return;
+
+fptr=(frame *)cs->insertbytes((char *)fptr + fptr->size,extrasize[i]); //allocate bytes for it..
+byte *t=(byte *)fptr + fptr->size;
+*t=i;                             //set extra type byte
+
+fptr->size+=extrasize[i]; //increase frame size
+fptr->numextra++;        //increase numextra
+
+od->dirty=1;
+//doedit=t;
+//while(readmouse(&mx,&my));
+//if (extraedit[*t]) extraedit[*t](this,t);
+
+}    
+
+
+
+void mprintf(char *format,...)
+{
+ char *arg=(char *)&format+sizeof(format);
+ vsprintf(msg,format,&arg);
+ msgdur=500;
+}
+
+//printf with selectability to char *screen
+int dselprintf(int x,int y,char *format,...)
+{
+ char s[256];
+ char *arg=(char *)&format+sizeof(format);
+ vsprintf(s,format,&arg);
+ int sel=0;
+ if (my>=y && my<y+10 && mx>=x && mx<x+GetStringWidth(font[0],s)) sel=1;
+
+ if (sel && (mb&1))
+   {
+    while (readmouse(&mx,&my));
+    return 1;
+   }
+ DrawString(font[sel],screen,s,x,y);
+ return 0;
+}    
+
+int query(char *format,...)
+{
+char s[128];
+
+char *arg=(char *)&format+sizeof(format);
+vsprintf(s,format,&arg);
+
+char *t=(char *)malloc(64000);
+int done=0,choice=0;;
+//memcpy(screen,(char *)0xA0000,64000);
+do
+{
+memcpy(t,screen,64000);
+
+mb=readmouse(&mx,&my);
+
+DrawBarMap(t,SHADOWMAP,30,65,320-60,50);
+
+DrawCenteredString(font[0],t,s,160,72);
+if (mx<160) choice=1; else choice=0;
+DrawCenteredString(font[choice],t,"Yes",80+10,87);
+DrawCenteredString(font[choice^1],t,"No",320-(80+10),87);
+
+DrawImage(cursor,t,mx,my,0);  //draw mouse
+MemoryCopy((char *)0xA0000,t,64000);
+
+if (kbhit())
+ {
+  char key=toupper(getch());
+  if (!key) key=getch();
+   else
+    {
+     if (key=='Y') {choice=1; done=1;}
+     if (key=='N' || key==27) {choice=0; done=1;}
+    } 
+ }
+
+if (mb) done=1; 
+} while(!done);
+free(t);
+
+while(readmouse(&mx,&my));
+
+return choice;
+}    
+
+

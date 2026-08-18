@@ -1,0 +1,37 @@
+#define stance       0
+#define stance_FR    1
+#define stance_FU    2
+#define stance_FD    3
+#define stance_FUR   4
+#define stance_FDR   5
+
+#define walk_R       6
+
+#define die          7
+#define pickedup     8
+#define painhigh     9
+#define carried      10
+#define dieexplode   11
+#define pose1        12
+#define falldown     13
+
+#define stancetoduck  14
+#define duck          15
+#define duck_F        16
+#define ducktostance  17
+
+#define headoff       18
+#define head          19
+
+
+#define bullet_R      20
+#define bullet_U      21
+#define bullet_D      22
+#define bullet_UR     23
+#define bullet_DR     24
+#define shell         25
+#define aftershell    26
+#define bullethit     27
+
+
+

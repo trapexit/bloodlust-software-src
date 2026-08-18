@@ -1,0 +1,12 @@
+;turn error checking on
+error on
+
+;a32 volume file
+volfile a32
+ pal bg
+ screen bg
+ img cursor
+ rawdata font3.vol
+ rawdata font3.vol
+ img shadow
+endfile

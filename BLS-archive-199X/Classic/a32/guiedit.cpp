@@ -1,0 +1,261 @@
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+#include "types.h"
+
+#include "r2img.h"
+#include "font.h"
+#include "dd.h"
+
+#include "mouse.h"
+
+#include "keyb.h"
+#include "gui.h"
+#include "message.h"
+#include "guicolor.h"
+#include "guivol.h"
+
+
+#define umark guivol.umark
+#define dmark guivol.dmark
+#define lmark guivol.lmark
+#define rmark guivol.rmark
+#define checkmark guivol.checkmark
+
+char *getclipboardtext();
+
+//*************************************
+//            GUI edit control
+//*************************************
+
+GUIedit::GUIedit(GUIrect *p,char *pmpt,int x,int y,int xw)
+ :GUIrect(p,x,y,x,y),disabled(0)
+{
+ prompt[0]=0;
+ if (pmpt)
+  {
+   strcpy(prompt,pmpt);
+   promptw=font[0]->getwidth(prompt)+1;
+  } else promptw=0;
+ inputmaxw=xw; //-promptw;
+ resize(promptw+inputmaxw,10);
+}
+
+GUIrect *GUIedit::hittest(int x,int y) {if (disabled) return 0; else return GUIrect::hittest(x,y);}
+GUIrect *GUIedit::click(mouse &m) {GUIrect::click(m); return 0;}
+
+void GUIedit::draw(char *dest)
+{
+ font[FNT_EDITPROMPT]->draw(prompt,dest,x1,y1);
+
+ drawrect(dest,CLR_EDITINPUT,x1+promptw-1,y1-1,inputmaxw,10);
+ if (!disabled)
+ {
+  drawdata(dest,x1+promptw,y1,inputmaxw-2);
+  if (focus) drawbox(dest,2,x1+promptw-2,y1-2,x1+promptw+inputmaxw,y1+10);
+
+
+ }
+ GUIrect::draw(dest);
+}
+
+//*************************************
+//        GUI text edit control
+//*************************************
+
+void GUItextedit::getinputw()
+{
+ inputw=font[0]->getwidth(input);
+ if (parent) parent->sendmessage(this,GUIMSG_EDITCHANGED);
+}
+void GUItextedit::setinput(char *s)
+{
+ if (s) strcpy(input,s); else input[0]=0;
+ inputlen=strlen(input);
+ inputw=font[0]->getwidth(input);
+// getinputw();
+}
+
+GUItextedit::GUItextedit(GUIrect *p,char *pmpt, char *initialinput,int x,int y,int xw,int milen)
+ :GUIedit(p,pmpt,x,y,xw)
+{
+ setinput(initialinput);
+ maxinputlen=milen;
+}
+
+void GUItextedit::drawdata(char *dest,int x,int y,int xw)
+{
+/*int clip=inputw-(xw-5);
+if (clip<0) clip=0;
+
+font[FNT_EDITINPUT]->draw(input,dest+x,-clip,y);
+if (focus && (uu&32)) font[FNT_EDITINPUT]->draw('_',dest,x+inputw-clip,y);*/
+CLIP c(dest,x,y,x+xw,y+12);
+
+int clip=inputw-(xw-5);
+if (clip<0) clip=0;
+font[FNT_EDITINPUT]->draw(input,dest,-clip,0);
+if (focus && (uu&32)) font[FNT_EDITINPUT]->draw('_',dest,inputw-clip,0);
+
+
+}
+
+
+void GUItextedit::addchar(char c)
+{
+ if (inputlen>=maxinputlen) return;
+ input[inputlen++]=c;
+ input[inputlen]=0;
+ getinputw();
+}
+
+void GUItextedit::backspace()
+{
+ if (inputlen>0) inputlen--;
+ input[inputlen]=0;
+ getinputw();
+}
+
+void GUItextedit::paste()
+{
+ char *s=getclipboardtext();
+ if (!s) return; //no text
+ for (int i=0; s[i]; i++)
+  addchar(s[i]);
+// if (strlen(s)<80) setinput(s);
+
+ free(s); //free allocated string
+}
+
+int GUItextedit::keyhit(char kbscan,char key)
+{
+ if (kbstat & KB_ALT) return 0;
+ if (kbscan==KB_BKSP)  {backspace(); return 1;} //backspace
+
+ //paste
+ if (((toupper(key)=='V' && (kbstat&KB_CTRL)) ||
+     (kbscan==KB_INS && (kbstat&KB_SHIFT))))
+     {paste(); return 1;}
+
+ if (isvalidkey(key)) {addchar(key); return 1;}
+ return 0;
+}
+int GUItextedit::isvalidkey(char key) {return isprint(key);}
+
+GUInumbertextedit::GUInumbertextedit(GUIrect *p,char *pmpt,int num,int x,int y,int xw,int milen)
+:GUItextedit(p,pmpt,itoa(num,input,10),x,y,xw,milen) {};
+
+int GUInumbertextedit::isvalidkey(char key) {return isdigit(key) || (key=='-' && inputlen==0);}
+
+int GUInumbertextedit::getstate() {return atoi(input);}
+
+
+GUInumberedit::GUInumberedit(GUIrect *p,char *pmpt,int x,int y,int xw)
+ :GUIedit(p,pmpt,x,y-2,xw)
+{
+ x2+=10; //make space on right for button
+ y2+=10;
+
+ up=new GUIimagebutton(this,umark,0,0);
+ up->moveto(x1+width()-up->width()+1,y1);
+ down=new GUIimagebutton(this,dmark,0,0);
+ down->moveto(x1+width()-down->width()+1,y1+8);
+}
+
+void GUInumberedit::draw(char *dest)
+{
+ font[FNT_EDITPROMPT]->draw(prompt,dest,x1,y1+2);
+
+ drawrect(dest,CLR_EDITINPUT,x1+promptw-1,y1+2,inputmaxw,10);
+ if (!disabled)
+ {
+  drawdata(dest,x1+promptw,y1+3,inputmaxw-2);
+  if (focus)
+   drawbox(dest,2,x1+promptw-2,y1+1,x1+promptw+inputmaxw,y1+3+10);
+ }
+ GUIrect::draw(dest);
+}
+
+
+int GUInumberedit::keyhit(char kbscan,char key)
+{
+ if (kbscan==KB_BKSP)  {clear(); clip(); return 1;} //backspace
+ if (key=='?') {setmax(); clip(); return 1;}
+ if (key=='+' || key=='=' || key=='.' || key=='>')// || kbscan==KB_UP)
+    {sendmessage(up,GUIMSG_HELDDOWN); return 1;}
+ if (key=='-' || key=='_' || key==',' || key=='<')// || kbscan==KB_DOWN)
+   {sendmessage(down,GUIMSG_HELDDOWN); return 1;}
+ return 0;
+}
+
+//int edit
+GUIintedit::GUIintedit(GUIrect *p,char *pmpt,int x,int y,int xw,int num,int tmin,int tmax)
+  :GUInumberedit(p,pmpt,x,y,xw) { min=tmin; max=tmax; n=num; setdelta(1); clip();}
+void GUIintedit::clear() {set(0); }
+void GUIintedit::setmax() {set(max);}
+void GUIintedit::clip(){if (n<min) n=min; if (n>max) n=max;}
+void GUIintedit::add(int num) {set(n+num); }
+void GUIintedit::minus(int num) {set(n-num); }
+void GUIintedit::drawdata(char *dest,int x,int y,int xw)
+{
+ font[FNT_EDITINPUT]->printf(x,y,"%d",n);
+}
+int GUIintedit::sendmessage(GUIrect *c,int msg)
+{
+ if (msg==GUIMSG_HELDDOWN)
+  {
+   if (!(kbstat&KB_SHIFT))
+   {
+    if (c==up) add(delta);
+    if (c==down) minus(delta);
+   } else
+   {
+    if (c==up) add(10*delta);
+    if (c==down) minus(10*delta);
+   }
+  }
+ return 0;
+}
+
+//hex edit
+void GUIhexedit::drawdata(char *dest,int x,int y,int xw)
+{
+ font[FNT_EDITINPUT]->printf(x,y,"%X",n);
+}
+
+
+//float edit
+GUIfloatedit::GUIfloatedit(GUIrect *p,char *pmpt,int x,int y,int xw,float num,float tmin,float tmax)
+ :GUInumberedit(p,pmpt,x,y,xw) {min=tmin; max=tmax; n=num; clip();/*set(num);*/}
+void GUIfloatedit::clear() {set(0);}
+void GUIfloatedit::setmax() {set(max);}
+void GUIfloatedit::clip() {if (n<min) n=min; if (n>max) n=max;}
+void GUIfloatedit::add(float num) {set(n+num);}
+void GUIfloatedit::minus(float num) {set(n-num);}
+void GUIfloatedit::drawdata(char *dest,int x,int y,int xw)
+{
+ font[FNT_EDITINPUT]->printf(x,y,"%.1f",n);
+}
+int GUIfloatedit::sendmessage(GUIrect *c,int msg)
+{
+ if (msg==GUIMSG_HELDDOWN)
+  {
+   if (!(kbstat&KB_SHIFT))
+   {
+    if (c==up) add(.1);
+    if (c==down) minus(.1);
+   } else
+   {
+    if (c==up) add(1.0);
+    if (c==down) minus(1.0);
+   }
+  }
+ return 0;
+}
+
+
+
+
+
+

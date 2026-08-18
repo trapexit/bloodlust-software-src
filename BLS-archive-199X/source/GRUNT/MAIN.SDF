@@ -1,0 +1,98 @@
+#define stance       0
+#define stance_FR    1
+#define stance_FU    2
+#define stance_FD    3
+#define stance_FUR   4
+#define stance_FDR   5
+
+#define walk_R     6
+#define walk_UR    7
+#define walk_DR    8
+
+#define walk_FR    9 
+#define walk_FUR   10
+#define walk_FDR   11
+
+
+#define jumpup     12
+#define jumpright  13
+#define jumpoffclimb 14
+#define jumpoffhang  15
+#define falldown     16
+
+#define jump_U    17
+#define jump_D    18
+#define jump_UR   19
+#define jump_DR   20
+
+#define jump_FR    21
+#define jump_FU    22
+#define jump_FD    23
+#define jump_FUR   24
+#define jump_FDR   25
+
+
+#define turn_around   26
+#define afterjump     27
+#define painhigh      28
+#define painlow       29
+#define painback      30
+#define die           31
+#define dieexplode    32
+
+#define stancetoduck  33
+#define duck          34
+#define duck_F        35
+#define ducktostance  36
+#define stance_U      37
+
+#define inactivity1   38
+#define inactivity2   39
+#define inactivity3   40
+
+#define hang      41
+#define hangwalk  42
+#define hang_U    43
+#define hang_D    44
+#define hang_UR   45
+#define hang_DR   46
+
+#define hang_FR   47
+#define hang_FU   48
+#define hang_FD   49
+#define hang_FUR  50
+#define hang_FDR  51
+
+#define climb     52
+#define climbup   53
+#define climbdown 54
+
+#define climb_U   55
+#define climb_D   56
+#define climb_L   57
+#define climb_R   58
+#define climb_UL  59
+#define climb_DL  60
+#define climb_UR  61
+#define climb_DR  62
+
+#define climb_FU   63
+#define climb_FD   64
+#define climb_FL   65
+#define climb_FR   66
+#define climb_FUL  67
+#define climb_FDL  68
+#define climb_FUR  69
+#define climb_FDR  70
+
+
+
+
+
+
+
+
+
+
+
+

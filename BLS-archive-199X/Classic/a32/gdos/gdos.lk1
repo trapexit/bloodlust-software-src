@@ -1,0 +1,3 @@
+NAME gdos
+FIL bg.obj,bgdef.obj,build.obj,cfboomer.obj,cfjet.obj,cfmain.obj,cfpig.obj,cfsniper.obj,cftawch.obj,command.obj,config.obj,detect.obj,dos.obj,keyb.obj,smix.obj,ttimer.obj,effect.obj,file.obj,font.obj,gdlg.obj,grunt.obj,gui.obj,guiedit.obj,guimenu.obj,guirect.obj,input.obj,inputw.obj,line.obj,message.obj,mouse.obj,objdef.obj,object.obj,osp.obj,r2img.obj,region.obj,vol.obj,..\dos\joy.obj,..\dos\mouseasm.obj,..\dos\smixasm.obj,..\dos\stack.obj,..\r2imgasm.obj
+LIBR ..\dos\svga\pmode.lib,..\dos\svga\svga.lib
